@@ -335,9 +335,11 @@ D:\Development\dotnet\callisto\src\Callisto.Web.Client\bin\Debug\net47\System.Xm
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.csprojResolveAssemblyReference.cache
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.exe.config
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.csproj.CoreCompileInputs.cache
-D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\UserSecretsAssemblyInfo.cs
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.AssemblyInfoInputs.cache
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.AssemblyInfo.cs
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.csproj.CopyComplete
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.exe
 D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\Callisto.Web.Client.pdb
+D:\Development\dotnet\callisto\src\Callisto.Web.Client\bin\Debug\net47\Microsoft.AspNetCore.Authentication.Google.dll
+D:\Development\dotnet\callisto\src\Callisto.Web.Client\bin\Debug\net47\Microsoft.AspNetCore.Authentication.OAuth.dll
+D:\Development\dotnet\callisto\src\Callisto.Web.Client\obj\Debug\net47\UserSecretsAssemblyInfo.cs

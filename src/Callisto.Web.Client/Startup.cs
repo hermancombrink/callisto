@@ -32,6 +32,13 @@ namespace Callisto.Web.Client
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            //services.AddAuthentication()
+            //.AddGoogle(googleOptions =>
+            //{
+            //    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+            //    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            //});
+
             services.AddMvc();
         }
 
@@ -40,7 +47,6 @@ namespace Callisto.Web.Client
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -52,6 +58,7 @@ namespace Callisto.Web.Client
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
 
             app.UseMvc(routes =>
             {
