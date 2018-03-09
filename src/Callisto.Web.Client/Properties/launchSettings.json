@@ -13,7 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44306/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Local"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "Callisto.Web.Client": {
