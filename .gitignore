@@ -1,3 +1,7 @@
 
 \.vs/callisto/v15/
 /.vs/config
+bin
+obj
+obj
+bin
