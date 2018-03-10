@@ -1,6 +1,6 @@
-﻿using Callisto.Web.Client.Data;
+﻿using Callisto.Notifications.Mail;
+using Callisto.Web.Client.Data;
 using Callisto.Web.Client.Models;
-using Callisto.Web.Client.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -29,15 +29,9 @@ namespace Callisto.Web.Client
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddServiceOptions(Configuration);
 
-            //services.AddAuthentication()
-            //.AddGoogle(googleOptions =>
-            //{
-            //    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-            //    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-            //});
+            services.AddTransient<IEmailSender, SimpleSendGridEmailSender>();
 
             services.AddMvc();
         }
@@ -45,6 +39,7 @@ namespace Callisto.Web.Client
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

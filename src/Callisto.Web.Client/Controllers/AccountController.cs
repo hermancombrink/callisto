@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Callisto.Notifications.Mail;
+using Callisto.Web.Client.Models;
+using Callisto.Web.Client.Models.AccountViewModels;
+using Callisto.Web.Client.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Callisto.Web.Client.Models;
-using Callisto.Web.Client.Models.AccountViewModels;
-using Callisto.Web.Client.Services;
 
 namespace Callisto.Web.Client.Controllers
 {
