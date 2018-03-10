@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
 using Callisto.Web.Client.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Callisto.Web.Client.Controllers
 {
@@ -15,6 +11,7 @@ namespace Callisto.Web.Client.Controllers
             return View();
         }
 
+        [Route("About")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -22,6 +19,7 @@ namespace Callisto.Web.Client.Controllers
             return View();
         }
 
+        [Route("Contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
