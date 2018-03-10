@@ -2,36 +2,54 @@
 @{
     ViewData["Title"] = "Register";
 }
-<section id="mu-service">
+<section id="mu-contact">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                    <h4>Create a new account.</h4>
-                    <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Email"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="col-md-12">
+                <div class="mu-contact-area">
+                    <!-- Title -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mu-title">
+                                <h2>Create a new account.</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa cum sociis.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Password"></label>
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                    <!-- Start Contact Content -->
+                    <div class="mu-contact-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mu-contact-form-area">
+                                    <div id="form-messages"></div>
+                                    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="mu-contact-form">
+                                        <div class="form-group">
+                                            <span asp-for="Email" class="fa fa-envelope mu-contact-icon"></span>
+                                            <input asp-for="Email" class="form-control" placeholder="Enter Email" id="email" required />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <span asp-for="Password" class="fa fa-key mu-contact-icon"></span>
+                                            <input asp-for="Password" class="form-control" placeholder="Enter Password" required />
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <span asp-for="ConfirmPassword" class="fa fa-key mu-contact-icon"></span>
+                                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" required />
+                                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Register</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="ConfirmPassword"></label>
-                        <input asp-for="ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
-                    <button type="submit" class="btn btn-default">Register</button>
-                </form>
+                    <!-- End Contact Content -->
+                </div>
             </div>
         </div>
     </div>
 </section>
-
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
