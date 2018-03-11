@@ -5,7 +5,6 @@ D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\bin\Debug\netcorea
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\bin\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.runtimeconfig.json
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\bin\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.runtimeconfig.dev.json
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\bin\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.dll
-D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.csprojResolveAssemblyReference.cache
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.csproj.CoreCompileInputs.cache
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.AssemblyInfoInputs.cache
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.AssemblyInfo.cs
