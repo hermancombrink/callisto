@@ -6,3 +6,4 @@ obj
 obj
 bin
 lib
+/src/Callisto.Web.Client/wwwroot/lib/*

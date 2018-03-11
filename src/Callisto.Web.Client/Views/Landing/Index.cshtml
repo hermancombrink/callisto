@@ -11,6 +11,9 @@
     <title>Callisto Demo Project</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="~/favicon.ico" />
+
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
@@ -39,7 +42,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="@Url.Action("Dashboard_1", "Dashboards")">WEBAPPLAYERS</a>
+                    <a class="btn btn-primary btn-xs navbar-brand" href="@Url.Action("Dashboard_1", "Dashboards")">Subscribe</a>
+                    <a class="btn btn-primary  btn-xs navbar-brand" href="@Url.Action("Dashboard_1", "Dashboards")">Sign In</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">

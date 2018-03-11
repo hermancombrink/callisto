@@ -6996,8 +6996,8 @@ body.landing-page {
 .landing-page .navbar.navbar-scroll .navbar-brand {
   margin-top: 15px;
   border-radius: 5px;
-  font-size: 12px;
-  padding: 10px;
+  font-size: 10px;
+  padding: 10px 20px;
   height: auto;
 }
 .landing-page .header-back {
