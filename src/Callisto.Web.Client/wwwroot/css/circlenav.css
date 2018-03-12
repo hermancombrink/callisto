@@ -140,3 +140,6 @@
 .cls-21 {
   letter-spacing: -0.03em; }
 
+.service.disabled circle, .service.disabled text {
+  fill: #808080 !important; }
+

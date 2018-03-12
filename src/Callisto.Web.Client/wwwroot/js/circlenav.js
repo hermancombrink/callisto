@@ -10,13 +10,13 @@ const tspan_delta = 16;
 //name is used as the title for the bubble
 //icon is the id of the corresponding svg symbol
 const services_data = [
-    { name: "Asset Register", icon: "manufacturing" },
-    { name: "Work Orders", icon: "engineering" },
-    { name: "Scheduling", icon: "management" },
-    { name: "System Status", icon: "validation" },
-    { name: "Control Files", icon: "industries" },
-    { name: "Store", icon: "technical" },
-    { name: "Readings", icon: "process" }
+    { name: "Asset Register", icon: "manufacturing", enabled: true },
+    { name: "Work Orders", icon: "engineering", enabled: true  },
+    { name: "Scheduling", icon: "management", enabled: false  },
+    { name: "System Status", icon: "validation", enabled: false  },
+    { name: "Control Files", icon: "industries", enabled: false  },
+    { name: "Store", icon: "technical", enabled: false  },
+    { name: "Subscription", icon: "process", enabled: false  }
 ];
 
 const services = document.getElementById("service-collection");
@@ -39,7 +39,8 @@ function setAttributes(el, options) {
 //Service bubbles are created dynamically
 function addService(serv, index) {
     let group = createSVGElement("g");
-    group.setAttribute("class", "service serv-" + index);
+    var stateClass = serv.enabled ? "" :  " disabled";
+    group.setAttribute("class", "service serv-" + index + stateClass);
 
     /* This group is needed to apply animations in
       the icon and its background at the same time */
