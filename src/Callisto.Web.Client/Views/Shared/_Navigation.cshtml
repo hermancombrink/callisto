@@ -20,11 +20,18 @@
                         <li><a href="@Url.Action("Contacts", "AppViews")">Contacts</a></li>
                         <li><a href="@Url.Action("Inbox", "Mailbox")">Mailbox</a></li>
                         <li class="divider"></li>
-                        <li><a href="@Url.Action("Login", "Pages")">Logout</a></li>
+
+                        <li>
+                            <form asp-controller="Account" asp-action="Logout">
+                                <button type="submit" class="btn btn-link">
+                                    <i class="fa fa-sign-out"></i> Log out
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    C+
                 </div>
             </li>
             <li class="@Html.IsSelected(controller: "Dashboards")">
