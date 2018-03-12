@@ -40,9 +40,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!-- Test -->
-                    <a class="btn btn-primary btn-xs navbar-brand" href="@Url.Action("Register", "Account")">Register</a>
-                    <a class="btn btn-primary  btn-xs navbar-brand" href="@Url.Action("Login", "Account")">Log In</a>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-primary btn-xs navbar-brand" href="@Url.Action("Register", "Account")">Register</a>
+                        <a class="btn btn-primary  btn-xs navbar-brand" href="@Url.Action("Login", "Account")">Log In</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary btn-xs navbar-brand" href="@Url.Action("Index", "Home")">Dashboard</a>
+                    }
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">

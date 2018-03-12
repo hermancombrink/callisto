@@ -108,9 +108,11 @@
                 </ul>
             </li>
             <li>
-                <a href="@Url.Action("Login", "Pages")">
-                    <i class="fa fa-sign-out"></i> Log out
-                </a>
+                <form asp-controller="Account" asp-action="Logout">
+                    <button type="submit" class="btn btn-link">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </button>
+                </form>
             </li>
             <li>
                 <a class="right-sidebar-toggle">

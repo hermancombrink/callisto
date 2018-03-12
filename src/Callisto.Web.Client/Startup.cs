@@ -36,6 +36,12 @@ namespace Callisto.Web.Client
             services.AddMvc();
 
             services.AddRouting(options => options.LowercaseUrls = true);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/LogIn";
+                options.LogoutPath = "/Account/LogOut";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
