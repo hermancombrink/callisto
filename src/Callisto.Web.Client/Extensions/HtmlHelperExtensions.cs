@@ -25,7 +25,7 @@ namespace Callisto.Web.Client.Extensions
             if (String.IsNullOrEmpty(action))
                 action = currentAction;
 
-            return controller == currentController && action == currentAction ?
+            return controller.ToLower() == currentController.ToLower() && action.ToLower() == currentAction.ToLower() ?
                 cssClass : String.Empty;
         }
     }
