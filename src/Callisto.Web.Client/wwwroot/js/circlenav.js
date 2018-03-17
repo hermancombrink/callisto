@@ -10,13 +10,13 @@ const tspan_delta = 16;
 //name is used as the title for the bubble
 //icon is the id of the corresponding svg symbol
 const services_data = [
-    { name: "Asset Register", icon: "manufacturing", enabled: true },
-    { name: "Work Orders", icon: "engineering", enabled: true  },
-    { name: "Scheduling", icon: "management", enabled: false  },
-    { name: "System Status", icon: "validation", enabled: false  },
-    { name: "Control Files", icon: "industries", enabled: false  },
-    { name: "Store", icon: "technical", enabled: false  },
-    { name: "Subscription", icon: "process", enabled: false  }
+    { name: "Asset Register", icon: "manufacturing", enabled: true, url: "/assets" },
+    { name: "Work Orders", icon: "engineering", enabled: true, url: "/workorders" },
+    { name: "Scheduling", icon: "management", enabled: false, url: "/workorders"  },
+    { name: "System Status", icon: "validation", enabled: false, url: "/"  },
+    { name: "Control Files", icon: "industries", enabled: false, url: "/"  },
+    { name: "Store", icon: "technical", enabled: false, url: "/"  },
+    { name: "Subscription", icon: "process", enabled: false, url: "/"  }
 ];
 
 const services = document.getElementById("service-collection");
@@ -41,6 +41,7 @@ function addService(serv, index) {
     let group = createSVGElement("g");
     var stateClass = serv.enabled ? "" :  " disabled";
     group.setAttribute("class", "service serv-" + index + stateClass);
+    group.setAttribute("data-url", serv.url);
 
     /* This group is needed to apply animations in
       the icon and its background at the same time */
@@ -157,7 +158,8 @@ function serviceClick(ev) {
 
     let current = jQuery(ev.currentTarget);
     current.addClass("active");
-
+    console.log(current.attr("data-url"));
+    jQuery("#learn-more").attr("data-url", current.attr("data-url"));
     //There's a "serv-*" class for each bubble
     let current_class = current.attr("class").split(" ")[1];
     let class_index = current_class.split('-')[1];
@@ -211,3 +213,8 @@ createPointer();
 
 //Adding it immediately triggers a bug for the transform
 setTimeout(() => jQuery("#service-collection .serv-0").addClass("active"), 200);
+
+$("#learn-more").click((ev) => {
+    let current = jQuery(ev.currentTarget);
+    window.location = current.attr("data-url");
+});
