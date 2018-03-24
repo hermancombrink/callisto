@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IxboxtoolsComponent } from './ixboxtools.component';
+import { IboxtoolsComponent } from './iboxtools.component';
 
-describe('IxboxtoolsComponent', () => {
-  let component: IxboxtoolsComponent;
-  let fixture: ComponentFixture<IxboxtoolsComponent>;
+describe('IboxtoolsComponent', () => {
+  let component: IboxtoolsComponent;
+  let fixture: ComponentFixture<IboxtoolsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IxboxtoolsComponent ]
+      declarations: [ IboxtoolsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IxboxtoolsComponent);
+    fixture = TestBed.createComponent(IboxtoolsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
