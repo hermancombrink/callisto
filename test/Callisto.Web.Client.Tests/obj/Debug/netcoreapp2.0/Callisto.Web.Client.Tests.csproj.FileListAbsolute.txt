@@ -11,3 +11,4 @@ D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcorea
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\bin\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.pdb
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.dll
 D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.pdb
+D:\Development\dotnet\callisto\test\Callisto.Web.Client.Tests\obj\Debug\netcoreapp2.0\Callisto.Web.Client.Tests.csprojResolveAssemblyReference.cache

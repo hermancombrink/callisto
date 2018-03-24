@@ -13,6 +13,11 @@ namespace Callisto.Web.Client.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult Error()
         {

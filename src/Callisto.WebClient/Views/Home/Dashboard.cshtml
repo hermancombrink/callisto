@@ -1,0 +1,88 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Callist Demo Dashboard</title>
+    <base href="/dashboard">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/metisMenu/dist/metisMenu.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/spa-styles.css" asp-append-version="true" />
+    </environment>
+    <environment names="Test,Staging,Production">
+
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/lib/metisMenu/dist/metisMenu.min.css" />
+        <link rel="stylesheet" href="~/css/animate.css" />
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/spa-styles.css" asp-append-version="true" />
+    </environment>
+
+</head>
+<body>
+    <app-root>
+
+        <div id="pre-bootstrap">
+            <div class="messaging">
+                <h1>
+                    Callisto dashboard is Loading...
+                </h1>
+                <div class="cs-loader">
+                    <div class="cs-loader-inner">
+                        <label>&#9679</label>
+                        <label>&#9679</label>
+                        <label>&#9679</label>
+                        <label>&#9679</label>
+                        <label>&#9679</label>
+                        <label>&#9679</label>
+                    </div>
+                </div>
+                <p>
+                    This application is intended for demo purposes only
+                </p>
+
+            </div>
+        </div>
+    </app-root>
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/metisMenu/dist/metisMenu.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.js"></script>
+        <script src="~/lib/pace/pace.js"></script>
+        <script src="~/js/script.js"></script>
+    </environment>
+    <environment names="Test,Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/lib/metisMenu/dist/metisMenu.min.js"></script>
+        <script src="~/lib/pace/pace.min.js"></script>
+        <script src="~/lib/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="~/js/script.js" asp-append-version="true"></script>
+    </environment>
+
+    <script type="text/javascript" src="~/dist/inline.bundle.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/dist/polyfills.bundle.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/dist/styles.bundle.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/dist/vendor.bundle.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/dist/main.bundle.js" asp-append-version="true"></script>
+
+</body>
+</html>
+
+
+
