@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertService } from '../../services/alert.service';
+import { AlertService, MessageSeverity } from '../../services/alert.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ToastyService } from 'ng2-toasty';
 
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   // Dounghunt chart
 
   ngOnInit() {
-    this.alertService.showMessage("Welcome to Callisto Demo");
+    this.alertService.showMessage("Welcome to Callisto", "ERP Management System", MessageSeverity.info);
   }
 
   public doughnutChartType:string = 'doughnut';
