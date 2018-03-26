@@ -45,8 +45,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand page-scroll" href="@Url.Action("Index", "Home")"> <img src="~/css/landing/logo.png" />  </a>
-                <h1>Callisto</h1>
+                    @if (this.Context.Request.Path == @"/")
+                    {<a class="navbar-brand page-scroll" href="#page-top"> <img src="~/css/landing/logo.png" />  </a>}
+                    else
+                    {<a class="navbar-brand page-scroll" href="@Url.Action("Index", "Home")"> <img src="~/css/landing/logo.png" />  </a>}
+                    <h1>Callisto</h1>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -57,19 +60,19 @@
                         <li><a class="page-scroll" href="#pricing">Pricing</a></li>
                         <li><a class="page-scroll" href="#contact">Contact</a></li>
                         @if (User.Identity.IsAuthenticated)
-    {
-                    <li>
-                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="logoutnav">
-                            <button type="submit" class="btn btn-primary btn-xs">Log out</button>
-                        </form>
-                    </li>
-}
-else
-{
-                    <li>
-                        <a href="@Url.Action("Login", "Account")">Login</a>
-                    </li>
-}
+                        {
+                            <li>
+                                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="logoutnav">
+                                    <button type="submit" class="btn btn-primary btn-xs">Log out</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("Login", "Account")">Login</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
