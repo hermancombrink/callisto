@@ -22,14 +22,39 @@ export class HomeComponent implements OnInit {
   }
 
   public doughnutChartType:string = 'doughnut';
+  public barChartType:string = 'horizontalBar';
 
-  public doughnutChartLabels1:string[] = ['App', 'Software', 'Laptop'];
-  public doughnutChartData1:number[] = [70, 27, 85];
+  public workPriotityOrderLabels:string[] = ['Shutdown', 'Urgent', 'Within 3 days', 'Within 7 days', 'Within 14 days'];
+  public workPriotityOrderData:number[] = [2, 3, 10, 7, 16];
+
+  public mostMoneyLabels:string[] = ['BES07', 'HYD04', 'HRA01', 'EXT01', 'ADMIN', 'SF02', 'WHKL', 'TNK05'];
+  public mostMoneyData:any[] = [
+    {data: [500, 1500, 129, 2000, 800, 452, 123, 790, 1244, 2333], label: '$'}
+  ];
+  public mostMoneyOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public mostMoneyLegend:boolean = false;
+
+  public backlogTradeLabels:string[] = ['Boilermaker', 'Electric', 'EngAssist', 'Filter', 'Mechanic', 'Tradesman'];
+  public backlogTradeData:any[] = [
+    {data: [2, 2, 5, 3, 7, 12], label: 'Open Work Orders'},
+    {data: [5, 15, 7, 22, 16, 23], label: 'Man Hours'}
+  ];
+  public backlogTradeOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public backlogTradeLegend:boolean = true;
 
   public doughnutChartLabels2:string[] = ['App', 'Software', 'Laptop'];
   public doughnutChartData2:number[] = [300, 50, 100];
 
-  public colors:Array<any> = [{backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]}];
+
+  public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+  public pieChartData:number[] = [300, 500, 100];
+  public pieChartType:string = 'pie';
 
 
   // Main Chart

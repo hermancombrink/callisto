@@ -1,5 +1,73 @@
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-sm-3">
+     <h2>Common Assets By Type</h2>
+     <canvas baseChart
+     [data]="doughnutChartData2"
+     [labels]="doughnutChartLabels2"
+     [chartType]="doughnutChartType"></canvas>
+    </div>
+   
+    <div class="col-sm-3">
+        <h2>Backlog Per Trade Code</h2>
+        <canvas baseChart
+        [datasets]="backlogTradeData"
+        [labels]="backlogTradeLabels"
+        [options]="backlogTradeOptions"
+        [legend]="backlogTradeLegend"
+        [chartType]="barChartType"
+       ></canvas>
+    </div>
+    <div class="col-sm-3">
+      <h2>Most Maintanance Money</h2>
+      <canvas baseChart
+      [datasets]="mostMoneyData"
+      [labels]="mostMoneyLabels"
+      [options]="mostMoneyOptions"
+      [legend]="mostMoneyLegend"
+      [chartType]="barChartType"
+     ></canvas>
+      </div>
+      <div class="col-sm-3">
+          <h2>Assets Coming Of Warranty</h2>
+          <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"></canvas>
+      </div>
+  </div>
+
+  <div class="row  border-bottom white-bg dashboard-header">
+      <div class="col-sm-3">
+       <h2>Current Workers By Priority</h2>
+       <canvas baseChart
+       [data]="workPriotityOrderData"
+       [labels]="workPriotityOrderLabels"
+       [chartType]="doughnutChartType"></canvas>
+      </div>
+     
+      <div class="col-sm-3">
+          <h2>Backlog Of Work Order Hours</h2>  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"></canvas>
+      </div>
+      <div class="col-sm-3">
+          <h2>Response Time By Priority</h2>  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"></canvas>
+        </div>
+        <div class="col-sm-3">
+            <h2>Response Time By Priority</h2>  <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [chartType]="pieChartType"></canvas>
+          </div>
+    </div>
+
+<div class="row  border-bottom white-bg dashboard-header">
+    <div class="col-sm-3">
+      
       <h2>Welcome Amelia</h2>
       <small>You have 42 messages and 6 notifications.</small>
       <ul class="list-group clear-list m-t">
@@ -71,10 +139,9 @@
           <div class="col-lg-6">
             <div style="height: 80px; width: 80px; margin: auto">
               <canvas baseChart
-                      [data]="doughnutChartData1"
-                      [labels]="doughnutChartLabels1"
+                      [data]="doughnutChartData2"
+                      [labels]="doughnutChartLabels2"
                       [chartType]="doughnutChartType"
-                      [colors]="colors"
                       [legend]="false"></canvas>
             </div>
             <h5>Kolter</h5>
@@ -85,7 +152,6 @@
                       [data]="doughnutChartData2"
                       [labels]="doughnutChartLabels2"
                       [chartType]="doughnutChartType"
-                      [colors]="colors"
                       [legend]="false"></canvas>
             </div>
             <h5>Maxtor</h5>

@@ -93,6 +93,12 @@ namespace Callisto.WebClient.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Demo()
+        {
+            return View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
