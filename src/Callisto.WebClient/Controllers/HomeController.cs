@@ -17,7 +17,6 @@ namespace Callisto.WebClient.Controllers
             return View();
         }
 
-        [Route("dashboard")]
         [HttpGet]
         public IActionResult Dashboard()
         {

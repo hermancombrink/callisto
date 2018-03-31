@@ -3,7 +3,7 @@ import { OnInit, OnChanges, ElementRef, Input,  NgModule, Directive } from '@ang
 // Import Sparkline chart library
 // Sparkline library is included in angular-cli script section
 
-declare var jQuery:any;
+declare var $:any;
 
 @Directive({
   selector: 'span[sparkline]',
@@ -36,12 +36,12 @@ export class SparklineDirective implements OnChanges, OnInit {
   private build():any {
 
     // Check if sparkline is available
-    if (typeof jQuery(this.element).sparkline() === 'undefined') {
+    if (typeof $(this.element).sparkline() === 'undefined') {
       throw new Error('Configuration issue: Embedding sparkline lib is mandatory');
     }
 
     // Let's build chart
-    this.chart = jQuery(this.element).sparkline(this.datasets, this.options);
+    this.chart = $(this.element).sparkline(this.datasets, this.options);
   }
 
   // Change

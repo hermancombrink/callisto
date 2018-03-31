@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Callisto.WebClient
 {
@@ -42,8 +43,10 @@ namespace Callisto.WebClient
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
             {
@@ -54,18 +57,26 @@ namespace Callisto.WebClient
             {
                 app.UseExceptionHandler("/error");
             }
-          
+
             app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
             app.UseAuthentication();
-
+            app.MapWhen(x => x.Request.Path.Value.StartsWith("/dashboard"), builder =>
+            {
+                builder.UseMvc(routes =>
+                {
+                    routes.MapSpaFallbackRoute(
+                        name: "spa-fallback",
+                        defaults: new { controller = "Home", action = "Dashboard" });
+                });
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+           
         }
     }
 }

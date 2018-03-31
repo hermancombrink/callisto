@@ -1,11 +1,13 @@
+
 <div class="row  border-bottom white-bg dashboard-header">
     <div class="col-sm-3">
-     <h2>Common Assets By Type</h2>
-     <canvas baseChart
-     [data]="doughnutChartData2"
-     [labels]="doughnutChartLabels2"
-     [chartType]="doughnutChartType"></canvas>
-    </div>
+        <h2>Current Workers By Priority</h2>
+        <canvas baseChart
+        [data]="workPriotityOrderData"
+        [labels]="workPriotityOrderLabels"
+        [chartType]="'doughnut'"></canvas>
+       </div>
+
    
     <div class="col-sm-3">
         <h2>Backlog Per Trade Code</h2>
@@ -14,158 +16,72 @@
         [labels]="backlogTradeLabels"
         [options]="backlogTradeOptions"
         [legend]="backlogTradeLegend"
-        [chartType]="barChartType"
+        [chartType]="'horizontalBar'"
        ></canvas>
     </div>
     <div class="col-sm-3">
       <h2>Most Maintanance Money</h2>
       <canvas baseChart
-      [datasets]="mostMoneyData"
-      [labels]="mostMoneyLabels"
-      [options]="mostMoneyOptions"
-      [legend]="mostMoneyLegend"
-      [chartType]="barChartType"
-     ></canvas>
-      </div>
-      <div class="col-sm-3">
-          <h2>Assets Coming Of Warranty</h2>
+        [datasets]="mostMoneyData"
+        [labels]="mostMoneyLabels"
+        [options]="mostMoneyOptions"
+        [legend]="mostMoneyLegend"
+        [chartType]="'horizontalBar'"></canvas>
+    </div>
+     <div class="col-sm-3">
+          <h2>Current Work Orders By Status</h2>
           <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"></canvas>
+            [data]="requestsByPriorityData"
+            [labels]="requestsByPriorityLabels"
+            [chartType]="'pie'"></canvas>
       </div>
   </div>
 
   <div class="row  border-bottom white-bg dashboard-header">
-      <div class="col-sm-3">
-       <h2>Current Workers By Priority</h2>
+      <div class="col-sm-6">
+          <h2>Common Assets By Type</h2>
+          <canvas baseChart
+          [data]="assetByTypeData"
+          [labels]="assetByTypeLabels"
+          [chartType]="'polarArea'"></canvas>
+         </div>
+     <div class="col-sm-6">
+       <h2>Asset Down Time By Category</h2>
        <canvas baseChart
-       [data]="workPriotityOrderData"
-       [labels]="workPriotityOrderLabels"
-       [chartType]="doughnutChartType"></canvas>
-      </div>
-     
-      <div class="col-sm-3">
-          <h2>Backlog Of Work Order Hours</h2>  <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"></canvas>
-      </div>
-      <div class="col-sm-3">
-          <h2>Response Time By Priority</h2>  <canvas baseChart
-          [data]="pieChartData"
-          [labels]="pieChartLabels"
-          [chartType]="pieChartType"></canvas>
+       [datasets]="assestDownTimePerCategoryData"
+       [labels]="assestDownTimePerCategoryLabels"
+       [chartType]="'line'"  ></canvas>
+    
+     </div>
+
+    </div>
+    <div class="row  border-bottom white-bg dashboard-header">
+        <div class="col-sm-3">
+            <h2>Backlog Of Work Order Hours</h2>  <canvas baseChart
+            [datasets]="bar1Data"
+            [labels]="bar1Labels"
+            [legend]="'true'"
+            [chartType]="'bar'"></canvas>
         </div>
         <div class="col-sm-3">
             <h2>Response Time By Priority</h2>  <canvas baseChart
-            [data]="pieChartData"
-            [labels]="pieChartLabels"
-            [chartType]="pieChartType"></canvas>
+            [datasets]="bar2Data"
+            [labels]="bar2Labels" [legend]="'true'"
+            [chartType]="'bar'"></canvas>
           </div>
-    </div>
-
-<div class="row  border-bottom white-bg dashboard-header">
-    <div class="col-sm-3">
-      
-      <h2>Welcome Amelia</h2>
-      <small>You have 42 messages and 6 notifications.</small>
-      <ul class="list-group clear-list m-t">
-        <li class="list-group-item fist-item">
-                                  <span class="pull-right">
-                                      09:00 pm
-                                  </span>
-          <span class="label label-success">1</span> Please contact me
-        </li>
-        <li class="list-group-item">
-                                  <span class="pull-right">
-                                      10:16 am
-                                  </span>
-          <span class="label label-info">2</span> Sign a contract
-        </li>
-        <li class="list-group-item">
-                                  <span class="pull-right">
-                                      08:22 pm
-                                  </span>
-          <span class="label label-primary">3</span> Open new shop
-        </li>
-        <li class="list-group-item">
-                                  <span class="pull-right">
-                                      11:06 pm
-                                  </span>
-          <span class="label label-default">4</span> Call back to Sylvia
-        </li>
-        <li class="list-group-item">
-                                  <span class="pull-right">
-                                      12:00 am
-                                  </span>
-          <span class="label label-primary">5</span> Write a letter to Sandra
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-6">
-      <div class="flot-chart dashboard-chart">
-        <div flotChart class="flot-chart-content" [options]="flotOptions" [dataset]="flotDataset"></div>
-      </div>
-      <div class="row text-left">
-        <div class="col-xs-4">
-          <div class=" m-l-md">
-            <span class="h4 font-bold m-t block">$ 406,100</span>
-            <small class="text-muted m-b block">Sales marketing report</small>
+          <div class="col-sm-3">
+              <h2>Response Time By Department</h2>  <canvas baseChart
+              [datasets]="bar3Data"
+              [labels]="bar3Labels" [legend]="'true'"
+              [chartType]="'line'"></canvas>
           </div>
-        </div>
-        <div class="col-xs-4">
-          <span class="h4 font-bold m-t block">$ 150,401</span>
-          <small class="text-muted m-b block">Annual sales revenue</small>
-        </div>
-        <div class="col-xs-4">
-          <span class="h4 font-bold m-t block">$ 16,822</span>
-          <small class="text-muted m-b block">Half-year revenue margin</small>
-        </div>
-  
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="statistic-box">
-        <h4>
-          Project Beta progress
-        </h4>
-  
-        <p>
-          You have two project with not compleated task.
-        </p>
-  
-        <div class="row text-center">
-          <div class="col-lg-6">
-            <div style="height: 80px; width: 80px; margin: auto">
-              <canvas baseChart
-                      [data]="doughnutChartData2"
-                      [labels]="doughnutChartLabels2"
-                      [chartType]="doughnutChartType"
-                      [legend]="false"></canvas>
+          <div class="col-sm-3">
+              <h2>Responses With No Downtime</h2>  <canvas baseChart
+              [datasets]="bar4Data"
+              [labels]="bar4Labels" [legend]="'true'"
+              [chartType]="'line'"></canvas>
             </div>
-            <h5>Kolter</h5>
-          </div>
-          <div class="col-lg-6">
-            <div style="height: 80px; width: 80px; margin: auto">
-              <canvas baseChart
-                      [data]="doughnutChartData2"
-                      [labels]="doughnutChartLabels2"
-                      [chartType]="doughnutChartType"
-                      [legend]="false"></canvas>
-            </div>
-            <h5>Maxtor</h5>
-          </div>
-        </div>
-        <div class="m-t">
-          <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-        </div>
-  
       </div>
-    </div>
-  
-  </div>
-  
   <div class="row">
     <div class="col-lg-12">
       <div class="wrapper wrapper-content">

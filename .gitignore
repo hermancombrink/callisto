@@ -8,3 +8,4 @@ bin
 lib
 /src/Callisto.Web.Client/wwwroot/lib/*
 /src/Callisto.Web.Client/wwwroot/app
+/src/Callisto.WebClient/wwwroot/dist

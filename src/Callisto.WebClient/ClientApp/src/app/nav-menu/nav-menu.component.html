@@ -13,10 +13,13 @@
           <img class="logo_mini" src="~/../css/landing/logo.png" />
         </div>
       </li>
+      <li >
+        <a [routerLink]="['/']"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span> </a>
+        </li>
       <li [ngClass]="{active: activeRoute('assets')}">
         <a href="#"><i class="fa fa-database"></i> <span class="nav-label">Asset Register</span> <span class="fa arrow"></span> </a>
         <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('assets')}">
-          <li [ngClass]="{active: activeRoute('assets/fine')}"><a [routerLink]="['/dashboards/dashboard1']">Find Assets</a></li>
+          <li [ngClass]="{active: activeRoute('counter')}"><a [routerLink]="['/counter']">Find Assets</a></li>
           <li [ngClass]="{active: activeRoute('assets/create')}"><a [routerLink]="['/dashboards/dashboard2']">Register Asset</a></li>
           <li [ngClass]="{active: activeRoute('assets/bulk')}"><a [routerLink]="['/dashboards/dashboard2']">Bulk Register</a></li>
         </ul>
@@ -46,27 +49,24 @@
             <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Create Monitor</a></li>
           </ul>
         </li>
-        <li [ngClass]="{active: activeRoute('reporting')}">
+        <li [ngClass]="{active: activeRoute('scheduling')}">
             <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Schedule Training</span> <span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('dashboards')}">
-                <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Alarms</a></li>
-              <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Find Status</a></li>
-              <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Create Monitor</a></li>
+                <li [ngClass]="{active: activeRoute('scheduling')}"><a [routerLink]="['/scheduling/dashboard1']">Alarms</a></li>
+              <li [ngClass]="{active: activeRoute('scheduling')}"><a [routerLink]="['/scheduling/dashboard1']">Find Status</a></li>
+              <li [ngClass]="{active: activeRoute('scheduling')}"><a [routerLink]="['/scheduling/dashboard1']">Create Monitor</a></li>
             </ul>
           </li>
-        <li [ngClass]="{active: activeRoute('reporting')}">
+        <li >
             <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Reporting</span> <span class="fa arrow"></span> </a>
-            <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('dashboards')}">
-                <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Alarms</a></li>
-              <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Find Status</a></li>
-              <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Create Monitor</a></li>
+            <ul class="nav nav-second-level collapse">
+              <li [ngClass]="{active: activeRoute('reporting/sales')}"><a [routerLink]="['/reporting/sales']">Interactive Analysis</a></li>
+              <li [ngClass]="{active: activeRoute('reporting/salesqa')}"><a [routerLink]="['/reporting/salesqa']">Q&amp;A Analysis</a></li>
             </ul>
           </li>
-          <li [ngClass]="{active: activeRoute('reporting')}">
+          <li [ngClass]="{active: activeRoute('settings')}">
               <a href="#"><i class="fa fa-gear"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span> </a>
-              <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('dashboards')}">
-                  <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Alarms</a></li>
-                <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Find Status</a></li>
+              <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('settings')}">
                 <li [ngClass]="{active: activeRoute('maintanance')}"><a [routerLink]="['/dashboards/dashboard1']">Create Monitor</a></li>
               </ul>
             </li>
