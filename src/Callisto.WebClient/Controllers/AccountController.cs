@@ -202,7 +202,7 @@ namespace Callisto.WebClient.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Dashboard), "Home");
+                return Redirect("/dashboard");
             }
         }
 
