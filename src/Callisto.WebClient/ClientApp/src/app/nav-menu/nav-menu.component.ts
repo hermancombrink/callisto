@@ -1,29 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import 'jquery-slimscroll';
 
-declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements AfterViewInit {
   constructor(private router: Router) { }
 
   ngAfterViewInit() {
-    jQuery('#side-menu').metisMenu();
+    $('#side-menu').metisMenu();
 
-    if (jQuery("body").hasClass('fixed-sidebar')) {
-      jQuery('.sidebar-collapse').slimscroll({
+    if ($('body').hasClass('fixed-sidebar')) {
+      $('.sidebar-collapse').slimscroll({
         height: '100%'
-      })
+      });
     }
   }
 
   activeRoute(routename: string): boolean {
-    return this.router.url.indexOf(routename) > -1;
+    return this.router.url === (routename);
   }
-
 }

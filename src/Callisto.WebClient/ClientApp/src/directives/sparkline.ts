@@ -1,11 +1,12 @@
-import { OnInit, OnChanges, ElementRef, Input,  NgModule, Directive } from '@angular/core';
+import { OnInit, OnChanges, ElementRef, Input, NgModule, Directive } from '@angular/core';
 
 // Import Sparkline chart library
 // Sparkline library is included in angular-cli script section
 
-declare var $:any;
+declare var $: any;
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: 'span[sparkline]',
   exportAs: 'sparkline-chart',
 
@@ -13,19 +14,19 @@ declare var $:any;
 export class SparklineDirective implements OnChanges, OnInit {
 
   // Properties
-  @Input() private  options:any;
-  @Input() private  datasets:any;
+  @Input() private options: any;
+  @Input() private datasets: any;
 
-  public chart:any;
-  private element:ElementRef;
-  private initFlag:boolean = false;
+  public chart: any;
+  private element: ElementRef;
+  private initFlag = false;
 
-  public constructor(element:ElementRef) {
+  public constructor(element: ElementRef) {
     this.element = element.nativeElement;
   }
 
   // Initialise
-  public ngOnInit():any {
+  public ngOnInit(): any {
     this.initFlag = true;
     if (this.options || this.datasets) {
       this.build();
@@ -33,7 +34,7 @@ export class SparklineDirective implements OnChanges, OnInit {
   }
 
   // Build
-  private build():any {
+  private build(): any {
 
     // Check if sparkline is available
     if (typeof $(this.element).sparkline() === 'undefined') {
@@ -45,7 +46,7 @@ export class SparklineDirective implements OnChanges, OnInit {
   }
 
   // Change
-  public ngOnChanges():void {
+  public ngOnChanges(): void {
     if (this.initFlag) {
       this.build();
     }

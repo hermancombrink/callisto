@@ -15,7 +15,6 @@ import { ToastyModule } from 'ng2-toasty';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { AuthserviceService } from '../services/authservice.service';
 import { IboxtoolsModule } from './iboxtools/iboxtools.module';
-import { PeityModule } from '../directives/peity';
 import { SparklineModule } from '../directives/sparkline';
 import { FlotModule } from '../directives/flotChart';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
@@ -24,6 +23,12 @@ import { SalesComponent } from './report/sales/sales.component';
 import { SalesqaComponent } from './report/salesqa/salesqa.component';
 import { PowersampleService } from '../services/powersample.service';
 import { PwrbireportqaDirective } from '../directives/pwrbireportqa.directive';
+import { AssetComponent } from './asset/asset.component';
+import { SharedModule } from './shared/shared.module';
+import { AssetModule } from './asset/asset.module';
+import { AppRoutes } from './routes';
+import { WorkorderModule } from './workorder/workorder.module';
+import { ReportModule } from './report/report.module';
 
 
 @NgModule({
@@ -44,18 +49,15 @@ import { PwrbireportqaDirective } from '../directives/pwrbireportqa.directive';
     HttpClientModule,
     FormsModule,
     IboxtoolsModule,
-    PeityModule,
     SparklineModule,
     FlotModule,
     ChartsModule,
+    SharedModule,
+    AssetModule,
+    WorkorderModule,
+    ReportModule,
     ToastyModule.forRoot(),
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'reporting/sales', component: SalesComponent },
-      { path: 'reporting/salesqa', component: SalesqaComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    RouterModule.forRoot(AppRoutes)
   ],
   providers: [
     AlertService, AuthserviceService, PowersampleService
