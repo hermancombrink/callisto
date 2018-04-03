@@ -11,11 +11,14 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { ExtendedComponent } from './components/extended/extended.component';
 import { AssetListComponent } from './asset-list/asset-list.component';
 import { BulkRegComponent } from './bulk-reg/bulk-reg.component';
+import { AssetListItemComponent } from './components/asset-list-item/asset-list-item.component';
+import { TreeModule } from 'ng2-tree';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    TreeModule ,
     RouterModule.forChild(AssetRoutes)
   ],
   declarations: [
@@ -26,7 +29,8 @@ import { BulkRegComponent } from './bulk-reg/bulk-reg.component';
     SummaryComponent,
     ExtendedComponent,
     AssetListComponent,
-    BulkRegComponent],
+    BulkRegComponent,
+    AssetListItemComponent],
   exports: [RouterModule]
 })
 export class AssetModule { }

@@ -1,0 +1,13 @@
+<li class="dd-item" data-id="{{ListItem?.Id}}">
+  <div class="dd-handle">
+    <span *ngIf="[ListItem?.HasStatus]" class="pull-right">
+      <span peity [type]="'pie'" [options]="">{{ListItem?.Current}},{{ListItem?.Max}}</span>
+    </span>
+    <span class="label label-{{ListItem?.ColorClass}}">
+      <i class="fa fa-{{ListItem?.Icon}}"></i>
+    </span>
+    {{ListItem?.Name}} {{ListItem?.Description}}
+
+  </div>
+  <ol class="dd-list" *ngFor="let asset of ListItem?.Children" asset-list-item [ListItem]="asset"></ol>
+</li>

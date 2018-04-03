@@ -1,4 +1,4 @@
-import { OnInit, OnChanges, ElementRef, Input, NgModule, Directive } from '@angular/core';
+import { OnInit, OnChanges, ElementRef, Input, NgModule, Directive, AfterViewInit } from '@angular/core';
 
 // Import Peity chart library
 import 'peity';
@@ -11,7 +11,7 @@ declare var $: any;
   exportAs: 'peity-chart',
 
 })
-export class PeityDirective implements OnChanges, OnInit {
+export class PeityDirective implements OnChanges, OnInit, AfterViewInit {
 
   // Properties
   @Input() public options: any;
@@ -29,6 +29,12 @@ export class PeityDirective implements OnChanges, OnInit {
   public ngOnInit(): any {
     this.initFlag = true;
     if (this.options || this.type) {
+      this.build();
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    if (this.initFlag) {
       this.build();
     }
   }
