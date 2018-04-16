@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  callisto.web.landing:
-    image: callistoweblanding
+  callisto.landing:
+    image: callisto-landing
     build:
       context: .
-      dockerfile: src\Callisto.Web.Landing\Dockerfile
+      dockerfile: docker\landing\dockerfile

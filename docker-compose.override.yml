@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  callisto.web.landing:
+  callisto.landing:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
