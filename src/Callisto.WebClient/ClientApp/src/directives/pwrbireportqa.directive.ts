@@ -7,7 +7,7 @@ import { PowersampleService } from '../services/powersample.service';
   // tslint:disable-next-line:directive-selector
   selector: 'powerbi-reportqa'
 })
-export class PwrbireportqaDirective  implements OnInit  {
+export class PwrbireportqaDirective implements OnInit {
 
   @Input() question = 'This year sales by store type by postal code as map';
 
@@ -22,9 +22,10 @@ export class PwrbireportqaDirective  implements OnInit  {
   };
   ngOnInit(): void {
     this.powerBiService.getQAAccessData().subscribe((response) => {
+      const isMobile = window.matchMedia('screen and (max-width: 768px)').matches;
       const powerbi = new pbi.service.Service(pbi.factories.hpmFactory, pbi.factories.wpmpFactory, pbi.factories.routerFactory);
       this.config.accessToken = response.embedToken.token;
-      this.config.embedUrl = response.embedUrl;
+      this.config.embedUrl = `${response.embedUrl}?isMobile=${isMobile}`;
       this.config.datasetIds.push(response.id);
       powerbi.embed(this.element.nativeElement, this.config);
     }, (e) => {

@@ -29,13 +29,13 @@
         </a>
         <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('asset')}">
           <li [ngClass]="{active: activeRoute('asset/new')}">
-            <a [routerLink]="['/asset/new']">Register Asset</a>
+            <a [routerLink]="['/asset/new']">New Asset</a>
           </li>
           <li [ngClass]="{active: activeRoute('asset')}">
             <a [routerLink]="['/asset']">Find Assets</a>
           </li>
           <li [ngClass]="{active: activeRoute('assets/bulk')}">
-            <a [routerLink]="['/dashboards/dashboard2']">Bulk Register</a>
+            <a [routerLink]="['/dashboards/dashboard2']">Bulk Upload</a>
           </li>
         </ul>
       </li>

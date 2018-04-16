@@ -17,6 +17,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Authenticat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Notification", "src\Callisto.Module.Notification\Callisto.Module.Notification.csproj", "{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{79213B24-96E3-4418-8156-084EB2C26CEA}"
+	ProjectSection(SolutionItems) = preProject
+		docker\nginx\dockerfile = docker\nginx\dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "landing", "landing", "{AD7ACA2B-D39C-42FA-BDD1-928FBE8A1B12}"
+	ProjectSection(SolutionItems) = preProject
+		docker\landing\dockerfile = docker\landing\dockerfile
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Web.Landing", "src\Callisto.Web.Landing\Callisto.Web.Landing.csproj", "{B6A70F8D-C31A-4F5A-B000-9083600FD585}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +54,14 @@ Global
 		{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,9 +71,12 @@ Global
 		{F9E8745A-99F4-4453-B568-995BC3806139} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{C700194A-3CDB-49A6-809E-AE163B2535BB} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{79213B24-96E3-4418-8156-084EB2C26CEA} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
+		{AD7ACA2B-D39C-42FA-BDD1-928FBE8A1B12} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
+		{B6A70F8D-C31A-4F5A-B000-9083600FD585} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

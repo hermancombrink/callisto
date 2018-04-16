@@ -6,13 +6,8 @@
       </div>
       <div class="panel-body">
 
-        <tree [tree]="tree" #treeComponent
-        [settings]="{rootIsVisible: false}"
-        (menuItemSelected)="onMenuItemSelected($event)"></tree>
- 
-        <div class="dd" nestablelist>
-          <ol class="dd-list" *ngFor="let asset of Assets" asset-list-item [ListItem]="asset"></ol>
-        </div>
+        <tree [tree]="tree" #treeComponent [settings]="{rootIsVisible: false}" (menuItemSelected)="onMenuItemSelected($event)"></tree>
+
       </div>
     </div>
   </div>
@@ -22,7 +17,7 @@
         Demo Asset
       </div>
       <div class="panel-body">
-
+        <app-asset-details></app-asset-details>
       </div>
       <div class="panel-footer">
 

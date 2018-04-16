@@ -8,11 +8,11 @@ import { PowersampleService } from '../services/powersample.service';
   selector: 'powerbi-dashboard'
 })
 export class PwrbidashboardDirective implements OnInit {
- @Input() reportToken: string;
- @Input() reportUrl: string;
- @Input() reportId: string;
+  @Input() reportToken: string;
+  @Input() reportUrl: string;
+  @Input() reportId: string;
 
- private config = {
+  private config = {
     type: 'report',
     tokenType: 1,
     accessToken: '',
@@ -20,16 +20,21 @@ export class PwrbidashboardDirective implements OnInit {
     id: '',
     permissions: 7,
     settings: {
-        filterPaneEnabled: true,
-        navContentPaneEnabled: true
+      filterPaneEnabled: true,
+      navContentPaneEnabled: true,
+      layoutType: 0
     }
   };
 
   ngOnInit(): void {
     this.powerBiService.getReportAccessData().subscribe((response) => {
+      const isMobile = window.matchMedia('screen and (max-width: 768px)').matches;
       const powerbi = new pbi.service.Service(pbi.factories.hpmFactory, pbi.factories.wpmpFactory, pbi.factories.routerFactory);
       this.config.accessToken = response.embedToken.token;
-      this.config.embedUrl = response.embedUrl;
+      this.config.embedUrl = `${response.embedUrl}?isMobile=${isMobile}`;
+      if (isMobile) {
+        this.config.settings.layoutType = 3;
+      }
       this.config.id = response.id;
       powerbi.embed(this.element.nativeElement, this.config);
     }, (e) => {

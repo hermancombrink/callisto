@@ -32,10 +32,10 @@
                         <div class="col-md-6">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Hierarchy
+                                    Asset Tree
                                 </div>
                                 <div class="panel-body">
-                                    <app-treeview></app-treeview>
+                                    <tree [tree]="tree" #treeComponent [settings]="{rootIsVisible: false}"></tree>
                                 </div>
                                 <div class="panel-footer">
                                     <i>Thousand unknown plants are noticed by me</i>

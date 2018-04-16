@@ -20,7 +20,6 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/circular-menu/dist/css/circular-menu.css",
         "../node_modules/ng2-tree/styles.css"
       ],
       "scripts": [
@@ -28,8 +27,7 @@
         "../node_modules/bootstrap-toggle/js/bootstrap-toggle.js",
         "../node_modules/bootstrap-select/dist/js/bootstrap-select.js",
         "../node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js",
-        "../node_modules/jquery-sparkline/jquery.sparkline.js",
-        "../node_modules/circular-menu/dist/js/circular-menu.js"
+        "../node_modules/jquery-sparkline/jquery.sparkline.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -13,6 +13,8 @@ import { AssetListComponent } from './asset-list/asset-list.component';
 import { BulkRegComponent } from './bulk-reg/bulk-reg.component';
 import { AssetListItemComponent } from './components/asset-list-item/asset-list-item.component';
 import { TreeModule } from 'ng2-tree';
+import { AssetService } from './services/asset.service';
+import { AssetDetailsComponent } from './asset-details/asset-details.component';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { TreeModule } from 'ng2-tree';
     ExtendedComponent,
     AssetListComponent,
     BulkRegComponent,
-    AssetListItemComponent],
+    AssetListItemComponent,
+    AssetDetailsComponent],
+    providers: [AssetService],
   exports: [RouterModule]
 })
 export class AssetModule { }
