@@ -6,6 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{612F313E-93E1-47CE-B379-A48CCDA1CD1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{732D33CA-BB05-41F7-8517-4D838AE1BA3C}"
+	ProjectSection(SolutionItems) = preProject
+		build\build.ps1 = build\build.ps1
+		build\run.ps1 = build\run.ps1
+		build\stop.ps1 = build\stop.ps1
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F1E2E52-F101-4E51-B707-B833323895ED}"
 EndProject
@@ -29,9 +34,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "landing", "landing", "{AD7A
 		docker\landing\dockerfile = docker\landing\dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Web.Landing", "src\Callisto.Web.Landing\Callisto.Web.Landing.csproj", "{B6A70F8D-C31A-4F5A-B000-9083600FD585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.Landing", "src\Callisto.Web.Landing\Callisto.Web.Landing.csproj", "{B6A70F8D-C31A-4F5A-B000-9083600FD585}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F4B554B3-D8BC-477F-9A20-B2C8DA515DEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{0E8DE208-212F-4F21-924E-B272213320FA}"
+	ProjectSection(SolutionItems) = preProject
+		docker\nginx\conf\nginx.conf = docker\nginx\conf\nginx.conf
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,9 +84,10 @@ Global
 		{79213B24-96E3-4418-8156-084EB2C26CEA} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{AD7ACA2B-D39C-42FA-BDD1-928FBE8A1B12} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{B6A70F8D-C31A-4F5A-B000-9083600FD585} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{0E8DE208-212F-4F21-924E-B272213320FA} = {79213B24-96E3-4418-8156-084EB2C26CEA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal
