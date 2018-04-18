@@ -1,12 +1,6 @@
 FROM microsoft/aspnetcore-build AS build
-WORKDIR /build
-COPY callisto.sln ./
-COPY src/Callisto.Module.Authentication/ src/Callisto.Module.Authentication/
-COPY src/Callisto.Module.Notification/ src/Callisto.Module.Notification/
-COPY src/Callisto.Web.Landing/ src/Callisto.Web.Landing/
-RUN dotnet restore -nowarn:msb3202,nu1503
-WORKDIR /build/src/Callisto.Web.Landing
-RUN dotnet publish -c Release -o /app --no-restore
+WORKDIR /app
+COPY ./src/Callisto.Web.Landing/bin/Release/netcoreapp2.0/publish/ .
 WORKDIR /app/wwwroot
 RUN npm install
 

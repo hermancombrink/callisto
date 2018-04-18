@@ -1,8 +1,11 @@
-version: '3'
+version: '3.3'
 
 services:
-  callisto.landing:
-    image: callisto-landing
+  landing:
     build:
       context: .
       dockerfile: docker\landing\dockerfile
+  nginx: 
+    build: 
+      context: .
+      dockerfile: docker\nginx\dockerfile

@@ -1,12 +1,24 @@
-version: '3'
+version: '3.3'
 
 services:
-  callisto.landing:
+  landing:
+    image: hermancombrink/callisto-landing
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    networks: 
+      - default
+
+  nginx:
+    image: hermancombrink/callisto-nginx
+    depends_on:
+      - landing
     ports:
-      - "80"
+      - "8090:80"
+    networks:
+      - default
+
 networks:
   default:
     external:
       name: nat
+
