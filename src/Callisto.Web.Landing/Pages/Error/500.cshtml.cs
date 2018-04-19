@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Callisto.Web.Landing.Pages
 {
-    public class ErrorModel : PageModel
+    public class Error500Model : PageModel
     {
         public string RequestId { get; set; }
 

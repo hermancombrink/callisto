@@ -21,6 +21,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+**/wwwroot/lib
+**/node_modules
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -48,7 +50,3 @@ UpgradeLog*.htm
 *.dbmdl
 *.jfm
 Output/
-**/wwwroot/lib
-**/node_modules
-
-src/Callisto.Web.Landing/wwwroot/lib

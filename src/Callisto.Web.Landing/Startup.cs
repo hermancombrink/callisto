@@ -34,7 +34,7 @@ namespace Callisto.Web.Landing
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithRedirects("/error/{0}");
             }
 
             app.UseStaticFiles();
