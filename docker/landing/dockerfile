@@ -1,10 +1,4 @@
-FROM microsoft/aspnetcore-build AS build
+FROM microsoft/aspnetcore:2.0-nanoserver
 WORKDIR /app
-COPY ./src/Callisto.Web.Landing/bin/Release/netcoreapp2.0/publish/ .
-WORKDIR /app/wwwroot
-RUN npm install
-
-FROM microsoft/aspnetcore
-WORKDIR /app
-COPY --from=build /app .
+COPY ./src/Callisto.Web.Landing/bin/Release/netcoreapp2.0/publish/  .
 ENTRYPOINT ["dotnet", "Callisto.Web.Landing.dll"]

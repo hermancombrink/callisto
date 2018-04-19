@@ -50,3 +50,5 @@ UpgradeLog*.htm
 Output/
 **/wwwroot/lib
 **/node_modules
+
+src/Callisto.Web.Landing/wwwroot/lib
