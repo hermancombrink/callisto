@@ -12,10 +12,13 @@ namespace Callisto.Module.Authentication.Startup
 {
     public static class IServiceCollectionExtensions
     {
-        public static void AddSqlAuthenticationModule(this IServiceCollection services, IConfiguration config, string connectionString = "DefaultConnection")
+        public static void AddSqlAuthenticationModule(this IServiceCollection services,
+            IConfiguration config,
+            string connectionString = "DefaultConnection")
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(config.GetConnectionString(connectionString)));
+                 options.UseSqlServer(config.GetConnectionString(connectionString))
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

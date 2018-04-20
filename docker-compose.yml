@@ -3,20 +3,20 @@ version: '3.3'
 services:
   landing:
     build:
-      context: src\Callisto.Web.Landing\
+      context: src/Callisto.Web.Landing/
       dockerfile: dockerfile
 
   api:
     build:
-      context: src\Callisto.Web.Api\
+      context: src/Callisto.Web.Api/
       dockerfile: dockerfile
 
   app:
     build:
-      context: src\Callisto.Web.App\
+      context: src/Callisto.Web.App/
       dockerfile: dockerfile
 
   nginx: 
     build: 
-      context: docker\nginx\
+      context: docker/nginx/
       dockerfile: dockerfile

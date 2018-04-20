@@ -44,8 +44,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.App", "src\Callisto.Web.App\Callisto.Web.App.csproj", "{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{9BE0DB29-174C-407B-84CB-FDF0648368FE}"
+	ProjectSection(SolutionItems) = preProject
+		docker\sql\dockerfile = docker\sql\dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{CE4D0320-1A14-4C76-A885-17347F3D21DC}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Callisto.Database", "src\Callisto.Database\Callisto.Database.sqlproj", "{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +82,12 @@ Global
 		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +102,7 @@ Global
 		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{9BE0DB29-174C-407B-84CB-FDF0648368FE} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{CE4D0320-1A14-4C76-A885-17347F3D21DC} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
+		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}

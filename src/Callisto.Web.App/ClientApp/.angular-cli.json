@@ -9,7 +9,8 @@
       "outDir": "dist",
       "deployUrl": "/app",
       "assets": [
-        "assets"
+        "assets",
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -19,10 +20,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "styles.scss",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/animate.css/animate.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/metismenu/dist/metisMenu.js",
+        "../node_modules/jquery-sparkline/jquery.sparkline.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
