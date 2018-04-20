@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{732D33CA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F1E2E52-F101-4E51-B707-B833323895ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.Client.Tests", "test\Callisto.Web.Client.Tests\Callisto.Web.Client.Tests.csproj", "{69D18B64-9E0F-4622-8B25-B4C46C05F531}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.WebClient", "src\Callisto.WebClient\Callisto.WebClient.csproj", "{F9E8745A-99F4-4453-B568-995BC3806139}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Authentication", "src\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj", "{C700194A-3CDB-49A6-809E-AE163B2535BB}"
@@ -27,19 +25,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{79213B24-96E3-4418-8156-084EB2C26CEA}"
 	ProjectSection(SolutionItems) = preProject
 		docker\nginx\dockerfile = docker\nginx\dockerfile
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "landing", "landing", "{AD7ACA2B-D39C-42FA-BDD1-928FBE8A1B12}"
-	ProjectSection(SolutionItems) = preProject
-		docker\landing\dockerfile = docker\landing\dockerfile
+		docker\nginx\nginx.conf = docker\nginx\nginx.conf
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.Landing", "src\Callisto.Web.Landing\Callisto.Web.Landing.csproj", "{B6A70F8D-C31A-4F5A-B000-9083600FD585}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{0E8DE208-212F-4F21-924E-B272213320FA}"
-	ProjectSection(SolutionItems) = preProject
-		docker\nginx\conf\nginx.conf = docker\nginx\conf\nginx.conf
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{144CB443-813C-4B48-A3F2-DB3C537A3DD8}"
 	ProjectSection(SolutionItems) = preProject
@@ -50,15 +39,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{14
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.Api", "src\Callisto.Web.Api\Callisto.Web.Api.csproj", "{6CF55A69-2D52-4E58-AAC1-84EC629D5342}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Web.App", "src\Callisto.Web.App\Callisto.Web.App.csproj", "{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{9BE0DB29-174C-407B-84CB-FDF0648368FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{CE4D0320-1A14-4C76-A885-17347F3D21DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69D18B64-9E0F-4622-8B25-B4C46C05F531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69D18B64-9E0F-4622-8B25-B4C46C05F531}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69D18B64-9E0F-4622-8B25-B4C46C05F531}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F9E8745A-99F4-4453-B568-995BC3806139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9E8745A-99F4-4453-B568-995BC3806139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9E8745A-99F4-4453-B568-995BC3806139}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,19 +69,28 @@ Global
 		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6A70F8D-C31A-4F5A-B000-9083600FD585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CF55A69-2D52-4E58-AAC1-84EC629D5342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CF55A69-2D52-4E58-AAC1-84EC629D5342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CF55A69-2D52-4E58-AAC1-84EC629D5342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CF55A69-2D52-4E58-AAC1-84EC629D5342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{69D18B64-9E0F-4622-8B25-B4C46C05F531} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 		{F9E8745A-99F4-4453-B568-995BC3806139} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{C700194A-3CDB-49A6-809E-AE163B2535BB} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{18EF8D6F-6BCD-4544-A1B0-72BCAC9396D5} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{79213B24-96E3-4418-8156-084EB2C26CEA} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
-		{AD7ACA2B-D39C-42FA-BDD1-928FBE8A1B12} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{B6A70F8D-C31A-4F5A-B000-9083600FD585} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
-		{0E8DE208-212F-4F21-924E-B272213320FA} = {79213B24-96E3-4418-8156-084EB2C26CEA}
+		{6CF55A69-2D52-4E58-AAC1-84EC629D5342} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{8F57DD66-FDBA-4BEC-8EA9-9503BA59679B} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{9BE0DB29-174C-407B-84CB-FDF0648368FE} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
+		{CE4D0320-1A14-4C76-A885-17347F3D21DC} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}

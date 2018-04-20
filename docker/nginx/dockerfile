@@ -1,21 +1,7 @@
-# escape=`
-FROM microsoft/windowsservercore AS installer
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+FROM nginx
 
-ENV NGINX_VERSION="1.12.2"
+# Copy a configuration file from the current directory
+COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN Invoke-WebRequest -OutFile nginx.zip -UseBasicParsing "http://nginx.org/download/nginx-$($env:NGINX_VERSION).zip"; `
-    Expand-Archive nginx.zip -DestinationPath C:\ ; `
-    Rename-Item "C:\nginx-$($env:NGINX_VERSION)" C:\nginx;
-
-# NGINX
-FROM microsoft/windowsservercore
-
-EXPOSE 80 443
-WORKDIR C:\nginx
-CMD ".\nginx"
-
-RUN md C:\nginx\cache
-
-COPY --from=installer C:\nginx\ .
-COPY docker\nginx\conf .\conf
+RUN mkdir -p /nginx/cache
+RUN chown www-data /nginx/cache

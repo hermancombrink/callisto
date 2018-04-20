@@ -1,37 +1,59 @@
 Param
 (
- [switch]$dockerCompose
+ [switch]$dockerCompose,
+ [switch]$ignoreDotNetBuild,
+ [Parameter(Mandatory=$false)]
+ [string]$verbosity="q"
 )
 
 $proj = (
-	"Callisto.Web.Landing"
+	"Callisto.Web.Landing",
+	"Callisto.Web.Api", 
+	"Callisto.Web.App"
 )
 
 function getPublishDir($project, $framework = "netcoreapp2.0"){
 	return ".\src\$project\bin\Release\$framework";
 }
 
-Write-Host "dotnet restore..." -ForegroundColor Cyan
-dotnet restore -nowarn:msb3202,nu1503 -v q 
-
-foreach( $p in $proj)
+if($ignoreDotNetBuild)
 {
-	Write-Host "building $p..." -ForegroundColor Green
-	Write-Host "dotnet publish..." -ForegroundColor Cyan
-	$t = getPublishDir $p
-	Remove-Item -Path $t -Force -Recurse
+	Write-Host "Skipping dotnet build..."  -ForegroundColor Gray
+}
+else
+{
+	Write-Host "dotnet restore..." -ForegroundColor Cyan
+	dotnet restore callisto.sln -nowarn:msb3202,nu1503 -v $verbosity
 
-	if(Test-Path -Path ".\src\$p\bower.json")
+	foreach( $p in $proj)
 	{
-		Write-Host "bower install..."  -ForegroundColor Cyan
-		pushd ".\src\$p"
-		bower install 
-		popd
+		Write-Host "building $p..." -ForegroundColor Green
+		Write-Host "dotnet publish..." -ForegroundColor Cyan
+		$t = getPublishDir $p
+		if(Test-Path -Path $t)
+		{
+			Write-Host "cleaning publish..."  -ForegroundColor Gray
+			Remove-Item -Path $t -Force -Recurse
+		}
+
+		if(Test-Path -Path ".\src\$p\bower.json")
+		{
+			Write-Host "bower install..."  -ForegroundColor Cyan
+			pushd ".\src\$p"
+			bower install 
+			popd
+		}
+
+		if(Test-Path -Path ".\src\$p\package.json")
+		{
+			Write-Host "npm install..."  -ForegroundColor Cyan
+			pushd ".\src\$p"
+			npm install 
+			popd
+		}
+
+		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity
 	}
-
-	dotnet publish ".\src\$p" -c Release --no-restore -v q
-
-	
 }
 
 if($dockerCompose)
@@ -40,6 +62,6 @@ if($dockerCompose)
 	docker-compose build
 }
 else
-	{
-		Write-Host "Skipping docker compose..."  -ForegroundColor Gray
-	}
+{
+	Write-Host "Skipping docker compose..."  -ForegroundColor Gray
+}

@@ -4,7 +4,21 @@ services:
   landing:
     image: hermancombrink/callisto-landing
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks: 
+      - default
+
+  api:
+    image: hermancombrink/callisto-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks: 
+      - default
+
+  app:
+    image: hermancombrink/callisto-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
     networks: 
       - default
 
@@ -12,13 +26,13 @@ services:
     image: hermancombrink/callisto-nginx
     depends_on:
       - landing
+      - api
+      - app
     ports:
-      - "8090:80"
+      - "80:80"
+
     networks:
       - default
 
 networks:
   default:
-    external:
-      name: nat
-

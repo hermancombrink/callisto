@@ -1,0 +1,7 @@
+# base image for ASP.NET Core
+# automatically exposes PORT 80
+FROM microsoft/aspnetcore
+
+WORKDIR /app
+COPY bin/Release/netcoreapp2.0/publish/  .
+ENTRYPOINT ["dotnet", "Callisto.Web.App.dll"]
