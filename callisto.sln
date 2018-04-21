@@ -46,6 +46,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{9BE0DB29-174C-407B-84CB-FDF0648368FE}"
 	ProjectSection(SolutionItems) = preProject
 		docker\sql\dockerfile = docker\sql\dockerfile
+		docker\sql\setup.sql = docker\sql\setup.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{CE4D0320-1A14-4C76-A885-17347F3D21DC}"
