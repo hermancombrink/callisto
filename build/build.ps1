@@ -2,8 +2,11 @@ Param
 (
  [switch]$dockerCompose,
  [switch]$ignoreDotNetBuild,
+ [switch]$ignoreSqlBuild,
  [Parameter(Mandatory=$false)]
- [string]$verbosity="q"
+ [string]$verbosity="q",
+ [Parameter(Mandatory=$false)]
+ [string]$msbuild="C:\'Program Files (x86)'\'Microsoft Visual Studio'\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"
 )
 
 $proj = (
@@ -13,7 +16,7 @@ $proj = (
 )
 
 function getPublishDir($project, $framework = "netcoreapp2.0"){
-	return ".\src\$project\bin\Release\$framework";
+	return ".\src\$($project)\bin\Release\$framework";
 }
 
 if($ignoreDotNetBuild)
@@ -23,7 +26,10 @@ if($ignoreDotNetBuild)
 else
 {
 	Write-Host "dotnet restore..." -ForegroundColor Cyan
-	dotnet restore callisto.sln -nowarn:msb3202,nu1503 -v $verbosity
+	Write-Host $msbuild
+	$restore = $msbuild + " /t:restore callisto.sln  /verbosity:$verbosity"
+	Invoke-Expression $restore
+	#dotnet restore callisto.sln -nowarn:msb3202,nu1503 -v $verbosity
 
 	foreach( $p in $proj)
 	{
@@ -55,6 +61,27 @@ else
 		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity
 	}
 }
+
+if($ignoreSqlBuild)
+{
+	Write-Host "Skipping sql build..."  -ForegroundColor Gray
+}
+else
+{
+	Write-Host "sql build..." -ForegroundColor Cyan
+	$p = ".\src\Callisto.Database\"
+	$t = getPublishDir "Callisto.Database" -framework ''
+	Write-Host $t
+		if(Test-Path -Path $t)
+		{
+			Write-Host "cleaning publish..."  -ForegroundColor Gray
+			Remove-Item -Path $t -Force -Recurse
+		}
+	$build = $msbuild + " $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity"
+	Invoke-Expression $build
+	Move-Item -Path "$p\bin\Release\Callisto_Create.sql" -Destination .\docker\sql\ -Force
+}
+
 
 if($dockerCompose)
 {

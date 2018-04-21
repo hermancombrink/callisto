@@ -30,9 +30,15 @@ services:
       - app
     ports:
       - "80:80"
-
     networks:
       - default
+
+  sql:
+    image: hermancombrink/callisto-sql
+    networks: 
+      - default
+    ports:
+      - "1434:1433"   
 
 networks:
   default:

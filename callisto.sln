@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{732D33CA-BB05-41F7-8517-4D838AE1BA3C}"
 	ProjectSection(SolutionItems) = preProject
 		build\build.ps1 = build\build.ps1
+		build\fixsql.ps1 = build\fixsql.ps1
 		build\run.ps1 = build\run.ps1
 		build\stop.ps1 = build\stop.ps1
 	EndProjectSection
@@ -106,7 +107,7 @@ Global
 		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

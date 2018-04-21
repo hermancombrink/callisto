@@ -50,3 +50,4 @@ UpgradeLog*.htm
 *.dbmdl
 *.jfm
 Output/
+/docker/sql/Callisto_Create.sql
