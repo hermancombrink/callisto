@@ -12,6 +12,8 @@ services:
     image: hermancombrink/callisto-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - sql
     networks: 
       - default
 
@@ -19,6 +21,8 @@ services:
     image: hermancombrink/callisto-app
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
+    depends_on:
+      - sql
     networks: 
       - default
 
@@ -39,6 +43,13 @@ services:
       - default
     ports:
       - "1434:1433"   
+
+  rabbit:
+    image: hermancombrink/callisto-rabbitmq
+    networks: 
+      - default
+    ports:
+      - "15673:15672"  
 
 networks:
   default:

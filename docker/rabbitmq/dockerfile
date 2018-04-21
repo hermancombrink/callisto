@@ -1,0 +1,6 @@
+# base image for ASP.NET Core
+# automatically exposes PORT 80
+FROM rabbitmq:3.6.15-management
+
+ENV RABBITMQ_DEFAULT_USER="guest"
+ENV RABBITMQ_DEFAULT_PASS="guest"
