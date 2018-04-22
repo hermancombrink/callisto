@@ -20,15 +20,16 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/animate.css/animate.min.css"
+        "../node_modules/animate.css/animate.min.css",
+        "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/metismenu/dist/metisMenu.js",
-        "../node_modules/jquery-sparkline/jquery.sparkline.js"
+        "../node_modules/jquery-sparkline/jquery.sparkline.js",
+        "../node_modules/pace-js/pace.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

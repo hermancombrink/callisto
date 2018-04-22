@@ -1,10 +1,23 @@
-<div class='container-fluid'>
-  <div class='row'>
-    <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
-    </div>
-    <div class='col-sm-9 body-content'>
-      <router-outlet></router-outlet>
-    </div>
+<!-- Wrapper-->
+<div id="wrapper">
+  <ng2-toasty></ng2-toasty>
+
+  <!-- Navigation -->
+  <app-nav-menu style="float:left;"></app-nav-menu>
+
+  <!-- Page wraper -->
+  <div id="page-wrapper" class="gray-bg">
+
+    <!-- Top Navbar -->
+    <app-top-menu></app-top-menu>
+
+    <!-- Main view  -->
+    <router-outlet></router-outlet>
+
+    <!-- Footer -->
+
   </div>
+  <!-- End page wrapper-->
+  <!-- Right Sidebar -->
+
 </div>
