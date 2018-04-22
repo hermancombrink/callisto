@@ -14,7 +14,10 @@
 	[SecurityStamp] [nvarchar](max) NULL,
 	[TwoFactorEnabled] [bit] NOT NULL,
 	[UserName] [nvarchar](256) NULL,
- CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+ [FirstName] NVARCHAR(256) NULL, 
+    [LastName] NVARCHAR(256) NULL, 
+    [PrimaryCompanyRefId] BIGINT NULL, 
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

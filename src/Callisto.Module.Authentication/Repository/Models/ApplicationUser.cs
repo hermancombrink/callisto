@@ -1,13 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Callisto.Module.Authentication.Repository.Models
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
+    /// <summary>
+    /// Defines the <see cref="ApplicationUser" />
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
+        /// <summary>
+        /// Gets or sets the FirstName
+        /// </summary>
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the LastName
+        /// </summary>
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CompanyName
+        /// </summary>
+        public long? CompanyRefId { get; set; }
     }
 }

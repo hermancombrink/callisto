@@ -55,6 +55,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{CE
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Callisto.Database", "src\Callisto.Database\Callisto.Database.sqlproj", "{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Authentication.Tests", "test\Callisto.Module.Authentication.Tests\Callisto.Module.Authentication.Tests.csproj", "{71B9901D-3124-45CA-A72D-9F549168E0DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{53A8776E-3910-4434-B7C4-4A6967A99F08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.SharedKernel", "src\Callisto.SharedKernel\Callisto.SharedKernel.csproj", "{012A2DDA-CECA-40AE-898E-3BCEB919EF63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +95,14 @@ Global
 		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{71B9901D-3124-45CA-A72D-9F549168E0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B9901D-3124-45CA-A72D-9F549168E0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B9901D-3124-45CA-A72D-9F549168E0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B9901D-3124-45CA-A72D-9F549168E0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +117,10 @@ Global
 		{9BE0DB29-174C-407B-84CB-FDF0648368FE} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{CE4D0320-1A14-4C76-A885-17347F3D21DC} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{177DF827-8F6F-4DEB-99ED-BFECB889BAC5} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{71B9901D-3124-45CA-A72D-9F549168E0DB} = {7F1E2E52-F101-4E51-B707-B833323895ED}
+		{53A8776E-3910-4434-B7C4-4A6967A99F08} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{012A2DDA-CECA-40AE-898E-3BCEB919EF63} = {53A8776E-3910-4434-B7C4-4A6967A99F08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
