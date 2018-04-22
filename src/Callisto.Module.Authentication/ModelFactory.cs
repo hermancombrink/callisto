@@ -1,5 +1,11 @@
-﻿using Callisto.Module.Authentication.Repository.Models;
+﻿using Callisto.Module.Authentication.Options;
+using Callisto.Module.Authentication.Repository.Models;
 using Callisto.Module.Authentication.ViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 namespace Callisto.Module.Authentication
 {
@@ -8,6 +14,9 @@ namespace Callisto.Module.Authentication
     /// </summary>
     public static class ModelFactory
     {
+
+
+
         /// <summary>
         /// The CreateUser
         /// </summary>
@@ -26,12 +35,80 @@ namespace Callisto.Module.Authentication
             };
         }
 
+        /// <summary>
+        /// The CreateCompany
+        /// </summary>
+        /// <param name="model">The <see cref="RegisterViewModel"/></param>
+        /// <returns>The <see cref="Company"/></returns>
         public static Company CreateCompany(RegisterViewModel model)
         {
             return new Company()
             {
                 Description = model.CompanyName,
                 Name = model.CompanyName
+            };
+        }
+
+        /// <summary>
+        /// The GetSubscription
+        /// </summary>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="Subscription"/></returns>
+        public static Subscription GetSubscription(Company company)
+        {
+            return new Subscription()
+            {
+                CompanyRefId = company.RefId
+            };
+        }
+
+        /// <summary>
+        /// The CreateIdentityOptions
+        /// </summary>
+        /// <param name="authOptions">The <see cref="AuthOptions"/></param>
+        /// <returns>The <see cref="IdentityOptions"/></returns>
+        public static IdentityOptions CreateIdentityOptions(AuthOptions authOptions)
+        {
+            return new IdentityOptions()
+            {
+                Password = new PasswordOptions()
+                {
+                    RequireDigit = authOptions.RequireDigit,
+                    RequiredLength = authOptions.RequiredLength,
+                    RequireLowercase = authOptions.RequireLowercase,
+                    RequireNonAlphanumeric = authOptions.RequireNonAlphanumeric,
+                    RequireUppercase = authOptions.RequireUppercase
+                },
+                User = new UserOptions()
+                {
+                    RequireUniqueEmail = true
+                }
+            };
+        }
+
+        public static JwtBearerOptions CreateBearerOptions(JwtIssuerOptions issuerOptions, out SecurityKey key)
+        {
+            var SecretKey = "Wm9mqvNcuJldbmnvuUclG7W45wqiqM0w"; 
+            var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+            key = _signingKey;
+            return new JwtBearerOptions()
+            {
+                ClaimsIssuer = issuerOptions.Issuer,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuerOptions.Issuer,
+
+                    ValidateAudience = true,
+                    ValidAudience = issuerOptions.Audience,
+
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = _signingKey,
+
+                    RequireExpirationTime = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                }
             };
         }
     }

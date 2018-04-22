@@ -73,18 +73,28 @@ namespace Callisto.Module.Authentication
                 throw new InvalidOperationException($"{model} is not valid");
             }
 
+
             using (var tran = new TransactionScope())
             {
-                var company 
-                var appUser = ModelFactory.CreateUser(model, 0);
+                var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
+                if (!companyResult.IsSuccess())
+                {
+                    Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
+                    return companyResult.AsResult;
+                }
+
+                var appUser = ModelFactory.CreateUser(model, companyResult.ObjectResult);
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
                     return RequestResult.Failed($"Failed to create user due to one or more errors [{user.Errors.First()}]");
                 }
+
+                tran.Complete();
             }
 
             return RequestResult.Success;
         }
     }
+
 }

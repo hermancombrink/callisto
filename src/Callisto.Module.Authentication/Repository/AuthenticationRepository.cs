@@ -30,25 +30,29 @@ namespace Callisto.Module.Authentication.Repository
         /// The CanRegisterNewCompany
         /// </summary>
         /// <returns>The <see cref="Task{bool}"/></returns>
-        public async Task<RequestResult> RegisterNewAccountAsync(RegisterViewModel model)
+        public async Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model)
         {
             using (var ctx = ContextFactory())
             {
                 if (ctx.Users.Any(c => c.UserName == model.Email || c.Email == c.Email))
                 {
-                    return RequestResult.Failed("User already exists");
+                    return RequestResult<long>.Failed("User already exists");
                 }
 
                 if (ctx.Companies.Any(c => c.Name == model.CompanyName))
                 {
-                    return RequestResult.Failed("Company already exists");
+                    return RequestResult<long>.Failed("Company already exists");
                 }
 
                 var company = ModelFactory.CreateCompany(model);
                 await ctx.Companies.AddAsync(company);
-            }
+                var subscription = ModelFactory.GetSubscription(company);
+                await ctx.Subscriptions.AddAsync(subscription);
 
-            return RequestResult.Success;
+                await ctx.SaveChangesAsync();
+
+                return RequestResult<long>.Success(company.RefId);
+            }
         }
     }
 }
