@@ -25,7 +25,7 @@ if($ignoreDotNetBuild)
 }
 else
 {
-	Write-Host "dotnet restore..." -ForegroundColor Cyan
+	Write-Host "msbuild restore..." -ForegroundColor Cyan
 	Write-Host $msbuild
 	$restore = $msbuild + " /t:restore callisto.sln  /verbosity:$verbosity"
 	Invoke-Expression $restore
