@@ -21,7 +21,13 @@ namespace Callisto.Module.Authentication.Tests
         public TestStartup(IHostingEnvironment env, IConfiguration configuration) : base(configuration)
         {
             env.ApplicationName = "Callisto.Web.Api";
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(env.ContentRootPath)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
@@ -36,7 +42,9 @@ namespace Callisto.Module.Authentication.Tests
 
             services
                 .WithInMemorySql(Configuration, services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"))
+                .WithCookieAuth(Configuration, services.ConfigureAndGet<CookieSiteOptions>(Configuration, "cookieSettings"))
                 .WithJwtTokenAuth(Configuration, services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"));
+
         }
 
         /// <summary>

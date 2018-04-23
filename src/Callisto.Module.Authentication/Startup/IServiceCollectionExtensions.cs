@@ -2,7 +2,9 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -60,7 +62,7 @@ namespace Callisto.Module.Authentication.Startup
             SecurityKey _signingKey = default;
             services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).
             AddJwtBearer(configureOptions => ModelFactory.CreateBearerOptions(issuerOptions, out _signingKey));
@@ -70,6 +72,31 @@ namespace Callisto.Module.Authentication.Startup
                 options.Issuer = issuerOptions.Issuer;
                 options.Audience = issuerOptions.Audience;
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection WithCookieAuth(this IServiceCollection services, 
+            IConfiguration config,
+            CookieSiteOptions cookieOptions)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie(cConfig => {
+                cConfig.LoginPath = cookieOptions.LoginPath;
+
+                cConfig.Cookie.Domain = cookieOptions.CookieDomain;
+                cConfig.Cookie.HttpOnly = cookieOptions.CookieHttpOnly;
+                cConfig.Cookie.Path = cookieOptions.CookiePath;
+                cConfig.Cookie.SecurePolicy = cookieOptions.CookieSecure ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
+                cConfig.Cookie.HttpOnly = cookieOptions.CookieHttpOnly;
+
+                cConfig.SlidingExpiration = cookieOptions.SlidingExpiration;
+                cConfig.ExpireTimeSpan = TimeSpan.FromMinutes(cookieOptions.ExpireTimeSpanInMinutes);
             });
 
             return services;
