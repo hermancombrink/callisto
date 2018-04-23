@@ -35,8 +35,6 @@ namespace Callisto.Module.Authentication.Tests
         /// </summary>
         public WebApiFixture WebApiFixture { get; }
 
-       
-
         /// <summary>
         /// The WebApiShouldReturn401WithToken
         /// </summary>
@@ -64,6 +62,34 @@ namespace Callisto.Module.Authentication.Tests
             var response = await requestResult.Content.ReadAsStringAsync();
             var r = response.FromJson<RequestResult>();
             r.Status.Should().Be(RequestStatus.Warning);
+        }
+
+
+        /// <summary>
+        /// The WebApiLoginShouldFailWithInvalidCredentials
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
+        [Fact]
+        public async Task WebApiLoginShouldSucceedWithValidCredentials()
+        {
+            var singup = Fixture.Build<RegisterViewModel>()
+               .With(c => c.Email, "test@test.com")
+               .With(c => c.Password, "Pass!2")
+               .With(c => c.ConfirmPassword, "Pass!2")
+               .Create();
+             await WebApiFixture.Client.PostAsync("/auth/signup", singup.ToJson().ToContent());
+
+            var login = Fixture.Create<LoginViewModel>();
+            singup.CopyProperties(login);
+            var body = login.ToJson().ToContent();
+            var requestResult = await WebApiFixture.Client.PostAsync("/auth/login", body);
+
+            requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var response = await requestResult.Content.ReadAsStringAsync();
+            var r = response.FromJson<RequestResult>();
+
+            r.Status.Should().Be(RequestStatus.Success);
         }
 
         /// <summary>
@@ -94,7 +120,7 @@ namespace Callisto.Module.Authentication.Tests
         public async Task WebApiRegisterShouldSucceedWithAllIsWell()
         {
             var login = Fixture.Build<RegisterViewModel>()
-                .With(c => c.Email, "newcustomer@test.com")
+                .With(c => c.Email, "randomuser@test.com")
                 .With(c => c.Password, "Pass!2")
                 .With(c => c.ConfirmPassword, "Pass!2")
                 .Create();
@@ -105,6 +131,7 @@ namespace Callisto.Module.Authentication.Tests
 
             var response = await requestResult.Content.ReadAsStringAsync();
             var r = response.FromJson<RequestResult>();
+            r.FriendlyMessage.Should().Be(string.Empty);
             r.Status.Should().Be(RequestStatus.Success);
         }
 

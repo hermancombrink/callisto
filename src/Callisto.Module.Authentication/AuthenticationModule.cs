@@ -75,6 +75,7 @@ namespace Callisto.Module.Authentication
 
             using (var tran = new TransactionScope())
             {
+
                 var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
                 if (!companyResult.IsSuccess())
                 {

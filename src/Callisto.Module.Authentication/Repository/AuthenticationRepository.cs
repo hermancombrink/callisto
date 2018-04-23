@@ -32,7 +32,7 @@ namespace Callisto.Module.Authentication.Repository
         /// <returns>The <see cref="Task{bool}"/></returns>
         public async Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model)
         {
-            if (Context.Users.Any(c => c.UserName == model.Email || c.Email == c.Email))
+            if (Context.Users.Any(c => c.UserName == model.Email || c.Email == model.Email))
             {
                 return RequestResult<long>.Failed("User already exists");
             }
