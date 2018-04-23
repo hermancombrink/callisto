@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Callisto.Module.Authentication.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.Net.Http;
 
@@ -18,7 +19,7 @@ namespace Callisto.Module.Authentication.Tests
                       .UseStartup<TestStartup>();
 
             Server = new TestServer(host);
-
+            Context = Server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
             Client = Server.CreateClient();
         }
 
@@ -26,6 +27,11 @@ namespace Callisto.Module.Authentication.Tests
         /// Gets the Server
         /// </summary>
         public TestServer Server { get; }
+
+        /// <summary>
+        /// Gets the Context
+        /// </summary>
+        public ApplicationDbContext Context { get; }
 
         /// <summary>
         /// Gets the Client

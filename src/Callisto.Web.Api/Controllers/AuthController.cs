@@ -33,9 +33,20 @@ namespace Callisto.Web.Api.Controllers
         /// <param name="model">The <see cref="LoginViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult{string}}"/></returns>
         [HttpPost("login")]
-        public async Task<RequestResult<string>> LoginAsync([FromBody] LoginViewModel model)
+        public async Task<RequestResult> LoginAsync([FromBody] LoginViewModel model)
         {
-            return await Task.FromResult(RequestResult<string>.Failed("Failed to login"));
+            return await AuthenticationModule.LoginUserAsync(model);
+        }
+
+        /// <summary>
+        /// The LoginAsync
+        /// </summary>
+        /// <param name="model">The <see cref="LoginViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult{string}}"/></returns>
+        [HttpPost("signup")]
+        public async Task<RequestResult> SignUpAsync([FromBody] RegisterViewModel model)
+        {
+            return await AuthenticationModule.RegisterUserAsync(model);
         }
     }
 }

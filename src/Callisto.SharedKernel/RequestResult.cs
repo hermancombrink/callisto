@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel.Enum;
+using Newtonsoft.Json;
 using System;
 
 namespace Callisto.SharedKernel
@@ -13,6 +14,18 @@ namespace Callisto.SharedKernel
         /// </summary>
         public RequestResult()
         {
+            Result = string.Empty;
+            Status = RequestStatus.Success;
+            SystemMessage = string.Empty;
+            FriendlyMessage = string.Empty;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestResult"/> class.
+        /// </summary>
+        public RequestResult(string result)
+        {
+            Result = result;
             Status = RequestStatus.Success;
             SystemMessage = string.Empty;
             FriendlyMessage = string.Empty;
@@ -24,8 +37,9 @@ namespace Callisto.SharedKernel
         /// <param name="status">The <see cref="RequestStatus"/></param>
         /// <param name="systemMessage">The <see cref="string"/></param>
         /// <param name="friendlyMessage">The <see cref="string"/></param>
-        public RequestResult(RequestStatus status, string systemMessage = "", string friendlyMessage = "")
+        public RequestResult(RequestStatus status, string result = "", string systemMessage = "", string friendlyMessage = "")
         {
+            Result = result;
             Status = status;
             SystemMessage = systemMessage;
             FriendlyMessage = friendlyMessage;
@@ -36,22 +50,23 @@ namespace Callisto.SharedKernel
         /// </summary>
         /// <param name="ex">The <see cref="Exception"/></param>
         /// <param name="friendlyMessage">The <see cref="string"/></param>
-        public RequestResult(Exception ex, string friendlyMessage = "")
+        public RequestResult(Exception ex, string result = "", string friendlyMessage = "")
         {
+            Result = result;
             Status = RequestStatus.Exception;
             SystemMessage = ex.Message;
             FriendlyMessage = string.IsNullOrEmpty(friendlyMessage) ? "Oops, we did not expect that!" : friendlyMessage;
         }
 
         /// <summary>
+        /// Gets the Result
+        /// </summary>
+        public string Result { get; set; }
+
+        /// <summary>
         /// Defines the _friendlyMessage
         /// </summary>
         private string _friendlyMessage;
-
-        /// <summary>
-        /// Defines the _systemMessage
-        /// </summary>
-        private string _systemMessage;
 
         /// <summary>
         /// Gets or sets the Status
@@ -63,7 +78,7 @@ namespace Callisto.SharedKernel
         /// </summary>
         public string FriendlyMessage
         {
-            get { return string.IsNullOrEmpty(_friendlyMessage) ? _systemMessage : _friendlyMessage; }
+            get { return string.IsNullOrEmpty(_friendlyMessage) ? SystemMessage : _friendlyMessage; }
             set { _friendlyMessage = value; }
         }
 
@@ -85,16 +100,26 @@ namespace Callisto.SharedKernel
         /// The Success
         /// </summary>
         /// <returns>The <see cref="RequestResult"/></returns>
-        public static RequestResult Success => new RequestResult();
+        public static RequestResult Success(string result = "") => new RequestResult(result);
 
         /// <summary>
         /// The Failed
         /// </summary>
         /// <param name="message">The <see cref="string"/></param>
         /// <returns>The <see cref="RequestResult"/></returns>
-        public static RequestResult Failed(string message)
+        public static RequestResult Failed(string message, string result = "")
         {
-            return new RequestResult(RequestStatus.Failed, message);
+            return new RequestResult(RequestStatus.Failed, result: result, friendlyMessage: message);
+        }
+
+        /// <summary>
+        /// The Validation
+        /// </summary>
+        /// <param name="message">The <see cref="string"/></param>
+        /// <returns>The <see cref="RequestResult"/></returns>
+        public static RequestResult Validation(string message, string result = "")
+        {
+            return new RequestResult(RequestStatus.Warning, result: result, friendlyMessage: message);
         }
     }
 
@@ -105,11 +130,22 @@ namespace Callisto.SharedKernel
     public class RequestResult<T>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="RequestResult{T}"/> class.
+        /// </summary>
+        public RequestResult()
+        {
+            Result = default;
+            Status = RequestStatus.Success;
+            SystemMessage = string.Empty;
+            FriendlyMessage = string.Empty;
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RequestResult"/> class.
         /// </summary>
-        public RequestResult(T objectResult)
+        public RequestResult(T result)
         {
-            ObjectResult = objectResult;
+            Result = result;
             Status = RequestStatus.Success;
             SystemMessage = string.Empty;
             FriendlyMessage = string.Empty;
@@ -121,9 +157,9 @@ namespace Callisto.SharedKernel
         /// <param name="status">The <see cref="RequestStatus"/></param>
         /// <param name="systemMessage">The <see cref="string"/></param>
         /// <param name="friendlyMessage">The <see cref="string"/></param>
-        public RequestResult(RequestStatus status, T objectResult = default, string systemMessage = "", string friendlyMessage = "")
+        public RequestResult(RequestStatus status, T result = default, string systemMessage = "", string friendlyMessage = "")
         {
-            ObjectResult = objectResult;
+            Result = result;
             Status = status;
             SystemMessage = systemMessage;
             FriendlyMessage = friendlyMessage;
@@ -134,9 +170,9 @@ namespace Callisto.SharedKernel
         /// </summary>
         /// <param name="ex">The <see cref="Exception"/></param>
         /// <param name="friendlyMessage">The <see cref="string"/></param>
-        public RequestResult(Exception ex, T objectResult = default, string friendlyMessage = "")
+        public RequestResult(Exception ex, T result = default, string friendlyMessage = "")
         {
-            ObjectResult = objectResult;
+            Result = result;
             Status = RequestStatus.Exception;
             SystemMessage = ex.Message;
             FriendlyMessage = string.IsNullOrEmpty(friendlyMessage) ? "Oops, we did not expect that!" : friendlyMessage;
@@ -148,11 +184,6 @@ namespace Callisto.SharedKernel
         private string _friendlyMessage;
 
         /// <summary>
-        /// Defines the _systemMessage
-        /// </summary>
-        private string _systemMessage;
-
-        /// <summary>
         /// Gets or sets the Status
         /// </summary>
         public RequestStatus Status { get; set; }
@@ -162,7 +193,7 @@ namespace Callisto.SharedKernel
         /// </summary>
         public string FriendlyMessage
         {
-            get { return string.IsNullOrEmpty(_friendlyMessage) ? _systemMessage : _friendlyMessage; }
+            get { return string.IsNullOrEmpty(_friendlyMessage) ? SystemMessage : _friendlyMessage; }
             set { _friendlyMessage = value; }
         }
 
@@ -174,12 +205,13 @@ namespace Callisto.SharedKernel
         /// <summary>
         /// Gets the ObjectResult
         /// </summary>
-        public T ObjectResult { get; }
+        public T Result { get; set; }
 
         /// <summary>
         /// The AsResult
         /// </summary>
         /// <returns>The <see cref="RequestResult"/></returns>
+        [JsonIgnore]
         public RequestResult AsResult
         {
             get
@@ -208,11 +240,20 @@ namespace Callisto.SharedKernel
         /// </summary>
         /// <param name="message">The <see cref="string"/></param>
         /// <returns>The <see cref="RequestResult"/></returns>
-        public static RequestResult<T> Failed(string message, T objectResult = default)
+        public static RequestResult<T> Failed(string message, T result = default)
         {
-            return new RequestResult<T>(RequestStatus.Failed, objectResult, message);
+            return new RequestResult<T>(RequestStatus.Failed, result, message);
         }
 
-      
+        /// <summary>
+        /// The Validation
+        /// </summary>
+        /// <param name="message">The <see cref="string"/></param>
+        /// <param name="objectResult">The <see cref="T"/></param>
+        /// <returns>The <see cref="RequestResult{T}"/></returns>
+        public static RequestResult<T> Validation(string message, T result = default)
+        {
+            return new RequestResult<T>(RequestStatus.Warning, result, message);
+        }
     }
 }

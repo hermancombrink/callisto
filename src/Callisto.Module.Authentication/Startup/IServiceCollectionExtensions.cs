@@ -90,7 +90,6 @@ namespace Callisto.Module.Authentication.Startup
 
             services.AddTransient<IAuthenticationModule, AuthenticationModule>();
             services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
-            services.AddSingleton<Func<ApplicationDbContext>>(c => () => c.GetRequiredService<ApplicationDbContext>());
         }
     }
 }

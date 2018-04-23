@@ -16,15 +16,15 @@ namespace Callisto.Module.Authentication.Repository
         /// Initializes a new instance of the <see cref="AuthenticationRepository"/> class.
         /// </summary>
         /// <param name="contextFactory">The <see cref="Func{ApplicationDbContext}"/></param>
-        public AuthenticationRepository(Func<ApplicationDbContext> contextFactory)
+        public AuthenticationRepository(ApplicationDbContext context)
         {
-            ContextFactory = contextFactory;
+            Context = context;
         }
 
         /// <summary>
         /// Gets the Context
         /// </summary>
-        private Func<ApplicationDbContext> ContextFactory { get; }
+        private ApplicationDbContext Context { get; }
 
         /// <summary>
         /// The CanRegisterNewCompany
@@ -32,27 +32,24 @@ namespace Callisto.Module.Authentication.Repository
         /// <returns>The <see cref="Task{bool}"/></returns>
         public async Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model)
         {
-            using (var ctx = ContextFactory())
+            if (Context.Users.Any(c => c.UserName == model.Email || c.Email == c.Email))
             {
-                if (ctx.Users.Any(c => c.UserName == model.Email || c.Email == c.Email))
-                {
-                    return RequestResult<long>.Failed("User already exists");
-                }
-
-                if (ctx.Companies.Any(c => c.Name == model.CompanyName))
-                {
-                    return RequestResult<long>.Failed("Company already exists");
-                }
-
-                var company = ModelFactory.CreateCompany(model);
-                await ctx.Companies.AddAsync(company);
-                var subscription = ModelFactory.GetSubscription(company);
-                await ctx.Subscriptions.AddAsync(subscription);
-
-                await ctx.SaveChangesAsync();
-
-                return RequestResult<long>.Success(company.RefId);
+                return RequestResult<long>.Failed("User already exists");
             }
+
+            if (Context.Companies.Any(c => c.Name == model.CompanyName))
+            {
+                return RequestResult<long>.Failed("Company already exists");
+            }
+
+            var company = ModelFactory.CreateCompany(model);
+            await Context.Companies.AddAsync(company);
+            var subscription = ModelFactory.GetSubscription(company);
+            await Context.Subscriptions.AddAsync(subscription);
+
+            await Context.SaveChangesAsync();
+
+            return RequestResult<long>.Success(company.RefId);
         }
     }
 }

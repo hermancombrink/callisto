@@ -65,14 +65,13 @@ namespace Callisto.Module.Authentication
 
             if (model is null)
             {
-                throw new ArgumentNullException(nameof(model));
+                return RequestResult.Validation($"Request cannot be null");
             }
 
-            if (!model.Validate().isValid)
+            if (!model.Validate(out string msg).isValid)
             {
-                throw new InvalidOperationException($"{model} is not valid");
+                return RequestResult.Validation(msg);
             }
-
 
             using (var tran = new TransactionScope())
             {
@@ -83,7 +82,7 @@ namespace Callisto.Module.Authentication
                     return companyResult.AsResult;
                 }
 
-                var appUser = ModelFactory.CreateUser(model, companyResult.ObjectResult);
+                var appUser = ModelFactory.CreateUser(model, companyResult.Result);
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
@@ -93,8 +92,39 @@ namespace Callisto.Module.Authentication
                 tran.Complete();
             }
 
-            return RequestResult.Success;
+            return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The LoginUserAsync
+        /// </summary>
+        /// <param name="model">The <see cref="LoginViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult{string}}"/></returns>
+        public async Task<RequestResult> LoginUserAsync(LoginViewModel model)
+        {
+            if (model is null)
+            {
+                return RequestResult.Validation($"Request cannot be null");
+            }
+
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user != null)
+            {
+                //TODO: Move lockout to settings
+                //var signInResult = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
+                var result = await SignInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return RequestResult.Success();
+                }
+            }
+
+            return RequestResult.Failed($"Login failed for account {model.Email}");
         }
     }
-
 }
