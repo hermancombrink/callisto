@@ -7,33 +7,28 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Callisto.Web.Api
+namespace Callisto.Module.Authentication.Tests
 {
     /// <summary>
-    /// Defines the <see cref="Startup" />
+    /// Defines the <see cref="TestStartup" />
     /// </summary>
-    public class Startup
+    public class TestStartup : Callisto.Web.Api.Startup
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// Initializes a new instance of the <see cref="TestStartup"/> class.
         /// </summary>
         /// <param name="configuration">The <see cref="IConfiguration"/></param>
-        public Startup(IConfiguration configuration)
+        public TestStartup(IHostingEnvironment env, IConfiguration configuration) : base(configuration)
         {
-            Configuration = configuration;
+            env.ApplicationName = "Callisto.Web.Api";
         }
-
-        /// <summary>
-        /// Gets the Configuration
-        /// </summary>
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
         /// The ConfigureServices
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        public virtual void ConfigureServices(IServiceCollection services)
+        public override void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
@@ -44,22 +39,14 @@ namespace Callisto.Web.Api
                 .WithJwtTokenAuth(Configuration, services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// <summary>
         /// The Configure
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/></param>
         /// <param name="env">The <see cref="IHostingEnvironment"/></param>
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/></param>
-        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public override void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole();
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseMvc();
         }
     }

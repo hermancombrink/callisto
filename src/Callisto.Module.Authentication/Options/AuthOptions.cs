@@ -13,21 +13,21 @@
         /// <summary>
         /// Gets or sets a value indicating whether RequireNonAlphanumeric
         /// </summary>
-        public bool RequireNonAlphanumeric { get; set; } = false;
+        public bool RequireNonAlphanumeric { get; set; } 
 
         /// <summary>
         /// Gets or sets a value indicating whether RequireLowercase
         /// </summary>
-        public bool RequireLowercase { get; set; } = false;
+        public bool RequireLowercase { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether RequireUppercase
         /// </summary>
-        public bool RequireUppercase { get; set; } = false;
+        public bool RequireUppercase { get; set; } 
 
         /// <summary>
         /// Gets or sets a value indicating whether RequireDigit
         /// </summary>
-        public bool RequireDigit { get; set; } = false;
+        public bool RequireDigit { get; set; } 
     }
 }

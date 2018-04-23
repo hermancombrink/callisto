@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Authentication.Options;
+﻿using Callisto.Module.Authentication.Interfaces;
+using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace Callisto.Module.Authentication.Startup
 {
@@ -85,6 +87,10 @@ namespace Callisto.Module.Authentication.Startup
             services.AddIdentity<ApplicationUser, IdentityRole>(options => ModelFactory.CreateIdentityOptions(authOptions))
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IAuthenticationModule, AuthenticationModule>();
+            services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddSingleton<Func<ApplicationDbContext>>(c => () => c.GetRequiredService<ApplicationDbContext>());
         }
     }
 }
