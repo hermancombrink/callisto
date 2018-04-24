@@ -1,8 +1,8 @@
 using AutoFixture;
 using Callisto.Module.Authentication.Repository.Models;
-using Callisto.Module.Authentication.ViewModels;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Auth.ViewModels;
 using FluentAssertions;
 using System.Net;
 using System.Threading.Tasks;

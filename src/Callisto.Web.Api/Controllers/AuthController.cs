@@ -1,6 +1,6 @@
-﻿using Callisto.Module.Authentication.Interfaces;
-using Callisto.Module.Authentication.ViewModels;
-using Callisto.SharedKernel;
+﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,16 +17,16 @@ namespace Callisto.Web.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthController"/> class.
         /// </summary>
-        /// <param name="authenticationModule">The <see cref="IAuthenticationModule"/></param>
-        public AuthController(IAuthenticationModule authenticationModule)
+        /// <param name="session">The <see cref="ICallistoSession"/></param>
+        public AuthController(ICallistoSession session)
         {
-            AuthenticationModule = authenticationModule;
+            CallistoSession = session;
         }
 
         /// <summary>
-        /// Gets the AuthenticationModule
+        /// Gets the CallistoSession
         /// </summary>
-        public IAuthenticationModule AuthenticationModule { get; }
+        public ICallistoSession CallistoSession { get; }
 
         /// <summary>
         /// The LoginAsync
@@ -36,7 +36,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpPost("login")]
         public async Task<RequestResult> LoginAsync([FromBody] LoginViewModel model)
         {
-            return await AuthenticationModule.LoginUserAsync(model);
+            return await CallistoSession.Authentication.LoginUserAsync(model);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpPost("signup")]
         public async Task<RequestResult> SignUpAsync([FromBody] RegisterViewModel model)
         {
-            return await AuthenticationModule.RegisterUserAsync(model);
+            return await CallistoSession.Authentication.RegisterUserAsync(model);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("reset")]
         public async Task<RequestResult> ResetPassworod()
         {
-            return await AuthenticationModule.ResetPassword(HttpContext.User.Identity.Name);
+            return await CallistoSession.Authentication.ResetPassword(HttpContext.User.Identity.Name);
         }
     }
 }

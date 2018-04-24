@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
+    <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

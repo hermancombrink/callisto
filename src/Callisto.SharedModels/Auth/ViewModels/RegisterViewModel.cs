@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Callisto.Module.Authentication.ViewModels
+namespace Callisto.SharedModels.Auth.ViewModels
 {
     /// <summary>
     /// Defines the <see cref="RegisterViewModel" />

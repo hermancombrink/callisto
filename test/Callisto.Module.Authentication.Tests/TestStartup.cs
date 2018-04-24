@@ -1,7 +1,9 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Startup;
+using Callisto.Session.Provider;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +49,7 @@ namespace Callisto.Module.Authentication.Tests
                 dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
               );
 
+            services.AddTransient<ICallistoSession, CallistoSession>();
             services.AddMvc();
         }
 

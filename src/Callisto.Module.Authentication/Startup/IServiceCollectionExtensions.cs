@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedModels.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

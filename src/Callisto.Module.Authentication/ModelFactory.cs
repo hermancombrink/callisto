@@ -1,6 +1,6 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
-using Callisto.Module.Authentication.ViewModels;
+using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

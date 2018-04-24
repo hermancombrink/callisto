@@ -61,7 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{53A877
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.SharedKernel", "src\Callisto.SharedKernel\Callisto.SharedKernel.csproj", "{012A2DDA-CECA-40AE-898E-3BCEB919EF63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.SharedKernel", "src\Callisto.SharedKernel\Callisto.SharedKernel.csproj", "{012A2DDA-CECA-40AE-898E-3BCEB919EF63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "session", "session", "{B163B4D0-DD97-485B-A9B9-EDBD8C8C0F1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Session.Provider", "src\Callisto.Session.Provider\Callisto.Session.Provider.csproj", "{195DE404-86B5-4C2E-8347-FD395B50BF59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.SharedModels", "src\Callisto.SharedModels\Callisto.SharedModels.csproj", "{D9672CF0-7822-4395-AE4F-5F2BFB755B0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +109,14 @@ Global
 		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{012A2DDA-CECA-40AE-898E-3BCEB919EF63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{195DE404-86B5-4C2E-8347-FD395B50BF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{195DE404-86B5-4C2E-8347-FD395B50BF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{195DE404-86B5-4C2E-8347-FD395B50BF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{195DE404-86B5-4C2E-8347-FD395B50BF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,9 +135,12 @@ Global
 		{53A8776E-3910-4434-B7C4-4A6967A99F08} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{012A2DDA-CECA-40AE-898E-3BCEB919EF63} = {53A8776E-3910-4434-B7C4-4A6967A99F08}
+		{B163B4D0-DD97-485B-A9B9-EDBD8C8C0F1E} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{195DE404-86B5-4C2E-8347-FD395B50BF59} = {B163B4D0-DD97-485B-A9B9-EDBD8C8C0F1E}
+		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F} = {53A8776E-3910-4434-B7C4-4A6967A99F08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal

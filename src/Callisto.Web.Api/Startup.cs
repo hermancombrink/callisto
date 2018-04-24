@@ -1,6 +1,8 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
+using Callisto.Session.Provider;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,9 +41,10 @@ namespace Callisto.Web.Api
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                Configuration.GetConnectionString("DefaultConnection")
+                "DefaultConnection"
               );
 
+            services.AddTransient<ICallistoSession, CallistoSession>();
             services.AddMvc();
         }
 

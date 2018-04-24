@@ -1,9 +1,10 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
-using Callisto.Module.Authentication.ViewModels;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

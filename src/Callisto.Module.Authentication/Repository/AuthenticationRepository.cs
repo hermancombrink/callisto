@@ -1,6 +1,6 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
-using Callisto.Module.Authentication.ViewModels;
 using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
