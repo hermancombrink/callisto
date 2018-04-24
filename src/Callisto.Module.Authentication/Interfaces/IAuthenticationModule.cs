@@ -22,5 +22,12 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="model">The <see cref="LoginViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult{string}}"/></returns>
         Task<RequestResult> LoginUserAsync(LoginViewModel model);
+
+        /// <summary>
+        /// The ResetPassword
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> ResetPassword(string email);
     }
 }

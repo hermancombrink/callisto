@@ -2,15 +2,14 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 namespace Callisto.Module.Authentication.Startup
 {
@@ -20,103 +19,69 @@ namespace Callisto.Module.Authentication.Startup
     public static class IServiceCollectionExtensions
     {
         /// <summary>
-        /// The AddOnDiskSql
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
-        /// <param name="authOptions">The <see cref="AuthOptions"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        public static IServiceCollection WithOnDiskSql(this IServiceCollection services,
-            IConfiguration config, AuthOptions authOptions,
-            string connectionString = "DefaultConnection")
-        {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(config.GetConnectionString(connectionString)));
-
-            AddDefaults(services, config, authOptions);
-
-            return services;
-        }
-
-        /// <summary>
         /// The AddInMemorySql
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="authOptions">The <see cref="AuthOptions"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
-        public static IServiceCollection WithInMemorySql(this IServiceCollection services,
-            IConfiguration config, AuthOptions authOptions,
-            string databaseName = "InMemoryDatabase")
+        public static IServiceCollection UseCallistoIdentity(this IServiceCollection services,
+            IConfiguration config, 
+            AuthOptions authOptions,
+            JwtIssuerOptions issuerOptions,
+            Action<DbContextOptionsBuilder> dbContextFactory)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(databaseName));
+            services.AddDbContext<ApplicationDbContext>(dbContextFactory);
 
-            AddDefaults(services, config, authOptions);
-
-            return services;
-        }
-
-        public static IServiceCollection WithJwtTokenAuth(this IServiceCollection services,
-            IConfiguration config,
-            JwtIssuerOptions issuerOptions)
-        {
-            SecurityKey _signingKey = default;
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).
-            AddJwtBearer(configureOptions => ModelFactory.CreateBearerOptions(issuerOptions, out _signingKey));
-
-            services.Configure<JwtIssuerOptions>(options =>
-            {
-                options.Issuer = issuerOptions.Issuer;
-                options.Audience = issuerOptions.Audience;
-                options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
-            });
-
-            return services;
-        }
-
-        public static IServiceCollection WithCookieAuth(this IServiceCollection services, 
-            IConfiguration config,
-            CookieSiteOptions cookieOptions)
-        {
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-            .AddCookie(cConfig => {
-                cConfig.LoginPath = cookieOptions.LoginPath;
-
-                cConfig.Cookie.Domain = cookieOptions.CookieDomain;
-                cConfig.Cookie.HttpOnly = cookieOptions.CookieHttpOnly;
-                cConfig.Cookie.Path = cookieOptions.CookiePath;
-                cConfig.Cookie.SecurePolicy = cookieOptions.CookieSecure ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.None;
-                cConfig.Cookie.HttpOnly = cookieOptions.CookieHttpOnly;
-
-                cConfig.SlidingExpiration = cookieOptions.SlidingExpiration;
-                cConfig.ExpireTimeSpan = TimeSpan.FromMinutes(cookieOptions.ExpireTimeSpanInMinutes);
-            });
-
-            return services;
-        }
-
-        /// <summary>
-        /// The AddDefaults
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
-        /// <param name="authOptions">The <see cref="AuthOptions"/></param>
-        private static void AddDefaults(this IServiceCollection services,
-            IConfiguration config, AuthOptions authOptions)
-        {
             services.AddIdentity<ApplicationUser, IdentityRole>(options => ModelFactory.CreateIdentityOptions(authOptions))
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationModule, AuthenticationModule>();
             services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
+
+            services.AddAuthentication(c =>
+            {
+                c.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                c.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                c.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(options =>
+           {
+               options.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuer = true,
+                   ValidateAudience = true,
+                   ValidateLifetime = true,
+                   ValidateIssuerSigningKey = true,
+                   ValidIssuer = issuerOptions.Issuer,
+                   ValidAudience = issuerOptions.Audience,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtFactory.SecretKey))
+               };
+           });
+
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+
+            return services;
         }
+
+        /// <summary>
+        /// The WithIdentity
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/></param>
+        /// <param name="config">The <see cref="IConfiguration"/></param>
+        /// <param name="authOptions">The <see cref="AuthOptions"/></param>
+        /// <param name="connectionString">The <see cref="string"/></param>
+        /// <returns>The <see cref="IServiceCollection"/></returns>
+        public static IServiceCollection UseCallistoIdentity(this IServiceCollection services,
+            IConfiguration config,
+            AuthOptions authOptions,
+            JwtIssuerOptions issuerOptions,
+            string connectionString)
+        {
+            return UseCallistoIdentity(services, config, authOptions, issuerOptions, options => options.UseSqlServer(config.GetConnectionString(connectionString)));
+        }
+
+       
     }
 }

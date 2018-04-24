@@ -26,7 +26,7 @@ namespace Callisto.Web.Api
         /// <summary>
         /// Gets the Configuration
         /// </summary>
-        public  IConfiguration Configuration {  get;  set; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
@@ -35,13 +35,14 @@ namespace Callisto.Web.Api
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.UseCallistoIdentity(
+                Configuration,
+                services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
+                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
+                Configuration.GetConnectionString("DefaultConnection")
+              );
 
             services.AddMvc();
-
-            services
-                .WithInMemorySql(Configuration, services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"))
-                .WithJwtTokenAuth(Configuration, services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +61,9 @@ namespace Callisto.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

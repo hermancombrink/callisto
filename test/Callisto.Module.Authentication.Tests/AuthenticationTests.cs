@@ -1,7 +1,6 @@
 using AutoFixture;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.Module.Authentication.ViewModels;
-using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using FluentAssertions;
@@ -36,17 +35,6 @@ namespace Callisto.Module.Authentication.Tests
         public WebApiFixture WebApiFixture { get; }
 
         /// <summary>
-        /// The WebApiShouldReturn401WithToken
-        /// </summary>
-        [Fact]
-        public async Task WebApiShouldReturn401WithToken()
-        {
-            var requestResult = await WebApiFixture.Client.GetAsync("/values");
-
-            requestResult.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
-        }
-
-        /// <summary>
         /// The WebApiLoginShouldFailWithInvalidCredentials
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
@@ -59,11 +47,9 @@ namespace Callisto.Module.Authentication.Tests
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await requestResult.Content.ReadAsStringAsync();
-            var r = response.FromJson<RequestResult>();
-            r.Status.Should().Be(RequestStatus.Warning);
+            var response = requestResult.ToRequestResult();
+            response.Status.Should().Be(RequestStatus.Warning);
         }
-
 
         /// <summary>
         /// The WebApiLoginShouldFailWithInvalidCredentials
@@ -77,7 +63,7 @@ namespace Callisto.Module.Authentication.Tests
                .With(c => c.Password, "Pass!2")
                .With(c => c.ConfirmPassword, "Pass!2")
                .Create();
-             await WebApiFixture.Client.PostAsync("/auth/signup", singup.ToJson().ToContent());
+            await WebApiFixture.Client.PostAsync("/auth/signup", singup.ToJson().ToContent());
 
             var login = Fixture.Create<LoginViewModel>();
             singup.CopyProperties(login);
@@ -86,10 +72,9 @@ namespace Callisto.Module.Authentication.Tests
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await requestResult.Content.ReadAsStringAsync();
-            var r = response.FromJson<RequestResult>();
-
-            r.Status.Should().Be(RequestStatus.Success);
+            var response = requestResult.ToRequestResult();
+            response.Status.Should().Be(RequestStatus.Success);
+            response.Result.Should().NotBeNullOrEmpty();
         }
 
         /// <summary>
@@ -107,9 +92,8 @@ namespace Callisto.Module.Authentication.Tests
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await requestResult.Content.ReadAsStringAsync();
-            var r = response.FromJson<RequestResult>();
-            r.Status.Should().Be(RequestStatus.Failed);
+            var response = requestResult.ToRequestResult();
+            response.Status.Should().Be(RequestStatus.Failed);
         }
 
         /// <summary>
@@ -129,10 +113,9 @@ namespace Callisto.Module.Authentication.Tests
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await requestResult.Content.ReadAsStringAsync();
-            var r = response.FromJson<RequestResult>();
-            r.FriendlyMessage.Should().Be(string.Empty);
-            r.Status.Should().Be(RequestStatus.Success);
+            var response = requestResult.ToRequestResult();
+            response.FriendlyMessage.Should().Be(string.Empty);
+            response.Status.Should().Be(RequestStatus.Success);
         }
 
         /// <summary>
@@ -159,9 +142,69 @@ namespace Callisto.Module.Authentication.Tests
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            var response = await requestResult.Content.ReadAsStringAsync();
-            var r = response.FromJson<RequestResult>();
-            r.Status.Should().Be(RequestStatus.Failed);
+            var response = requestResult.ToRequestResult();
+            response.Status.Should().Be(RequestStatus.Failed);
+        }
+
+        /// <summary>
+        /// The ResetPasswordShouldReturnTokenWhenAllIsWell
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
+        [Fact]
+        public async Task ResetPasswordShouldReturnTokenWhenAllIsWell()
+        {
+            var user = new ApplicationUser()
+            {
+                Email = "reset@test.com",
+                UserName = "reset@test.com",
+                FirstName = "test",
+                LastName = "test",
+            };
+
+            var create = await WebApiFixture.UserManager.CreateAsync(user, "Password!2");
+
+            var login = new LoginViewModel()
+            {
+                Email = "reset@test.com",
+                Password = "Password!2"
+            };
+
+            var signin = await WebApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
+            var r = signin.ToRequestResult();
+
+            var client = WebApiFixture.Server.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
+
+            var reset = await client.GetAsync("/auth/reset");
+            reset.EnsureSuccessStatusCode();
+            var response = reset.ToRequestResult();
+            response.Status.Should().Be(RequestStatus.Success);
+            response.Result.Should().NotBeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// The WebApiShouldReturn401WithToken
+        /// </summary>
+        [Fact]
+        public async Task WebApiShouldReturn401WithoutToken()
+        {
+            var reset = await WebApiFixture.Client.GetAsync("/auth/reset");
+
+            reset.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
+
+        /// <summary>
+        /// The WebApiShouldReturn401WithToken
+        /// </summary>
+        [Fact]
+        public async Task WebApiShouldReturn401WithInvalidToken()
+        {
+            var client = WebApiFixture.Server.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"wakka wakka");
+
+            var reset = await client.GetAsync("/auth/reset");
+
+            reset.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
     }
 }

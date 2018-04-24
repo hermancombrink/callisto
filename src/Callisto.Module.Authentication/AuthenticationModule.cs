@@ -1,10 +1,12 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
+using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.Module.Authentication.ViewModels;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,12 +28,16 @@ namespace Callisto.Module.Authentication
             ILogger<AuthenticationModule> logger,
             IAuthenticationRepository authRepo,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IJwtFactory jwtFactory,
+            IOptions<JwtIssuerOptions> jwtOptions)
         {
             Logger = logger;
             AuthRepo = authRepo;
             UserManager = userManager;
             SignInManager = signInManager;
+            JwtFactory = jwtFactory;
+            JwtOptions = jwtOptions?.Value ?? throw new ArgumentException(nameof(jwtOptions));
         }
 
         /// <summary>
@@ -48,6 +54,16 @@ namespace Callisto.Module.Authentication
         /// Gets the SignInManager
         /// </summary>
         private SignInManager<ApplicationUser> SignInManager { get; }
+
+        /// <summary>
+        /// Gets the JwtFactory
+        /// </summary>
+        public IJwtFactory JwtFactory { get; }
+
+        /// <summary>
+        /// Gets the JwtOptions
+        /// </summary>
+        public JwtIssuerOptions JwtOptions { get; }
 
         /// <summary>
         /// Gets the AuthRepo
@@ -121,11 +137,32 @@ namespace Callisto.Module.Authentication
                 var result = await SignInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RequestResult.Success();
+                    var token = JwtFactory.GetToken(model.Email, user.Id);
+                    return RequestResult.Success(token);
                 }
             }
 
             return RequestResult.Failed($"Login failed for account {model.Email}");
+        }
+
+        /// <summary>
+        /// The ResetPassword
+        /// </summary>
+        /// <param name="model">The <see cref="ResetPasswordViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> ResetPassword(string email)
+        {
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+
+                //TODO: Send notification with token
+
+                return RequestResult.Success(token);
+            }
+
+            return RequestResult.Failed($"Login failed for account {email}");
         }
     }
 }

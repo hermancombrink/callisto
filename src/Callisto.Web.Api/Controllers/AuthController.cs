@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.ViewModels;
 using Callisto.SharedKernel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -47,6 +48,18 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> SignUpAsync([FromBody] RegisterViewModel model)
         {
             return await AuthenticationModule.RegisterUserAsync(model);
+        }
+
+        /// <summary>
+        /// The ResetPassworod
+        /// </summary>
+        /// <param name="model">The <see cref="ResetPasswordViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [Authorize]
+        [HttpGet("reset")]
+        public async Task<RequestResult> ResetPassworod()
+        {
+            return await AuthenticationModule.ResetPassword(HttpContext.User.Identity.Name);
         }
     }
 }

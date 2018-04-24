@@ -1,8 +1,10 @@
 ﻿using Callisto.Module.Authentication.Options;
+using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Startup;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,10 +23,12 @@ namespace Callisto.Module.Authentication.Tests
         public TestStartup(IHostingEnvironment env, IConfiguration configuration) : base(configuration)
         {
             env.ApplicationName = "Callisto.Web.Api";
+
             var builder = new ConfigurationBuilder()
-            .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables();
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -36,15 +40,14 @@ namespace Callisto.Module.Authentication.Tests
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public override void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.UseCallistoIdentity(
+                Configuration,
+                services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
+                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
+                dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
+              );
 
             services.AddMvc();
-
-            services
-                .WithInMemorySql(Configuration, services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"))
-                .WithCookieAuth(Configuration, services.ConfigureAndGet<CookieSiteOptions>(Configuration, "cookieSettings"))
-                .WithJwtTokenAuth(Configuration, services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"));
-
         }
 
         /// <summary>
@@ -55,6 +58,9 @@ namespace Callisto.Module.Authentication.Tests
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/></param>
         public override void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

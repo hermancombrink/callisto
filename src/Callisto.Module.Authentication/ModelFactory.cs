@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Text;
 
 namespace Callisto.Module.Authentication
 {
@@ -14,9 +13,6 @@ namespace Callisto.Module.Authentication
     /// </summary>
     public static class ModelFactory
     {
-
-
-
         /// <summary>
         /// The CreateUser
         /// </summary>
@@ -86,29 +82,30 @@ namespace Callisto.Module.Authentication
             };
         }
 
-        public static JwtBearerOptions CreateBearerOptions(JwtIssuerOptions issuerOptions, out SecurityKey key)
+        /// <summary>
+        /// The CreateBearerOptions
+        /// </summary>
+        /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
+        /// <param name="key">The <see cref="SecurityKey"/></param>
+        /// <returns>The <see cref="JwtBearerOptions"/></returns>
+        public static JwtBearerOptions CreateBearerOptions(JwtIssuerOptions issuerOptions, SecurityKey key)
         {
-            var SecretKey = "Wm9mqvNcuJldbmnvuUclG7W45wqiqM0w"; 
-            var _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
-            key = _signingKey;
             return new JwtBearerOptions()
             {
                 ClaimsIssuer = issuerOptions.Issuer,
                 TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = issuerOptions.Issuer,
-
                     ValidateAudience = true,
-                    ValidAudience = issuerOptions.Audience,
-
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = _signingKey,
-
-                    RequireExpirationTime = false,
                     ValidateLifetime = true,
+                    ValidIssuer = issuerOptions.Issuer,
+                    ValidAudience = issuerOptions.Audience,
+                    IssuerSigningKey = key,
+                    RequireExpirationTime = false,
                     ClockSkew = TimeSpan.Zero
-                }
+                },
+                SaveToken = true
             };
         }
     }
