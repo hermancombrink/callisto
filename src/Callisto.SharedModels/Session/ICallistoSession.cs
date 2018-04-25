@@ -10,6 +10,16 @@ namespace Callisto.SharedModels.Session
         /// <summary>
         /// Gets the Authentication
         /// </summary>
-        IAuthenticationModule Authentication { get; set; }
+        IAuthenticationModule Authentication { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether IsAuthenticated
+        /// </summary>
+        bool IsAuthenticated { get; }
+
+        /// <summary>
+        /// Gets the UserName
+        /// </summary>
+        string UserName { get; }
     }
 }

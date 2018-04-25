@@ -59,7 +59,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("reset")]
         public async Task<RequestResult> ResetPassworod()
         {
-            return await CallistoSession.Authentication.ResetPassword(HttpContext.User.Identity.Name);
+            return await CallistoSession.Authentication.ResetPassword(CallistoSession.UserName);
         }
     }
 }

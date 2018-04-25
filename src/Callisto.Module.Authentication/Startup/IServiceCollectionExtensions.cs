@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
@@ -20,14 +21,16 @@ namespace Callisto.Module.Authentication.Startup
     public static class IServiceCollectionExtensions
     {
         /// <summary>
-        /// The AddInMemorySql
+        /// The UseCallistoAuthentication
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="authOptions">The <see cref="AuthOptions"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        public static IServiceCollection UseCallistoIdentity(this IServiceCollection services,
-            IConfiguration config, 
+        /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
+        /// <param name="dbContextFactory">The <see cref="Action{DbContextOptionsBuilder}"/></param>
+        /// <returns>The <see cref="IServiceCollection"/></returns>
+        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
+            IConfiguration config,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
             Action<DbContextOptionsBuilder> dbContextFactory)
@@ -38,8 +41,8 @@ namespace Callisto.Module.Authentication.Startup
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IAuthenticationModule, AuthenticationModule>();
-            services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
+            services.TryAddTransient<IAuthenticationModule, AuthenticationModule>();
+            services.TryAddTransient<IAuthenticationRepository, AuthenticationRepository>();
 
             services.AddAuthentication(c =>
             {
@@ -61,28 +64,27 @@ namespace Callisto.Module.Authentication.Startup
                };
            });
 
-            services.AddSingleton<IJwtFactory, JwtFactory>();
+            services.TryAddSingleton<IJwtFactory, JwtFactory>();
 
             return services;
         }
 
         /// <summary>
-        /// The WithIdentity
+        /// The UseCallistoAuthentication
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="authOptions">The <see cref="AuthOptions"/></param>
+        /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoIdentity(this IServiceCollection services,
+        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
             IConfiguration config,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
             string connectionString)
         {
-            return UseCallistoIdentity(services, config, authOptions, issuerOptions, options => options.UseSqlServer(config.GetConnectionString(connectionString)));
+            return UseCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(config.GetConnectionString(connectionString)));
         }
-
-       
     }
 }

@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Session.Provider;
+using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
@@ -42,14 +43,15 @@ namespace Callisto.Module.Authentication.Tests
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.UseCallistoIdentity(
+            services.UseCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                 dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
               );
 
-            services.AddTransient<ICallistoSession, CallistoSession>();
+            services.UseCallistoSession();
+
             services.AddMvc();
         }
 
