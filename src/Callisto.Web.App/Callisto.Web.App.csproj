@@ -28,6 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\core\auth.guard.ts" />
+    <None Remove="ClientApp\src\app\routes.ts" />
     <None Remove="ClientApp\src\assets\images\logo.png" />
     <None Remove="ClientApp\src\favicon.ico" />
   </ItemGroup>
@@ -39,6 +41,11 @@
     <Content Include="ClientApp\src\favicon.ico">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\core\auth.guard.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\routes.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

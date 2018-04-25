@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
+import { CoreModule } from './core/core.module';
+import { AuthGuard } from './core/auth.guard';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,11 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    CoreModule.forRoot(),
     ToastyModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
+      { path: 'counter', component: CounterComponent, canActivate: [ AuthGuard ] },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],
