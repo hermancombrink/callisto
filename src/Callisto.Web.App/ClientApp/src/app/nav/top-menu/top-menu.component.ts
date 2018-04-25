@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { smoothlyMenu } from '../app.helpers';
+import { smoothlyMenu } from '../../app.helpers';
 
-declare var jQuery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-top-menu',
@@ -15,10 +15,9 @@ export class TopMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-
   toggleNavigation(): void {
-    jQuery('body').toggleClass('mini-navbar');
+    $('body').toggleClass('mini-navbar');
     smoothlyMenu();
   }
- 
+
 }

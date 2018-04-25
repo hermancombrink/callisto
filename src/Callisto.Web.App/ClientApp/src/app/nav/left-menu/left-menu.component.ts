@@ -1,24 +1,17 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import 'jquery-slimscroll';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-nav-menu',
-  templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css']
+  selector: 'app-left-menu',
+  templateUrl: './left-menu.component.html',
+  styleUrls: ['./left-menu.component.css']
 })
-export class NavMenuComponent implements AfterViewInit {
+export class LeftMenuComponent implements AfterViewInit {
+
   constructor(private router: Router) { }
-  isExpanded = false;
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
 
   ngAfterViewInit() {
     $('#side-menu').metisMenu();
@@ -33,4 +26,5 @@ export class NavMenuComponent implements AfterViewInit {
   activeRoute(routename: string): boolean {
     return this.router.url === (routename);
   }
+
 }
