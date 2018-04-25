@@ -61,5 +61,12 @@ namespace Callisto.Web.Api.Controllers
         {
             return await CallistoSession.Authentication.ResetPassword(CallistoSession.UserName);
         }
+
+        [Authorize]
+        [HttpGet("user")]
+        public async Task<RequestResult<UserViewModel>> GetUser()
+        {
+            return await CallistoSession.Authentication.GetUserByName(CallistoSession.UserName);
+        }
     }
 }

@@ -206,5 +206,58 @@ namespace Callisto.Module.Authentication.Tests
 
             reset.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
+
+        /// <summary>
+        /// The WebApiUserDetailsShouldReturnWhenAllIsWell
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
+        [Fact]
+        public async Task WebApiUserDetailsShouldReturnWhenAllIsWell()
+        {
+            await WebApiFixture.Session.Authentication.RegisterUserAsync(new RegisterViewModel()
+            {
+                CompanyName = "MyCompany",
+                ConfirmPassword = "Pass!2",
+                Password = "Pass!2",
+                Email = "newuser@test.com",
+                FirstName = "John",
+                LastName = "Doe"
+            });
+
+            var login = new LoginViewModel()
+            {
+                Email = "newuser@test.com",
+                Password = "Pass!2"
+            };
+
+            var signin = await WebApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
+            var r = signin.ToRequestResult();
+
+            var client = WebApiFixture.Server.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
+
+            var result = await client.GetAsync("/auth/user");
+
+            result.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var uvm = result.ToRequestResult<UserViewModel>();
+            uvm.Result.Company.Should().Be("MyCompany");
+            uvm.Result.SubscriptionId.Should().NotBeEmpty();
+        }
+
+        /// <summary>
+        /// The WebApiUserDetailsShouldBeUnauthorized
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
+        [Fact]
+        public async Task WebApiUserDetailsShouldBeUnauthorized()
+        {
+
+            var client = WebApiFixture.Server.CreateClient();
+
+            var result = await client.GetAsync("/auth/user");
+
+            result.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
     }
 }

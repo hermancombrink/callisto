@@ -40,6 +40,7 @@ namespace Callisto.Module.Authentication
         {
             return new Company()
             {
+                Id = Guid.NewGuid(),
                 Description = model.CompanyName,
                 Name = model.CompanyName
             };
@@ -54,6 +55,7 @@ namespace Callisto.Module.Authentication
         {
             return new Subscription()
             {
+                Id = Guid.NewGuid(),
                 CompanyRefId = company.RefId
             };
         }

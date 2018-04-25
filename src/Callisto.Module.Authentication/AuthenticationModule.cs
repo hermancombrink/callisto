@@ -165,5 +165,15 @@ namespace Callisto.Module.Authentication
 
             return RequestResult.Failed($"Login failed for account {email}");
         }
+
+        /// <summary>
+        /// The GetUserByName
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{UserViewModel}"/></returns>
+        public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
+        {
+            return await AuthRepo.GetUserByName(email);
+        }
     }
 }

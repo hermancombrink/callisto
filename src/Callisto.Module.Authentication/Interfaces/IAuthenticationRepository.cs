@@ -15,5 +15,12 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="model">The <see cref="RegisterViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult{long}}"/></returns>
         Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model);
+
+        /// <summary>
+        /// The GetUserByName
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
+        Task<RequestResult<UserViewModel>> GetUserByName(string email);
     }
 }

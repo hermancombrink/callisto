@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.TestHost;
@@ -25,6 +26,7 @@ namespace Callisto.Module.Authentication.Tests
             Context = Server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
             UserManager = Server.Host.Services.GetService(typeof(UserManager<ApplicationUser>)) as UserManager<ApplicationUser>;
             SignInManger = Server.Host.Services.GetService(typeof(SignInManager<ApplicationUser>)) as SignInManager<ApplicationUser>;
+            Session = Server.Host.Services.GetService(typeof(ICallistoSession)) as ICallistoSession;
             Client = Server.CreateClient();
             Services = Server.Host.Services;
         }
@@ -48,6 +50,11 @@ namespace Callisto.Module.Authentication.Tests
         /// Gets the SignInManger
         /// </summary>
         public SignInManager<ApplicationUser> SignInManger { get; }
+
+        /// <summary>
+        /// Gets the Session
+        /// </summary>
+        public ICallistoSession Session { get; }
 
         /// <summary>
         /// Gets the Client

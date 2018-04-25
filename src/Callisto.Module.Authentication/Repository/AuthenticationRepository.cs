@@ -1,7 +1,7 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -50,6 +50,45 @@ namespace Callisto.Module.Authentication.Repository
             await Context.SaveChangesAsync();
 
             return RequestResult<long>.Success(company.RefId);
+        }
+
+        /// <summary>
+        /// The GetUserByName
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
+        public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
+        {
+            var qry = from user in Context.Users
+                      join company in Context.Companies on user.CompanyRefId equals company.RefId
+                      join subscription in Context.Subscriptions on company.RefId equals subscription.CompanyRefId
+                      select new
+                      {
+                          user.FirstName,
+                          user.LastName,
+                          user.Email,
+                          CompanyName = company.Name,
+                          SubscriptionId = subscription.Id,
+                          SubscriptionRefId = subscription.RefId
+                      };
+
+            var lastSubsrition = await qry.OrderByDescending(c => c.SubscriptionRefId).FirstOrDefaultAsync();
+
+            if (lastSubsrition == null)
+            {
+                return RequestResult<UserViewModel>.Failed($"Failed to find user");
+            }
+            else
+            {
+                return RequestResult<UserViewModel>.Success(new UserViewModel()
+                {
+                    Company = lastSubsrition.CompanyName,
+                    Email = lastSubsrition.Email,
+                    FirstName = lastSubsrition.FirstName,
+                    LastName = lastSubsrition.LastName,
+                    SubscriptionId = lastSubsrition.SubscriptionId
+                });
+            }
         }
     }
 }
