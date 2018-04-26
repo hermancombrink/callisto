@@ -10,7 +10,7 @@
       <small>A full commercial of the site will be available early 2019.</small>
     </p>
     <p>Create account to start your free trial.</p>
-    <form class="m-t" role="form" #form="ngForm">
+    <form class="m-t" role="form" #form="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Name" required name="firstname" #firstname="ngModel" [(ngModel)]="model.FirstName">
         <small [hidden]="firstname.valid || (firstname.pristine && !form.submitted)" class="text-danger">

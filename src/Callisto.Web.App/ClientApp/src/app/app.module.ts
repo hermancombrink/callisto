@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
+
 
 import { AppComponent } from './app.component';
 
@@ -16,6 +18,7 @@ import { AccountModule } from './account/account.module';
 import { AppRoutes } from './routes';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +27,7 @@ import { AppRoutes } from './routes';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    NgHttpLoaderModule,
     FormsModule,
     NavModule,
     AccountModule,

@@ -7,6 +7,7 @@ using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -46,10 +47,24 @@ namespace Callisto.Web.Api
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                "DefaultConnection"
+                dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
               );
 
             services.UseCallistoSession();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .SetPreflightMaxAge(TimeSpan.MaxValue)
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
 
             services.AddMvc();
         }
@@ -70,6 +85,7 @@ namespace Callisto.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();

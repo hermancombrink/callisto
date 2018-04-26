@@ -104,7 +104,7 @@ namespace Callisto.Module.Authentication
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
-                    return RequestResult.Failed($"Failed to create user due to one or more errors [{user.Errors.First()}]");
+                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
                 tran.Complete();
