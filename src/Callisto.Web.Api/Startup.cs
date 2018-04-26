@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -43,11 +44,17 @@ namespace Callisto.Web.Api
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
+            var connection = Configuration.GetConnectionString("callisto");
             services.UseCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
+                connection
+              //dbFactory =>
+              //{
+              //    dbFactory.UseInMemoryDatabase("InMemoryDatabase");
+              //    dbFactory.ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+              //}
               );
 
             services.UseCallistoSession();
@@ -84,6 +91,8 @@ namespace Callisto.Web.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ServiceExceptionMiddleware>();
 
             app.UseCors("AllowAll");
             app.UseAuthentication();

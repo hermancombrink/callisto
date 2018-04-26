@@ -84,7 +84,7 @@ namespace Callisto.Module.Authentication.Startup
             JwtIssuerOptions issuerOptions,
             string connectionString)
         {
-            return UseCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(config.GetConnectionString(connectionString)));
+            return UseCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
         }
     }
 }

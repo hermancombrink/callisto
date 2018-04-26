@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Callisto.Module.Authentication
 {
@@ -78,39 +77,45 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RegisterUserAsync(RegisterViewModel model)
         {
-            Logger.LogDebug($"Attempting register for {model.Email}");
-
-            if (model is null)
+            try
             {
-                return RequestResult.Validation($"Request cannot be null");
-            }
+                Logger.LogDebug($"Attempting register for {model.Email}");
 
-            if (!model.Validate(out string msg).isValid)
-            {
-                return RequestResult.Validation(msg);
-            }
-
-            using (var tran = new TransactionScope())
-            {
-
-                var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
-                if (!companyResult.IsSuccess())
+                if (model is null)
                 {
-                    Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
-                    return companyResult.AsResult;
+                    return RequestResult.Validation($"Request cannot be null");
                 }
 
-                var appUser = ModelFactory.CreateUser(model, companyResult.Result);
-                var user = await UserManager.CreateAsync(appUser, model.Password);
-                if (!user.Succeeded)
+                if (!model.Validate(out string msg).isValid)
                 {
-                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                    return RequestResult.Validation(msg);
                 }
 
-                tran.Complete();
-            }
+                using (var tran = await AuthRepo.BeginTransaction())
+                {
+                    var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
+                    if (!companyResult.IsSuccess())
+                    {
+                        Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
+                        return companyResult.AsResult;
+                    }
 
-            return RequestResult.Success();
+                    var appUser = ModelFactory.CreateUser(model, companyResult.Result);
+                    var user = await UserManager.CreateAsync(appUser, model.Password);
+                    if (!user.Succeeded)
+                    {
+                        return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                    }
+
+                    tran.Commit();
+                }
+
+                return RequestResult.Success();
+            }
+            catch (Exception ex)
+            {
+                return RequestResult.Failed($"Failed to complete operation");
+            }
         }
 
         /// <summary>

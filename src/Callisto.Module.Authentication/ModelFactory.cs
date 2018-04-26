@@ -42,7 +42,9 @@ namespace Callisto.Module.Authentication
             {
                 Id = Guid.NewGuid(),
                 Description = model.CompanyName,
-                Name = model.CompanyName
+                Name = model.CompanyName,
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now
             };
         }
 
@@ -51,12 +53,14 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="company">The <see cref="Company"/></param>
         /// <returns>The <see cref="Subscription"/></returns>
-        public static Subscription GetSubscription(Company company)
+        public static Subscription CreateSubscription(Company company)
         {
             return new Subscription()
             {
                 Id = Guid.NewGuid(),
-                CompanyRefId = company.RefId
+                CompanyRefId = company.RefId,
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now
             };
         }
 

@@ -6,7 +6,7 @@ namespace Callisto.Module.Authentication.Repository.Models
     /// <summary>
     /// Defines the <see cref="Subscription" />
     /// </summary>
-    [Table("Companies", Schema = "callisto")]
+    [Table("Subscriptions", Schema = "callisto")]
     public class Subscription : BaseEfModel
     {
         /// <summary>

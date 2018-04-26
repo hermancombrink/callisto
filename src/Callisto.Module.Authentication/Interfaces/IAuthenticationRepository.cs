@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Authentication.Interfaces
@@ -22,5 +23,11 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
         Task<RequestResult<UserViewModel>> GetUserByName(string email);
+
+        /// <summary>
+        /// The BeginTransaction
+        /// </summary>
+        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
+        Task<IDbContextTransaction> BeginTransaction();
     }
 }

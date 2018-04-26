@@ -2,6 +2,7 @@
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +27,11 @@ namespace Callisto.Module.Authentication.Repository
         /// </summary>
         private ApplicationDbContext Context { get; }
 
+        public async Task<IDbContextTransaction> BeginTransaction()
+        {
+            return await Context.Database.BeginTransactionAsync();
+        }
+
         /// <summary>
         /// The CanRegisterNewCompany
         /// </summary>
@@ -44,9 +50,9 @@ namespace Callisto.Module.Authentication.Repository
 
             var company = ModelFactory.CreateCompany(model);
             await Context.Companies.AddAsync(company);
-            var subscription = ModelFactory.GetSubscription(company);
+            await Context.SaveChangesAsync();
+            var subscription = ModelFactory.CreateSubscription(company);
             await Context.Subscriptions.AddAsync(subscription);
-
             await Context.SaveChangesAsync();
 
             return RequestResult<long>.Success(company.RefId);
