@@ -50,11 +50,7 @@ namespace Callisto.Web.Api
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                 connection
-              //dbFactory =>
-              //{
-              //    dbFactory.UseInMemoryDatabase("InMemoryDatabase");
-              //    dbFactory.ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-              //}
+             
               );
 
             services.UseCallistoSession();

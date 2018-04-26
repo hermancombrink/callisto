@@ -8,6 +8,7 @@ using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,11 @@ namespace Callisto.Module.Authentication.Tests
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                dbFactory => dbFactory.UseInMemoryDatabase("InMemoryDatabase")
+               dbFactory =>
+               {
+                   dbFactory.UseInMemoryDatabase("InMemoryDatabase");
+                   dbFactory.ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+               }
               );
 
             services.UseCallistoSession();
