@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
+import { RegisterViewModel } from '../models/registerViewModel';
 
 @Component({
   selector: 'app-signup',
@@ -11,4 +12,6 @@ export class SignupComponent extends BaseComponent {
   constructor() {
     super();
   }
+
+  model = new RegisterViewModel();
 }

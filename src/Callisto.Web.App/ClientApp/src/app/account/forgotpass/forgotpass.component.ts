@@ -12,4 +12,8 @@ export class ForgotpassComponent extends BaseComponent {
     super();
   }
 
+  model = {
+    email : ''
+  }
+
 }

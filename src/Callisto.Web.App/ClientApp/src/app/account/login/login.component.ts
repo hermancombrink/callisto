@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
+import { LoginViewModel } from '../models/loginViewModel';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +13,7 @@ export class LoginComponent extends BaseComponent {
     super();
   }
 
-  model = {
-    username: '',
-    password: ''
-  }
+  model = new LoginViewModel();
 
   onSubmit() {
     console.info("Log in clicked");

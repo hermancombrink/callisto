@@ -29,6 +29,8 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\base.component.ts" />
+    <None Remove="ClientApp\src\app\account\models\loginViewModel.ts" />
+    <None Remove="ClientApp\src\app\account\models\registerViewModel.ts" />
     <None Remove="ClientApp\src\app\core\auth.guard.ts" />
     <None Remove="ClientApp\src\app\routes.ts" />
     <None Remove="ClientApp\src\assets\images\logo.png" />
@@ -46,6 +48,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\account\base.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\account\models\loginViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\account\models\registerViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\routes.ts" />
   </ItemGroup>

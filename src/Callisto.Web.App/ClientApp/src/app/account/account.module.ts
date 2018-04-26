@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotpassComponent } from './forgotpass/forgotpass.component';
 import { FormsModule } from '@angular/forms';
+import { EqualValidator } from './equalvalidator.directive';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule.forChild(AccountRoutes)
   ],
-  declarations: [LoginComponent, SignupComponent, ForgotpassComponent],
+  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator],
   exports: [RouterModule]
 })
 export class AccountModule { }
