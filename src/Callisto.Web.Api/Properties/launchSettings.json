@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:61595/",
+      "applicationUrl": "http://localapi.callisto.com",
       "sslPort": 0
     }
   },

@@ -1,0 +1,9 @@
+<alert type="danger" *ngIf="error">
+  <button type="button" class="close" aria-label="Close" (click)="error = ''">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <p>
+    <i class="fa fa-warning"></i> Oops...!
+  </p>
+  <i [innerHTML]="error"></i>
+</alert>

@@ -40,11 +40,12 @@ export class AuthService {
     //);
 
     return this.http.post<RequestResult>(this.getUrl('auth/signup'), model, httpOptions).pipe(
-      tap(c => {
-        if (c.Status == RequestStatus.Success) {
-          localStorage.setItem('auth_token', c.Result);
-        }
-      }));
+      //tap(c => {
+      //  if (c.status == RequestStatus.Success) {
+      //    localStorage.setItem('auth_token', c.result);
+      //  }
+      //})
+    );
   }
 
   private getUrl(endpoint: string): string {

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
+import { AlertModule } from 'ngx-bootstrap';
 
 
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { AppRoutes } from './routes';
     AccountModule,
     CoreModule.forRoot(),
     ToastyModule.forRoot(),
+    AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [],

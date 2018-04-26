@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:61595/'
+  apiUrl: 'http://localapi.callisto.com/'
 };

@@ -6,6 +6,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    apiUrl: 'http://localhost:61595/'
+    apiUrl: 'http://localapi.callisto.com/'
 };
 //# sourceMappingURL=environment.js.map

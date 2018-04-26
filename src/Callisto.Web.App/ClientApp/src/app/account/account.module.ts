@@ -7,11 +7,16 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotpassComponent } from './forgotpass/forgotpass.component';
 import { FormsModule } from '@angular/forms';
 import { EqualValidator } from './equalvalidator.directive';
+import { AlertModule } from 'ngx-bootstrap';
+import { CoreModule } from '../core/core.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    CoreModule,
+    AlertModule.forRoot(),
     RouterModule.forChild(AccountRoutes)
   ],
   declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator],

@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { ResultErrorComponent } from './result-error/result-error.component';
+import { AlertModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    AlertModule.forRoot(),
   ],
-  declarations: [],
-  providers: []
+  declarations: [ResultErrorComponent],
+  providers: [],
+  exports: [ResultErrorComponent]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
