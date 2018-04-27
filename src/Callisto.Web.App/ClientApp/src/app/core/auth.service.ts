@@ -23,6 +23,10 @@ export class AuthService {
     return !!localStorage.getItem('auth_token');
   }
 
+  ClearToken() {
+    localStorage.removeItem('auth_token');
+  }
+
   successResponse = new RequestResult();
 
   get httpOptions(){
@@ -55,7 +59,7 @@ export class AuthService {
     return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
       tap(c => {
         if (c.status == RequestStatus.Success) {
-          localStorage.removeItem('auth_token');
+          this.ClearToken();
         }
       })
     )
