@@ -3,7 +3,7 @@
   <div>
     <div>
       <h1 class="logo-name">
-        <img src="../../../assets/images/logo.png" />
+        <img src="app/assets/images/logo.png" />
       </h1>
     </div>
     <h3>Restart to Callisto</h3>
@@ -11,7 +11,7 @@
       <small> Enter your email address and your password will be reset and emailed to you.</small>
     </p>
     <p>Reset account. </p>
-    <form class="m-t" role="form" action="index.html" #form="ngForm">
+    <form class="m-t" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-group">
         <input type="email" class="form-control" placeholder="Email" required
                [(ngModel)]="model.email" name="email" #email="ngModel"
@@ -21,6 +21,8 @@
           Email format should be <i>john@doe.com</i>.
         </small>
       </div>
+
+      <app-result-error #error></app-result-error>
 
       <button [disabled]="!form.form.valid" type="submit" class="btn btn-primary block full-width m-b">Send new password</button>
       <p class="text-muted text-center"><small>Already have an account?</small></p>

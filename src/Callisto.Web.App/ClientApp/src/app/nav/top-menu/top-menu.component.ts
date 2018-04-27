@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { smoothlyMenu } from '../../app.helpers';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/auth.service';
+import { MessageSeverity, AlertService } from '../../core/alert.service';
 
 declare var $: any;
 
@@ -10,7 +13,9 @@ declare var $: any;
 })
 export class TopMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+    private authService: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
   }
@@ -18,6 +23,14 @@ export class TopMenuComponent implements OnInit {
   toggleNavigation(): void {
     $('body').toggleClass('mini-navbar');
     smoothlyMenu();
+  }
+
+  Logout() {
+    this.authService.SignOut().subscribe(c => {
+      this.alertService.showMessage('Thanks for visiting', '', MessageSeverity.info);
+      this.router.navigate(['/account/login']);
+    });
+
   }
 
 }

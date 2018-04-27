@@ -6,9 +6,10 @@
           <img alt="image" class="img-circle logo_mini" src="app/assets/images/logo.png">
           <a dropdownToggle>
             <span class="block m-t-xs">
-              <strong class="font-bold">Demo User</strong>
+              <strong class="font-bold">{{user?.firstName}} {{user?.lastName}}</strong>
             </span>
-            <span class="text-muted text-xs block">Callisto Administrator </span>
+            <span class="text-muted text-xs block">{{user?.email}} </span>
+            <span class="text-muted text-xs block">{{user?.company}} </span>
           </a>
         </div>
         <div class="logo-element">

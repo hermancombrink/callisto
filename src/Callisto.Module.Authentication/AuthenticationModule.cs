@@ -168,7 +168,7 @@ namespace Callisto.Module.Authentication
                 return RequestResult.Success(token);
             }
 
-            return RequestResult.Failed($"Login failed for account {email}");
+            return RequestResult.Failed($"Failed to find login for account {email}");
         }
 
         /// <summary>
@@ -179,6 +179,17 @@ namespace Callisto.Module.Authentication
         public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
         {
             return await AuthRepo.GetUserByName(email);
+        }
+
+        /// <summary>
+        /// The SignOut
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> SignOut(string email)
+        {
+            await SignInManager.SignOutAsync();
+            return RequestResult.Success();
         }
     }
 }

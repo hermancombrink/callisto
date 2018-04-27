@@ -36,5 +36,12 @@ namespace Callisto.SharedModels.Auth
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
         Task<RequestResult<UserViewModel>> GetUserByName(string email);
+
+        /// <summary>
+        /// The SignOut
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> SignOut(string email);
     }
 }

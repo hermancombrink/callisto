@@ -1,6 +1,9 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import 'jquery-slimscroll';
+import { AuthService } from '../../core/auth.service';
+import { RequestStatus } from '../../core/models/requestStatus';
+import { UserViewModel } from '../../core/models/userViewModel';
 
 declare var $: any;
 
@@ -9,9 +12,11 @@ declare var $: any;
   templateUrl: './left-menu.component.html',
   styleUrls: ['./left-menu.component.css']
 })
-export class LeftMenuComponent implements AfterViewInit {
+export class LeftMenuComponent implements AfterViewInit, OnInit {
 
-  constructor(private router: Router) { }
+  user: UserViewModel;
+
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngAfterViewInit() {
     $('#side-menu').metisMenu();
@@ -21,6 +26,14 @@ export class LeftMenuComponent implements AfterViewInit {
         height: '100%'
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.authService.GetUser().subscribe(c => {
+      if (c.status == RequestStatus.Success) {
+        this.user = c.result;
+      }
+    })
   }
 
   activeRoute(routename: string): boolean {

@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { EqualValidator } from './equalvalidator.directive';
 import { AlertModule } from 'ngx-bootstrap';
 import { CoreModule } from '../core/core.module';
+import { LoginViewModel } from './models/loginViewModel';
+import { RegisterViewModel } from './models/registerViewModel';
 
 
 @NgModule({

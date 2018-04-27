@@ -62,11 +62,37 @@ namespace Callisto.Web.Api.Controllers
             return await CallistoSession.Authentication.ResetPassword(CallistoSession.UserName);
         }
 
+        /// <summary>
+        /// The ForgotPassworod
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpGet("forgot")]
+        public async Task<RequestResult> ForgotPassworod(string email)
+        {
+            return await CallistoSession.Authentication.ResetPassword(email);
+        }
+
+        /// <summary>
+        /// The GetUser
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
         [Authorize]
         [HttpGet("user")]
         public async Task<RequestResult<UserViewModel>> GetUser()
         {
             return await CallistoSession.Authentication.GetUserByName(CallistoSession.UserName);
+        }
+
+        /// <summary>
+        /// The SignOut
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [Authorize]
+        [HttpGet("signout")]
+        public async Task<RequestResult> SignOut()
+        {
+            return await CallistoSession.Authentication.SignOut(CallistoSession.UserName);
         }
     }
 }

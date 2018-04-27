@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base.component';
-import { RegisterViewModel } from '../models/registerViewModel';
 import { AuthService } from '../../core/auth.service';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { ResultErrorComponent } from '../../core/result-error/result-error.component';
+import { RegisterViewModel } from '../models/registerViewModel';
 
 @Component({
   selector: 'app-signup',
@@ -20,14 +20,10 @@ export class SignupComponent extends BaseComponent {
 
   model = new RegisterViewModel();
 
+  isRregistered: boolean = false;
+
   ngOnInit() {
     super.ngOnInit();
-    this.model.FirstName = "Test";
-    this.model.LastName = "Test";
-    this.model.CompanyName = "Test";
-    this.model.Password = "123123";
-    this.model.ConfirmPassword = "123123";
-    this.model.Email = "test@test.com";
   }
 
   onSubmit() {
@@ -37,6 +33,7 @@ export class SignupComponent extends BaseComponent {
         console.error(c.friendlyMessage);
       }
       else {
+        this.isRregistered = true;
         this.errorPanel.error = '';
       }
       console.info(c);

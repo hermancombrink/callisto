@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { ResultErrorComponent } from './result-error/result-error.component';
 import { AlertModule } from 'ngx-bootstrap';
+import { AlertService } from './alert.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard]
+      providers: [AuthService, AuthGuard, AlertService]
     };
   }
 
