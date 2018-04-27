@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { smoothlyMenu } from '../../app.helpers';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
-import { MessageSeverity, AlertService } from '../../core/alert.service';
+import { MessageSeverity, AlertService, DialogType } from '../../core/alert.service';
 
 declare var $: any;
 
@@ -18,6 +18,7 @@ export class TopMenuComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
+ 
   }
 
   toggleNavigation(): void {

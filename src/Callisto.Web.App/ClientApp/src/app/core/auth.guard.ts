@@ -8,7 +8,6 @@ export class AuthGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) { }
 
   canActivate() {
-
     if (!this.auth.IsAuthenticated()) {
       console.warn("Failed auth checked... routing to login");
       this.router.navigate(['/account/login']);

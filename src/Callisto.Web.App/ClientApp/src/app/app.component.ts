@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
 import { ToastOptions, ToastData, ToastyService, ToastyConfig } from 'ng2-toasty';
 
+const alertify: any = require('../assets/scripts/alertify.js');
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent  {
   }
 
   ngOnInit() {
+    this.alertService.getDialogEvent().subscribe(alert => this.showDialog(alert));
     this.alertService.getMessageEvent().subscribe(message => this.showToast(message, false));
     this.alertService.getStickyMessageEvent().subscribe(message => this.showToast(message, true));
   }
@@ -71,4 +73,45 @@ export class AppComponent  {
     }
   }
 
+  showDialog(dialog: AlertDialog) {
+
+    alertify.set({
+      labels: {
+        ok: dialog.okLabel || 'OK',
+        cancel: dialog.cancelLabel || 'Cancel'
+      }
+    });
+
+    switch (dialog.type) {
+      case DialogType.alert:
+        alertify.alert(dialog.message);
+        break;
+      case DialogType.confirm:
+        alertify
+          .confirm(dialog.message, (e) => {
+            if (e) {
+              dialog.okCallback();
+            } else {
+              if (dialog.cancelCallback) {
+                dialog.cancelCallback();
+              }
+            }
+          });
+
+        break;
+      case DialogType.prompt:
+        alertify
+          .prompt(dialog.message, (e, val) => {
+            if (e) {
+              dialog.okCallback(val);
+            } else {
+              if (dialog.cancelCallback) {
+                dialog.cancelCallback();
+              }
+            }
+          }, dialog.defaultValue);
+
+        break;
+    }
+  }
 }

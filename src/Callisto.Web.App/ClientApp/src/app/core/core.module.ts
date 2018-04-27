@@ -2,10 +2,11 @@ import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ResultErrorComponent } from './result-error/result-error.component';
 import { AlertModule } from 'ngx-bootstrap';
 import { AlertService } from './alert.service';
+import { JwtInterceptor } from './auth.jwt.interceptor';
 
 @NgModule({
   imports: [
@@ -28,7 +29,12 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService]
+      providers: [AuthService, AuthGuard, AlertService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: JwtInterceptor,
+          multi: true
+        }]
     };
   }
 

@@ -34,6 +34,8 @@ export class LeftMenuComponent implements AfterViewInit, OnInit {
         this.user = c.result;
       }
     })
+
+    
   }
 
   activeRoute(routename: string): boolean {
