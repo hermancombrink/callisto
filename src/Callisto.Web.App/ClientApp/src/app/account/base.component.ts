@@ -3,9 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 declare var $: any;
 
 @Component({
-  
+  template: ''
 })
-export abstract class BaseComponent implements OnInit, OnDestroy {
+export class BaseComponent implements OnInit, OnDestroy {
 
   constructor() { }
 

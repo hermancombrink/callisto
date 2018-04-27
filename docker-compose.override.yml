@@ -4,25 +4,21 @@ services:
   landing:
     image: hermancombrink/callisto-landing
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Production
     networks: 
       - default
 
   api:
     image: hermancombrink/callisto-api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-    depends_on:
-      - sql
+      - ASPNETCORE_ENVIRONMENT=Production
     networks: 
       - default
 
   app:
     image: hermancombrink/callisto-app
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-    depends_on:
-      - sql
+      - ASPNETCORE_ENVIRONMENT=Production
     networks: 
       - default
 

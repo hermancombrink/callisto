@@ -284,167 +284,6 @@ export class Utilities {
   }
 
 
-  public static printDateOnly(date: Date) {
-
-    date = new Date(date);
-
-    let dayNames = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-    let monthNames = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-
-    let dayOfWeek = date.getDay();
-    let dayOfMonth = date.getDate();
-    let sup = "";
-    let month = date.getMonth();
-    let year = date.getFullYear();
-
-    if (dayOfMonth == 1 || dayOfMonth == 21 || dayOfMonth == 31) {
-      sup = "st";
-    }
-    else if (dayOfMonth == 2 || dayOfMonth == 22) {
-      sup = "nd";
-    }
-    else if (dayOfMonth == 3 || dayOfMonth == 23) {
-      sup = "rd";
-    }
-    else {
-      sup = "th";
-    }
-
-    let dateString = dayNames[dayOfWeek] + ", " + dayOfMonth + sup + " " + monthNames[month] + " " + year;
-
-    return dateString;
-  }
-
-  public static printTimeOnly(date: Date) {
-
-    date = new Date(date);
-
-    let period = "";
-    let minute = date.getMinutes().toString();
-    let hour = date.getHours();
-
-    period = hour < 12 ? "AM" : "PM";
-
-    if (hour == 0) {
-      hour = 12;
-    }
-    if (hour > 12) {
-      hour = hour - 12;
-    }
-
-    if (minute.length == 1) {
-      minute = "0" + minute;
-    }
-
-    let timeString = hour + ":" + minute + " " + period;
-
-
-    return timeString;
-  }
-
-  public static printDate(date: Date, separator = "at") {
-    return `${Utilities.printDateOnly(date)} ${separator} ${Utilities.printTimeOnly(date)}`;
-  }
-
-
-  public static printFriendlyDate(date: Date, separator = "-") {
-    let today = new Date(); today.setHours(0, 0, 0, 0);
-    let yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
-    let test = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
-    if (test.toDateString() == today.toDateString())
-      return `Today ${separator} ${Utilities.printTimeOnly(date)}`;
-    if (test.toDateString() == yesterday.toDateString())
-      return `Yesterday ${separator} ${Utilities.printTimeOnly(date)}`;
-    else
-      return Utilities.printDate(date, separator);
-  }
-
-  public static printShortDate(date: Date, separator = "/", dateTimeSeparator = "-") {
-
-    var day = date.getDate().toString();
-    var month = (date.getMonth() + 1).toString();
-    var year = date.getFullYear();
-
-    if (day.length == 1)
-      day = "0" + day;
-
-    if (month.length == 1)
-      month = "0" + month;
-
-    return `${month}${separator}${day}${separator}${year} ${dateTimeSeparator} ${Utilities.printTimeOnly(date)}`;
-  }
-
-
-  public static parseDate(date) {
-
-    if (date) {
-
-      if (date instanceof Date) {
-        return date;
-      }
-
-      if (typeof date === 'string' || date instanceof String) {
-        if (date.search(/[a-su-z+]/i) == -1)
-          date = date + "Z";
-
-        return new Date(date);
-      }
-
-      if (typeof date === 'number' || date instanceof Number) {
-        return new Date(<any>date);
-      }
-    }
-  }
-
-
-
-  public static printDuration(start: Date, end: Date) {
-
-    start = new Date(start);
-    end = new Date(end);
-
-    // get total seconds between the times
-    let delta = Math.abs(start.valueOf() - end.valueOf()) / 1000;
-
-    // calculate (and subtract) whole days
-    let days = Math.floor(delta / 86400);
-    delta -= days * 86400;
-
-    // calculate (and subtract) whole hours
-    let hours = Math.floor(delta / 3600) % 24;
-    delta -= hours * 3600;
-
-    // calculate (and subtract) whole minutes
-    let minutes = Math.floor(delta / 60) % 60;
-    delta -= minutes * 60;
-
-    // what's left is seconds
-    let seconds = delta % 60;  // in theory the modulus is not required
-
-
-    let printedDays = "";
-
-    if (days)
-      printedDays = `${days} days`;
-
-    if (hours)
-      printedDays += printedDays ? `, ${hours} hours` : `${hours} hours`;
-
-    if (minutes)
-      printedDays += printedDays ? `, ${minutes} minutes` : `${minutes} minutes`;
-
-    if (seconds)
-      printedDays += printedDays ? ` and ${seconds} seconds` : `${seconds} seconds`;
-
-
-    if (!printedDays)
-      printedDays = "0";
-
-    return printedDays;
-  }
-
-
   public static getAge(birthDate, otherDate) {
     birthDate = new Date(birthDate);
     otherDate = new Date(otherDate);
@@ -458,7 +297,6 @@ export class Utilities {
 
     return years;
   }
-
 
   public static searchArray(searchTerm: string, caseSensitive: boolean, ...values: any[]) {
 
@@ -484,7 +322,6 @@ export class Utilities {
 
     return false;
   }
-
 
   public static moveArrayItem(array: any[], oldIndex, newIndex) {
 

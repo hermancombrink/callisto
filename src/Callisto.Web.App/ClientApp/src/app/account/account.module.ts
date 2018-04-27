@@ -11,6 +11,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { CoreModule } from '../core/core.module';
 import { LoginViewModel } from './models/loginViewModel';
 import { RegisterViewModel } from './models/registerViewModel';
+import { BaseComponent } from './base.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { RegisterViewModel } from './models/registerViewModel';
     AlertModule.forRoot(),
     RouterModule.forChild(AccountRoutes)
   ],
-  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator],
+  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent],
   exports: [RouterModule]
 })
 export class AccountModule { }
