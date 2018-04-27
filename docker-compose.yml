@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  landing:
+    build:
+      context: src/Callisto.Web.Landing/
+      dockerfile: dockerfile
+
+  api:
+    build:
+      context: src/Callisto.Web.Api/
+      dockerfile: dockerfile
+
+  app:
+    build:
+      context: src/Callisto.Web.App/
+      dockerfile: dockerfile
+
+  nginx: 
+    build: 
+      context: docker/nginx/
+      dockerfile: dockerfile
+
+  sql: 
+    build: 
+      context: docker/sql/
+      dockerfile: dockerfile
+
+  rabbit: 
+    build: 
+      context: docker/rabbitmq/
+      dockerfile: dockerfile

@@ -1,0 +1,22 @@
+{
+  "authors": [
+    "Herman Combrink <herman.combrink@gmail.com>"
+  ],
+  "dependencies": {
+    "wow": "WOW#1.1.2",
+    "jquery-slimscroll": "slimScroll#v1.3.8",
+    "PACE": "pace#v1.0.2",
+    "metisMenu": "v2.7.4"
+  },
+  "description": "Landing Page",
+  "homepage": "https://github.com/hermancombrink/callisto",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "license": "MIT",
+  "name": "callist-landing"
+}

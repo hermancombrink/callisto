@@ -1,0 +1,89 @@
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+  <div>
+    <div>
+      <h1 class="logo-name">
+        <img src="app/assets/images/logo.png" />
+      </h1>
+    </div>
+    <h3>Register to Callisto</h3>
+    <p>
+      <small>A full commercial of the site will be available early 2019.</small>
+    </p>
+    <p>Create account to start your free trial.</p>
+    <form class="m-t" role="form" #form="ngForm" (ngSubmit)="onSubmit()" [hidden]="!!isRregistered">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name" required name="firstname" #firstname="ngModel" [(ngModel)]="model.FirstName">
+        <small [hidden]="firstname.valid || (firstname.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Firstname is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Lastname" required name="surname" #surname="ngModel" [(ngModel)]="model.LastName">
+        <small [hidden]="surname.valid || (surname.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Lastname is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Company" required name="company" #company="ngModel" [(ngModel)]="model.CompanyName">
+        <small [hidden]="company.valid || (company.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Company is required.
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" required name="email"
+               #email="ngModel" [(ngModel)]="model.Email"
+               pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+        <small [hidden]="email.valid || (email.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Email format should be <i>john@doe.com</i>.
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="password" validateEqual="confirmpassword" reverse="true" class="form-control"
+               placeholder="Password" required name="password" minlength="6" [(ngModel)]="model.Password" #password="ngModel">
+        <small [hidden]="password.valid || (password.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Password must be atleast 6 characters long.
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="password" validateEqual="password" reverse="false" class="form-control"
+               placeholder="Confirm Password" required
+               name="confirmpassword" [(ngModel)]="model.ConfirmPassword" #confirmpassword="ngModel">
+        <small [hidden]="confirmpassword.valid || (confirmpassword.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Confirmed password does not match password.
+        </small>
+      </div>
+      <span>
+
+      </span>
+
+      <app-result-error #error></app-result-error>
+
+      <button [disabled]="!form.form.valid" type="submit" class="btn btn-primary block full-width m-b">Register</button>
+
+      <p class="text-muted text-center"><small>Already have an account?</small></p>
+      <a class="btn btn-sm btn-white btn-block" [routerLink]="['/account/login']">Login</a>
+    </form>
+
+    <div [hidden]="!isRregistered">
+      <alert type="success">
+        <p>
+          <i class="fa fa-check"></i> Success...!
+        </p>
+        <p>
+          Welcome to callisto, please proceed to login.
+        </p>
+
+        <a class="btn btn-sm btn-white btn-block" [routerLink]="['/account/login']">Login</a>
+
+      </alert>
+    </div>
+
+    <p class="m-t"> <small>Proudly developed and maintained by ESA Developments &copy; 2018</small> </p>
+  </div>
+</div>
