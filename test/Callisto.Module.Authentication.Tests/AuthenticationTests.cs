@@ -3,7 +3,10 @@ using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Notification;
+using Callisto.SharedModels.Notification.Models;
 using FluentAssertions;
+using NSubstitute;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -175,11 +178,15 @@ namespace Callisto.Module.Authentication.Tests
             var client = WebApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
+
             var reset = await client.GetAsync("/auth/reset");
             reset.EnsureSuccessStatusCode();
             var response = reset.ToRequestResult();
             response.Status.Should().Be(RequestStatus.Success);
             response.Result.Should().NotBeNullOrEmpty();
+
+            var notification = WebApiFixture.GetService<INotificationModule>();
+            notification.Received(1).SubmitEmailNotification(Arg.Any<NotificationRequestModel>());
         }
 
         /// <summary>

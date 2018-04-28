@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,29 @@ namespace Callisto.Session.Provider
         /// <summary>
         /// Gets or sets the Authentication
         /// </summary>
-        public IAuthenticationModule Authentication => ServiceProvider.GetRequiredService<IAuthenticationModule>();
+        private IAuthenticationModule _authentication;
+
+        /// <summary>
+        /// Gets or sets the Authentication
+        /// </summary>
+        public IAuthenticationModule Authentication
+        {
+            get { return _authentication ?? (_authentication = ServiceProvider.GetRequiredService<IAuthenticationModule>()); }
+            set { _authentication = value; }
+        }
+
+        /// <summary>
+        /// Gets the Notification
+        /// </summary>
+        private INotificationModule _notification;
+
+        /// <summary>
+        /// Gets or sets the Notification
+        /// </summary>
+        public INotificationModule Notification
+        {
+            get { return _notification ?? (_notification = ServiceProvider.GetRequiredService<INotificationModule>()); }
+            set { _notification = value; }
+        }
     }
 }

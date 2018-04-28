@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Notification;
 
 namespace Callisto.SharedModels.Session
 {
@@ -10,7 +11,12 @@ namespace Callisto.SharedModels.Session
         /// <summary>
         /// Gets the Authentication
         /// </summary>
-        IAuthenticationModule Authentication { get; }
+        IAuthenticationModule Authentication { get; set; }
+
+        /// <summary>
+        /// Gets the Notification
+        /// </summary>
+        INotificationModule Notification { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether IsAuthenticated

@@ -1,19 +1,23 @@
-﻿
-using Callisto.Module.Notification.Email;
+﻿using Callisto.Module.Notification.Email;
 using Callisto.Module.Notification.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Callisto.Module.Notification.Startup
 {
+    /// <summary>
+    /// Defines the <see cref="IServiceCollectionExtensions" />
+    /// </summary>
     public static class IServiceCollectionExtensions
     {
-        public static void AddSendGridNotificationModule(this IServiceCollection services, IConfiguration config, string configsection = "SendGrid")
+        /// <summary>
+        /// The AddSendGridNotificationModule
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/></param>
+        /// <param name="config">The <see cref="IConfiguration"/></param>
+        /// <param name="configsection">The <see cref="string"/></param>
+        public static void UseCallistNotification(this IServiceCollection services, IConfiguration config, MailOptions options)
         {
-            services.Configure<MailOptions>(config.GetSection(configsection));
             services.AddTransient<IEmailSender, SimpleSendGridEmailSender>();
         }
     }

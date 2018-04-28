@@ -56,6 +56,11 @@ namespace Callisto.Module.Authentication.Tests
         /// </summary>
         public ICallistoSession Session { get; }
 
+        public T GetService<T>()
+        {
+            return (T)Server.Host.Services.GetService(typeof(T));
+        }
+
         /// <summary>
         /// Gets the Client
         /// </summary>

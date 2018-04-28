@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Auth\Models\" />
+    <Folder Include="Notification\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

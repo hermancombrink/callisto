@@ -1,6 +1,7 @@
 ﻿using Callisto.SharedKernel.Enum;
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 
 namespace Callisto.SharedKernel
 {
@@ -9,6 +10,11 @@ namespace Callisto.SharedKernel
     /// </summary>
     public class RequestResult
     {
+        /// <summary>
+        /// Defines the ExceptionFriendlyMessage
+        /// </summary>
+        public static string ExceptionFriendlyMessage = "Oops. That was not suppose to happen";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestResult"/> class.
         /// </summary>
@@ -85,6 +91,7 @@ namespace Callisto.SharedKernel
         /// <summary>
         /// Gets or sets the SystemMessage
         /// </summary>
+        [JsonIgnore]
         public string SystemMessage { get; set; }
 
         /// <summary>
@@ -113,6 +120,23 @@ namespace Callisto.SharedKernel
         }
 
         /// <summary>
+        /// The Critical
+        /// </summary>
+        /// <param name="exception">The <see cref="Exception"/></param>
+        /// <param name="message">The <see cref="string"/></param>
+        /// <param name="result">The <see cref="string"/></param>
+        /// <returns>The <see cref="RequestResult"/></returns>
+        public static RequestResult Critical(Exception exception, string message = "", string result = "")
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                message = ExceptionFriendlyMessage;
+            }
+
+            return new RequestResult(RequestStatus.Exception, result: result, friendlyMessage: message, systemMessage: exception.Message);
+        }
+
+        /// <summary>
         /// The Validation
         /// </summary>
         /// <param name="message">The <see cref="string"/></param>
@@ -120,6 +144,59 @@ namespace Callisto.SharedKernel
         public static RequestResult Validation(string message, string result = "")
         {
             return new RequestResult(RequestStatus.Warning, result: result, friendlyMessage: message);
+        }
+
+        /// <summary>
+        /// The From
+        /// </summary>
+        /// <param name="action">The <see cref="Action"/></param>
+        /// <returns>The <see cref="RequestResult"/></returns>
+        public static RequestResult From(Action action)
+        {
+            try
+            {
+                action();
+                return Success();
+            }
+            catch (Exception ex)
+            {
+                return Critical(ex, string.Empty);
+            }
+        }
+
+        /// <summary>
+        /// The From
+        /// </summary>
+        /// <param name="action">The <see cref="Func{Task}"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public static async Task<RequestResult> From(Func<Task> action)
+        {
+            try
+            {
+                await action();
+                return Success();
+            }
+            catch (Exception ex)
+            {
+                return Critical(ex, string.Empty);
+            }
+        }
+
+        /// <summary>
+        /// The From
+        /// </summary>
+        /// <param name="action">The <see cref="Func{Task}"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public static async Task<RequestResult> From(Func<Task<RequestResult>> action)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (Exception ex)
+            {
+                return Critical(ex, string.Empty);
+            }
         }
     }
 
@@ -200,6 +277,7 @@ namespace Callisto.SharedKernel
         /// <summary>
         /// Gets or sets the SystemMessage
         /// </summary>
+        [JsonIgnore]
         public string SystemMessage { get; set; }
 
         /// <summary>
@@ -246,6 +324,23 @@ namespace Callisto.SharedKernel
         }
 
         /// <summary>
+        /// The Critical
+        /// </summary>
+        /// <param name="exception">The <see cref="Exception"/></param>
+        /// <param name="message">The <see cref="string"/></param>
+        /// <param name="result">The <see cref="string"/></param>
+        /// <returns>The <see cref="RequestResult"/></returns>
+        public static RequestResult<T> Critical(Exception exception, string message, T result = default)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                message = RequestResult.ExceptionFriendlyMessage;
+            }
+
+            return new RequestResult<T>(RequestStatus.Exception, result: result, friendlyMessage: message, systemMessage: exception.Message);
+        }
+
+        /// <summary>
         /// The Validation
         /// </summary>
         /// <param name="message">The <see cref="string"/></param>
@@ -254,6 +349,42 @@ namespace Callisto.SharedKernel
         public static RequestResult<T> Validation(string message, T result = default)
         {
             return new RequestResult<T>(RequestStatus.Warning, result, message);
+        }
+
+        /// <summary>
+        /// The From
+        /// </summary>
+        /// <param name="action">The <see cref="Func{T}"/></param>
+        /// <returns>The <see cref="RequestResult{T}"/></returns>
+        public static RequestResult<T> From(Func<T> action)
+        {
+            try
+            {
+                var result = action();
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Critical(ex, string.Empty);
+            }
+        }
+
+        /// <summary>
+        /// The From
+        /// </summary>
+        /// <param name="action">The <see cref="Func{Task{T}}"/></param>
+        /// <returns>The <see cref="Task{RequestResult{T}}"/></returns>
+        public static async Task<RequestResult<T>> From(Func<Task<T>> action)
+        {
+            try
+            {
+                var result = await action();
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Critical(ex, string.Empty);
+            }
         }
     }
 }

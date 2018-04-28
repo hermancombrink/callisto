@@ -5,6 +5,8 @@ using Callisto.SharedKernel;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Notification.Models;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -25,6 +27,7 @@ namespace Callisto.Module.Authentication
         /// <param name="logger">The <see cref="ILogger{AuthenticationModule}"/></param>
         /// <param name="userManager">The <see cref="UserManager{ApplicationUser}"/></param>
         public AuthenticationModule(
+            ICallistoSession session,
             ILogger<AuthenticationModule> logger,
             IAuthenticationRepository authRepo,
             UserManager<ApplicationUser> userManager,
@@ -32,6 +35,7 @@ namespace Callisto.Module.Authentication
             IJwtFactory jwtFactory,
             IOptions<JwtIssuerOptions> jwtOptions)
         {
+            Session = session;
             Logger = logger;
             AuthRepo = authRepo;
             UserManager = userManager;
@@ -39,6 +43,11 @@ namespace Callisto.Module.Authentication
             JwtFactory = jwtFactory;
             JwtOptions = jwtOptions?.Value ?? throw new ArgumentException(nameof(jwtOptions));
         }
+
+        /// <summary>
+        /// Gets the Session
+        /// </summary>
+        private ICallistoSession Session { get; }
 
         /// <summary>
         /// Gets the Logger
@@ -77,45 +86,41 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RegisterUserAsync(RegisterViewModel model)
         {
-            try
-            {
-                Logger.LogDebug($"Attempting register for {model.Email}");
+            return await RequestResult.From(async () =>
+             {
+                 Logger.LogDebug($"Attempting register for {model.Email}");
 
-                if (model is null)
-                {
-                    return RequestResult.Validation($"Request cannot be null");
-                }
+                 if (model is null)
+                 {
+                     return RequestResult.Validation($"Request cannot be null");
+                 }
 
-                if (!model.Validate(out string msg).isValid)
-                {
-                    return RequestResult.Validation(msg);
-                }
+                 if (!model.Validate(out string msg).isValid)
+                 {
+                     return RequestResult.Validation(msg);
+                 }
 
-                using (var tran = await AuthRepo.BeginTransaction())
-                {
-                    var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
-                    if (!companyResult.IsSuccess())
-                    {
-                        Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
-                        return companyResult.AsResult;
-                    }
+                 using (var tran = await AuthRepo.BeginTransaction())
+                 {
+                     var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
+                     if (!companyResult.IsSuccess())
+                     {
+                         Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
+                         return companyResult.AsResult;
+                     }
 
-                    var appUser = ModelFactory.CreateUser(model, companyResult.Result);
-                    var user = await UserManager.CreateAsync(appUser, model.Password);
-                    if (!user.Succeeded)
-                    {
-                        return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
-                    }
+                     var appUser = ModelFactory.CreateUser(model, companyResult.Result);
+                     var user = await UserManager.CreateAsync(appUser, model.Password);
+                     if (!user.Succeeded)
+                     {
+                         return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                     }
 
-                    tran.Commit();
-                }
+                     tran.Commit();
+                 }
 
-                return RequestResult.Success();
-            }
-            catch (Exception ex)
-            {
-                return RequestResult.Failed($"Failed to complete operation");
-            }
+                 return RequestResult.Success();
+             });
         }
 
         /// <summary>
@@ -163,7 +168,10 @@ namespace Callisto.Module.Authentication
             {
                 var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                //TODO: Send notification with token
+                await Session.Notification.SubmitEmailNotification(
+                    NotificationRequestModel.Email(email,
+                    "Your password has been reset",
+                    $"Reset token - [{token}]"));
 
                 return RequestResult.Success(token);
             }

@@ -1,5 +1,7 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
+using Callisto.Module.Notification.Options;
+using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
@@ -44,14 +46,15 @@ namespace Callisto.Web.Api
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration.GetConnectionString("callisto");
             services.UseCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                connection
-             
-              );
+                Configuration.GetConnectionString("callisto"));
+
+            services.UseCallistNotification(
+               Configuration,
+               services.ConfigureAndGet<MailOptions>(Configuration, "sendGrid"));
 
             services.UseCallistoSession();
 

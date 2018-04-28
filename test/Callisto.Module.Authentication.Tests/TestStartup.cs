@@ -4,6 +4,7 @@ using Callisto.Module.Authentication.Startup;
 using Callisto.Session.Provider;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace Callisto.Module.Authentication.Tests
 {
@@ -56,6 +58,8 @@ namespace Callisto.Module.Authentication.Tests
               );
 
             services.UseCallistoSession();
+
+            services.AddSingleton(c => Substitute.For<INotificationModule>());
 
             services.AddMvc();
         }
