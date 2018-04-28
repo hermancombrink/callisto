@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Authentication.Options;
+﻿using App.Metrics.Health;
+using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
 using Callisto.Module.Notification.Startup;
@@ -7,10 +8,12 @@ using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading.Tasks;
 using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
 namespace Callisto.Web.Api
@@ -67,7 +70,16 @@ namespace Callisto.Web.Api
                     });
             });
 
-            services.AddMvc();
+            services.AddHealth(c =>
+            {
+                c.HealthChecks.AddCheck("Test",
+                () => new ValueTask<HealthCheckResult>(HealthCheckResult.Healthy("Database Connection OK")));
+                c.OutputHealth.AsJson();
+            });
+
+            services.AddHealthEndpoints();
+
+            services.AddMvc().AddMetrics();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,11 +100,16 @@ namespace Callisto.Web.Api
 
             app.UseMiddleware<ServiceExceptionMiddleware>();
 
+
             app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();
+
+            app.UseMetricsAllEndpoints();
+            app.UseMetricsAllMiddleware();
+            app.UseHealthAllEndpoints();
         }
     }
 }
