@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using NSubstitute;
 using SendGrid.Helpers.Mail;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -65,13 +66,11 @@ namespace Callisto.Module.Notification.Tests
             sender.Received(1).SendEmailAsync(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>());
         }
 
-#pragma warning disable xUnit1004 // Test methods should not be skipped
         /// <summary>
         /// The EmailSenderShouldSendNotificationWithSendGrid
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
         [Fact]//(Skip = "Test to see if mail is inboxed")]
-#pragma warning restore xUnit1004 // Test methods should not be skipped
         public async Task EmailSenderShouldSendNotificationWithSendGrid()
         {
             var factory = Substitute.For<ISendGridMalFactory>();
@@ -86,7 +85,7 @@ namespace Callisto.Module.Notification.Tests
                 var mailMessage = new SendGridMessage();
                 mailMessage.AddTo("herman.combrink@gmail.com");
                 mailMessage.From = new EmailAddress("test@test.com", "Integration Test");
-                mailMessage.Subject = "Test Subject";
+                mailMessage.Subject = "Test Without Template";
                 mailMessage.HtmlContent = "Test Body";
                 return mailMessage;
             });
@@ -138,6 +137,62 @@ namespace Callisto.Module.Notification.Tests
                 await sender.SendEmailAsync(NotificationRequestModel.Email("test@test.com", "test subject", "test body"));
             };
             act.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void SendGridFactoryShouldSetTokensAndTemplateId()
+        {
+            var factory = new SendGridMailFactory(new OptionsWrapper<MailOptions>(new MailOptions()
+            {
+                FromAddress = "test@test.com",
+                FromDisplayName = "Test",
+                Templates = new List<TemplateItem>() {
+                    new TemplateItem(){
+                        Id = "123",
+                        Type = NotificationType.ResetPassword
+                    }
+                }
+            }));
+            var message =  NotificationRequestModel.Email("test@client.com", "subject", "message");
+            message.AddToken("token", "test");
+
+            var result = factory.CreateMessage(NotificationType.ResetPassword, message);
+
+            result.Personalizations[0].Substitutions.Count.Should().BeGreaterThan(0);
+            result.TemplateId.Should().NotBeNullOrEmpty();
+        }
+
+        /// <summary>
+        /// The EmailSenderShouldSendNotificationWithSendGrid
+        /// </summary>
+        /// <returns>The <see cref="Task"/></returns>
+        [Fact]//(Skip = "Test to see if mail is inboxed")]
+        public async Task EmailSenderShouldSendWithTemplate()
+        {
+            var factory = new SendGridMailFactory(new OptionsWrapper<MailOptions>(new MailOptions()
+            {
+                FromAddress = "test@test.com",
+                FromDisplayName = "Test",
+                Templates = new List<TemplateItem>() {
+                    new TemplateItem(){
+                        Id = "7cc262f1-48eb-4948-a22c-16cb844d4540",
+                        Type = NotificationType.ResetPassword
+                    }
+                }
+            }));
+            var sender = new SimpleSendGridEmailSender(new OptionsWrapper<MailOptions>(new MailOptions()
+            {
+                ApiKey = "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",
+                FromAddress = "test@test.com",
+                FromDisplayName = "Integration Test"
+            }), factory);
+
+            var message = NotificationRequestModel.Email("herman.combrink@gmail.com", "subject", "message");
+            message.AddToken("-name-", "John Doe");
+            message.AddToken("-city-", "Denver");
+            message.AddToken("subject", "SendGrid Subject");
+            
+            await sender.SendEmailAsync(message, NotificationType.ResetPassword);
         }
     }
 }

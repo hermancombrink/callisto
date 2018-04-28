@@ -3,6 +3,7 @@ using Callisto.Module.Notification.Options;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
 using Microsoft.Extensions.Options;
+using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Linq;
@@ -40,17 +41,16 @@ namespace Callisto.Module.Notification
             {
                 var mailMessage = new SendGridMessage();
                 mailMessage.AddTo(model.DefaultDestination);
-                mailMessage.From = new EmailAddress(Options.FromAddress, Options.FromDisplayName);
-                mailMessage.Subject = model.DefaultSubject;
-                mailMessage.HtmlContent = model.DefaultContent;
-                mailMessage.PlainTextContent = model.DefaultContent;
+                mailMessage.SetFrom(new EmailAddress(Options.FromAddress, Options.FromDisplayName));
+                mailMessage.SetSubject(model.DefaultSubject);
+                mailMessage.AddContent(MimeType.Html, model.DefaultContent);
 
                 var template = Options.Templates?.FirstOrDefault(c => c.Type == type);
 
                 if (template != null)
                 {
                     mailMessage.AddSubstitutions(model.Tokens);
-                    if (string.IsNullOrEmpty(template.Id))
+                    if (!string.IsNullOrEmpty(template.Id))
                     {
                         mailMessage.SetTemplateId(template.Id);
                     }
