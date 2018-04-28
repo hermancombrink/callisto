@@ -1,15 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using Callisto.Module.Notification.Options;
+﻿using Callisto.Module.Notification.Options;
+using Callisto.SharedModels.Notification.Enum;
+using Callisto.SharedModels.Notification.Models;
 using Microsoft.Extensions.Options;
 using SendGrid;
-using SendGrid.Helpers.Mail;
+using System;
+using System.Threading.Tasks;
 
 namespace Callisto.Module.Notification.Email
 {
+    /// <summary>
+    /// Defines the <see cref="SimpleSendGridEmailSender" />
+    /// </summary>
     public class SimpleSendGridEmailSender : IEmailSender
     {
-        public SimpleSendGridEmailSender(IOptions<MailOptions> mailOptions)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleSendGridEmailSender"/> class.
+        /// </summary>
+        /// <param name="mailOptions">The <see cref="IOptions{MailOptions}"/></param>
+        /// <param name="mailFactory">The <see cref="ISendGridMalFactory"/></param>
+        public SimpleSendGridEmailSender(IOptions<MailOptions> mailOptions, ISendGridMalFactory mailFactory)
         {
             Options = mailOptions.Value;
             if (string.IsNullOrWhiteSpace(Options.ApiKey))
@@ -18,40 +27,38 @@ namespace Callisto.Module.Notification.Email
             }
 
             SendGridClient = new SendGridClient(Options.ApiKey);
+            MailFactory = mailFactory;
         }
 
+        /// <summary>
+        /// Gets the Options
+        /// </summary>
         private MailOptions Options { get; }
 
+        /// <summary>
+        /// Gets the SendGridClient
+        /// </summary>
         private SendGridClient SendGridClient { get; }
 
-        public async Task SendEmailAsync(string email, string subject, string message)
+        /// <summary>
+        /// Gets the MailFactory
+        /// </summary>
+        public ISendGridMalFactory MailFactory { get; }
+
+        /// <summary>
+        /// The SendEmailAsync
+        /// </summary>
+        /// <param name="model">The <see cref="NotificationRequestModel"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task SendEmailAsync(NotificationRequestModel model, NotificationType type = NotificationType.None)
         {
-           var response = await SendGridClient.SendEmailAsync(GetMessage(email, subject, message));
+            var message = MailFactory.CreateMessage(type, model);
+            var response = await SendGridClient.SendEmailAsync(message);
 
             if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 throw new InvalidOperationException(await response.Body.ReadAsStringAsync());
             }
-        }
-
-        private SendGridMessage GetMessage(string email, string subject, string message)
-        {
-            try
-            {
-                var mailMessage = new SendGridMessage();
-                mailMessage.AddTo(email);
-                mailMessage.From = new EmailAddress(Options.FromAddress, Options.FromDisplayName);
-                mailMessage.Subject = subject;
-                mailMessage.HtmlContent = message;
-                mailMessage.PlainTextContent = message;
-
-                return mailMessage;
-            }
-            catch (Exception ex)
-            {
-                throw new FormatException($"Failed to construct mail message", ex);
-            }
-
         }
     }
 }

@@ -1,9 +1,11 @@
 using AutoFixture;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Notification;
+using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
 using FluentAssertions;
 using NSubstitute;
@@ -175,6 +177,11 @@ namespace Callisto.Module.Authentication.Tests
             var signin = await WebApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
             var r = signin.ToRequestResult();
 
+            var notification = WebApiFixture.GetService<INotificationModule>();
+            notification.SubmitEmailNotification(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>()).Returns(c =>
+            {
+                return RequestResult.Success();
+            });
             var client = WebApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
@@ -183,10 +190,8 @@ namespace Callisto.Module.Authentication.Tests
             reset.EnsureSuccessStatusCode();
             var response = reset.ToRequestResult();
             response.Status.Should().Be(RequestStatus.Success);
-            response.Result.Should().NotBeNullOrEmpty();
 
-            var notification = WebApiFixture.GetService<INotificationModule>();
-            notification.Received(1).SubmitEmailNotification(Arg.Any<NotificationRequestModel>());
+            notification.Received(1).SubmitEmailNotification(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>());
         }
 
         /// <summary>

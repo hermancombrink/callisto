@@ -49,7 +49,7 @@ namespace Callisto.Web.Api
 
             services.UseCallistNotification(
                Configuration,
-               services.ConfigureAndGet<MailOptions>(Configuration, "sendGrid"));
+               services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
             services.UseCallistoSession();
 

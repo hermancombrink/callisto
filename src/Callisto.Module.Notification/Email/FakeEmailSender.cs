@@ -1,12 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using Callisto.SharedModels.Notification.Enum;
+using Callisto.SharedModels.Notification.Models;
+using System.Threading.Tasks;
 
 namespace Callisto.Module.Notification.Email
 {
-    // This class is used by the application to send email for account confirmation and password reset.
-    // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
+    /// <summary>
+    /// Defines the <see cref="FakeEmailSender" />
+    /// </summary>
     public class FakeEmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        /// <summary>
+        /// The SendEmailAsync
+        /// </summary>
+        /// <param name="model">The <see cref="NotificationRequestModel"/></param>
+        /// <param name="type">The <see cref="NotificationType"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public Task SendEmailAsync(NotificationRequestModel model, NotificationType type = NotificationType.None)
         {
             return Task.CompletedTask;
         }

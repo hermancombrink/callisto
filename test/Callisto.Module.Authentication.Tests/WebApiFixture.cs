@@ -56,6 +56,11 @@ namespace Callisto.Module.Authentication.Tests
         /// </summary>
         public ICallistoSession Session { get; }
 
+        /// <summary>
+        /// The GetService
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>The <see cref="T"/></returns>
         public T GetService<T>()
         {
             return (T)Server.Host.Services.GetService(typeof(T));

@@ -5,6 +5,7 @@ using Callisto.SharedKernel;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Identity;
@@ -175,12 +176,11 @@ namespace Callisto.Module.Authentication
                 {
                     var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                    await Session.Notification.SubmitEmailNotification(
-                        NotificationRequestModel.Email(email,
-                        "Your password has been reset",
-                        $"Reset token - [{token}]"));
+                    var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
+                         "Your password has been reset",
+                         $"Reset token - [{token}]").AddToken("token", token), NotificationType.ResetPassword);
 
-                    return RequestResult.Success(token);
+                    return result;
                 }
 
                 return RequestResult.Failed($"Failed to find login for account {email}");

@@ -8,6 +8,11 @@
         /// <summary>
         /// Defines the None
         /// </summary>
-        None = 0
+        None = 0,
+
+        /// <summary>
+        /// Defines the ForgotPassword
+        /// </summary>
+        ResetPassword = 1
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Callisto.Module.Notification.Email;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Notification;
+using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Notification
@@ -41,13 +41,12 @@ namespace Callisto.Module.Notification
         /// </summary>
         /// <param name="model">The <see cref="NotificationRequestModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult> SubmitEmailNotification(NotificationRequestModel model)
+        public async Task<RequestResult> SubmitEmailNotification(NotificationRequestModel model, NotificationType type = NotificationType.None)
         {
             return await RequestResult.From(async () =>
             {
                 Logger.LogDebug($"Sending email to {model.DefaultDestination}");
-                var (email, subject, message) = ModelFactory.CreateEmailFromNotification(model);
-                await EmailSender.SendEmailAsync(email, subject, message);
+                await EmailSender.SendEmailAsync(model);
             });
         }
     }

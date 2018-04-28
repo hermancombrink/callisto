@@ -41,7 +41,19 @@ namespace Callisto.SharedModels.Notification.Models
         /// <summary>
         /// Gets or sets the Tokens
         /// </summary>
-        public IDictionary<string, string> Tokens { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Tokens { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>
+        /// The AddToken
+        /// </summary>
+        /// <param name="key">The <see cref="string"/></param>
+        /// <param name="value">The <see cref="string"/></param>
+        /// <returns>The <see cref="NotificationRequestModel"/></returns>
+        public NotificationRequestModel AddToken(string key, string value)
+        {
+            Tokens.Add(key, value);
+            return this;
+        }
 
         /// <summary>
         /// The Email
