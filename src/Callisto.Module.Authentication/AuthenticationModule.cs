@@ -178,7 +178,7 @@ namespace Callisto.Module.Authentication
 
                     var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
                          "Your password has been reset",
-                         $"Reset token - [{token}]").AddToken("token", token), NotificationType.ResetPassword);
+                         $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
 
                     return result;
                 }

@@ -46,7 +46,7 @@ namespace Callisto.Module.Notification
             return await RequestResult.From(async () =>
             {
                 Logger.LogDebug($"Sending email to {model.DefaultDestination}");
-                await EmailSender.SendEmailAsync(model);
+                await EmailSender.SendEmailAsync(model, type);
             });
         }
     }
