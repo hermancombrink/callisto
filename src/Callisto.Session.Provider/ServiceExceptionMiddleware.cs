@@ -39,7 +39,7 @@ namespace Callisto.Session.Provider
             catch (Exception ex)
             {
                 httpContext.Response.ContentType = "application/json";
-                var response = RequestResult.Failed($"Oops! Unexpected error occured");
+                var response = RequestResult.Critical(ex);
                 await httpContext.Response.WriteAsync(response.ToJson( true, SharedKernel.Enum.JsonContractResolver.CamelCase));
             }
         }

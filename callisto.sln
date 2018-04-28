@@ -72,6 +72,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.SharedModels", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Module.Notification.Tests", "test\Callisto.Module.Notification.Tests\Callisto.Module.Notification.Tests.csproj", "{5241AB1B-7439-4FAF-8D50-D2993506A48F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Web.Api.Tests", "test\Callisto.Web.Api.Tests\Callisto.Web.Api.Tests.csproj", "{AA799F0F-C876-414F-AF75-DBA887959619}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +126,10 @@ Global
 		{5241AB1B-7439-4FAF-8D50-D2993506A48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5241AB1B-7439-4FAF-8D50-D2993506A48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5241AB1B-7439-4FAF-8D50-D2993506A48F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA799F0F-C876-414F-AF75-DBA887959619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA799F0F-C876-414F-AF75-DBA887959619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA799F0F-C876-414F-AF75-DBA887959619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA799F0F-C876-414F-AF75-DBA887959619}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{195DE404-86B5-4C2E-8347-FD395B50BF59} = {B163B4D0-DD97-485B-A9B9-EDBD8C8C0F1E}
 		{D9672CF0-7822-4395-AE4F-5F2BFB755B0F} = {53A8776E-3910-4434-B7C4-4A6967A99F08}
 		{5241AB1B-7439-4FAF-8D50-D2993506A48F} = {7F1E2E52-F101-4E51-B707-B833323895ED}
+		{AA799F0F-C876-414F-AF75-DBA887959619} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}

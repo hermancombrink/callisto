@@ -163,20 +163,28 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> ResetPassword(string email)
         {
-            var user = await UserManager.FindByEmailAsync(email);
-            if (user != null)
+            return await RequestResult.From(async () =>
             {
-                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+                if (string.IsNullOrEmpty(email))
+                {
+                    return RequestResult.Failed($"Email cannot be empty");
+                }
 
-                await Session.Notification.SubmitEmailNotification(
-                    NotificationRequestModel.Email(email,
-                    "Your password has been reset",
-                    $"Reset token - [{token}]"));
+                var user = await UserManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                return RequestResult.Success(token);
-            }
+                    await Session.Notification.SubmitEmailNotification(
+                        NotificationRequestModel.Email(email,
+                        "Your password has been reset",
+                        $"Reset token - [{token}]"));
 
-            return RequestResult.Failed($"Failed to find login for account {email}");
+                    return RequestResult.Success(token);
+                }
+
+                return RequestResult.Failed($"Failed to find login for account {email}");
+            });
         }
 
         /// <summary>

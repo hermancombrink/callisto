@@ -31,8 +31,31 @@ namespace Callisto.Module.Notification.Tests
             var model = fixture.Build<NotificationRequestModel>()
                 .Create();
 
-           var result =  await module.SubmitEmailNotification(model);
+            var result = await module.SubmitEmailNotification(model);
             result.Status.Should().Be(RequestStatus.Success);
+            sender.Received(1).SendEmailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+        }
+
+
+        [Fact]
+        public async Task SubmitNotificationShouldBeCriticalWhenSenderFailed()
+        {
+            var sender = Substitute.For<IEmailSender>();
+            var module = new NotificationModule(Substitute.For<ILogger<NotificationModule>>(), sender);
+
+            var fixture = new Fixture();
+
+            var model = fixture.Build<NotificationRequestModel>()
+                .Create();
+
+            sender.SendEmailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>()).Returns(c =>
+            {
+                throw new Exception("Email exception");
+            });
+            var result = await module.SubmitEmailNotification(model);
+            result.Status.Should().Be(RequestStatus.Exception);
+            result.FriendlyMessage.Should().Be("Oops. That was not suppose to happen");
+            result.SystemMessage.Should().Be("Email exception");
             sender.Received(1).SendEmailAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
         }
     }
