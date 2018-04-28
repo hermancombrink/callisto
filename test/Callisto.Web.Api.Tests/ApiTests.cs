@@ -42,5 +42,15 @@ namespace Callisto.Web.Api.Tests
             response.Status.Should().Be(RequestStatus.Failed);
         }
 
+
+        [Fact]
+        public void ApiShouldHaveAllDependantServiceRegisteredForCallisto()
+        {
+            foreach (var property in WebApiFixture.Session.GetType().GetProperties())
+            {
+                property.GetValue(WebApiFixture.Session).Should().NotBeNull();
+            }
+                
+        }
     }
 }

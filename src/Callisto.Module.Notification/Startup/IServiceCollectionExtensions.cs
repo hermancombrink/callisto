@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Notification.Email;
 using Callisto.Module.Notification.Options;
+using Callisto.SharedModels.Notification;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,7 @@ namespace Callisto.Module.Notification.Startup
         public static void UseCallistNotification(this IServiceCollection services, IConfiguration config, MailOptions options)
         {
             services.AddTransient<IEmailSender, SimpleSendGridEmailSender>();
+            services.AddTransient<INotificationModule, NotificationModule>();
         }
     }
 }

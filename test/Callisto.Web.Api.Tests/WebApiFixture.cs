@@ -1,6 +1,6 @@
 ﻿using Callisto.Module.Authentication.Tests;
+using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.TestHost;
 using System;
 using System.Net.Http;
@@ -23,6 +23,7 @@ namespace Callisto.Web.Api.Tests
             Server = new TestServer(host);
             Client = Server.CreateClient();
             Services = Server.Host.Services;
+            Session = Server.Host.Services.GetService(typeof(ICallistoSession)) as ICallistoSession;
         }
 
         /// <summary>
@@ -39,5 +40,10 @@ namespace Callisto.Web.Api.Tests
         /// Gets the Services
         /// </summary>
         public IServiceProvider Services { get; }
+
+        /// <summary>
+        /// Gets the Session
+        /// </summary>
+        public ICallistoSession Session { get; }
     }
 }
