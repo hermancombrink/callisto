@@ -26,7 +26,12 @@ namespace Callisto.Module.Notification.Email
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            await SendGridClient.SendEmailAsync(GetMessage(email, subject, message));
+           var response = await SendGridClient.SendEmailAsync(GetMessage(email, subject, message));
+
+            if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+            {
+                throw new InvalidOperationException(await response.Body.ReadAsStringAsync());
+            }
         }
 
         private SendGridMessage GetMessage(string email, string subject, string message)
