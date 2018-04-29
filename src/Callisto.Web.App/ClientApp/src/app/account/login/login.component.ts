@@ -37,7 +37,7 @@ export class LoginComponent extends BaseComponent {
       }
       else {
         this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
-        setTimeout(c => this.router.navigate(['/']), 500);
+        this.router.navigate(['/']);
       }
       console.info(c);
     }, e => {

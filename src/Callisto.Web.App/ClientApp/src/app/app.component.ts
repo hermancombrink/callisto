@@ -15,8 +15,14 @@ export class AppComponent  {
 
   stickyToasties: number[] = [];
 
-  constructor(private toastyService: ToastyService, private toastyConfig: ToastyConfig,
-    private alertService: AlertService) {
+  get isAuthenticated() {
+    return this.authService.IsAuthenticated();
+  }
+
+  constructor(private toastyService: ToastyService,
+    private toastyConfig: ToastyConfig,
+    private alertService: AlertService,
+    private authService: AuthService) {
 
     this.toastyConfig.theme = 'bootstrap';
     this.toastyConfig.position = 'top-right';

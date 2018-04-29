@@ -15,6 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="App.Metrics.Health.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.2" />
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Health\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 

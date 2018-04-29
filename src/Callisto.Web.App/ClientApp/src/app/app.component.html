@@ -1,4 +1,33 @@
 <ng2-toasty></ng2-toasty>
 <spinner></spinner>
 
-<router-outlet></router-outlet>
+<!-- Wrapper-->
+<div id="wrapper" [class.white-bg]="!isAuthenticated">
+
+  <!-- Navigation -->
+  <app-left-menu style="float:left;" *ngIf="isAuthenticated"></app-left-menu>
+
+  <!-- Page wraper -->
+  <div id="page-wrapper" [class.gray-bg]="isAuthenticated">
+
+    <!-- Top Navbar -->
+    <app-top-menu *ngIf="isAuthenticated"></app-top-menu>
+
+    <!-- Main view  -->
+
+    <router-outlet></router-outlet>
+
+    <!-- Footer -->
+    <div class="footer" *ngIf="isAuthenticated">
+      <div class="pull-right">
+       
+      </div>
+      <div>
+        <strong>Copyright</strong> ESA Developments &copy; 2018-2019
+      </div>
+    </div>
+  </div>
+  <!-- End page wrapper-->
+  <!-- Right Sidebar -->
+
+</div>

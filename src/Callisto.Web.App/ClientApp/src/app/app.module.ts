@@ -6,7 +6,7 @@ import { RouterModule, Router } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { AlertModule } from 'ngx-bootstrap';
-
+import { GridsterModule } from 'angular-gridster2';
 
 import { AppComponent } from './app.component';
 
@@ -32,10 +32,13 @@ import { AssetModule } from './asset/asset.module';
     HttpClientModule,
     NgHttpLoaderModule,
     FormsModule,
+    GridsterModule,
+
     NavModule,
     AccountModule,
     AssetModule,
     ErrorModule,
+
     CoreModule.forRoot(),
     ToastyModule.forRoot(),
     AlertModule.forRoot(),
