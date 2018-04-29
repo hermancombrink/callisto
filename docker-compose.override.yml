@@ -51,6 +51,20 @@ services:
     volumes:
       - rabbitvolume:/var/lib/rabbitmq
 
+  prometheus:
+    image: hermancombrink/callisto-prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - default
+
+  grafana:
+    image: hermancombrink/callisto-grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+
 volumes:
   sqlvolume:
   rabbitvolume:

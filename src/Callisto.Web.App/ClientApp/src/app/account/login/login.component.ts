@@ -24,6 +24,11 @@ export class LoginComponent extends BaseComponent {
 
   model = new LoginViewModel();
 
+  ngOnInit() {
+    super.ngOnInit();
+    this.authService.ClearToken();
+  }
+
   onSubmit() {
     this.authService.Login(this.model).subscribe(c => {
       if (c.status != RequestStatus.Success) {
