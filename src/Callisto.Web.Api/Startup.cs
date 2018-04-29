@@ -1,7 +1,4 @@
-﻿using App.Metrics;
-using App.Metrics.AspNetCore.Endpoints;
-using App.Metrics.Formatters.Prometheus;
-using App.Metrics.Health;
+﻿using App.Metrics.Health;
 using Callisto.Core.Metrics.Startup;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
@@ -12,12 +9,11 @@ using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
@@ -78,7 +74,6 @@ namespace Callisto.Web.Api
             services.AddCallistoMonitoring(Configuration);
 
             services.AddMvc();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

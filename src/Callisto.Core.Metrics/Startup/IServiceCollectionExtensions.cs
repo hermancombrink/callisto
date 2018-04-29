@@ -31,7 +31,7 @@ namespace Callisto.Core.Metrics.Startup
                 metrics.OutputMetricsFormatters.FirstOrDefault(x => x.GetType() == typeof(MetricsPrometheusTextOutputFormatter));
             });
             services.AddHealthEndpoints(config);
-            services.AddHealth();
+            services.AddHealth(c => c.BuildAndAddTo(services));
         }
 
         /// <summary>
