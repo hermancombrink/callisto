@@ -1,0 +1,73 @@
+version: '3.3'
+
+services:
+  landing:
+    image: hermancombrink/callisto-landing
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks: 
+      - default
+
+  api:
+    image: hermancombrink/callisto-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks: 
+      - default
+
+  app:
+    image: hermancombrink/callisto-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks: 
+      - default
+
+  nginx:
+    image: hermancombrink/callisto-nginx
+    depends_on:
+      - landing
+      - api
+      - app
+    ports:
+      - "80:80"
+    networks:
+      - default
+
+  sql:
+    image: hermancombrink/callisto-sql
+    networks: 
+      - default
+    ports:
+      - "1434:1433"   
+    volumes: 
+      - sqlvolume:/var/opt/mssql
+
+  rabbit:
+    image: hermancombrink/callisto-rabbitmq
+    networks: 
+      - default
+    ports:
+      - "15673:15672"  
+    volumes:
+      - rabbitvolume:/var/lib/rabbitmq
+
+  prometheus:
+    image: hermancombrink/callisto-prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - default
+
+  grafana:
+    image: hermancombrink/callisto-grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+
+volumes:
+  sqlvolume:
+  rabbitvolume:
+
+networks:
+  default:

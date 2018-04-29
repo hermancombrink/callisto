@@ -1,0 +1,8 @@
+FROM grafana/grafana
+
+RUN mkdir -p /var/lib/grafana/dashboards
+COPY api.json /var/lib/grafana/dashboards/api.json
+
+COPY prometheus.yaml /etc/grafana/provisioning/datasources/datasource.yaml 
+COPY api.yaml /etc/grafana/provisioning/dashboards/api.yaml
+

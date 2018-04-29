@@ -1,0 +1,13 @@
+# base image for ASP.NET Core
+# automatically exposes PORT 80
+FROM microsoft/mssql-server-linux
+
+ENV ACCEPT_EULA="Y"
+ENV SA_PASSWORD="Password!2"
+
+COPY Callisto_Create.sql .
+
+RUN /opt/mssql/bin/sqlservr --accept-eula & sleep 20 \
+	&& /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $SA_PASSWORD -i Callisto_Create.sql \
+    && pkill sqlservr 
+
