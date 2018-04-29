@@ -11,9 +11,11 @@
 
   <ItemGroup>
     <PackageReference Include="App.Metrics" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.AspNetCore" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Health" Version="2.0.0" />
     <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.0.0" />
     <PackageReference Include="App.Metrics.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="App.Metrics.Formatters.Prometheus" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
@@ -23,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj" />
     <ProjectReference Include="..\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj" />
     <ProjectReference Include="..\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />

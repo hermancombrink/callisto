@@ -30,3 +30,13 @@ services:
     build: 
       context: docker/rabbitmq/
       dockerfile: dockerfile
+
+  prometheus: 
+    build: 
+      context: docker/prometheus/
+      dockerfile: dockerfile
+
+  grafana: 
+    build: 
+      context: docker/grafana/
+      dockerfile: dockerfile
