@@ -1,2 +1,2 @@
 # callisto
-Project to store alternative plant ERP solution
+This serves as the base project for starting new implementation
