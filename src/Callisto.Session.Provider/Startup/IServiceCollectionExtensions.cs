@@ -15,7 +15,7 @@ namespace Callisto.Session.Provider.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoSession(this IServiceCollection services)
+        public static IServiceCollection AddCallistoSession(this IServiceCollection services)
         {
             services.TryAddTransient<ICallistoSession, CallistoSession>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

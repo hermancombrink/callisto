@@ -1,5 +1,6 @@
 ﻿using App.Metrics.Health;
 using Callisto.Core.Metrics.Startup;
+using Callisto.Module.Asset.Startup;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
@@ -45,17 +46,19 @@ namespace Callisto.Web.Api
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.UseCallistoAuthentication(
+            services.AddCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                 Configuration.GetConnectionString("callisto"));
 
-            services.UseCallistNotification(
+            services.AddCallistoNotification(
                Configuration,
                services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
-            services.UseCallistoSession();
+            services.AddCallistoAssets(Configuration);
+
+            services.AddCallistoSession();
 
             services.AddCors(options =>
             {
@@ -94,6 +97,7 @@ namespace Callisto.Web.Api
 
             app.UseCallistoMonitoring();
             app.UseMiddleware<ServiceExceptionMiddleware>();
+
             app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseDefaultFiles();

@@ -29,7 +29,7 @@ namespace Callisto.Module.Authentication.Startup
         /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
         /// <param name="dbContextFactory">The <see cref="Action{DbContextOptionsBuilder}"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
+        public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
             IConfiguration config,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
@@ -78,13 +78,13 @@ namespace Callisto.Module.Authentication.Startup
         /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
+        public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
             IConfiguration config,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
             string connectionString)
         {
-            return UseCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
+            return AddCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Callisto.Module.Notification.Startup
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="configsection">The <see cref="string"/></param>
-        public static void UseCallistNotification(this IServiceCollection services,
+        public static void AddCallistoNotification(this IServiceCollection services,
             IConfiguration config,
             MailOptions mailOptions)
         {

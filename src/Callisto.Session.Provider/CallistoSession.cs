@@ -1,4 +1,5 @@
-﻿using Callisto.SharedModels.Auth;
+﻿using Callisto.SharedModels.Asset;
+using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Http;
@@ -68,6 +69,20 @@ namespace Callisto.Session.Provider
         {
             get { return _notification ?? (_notification = ServiceProvider.GetRequiredService<INotificationModule>()); }
             set { _notification = value; }
+        }
+
+        /// <summary>
+        /// Defines the _assets
+        /// </summary>
+        private IAssetModule _assets;
+
+        /// <summary>
+        /// Gets or sets the Assets
+        /// </summary>
+        public IAssetModule Assets
+        {
+            get { return _assets ?? (_assets = ServiceProvider.GetRequiredService<IAssetModule>()); }
+            set { _assets = value; }
         }
     }
 }

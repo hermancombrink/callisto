@@ -90,7 +90,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana", "grafana", "{85D5
 		docker\grafana\prometheus.yaml = docker\grafana\prometheus.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Core.Metrics", "src\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj", "{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Core.Metrics", "src\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj", "{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Module.Asset", "src\Callisto.Module.Asset\Callisto.Module.Asset.csproj", "{58473C32-A737-4206-AFE5-7FD60C543264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +154,10 @@ Global
 		{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58473C32-A737-4206-AFE5-7FD60C543264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58473C32-A737-4206-AFE5-7FD60C543264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58473C32-A737-4206-AFE5-7FD60C543264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58473C32-A737-4206-AFE5-7FD60C543264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,9 +185,10 @@ Global
 		{A4041820-19D0-444E-B788-B3B3B807D779} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{85D5A851-327C-4E27-80AA-0A8AEA6012A2} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{E3EAA41B-0DD3-47ED-A036-F9F0A000289D} = {999E5DE8-CBD6-4DC5-A977-DC2DFCC2780F}
+		{58473C32-A737-4206-AFE5-7FD60C543264} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal

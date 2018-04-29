@@ -46,7 +46,7 @@ namespace Callisto.Module.Authentication.Tests
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.UseCallistoAuthentication(
+            services.AddCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
@@ -57,7 +57,7 @@ namespace Callisto.Module.Authentication.Tests
                }
               );
 
-            services.UseCallistoSession();
+            services.AddCallistoSession();
 
             services.AddSingleton(c => Substitute.For<INotificationModule>());
 

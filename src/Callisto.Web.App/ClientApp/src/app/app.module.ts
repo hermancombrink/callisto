@@ -18,6 +18,7 @@ import { NavModule } from './nav/nav.module';
 import { AccountModule } from './account/account.module';
 import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
+import { AssetModule } from './asset/asset.module';
 
 
 
@@ -33,6 +34,7 @@ import { ErrorModule } from './error/error.module';
     FormsModule,
     NavModule,
     AccountModule,
+    AssetModule,
     ErrorModule,
     CoreModule.forRoot(),
     ToastyModule.forRoot(),
