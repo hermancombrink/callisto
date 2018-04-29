@@ -42,7 +42,6 @@ namespace Callisto.Web.Api.Tests
             response.Status.Should().Be(RequestStatus.Failed);
         }
 
-
         [Fact]
         public void ApiShouldHaveAllDependantServiceRegisteredForCallisto()
         {
@@ -51,6 +50,19 @@ namespace Callisto.Web.Api.Tests
                 property.GetValue(WebApiFixture.Session).Should().NotBeNull();
             }
                 
+        }
+
+        [Theory]
+        [InlineData("/metrics")]
+        [InlineData("/metrics-text")]
+        [InlineData("/health")]
+        [InlineData("/ping")]
+        public async Task ApiAllMetricsShouldBeEnabled(string endpoint)
+        {
+            var client = WebApiFixture.Client;
+            var reset = await client.GetAsync(endpoint);
+
+            reset.StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }

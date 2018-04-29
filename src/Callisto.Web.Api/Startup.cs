@@ -1,4 +1,6 @@
-﻿using Callisto.Module.Authentication.Options;
+﻿using App.Metrics.Health;
+using Callisto.Core.Metrics.Startup;
+using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
 using Callisto.Module.Notification.Startup;
@@ -11,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
 namespace Callisto.Web.Api
@@ -67,6 +71,8 @@ namespace Callisto.Web.Api
                     });
             });
 
+            services.AddCallistoMonitoring(Configuration);
+
             services.AddMvc();
         }
 
@@ -86,8 +92,8 @@ namespace Callisto.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCallistoMonitoring();
             app.UseMiddleware<ServiceExceptionMiddleware>();
-
             app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseDefaultFiles();
