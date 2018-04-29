@@ -84,7 +84,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana", "grafana", "{85D5A851-327C-4E27-80AA-0A8AEA6012A2}"
 	ProjectSection(SolutionItems) = preProject
+		docker\grafana\api.json = docker\grafana\api.json
+		docker\grafana\api.yaml = docker\grafana\api.yaml
 		docker\grafana\dockerfile = docker\grafana\dockerfile
+		docker\grafana\prometheus.yaml = docker\grafana\prometheus.yaml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Core.Metrics", "src\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj", "{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}"
