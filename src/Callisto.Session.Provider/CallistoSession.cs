@@ -74,14 +74,14 @@ namespace Callisto.Session.Provider
         /// <summary>
         /// Defines the _assets
         /// </summary>
-        private IAssetModule _assets;
+        private IAssetsModule _assets;
 
         /// <summary>
         /// Gets or sets the Assets
         /// </summary>
-        public IAssetModule Assets
+        public IAssetsModule Assets
         {
-            get { return _assets ?? (_assets = ServiceProvider.GetRequiredService<IAssetModule>()); }
+            get { return _assets ?? (_assets = ServiceProvider.GetRequiredService<IAssetsModule>()); }
             set { _assets = value; }
         }
     }

@@ -10,9 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Repository\" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="Repository\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="Repository\**" />
+    <None Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>

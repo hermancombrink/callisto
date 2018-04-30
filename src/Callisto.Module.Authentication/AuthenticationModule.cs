@@ -87,41 +87,38 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RegisterUserAsync(RegisterViewModel model)
         {
-            return await RequestResult.From(async () =>
-             {
-                 Logger.LogDebug($"Attempting register for {model.Email}");
+            Logger.LogDebug($"Attempting register for {model.Email}");
 
-                 if (model is null)
-                 {
-                     return RequestResult.Validation($"Request cannot be null");
-                 }
+            if (model is null)
+            {
+                return RequestResult.Validation($"Request cannot be null");
+            }
 
-                 if (!model.Validate(out string msg).isValid)
-                 {
-                     return RequestResult.Validation(msg);
-                 }
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
 
-                 using (var tran = await AuthRepo.BeginTransaction())
-                 {
-                     var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
-                     if (!companyResult.IsSuccess())
-                     {
-                         Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
-                         return companyResult.AsResult;
-                     }
+            using (var tran = await AuthRepo.BeginTransaction())
+            {
+                var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
+                if (!companyResult.IsSuccess())
+                {
+                    Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
+                    return companyResult.AsResult;
+                }
 
-                     var appUser = ModelFactory.CreateUser(model, companyResult.Result);
-                     var user = await UserManager.CreateAsync(appUser, model.Password);
-                     if (!user.Succeeded)
-                     {
-                         return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
-                     }
+                var appUser = ModelFactory.CreateUser(model, companyResult.Result);
+                var user = await UserManager.CreateAsync(appUser, model.Password);
+                if (!user.Succeeded)
+                {
+                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                }
 
-                     tran.Commit();
-                 }
+                tran.Commit();
+            }
 
-                 return RequestResult.Success();
-             });
+            return RequestResult.Success();
         }
 
         /// <summary>
@@ -164,27 +161,25 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> ResetPassword(string email)
         {
-            return await RequestResult.From(async () =>
+
+            if (string.IsNullOrEmpty(email))
             {
-                if (string.IsNullOrEmpty(email))
-                {
-                    return RequestResult.Failed($"Email cannot be empty");
-                }
+                return RequestResult.Failed($"Email cannot be empty");
+            }
 
-                var user = await UserManager.FindByEmailAsync(email);
-                if (user != null)
-                {
-                    var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                    var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
-                         "Your password has been reset",
-                         $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
+                var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
+                     "Your password has been reset",
+                     $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
 
-                    return result;
-                }
+                return result;
+            }
 
-                return RequestResult.Failed($"Failed to find login for account {email}");
-            });
+            return RequestResult.Failed($"Failed to find login for account {email}");
         }
 
         /// <summary>

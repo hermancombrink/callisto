@@ -1,9 +1,14 @@
 ﻿using App.Metrics;
 using App.Metrics.Formatters.Prometheus;
+using App.Metrics.Health;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Callisto.Core.Metrics.Startup
 {

@@ -1,6 +1,9 @@
-﻿using Callisto.SharedKernel.Enum;
+﻿using App.Metrics.Health;
+using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;

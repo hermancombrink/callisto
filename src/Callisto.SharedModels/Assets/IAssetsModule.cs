@@ -1,9 +1,9 @@
 ﻿namespace Callisto.SharedModels.Asset
 {
     /// <summary>
-    /// Defines the <see cref="IAssetModule" />
+    /// Defines the <see cref="IAssetsModule" />
     /// </summary>
-    public interface IAssetModule
+    public interface IAssetsModule
     {
     }
 }

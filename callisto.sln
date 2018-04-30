@@ -92,7 +92,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "grafana", "grafana", "{85D5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Core.Metrics", "src\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj", "{E3EAA41B-0DD3-47ED-A036-F9F0A000289D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Module.Asset", "src\Callisto.Module.Asset\Callisto.Module.Asset.csproj", "{58473C32-A737-4206-AFE5-7FD60C543264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Assets", "src\Callisto.Module.Asset\Callisto.Module.Assets.csproj", "{58473C32-A737-4206-AFE5-7FD60C543264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,7 +188,7 @@ Global
 		{58473C32-A737-4206-AFE5-7FD60C543264} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

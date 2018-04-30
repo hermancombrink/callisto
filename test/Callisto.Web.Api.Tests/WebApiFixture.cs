@@ -24,6 +24,7 @@ namespace Callisto.Web.Api.Tests
             Client = Server.CreateClient();
             Services = Server.Host.Services;
             Session = Server.Host.Services.GetService(typeof(ICallistoSession)) as ICallistoSession;
+
         }
 
         /// <summary>

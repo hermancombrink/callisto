@@ -1,6 +1,7 @@
 ﻿using App.Metrics.Health;
 using Callisto.Core.Metrics.Startup;
-using Callisto.Module.Asset.Startup;
+using Callisto.Module.Assets.Startup;
+using Callisto.Module.Authentication.Health;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
@@ -73,7 +75,7 @@ namespace Callisto.Web.Api
                         .AllowCredentials();
                     });
             });
-
+           
             services.AddCallistoMonitoring(Configuration);
 
             services.AddMvc();
@@ -106,3 +108,4 @@ namespace Callisto.Web.Api
         }
     }
 }
+

@@ -5,5 +5,5 @@
     [CreatedAt] DATETIME NULL DEFAULT GETDATE(), 
     [ModifiedAt] DATETIME NULL DEFAULT GETDATE(),
 	[Name] NVARCHAR(256) NULL, 
-    [Description] NVARCHAR(512) NULL,
+    [Description] NVARCHAR(512) NULL
 )

@@ -2,13 +2,13 @@
 using Callisto.SharedKernel.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Callisto.Module.Authentication.Repository.Models
+namespace Callisto.Module.Assets.Repository.Models
 {
     /// <summary>
-    /// Defines the <see cref="Company" />
+    /// Defines the <see cref="Asset" />
     /// </summary>
-    [Table("Companies", Schema = DbConstants.CallistoSchema)]
-    public class Company : BaseEfModel
+    [Table("Assets", Schema = DbConstants.CallistoSchema)]
+    public class Asset : BaseEfModel
     {
         /// <summary>
         /// Gets or sets the Name
@@ -19,5 +19,10 @@ namespace Callisto.Module.Authentication.Repository.Models
         /// Gets or sets the Description
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the CompanyRefId
+        /// </summary>
+        public long CompanyRefId { get; set; }
     }
 }

@@ -15,11 +15,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="App.Metrics.Health.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
   </ItemGroup>
@@ -27,11 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
     <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Health\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

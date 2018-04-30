@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Callisto.Module.Asset.Startup
+namespace Callisto.Module.Assets.Startup
 {
     /// <summary>
     /// Defines the <see cref="IServiceCollectionExtensions" />
@@ -18,7 +18,7 @@ namespace Callisto.Module.Asset.Startup
         public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
                IConfiguration config)
         {
-            services.AddTransient<IAssetModule, AssetModule>();
+            services.AddTransient<IAssetsModule, AssetsModule>();
 
             return services;
         }
