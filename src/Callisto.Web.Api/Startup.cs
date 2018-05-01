@@ -48,17 +48,20 @@ namespace Callisto.Web.Api
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
+            var dbConnectionString = Configuration.GetConnectionString("callisto");
+
             services.AddCallistoAuthentication(
                 Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                Configuration.GetConnectionString("callisto"));
+                dbConnectionString);
+
+            services.AddCallistoAssets(Configuration,
+                dbConnectionString);
 
             services.AddCallistoNotification(
                Configuration,
                services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
-
-            services.AddCallistoAssets(Configuration);
 
             services.AddCallistoSession();
 

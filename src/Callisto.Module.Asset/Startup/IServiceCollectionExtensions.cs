@@ -1,6 +1,11 @@
-﻿using Callisto.SharedModels.Asset;
+﻿using Callisto.Module.Assets.Interfaces;
+using Callisto.Module.Assets.Repository;
+using Callisto.SharedModels.Asset;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 
 namespace Callisto.Module.Assets.Startup
 {
@@ -16,11 +21,28 @@ namespace Callisto.Module.Assets.Startup
         /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
-               IConfiguration config)
+        IConfiguration config,
+        Action<DbContextOptionsBuilder> dbContextFactory)
         {
-            services.AddTransient<IAssetsModule, AssetsModule>();
+            services.AddDbContext<AssetDbContext>(dbContextFactory);
+            services.TryAddTransient<IAssetsRepository, AssetsRepository>();
+            services.TryAddTransient<IAssetsModule, AssetsModule>();
 
             return services;
+        }
+
+        /// <summary>
+        /// The AddCallistoAssets
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/></param>
+        /// <param name="config">The <see cref="IConfiguration"/></param>
+        /// <param name="connectionString">The <see cref="string"/></param>
+        /// <returns>The <see cref="IServiceCollection"/></returns>
+        public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
+        IConfiguration config,
+        string connectionString)
+        {
+            return AddCallistoAssets(services, config, options => options.UseSqlServer(connectionString));
         }
     }
 }

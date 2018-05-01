@@ -40,7 +40,5 @@ namespace Callisto.Module.Assets
         /// Gets the Logger
         /// </summary>
         private ILogger<AssetsModule> Logger { get; }
-
-
     }
 }
