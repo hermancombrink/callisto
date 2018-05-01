@@ -1,7 +1,11 @@
 ﻿using Callisto.Module.Assets.Interfaces;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Asset;
+using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets
 {
@@ -40,5 +44,23 @@ namespace Callisto.Module.Assets
         /// Gets the Logger
         /// </summary>
         private ILogger<AssetsModule> Logger { get; }
+
+        /// <summary>
+        /// The AddAsset
+        /// </summary>
+        /// <param name="model">The <see cref="AssetAddViewModel"/></param>
+        /// <returns>The <see cref="RequestResult"/></returns>
+        public async Task<RequestResult> AddAssetAsync(AssetAddViewModel model)
+        {
+            if (Session.CurrentCompanyRef == 0)
+            {
+                throw new ArgumentException($"Session does not contain valid company");
+            }
+
+            var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef);
+            await AssetRepo.AddAsset(asset);
+
+            return RequestResult.Success();
+        }
     }
 }

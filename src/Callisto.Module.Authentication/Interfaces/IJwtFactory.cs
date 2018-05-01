@@ -1,4 +1,6 @@
-﻿namespace Callisto.Module.Authentication.Interfaces
+﻿using Callisto.Module.Authentication.Repository.Models;
+
+namespace Callisto.Module.Authentication.Interfaces
 {
     /// <summary>
     /// Defines the <see cref="IJwtFactory" />
@@ -11,6 +13,6 @@
         /// <param name="userName">The <see cref="string"/></param>
         /// <param name="Id">The <see cref="string"/></param>df
         /// <returns>The <see cref="Task{string}"/></returns>
-        string GetToken(string userName, string id);
+        string GetToken(ApplicationUser user);
     }
 }

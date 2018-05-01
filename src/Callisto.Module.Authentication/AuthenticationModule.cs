@@ -146,7 +146,7 @@ namespace Callisto.Module.Authentication
                 var result = await SignInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    var token = JwtFactory.GetToken(model.Email, user.Id);
+                    var token = JwtFactory.GetToken(user);
                     return RequestResult.Success(token);
                 }
             }
@@ -159,7 +159,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="model">The <see cref="ResetPasswordViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult> ResetPassword(string email)
+        public async Task<RequestResult> ResetPasswordAsync(string email)
         {
 
             if (string.IsNullOrEmpty(email))
@@ -187,7 +187,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{UserViewModel}"/></returns>
-        public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
+        public async Task<RequestResult<UserViewModel>> GetUserByNameAsync(string email)
         {
             return await AuthRepo.GetUserByName(email);
         }
@@ -197,7 +197,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult> SignOut(string email)
+        public async Task<RequestResult> SignOutAsync(string email)
         {
             await SignInManager.SignOutAsync();
             return RequestResult.Success();
