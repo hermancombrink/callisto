@@ -94,7 +94,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Core.Metrics", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Assets", "src\Callisto.Module.Asset\Callisto.Module.Assets.csproj", "{58473C32-A737-4206-AFE5-7FD60C543264}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Module.Assests.Tests", "test\Callisto.Module.Assests.Tests\Callisto.Module.Assests.Tests.csproj", "{70748D67-DD03-4874-A32B-DACD2C5D3F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Assests.Tests", "test\Callisto.Module.Assests.Tests\Callisto.Module.Assests.Tests.csproj", "{70748D67-DD03-4874-A32B-DACD2C5D3F30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Core.Storage", "src\Callisto.Core.Storage\Callisto.Core.Storage.csproj", "{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +166,10 @@ Global
 		{70748D67-DD03-4874-A32B-DACD2C5D3F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70748D67-DD03-4874-A32B-DACD2C5D3F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70748D67-DD03-4874-A32B-DACD2C5D3F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,9 +199,10 @@ Global
 		{E3EAA41B-0DD3-47ED-A036-F9F0A000289D} = {999E5DE8-CBD6-4DC5-A977-DC2DFCC2780F}
 		{58473C32-A737-4206-AFE5-7FD60C543264} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 		{70748D67-DD03-4874-A32B-DACD2C5D3F30} = {7F1E2E52-F101-4E51-B707-B833323895ED}
+		{870913CF-38AD-4616-B4D4-B0FA7CFD0E8F} = {999E5DE8-CBD6-4DC5-A977-DC2DFCC2780F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

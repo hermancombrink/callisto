@@ -2,6 +2,7 @@
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
