@@ -31,7 +31,6 @@ export class TopMenuComponent implements OnInit {
       this.alertService.showMessage('Thanks for visiting', '', MessageSeverity.info);
       this.router.navigate(['/account/login']);
     });
-
   }
 
 }

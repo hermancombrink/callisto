@@ -6,6 +6,11 @@
     public class AssetAddViewModel
     {
         /// <summary>
+        /// Gets or sets the AssetNumber
+        /// </summary>
+        public string AssetNumber { get; set; }
+
+        /// <summary>
         /// Gets or sets the Name
         /// </summary>
         public string Name { get; set; }

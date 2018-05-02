@@ -4,10 +4,12 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
 import { RightMenuComponent } from './right-menu/right-menu.component';
 import { RouterModule } from '@angular/router';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
+    BsDropdownModule.forRoot(),
     RouterModule
   ],
   declarations: [LeftMenuComponent, TopMenuComponent, RightMenuComponent],

@@ -28,7 +28,7 @@ mat-nav-list {
     background: #afddff;
   }
 
-router-outlet + * {
+app-home {
   height: 89vh;
   display: flex;
 }

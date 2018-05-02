@@ -65,6 +65,7 @@
     <Folder Include="dbo\Functions" />
     <Folder Include="schemas" />
     <Folder Include="callisto" />
+    <Folder Include="callisto\tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AspNetRoles.sql" />
@@ -75,9 +76,9 @@
     <Build Include="dbo\Tables\AspNetUserLogins.sql" />
     <Build Include="dbo\Tables\AspNetRoleClaims.sql" />
     <Build Include="schemas\callisto.sql" />
-    <Build Include="callisto\Companies.sql" />
-    <Build Include="callisto\Subscriptions.sql" />
-    <Build Include="callisto\Assets.sql" />
+    <Build Include="callisto\tables\Assets.sql" />
+    <Build Include="callisto\tables\Companies.sql" />
+    <Build Include="callisto\tables\Subscriptions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Callisto.Database.refactorlog" />

@@ -24,7 +24,8 @@ namespace Callisto.Module.Assets
                 ModifiedAt = DateTime.Now,
                 Id = Guid.NewGuid(),
                 Description = model.Description,
-                Name = model.Name
+                Name = model.Name,
+                AssetNumber = model.AssetNumber
             };
         }
     }
