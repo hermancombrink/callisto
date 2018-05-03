@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the AccountKey
         /// </summary>
-        public string AccountKey { get; set; }
+        public string ConnectionString { get; set; }
 
         /// <summary>
         /// Gets or sets the Images

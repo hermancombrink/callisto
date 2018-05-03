@@ -8,26 +8,26 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Web.Api.Tests
+namespace Callisto.Tests
 {
     /// <summary>
     /// Defines the <see cref="ApiTests" />
     /// </summary>
-    public class ApiTests : IClassFixture<WebApiFixture>
+    public class ApiTests : IClassFixture<SessionApiFixture>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiTests"/> class.
         /// </summary>
         /// <param name="webApiFixture">The <see cref="WebApiFixture"/></param>
-        public ApiTests(WebApiFixture webApiFixture)
+        public ApiTests(SessionApiFixture webApiFixture)
         {
-            WebApiFixture = webApiFixture;
+            ApiFixture = webApiFixture;
         }
 
         /// <summary>
         /// Gets the WebApiFixture
         /// </summary>
-        public WebApiFixture WebApiFixture { get; }
+        public SessionApiFixture ApiFixture { get; }
 
         /// <summary>
         /// The ApiShouldStartUpWhenAllIsWell
@@ -36,7 +36,7 @@ namespace Callisto.Web.Api.Tests
         [Fact]
         public async Task ApiShouldStartUpWhenAllIsWell()
         {
-            var client = WebApiFixture.Client;
+            var client = ApiFixture.Client;
             var reset = await client.GetAsync("/auth/forgot");
 
             reset.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -48,9 +48,9 @@ namespace Callisto.Web.Api.Tests
         [Fact]
         public void ApiShouldHaveAllDependantServiceRegisteredForCallisto()
         {
-            foreach (var property in WebApiFixture.Session.GetType().GetProperties())
+            foreach (var property in ApiFixture.Session.GetType().GetProperties())
             {
-                property.GetValue(WebApiFixture.Session).Should().NotBeNull();
+                property.GetValue(ApiFixture.Session).Should().NotBeNull();
             }
                 
         }
@@ -62,7 +62,7 @@ namespace Callisto.Web.Api.Tests
         [InlineData("/ping")]
         public async Task ApiAllMetricsShouldBeEnabled(string endpoint)
         {
-            var client = WebApiFixture.Client;
+            var client = ApiFixture.Client;
             var reset = await client.GetAsync(endpoint);
 
             reset.StatusCode.Should().Be(HttpStatusCode.OK);

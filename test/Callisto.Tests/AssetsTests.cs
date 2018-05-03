@@ -11,7 +11,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Module.Assests.Tests
+namespace Callisto.Tests
 {
     /// <summary>
     /// Defines the <see cref="AssetsTests" />

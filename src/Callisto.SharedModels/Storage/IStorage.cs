@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Callisto.SharedModels.Storage
@@ -14,13 +14,22 @@ namespace Callisto.SharedModels.Storage
         /// <param name="file">The <see cref="IFormFile"/></param>
         /// <param name="relativePath">The <see cref="string"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        Task SaveFile(IFormFile file, string relativePath);
+        Task<string> SaveFile(byte[] fileData, string fileName, string reference);
+
+        /// <summary>
+        /// The Delete
+        /// </summary>
+        /// <param name="fileName">The <see cref="string"/></param>
+        /// <param name="reference">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task<bool> DeleteAsync(string fileName, string reference);
 
         /// <summary>
         /// The GetFile
         /// </summary>
-        /// <param name="path">The <see cref="string"/></param>
-        /// <returns>The <see cref="Task"/></returns>
-        Task GetFile(string path);
+        /// <param name="fileName">The <see cref="string"/></param>
+        /// <param name="reference">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{Uri}"/></returns>
+        Task<Uri> GetFileAsync(string fileName, string reference);
     }
 }

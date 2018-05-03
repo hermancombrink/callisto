@@ -1,24 +1,24 @@
-﻿using Callisto.Module.Authentication.Tests;
-using Callisto.SharedModels.Session;
+﻿using Callisto.SharedModels.Session;
+using Callisto.Tests.Startups;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System;
 using System.Net.Http;
 
-namespace Callisto.Web.Api.Tests
+namespace Callisto.Tests
 {
     /// <summary>
     /// Defines the <see cref="WebApiFixture" />
     /// </summary>
-    public class WebApiFixture
+    public class SessionApiFixture
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebApiFixture"/> class.
         /// </summary>
-        public WebApiFixture()
+        public SessionApiFixture()
         {
             var host = new WebHostBuilder()
-                      .UseStartup<TestStartup>();
+                      .UseStartup<SessionStartup>();
 
             Server = new TestServer(host);
             Client = Server.CreateClient();

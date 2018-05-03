@@ -1,4 +1,5 @@
 using AutoFixture;
+using Callisto.Module.Notification;
 using Callisto.Module.Notification.Email;
 using Callisto.Module.Notification.Options;
 using Callisto.SharedKernel.Enum;
@@ -14,7 +15,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Module.Notification.Tests
+namespace Callisto.Tests
 {
     /// <summary>
     /// Defines the <see cref="NotificationsTests" />

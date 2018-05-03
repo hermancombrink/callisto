@@ -7,18 +7,19 @@ using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
+using Callisto.Tests.Fixtures;
 using FluentAssertions;
 using NSubstitute;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Module.Authentication.Tests
+namespace Callisto.Tests
 {
     /// <summary>
     /// Defines the <see cref="AuthenticationTests" />
     /// </summary>
-    public class AuthenticationTests : IClassFixture<WebApiFixture>
+    public class AuthenticationTests : IClassFixture<AuthApiFixture>
     {
         /// <summary>
         /// Defines the Fixture
@@ -28,16 +29,16 @@ namespace Callisto.Module.Authentication.Tests
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationTests"/> class.
         /// </summary>
-        /// <param name="webApiFixture">The <see cref="WebApiFixture"/></param>
-        public AuthenticationTests(WebApiFixture webApiFixture)
+        /// <param name="ApiFixture">The <see cref="ApiFixture"/></param>
+        public AuthenticationTests(AuthApiFixture apiFixture)
         {
-            WebApiFixture = webApiFixture;
+            ApiFixture = apiFixture;
         }
 
         /// <summary>
-        /// Gets the WebApiFixture
+        /// Gets the ApiFixture
         /// </summary>
-        public WebApiFixture WebApiFixture { get; }
+        public AuthApiFixture ApiFixture { get; }
 
         /// <summary>
         /// The WebApiLoginShouldFailWithInvalidCredentials
@@ -48,7 +49,7 @@ namespace Callisto.Module.Authentication.Tests
         {
             var login = Fixture.Create<LoginViewModel>();
             var body = login.ToJson().ToContent();
-            var requestResult = await WebApiFixture.Client.PostAsync("/auth/login", body);
+            var requestResult = await ApiFixture.Client.PostAsync("/auth/login", body);
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -68,12 +69,12 @@ namespace Callisto.Module.Authentication.Tests
                .With(c => c.Password, "Pass!2")
                .With(c => c.ConfirmPassword, "Pass!2")
                .Create();
-            await WebApiFixture.Client.PostAsync("/auth/signup", singup.ToJson().ToContent());
+            await ApiFixture.Client.PostAsync("/auth/signup", singup.ToJson().ToContent());
 
             var login = Fixture.Create<LoginViewModel>();
             singup.CopyProperties(login);
             var body = login.ToJson().ToContent();
-            var requestResult = await WebApiFixture.Client.PostAsync("/auth/login", body);
+            var requestResult = await ApiFixture.Client.PostAsync("/auth/login", body);
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -93,7 +94,7 @@ namespace Callisto.Module.Authentication.Tests
                 .With(c => c.Email, "integrationtest@test.com")
                 .Create();
             var body = login.ToJson().ToContent();
-            var requestResult = await WebApiFixture.Client.PostAsync("/auth/login", body);
+            var requestResult = await ApiFixture.Client.PostAsync("/auth/login", body);
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -114,7 +115,7 @@ namespace Callisto.Module.Authentication.Tests
                 .With(c => c.ConfirmPassword, "Pass!2")
                 .Create();
             var body = login.ToJson().ToContent();
-            var requestResult = await WebApiFixture.Client.PostAsync("/auth/signup", body);
+            var requestResult = await ApiFixture.Client.PostAsync("/auth/signup", body);
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -134,8 +135,8 @@ namespace Callisto.Module.Authentication.Tests
                  .With(c => c.UserName, "newcustomer@test.com")
                  .With(c => c.Email, "newcustomer@test.com")
                  .Create();
-            await WebApiFixture.Context.Users.AddAsync(user);
-            await WebApiFixture.Context.SaveChangesAsync();
+            await ApiFixture.Context.Users.AddAsync(user);
+            await ApiFixture.Context.SaveChangesAsync();
 
             var login = Fixture.Build<RegisterViewModel>()
                 .With(c => c.Email, "newcustomer@test.com")
@@ -143,7 +144,7 @@ namespace Callisto.Module.Authentication.Tests
                 .With(c => c.ConfirmPassword, "Pass!2")
                 .Create();
             var body = login.ToJson().ToContent();
-            var requestResult = await WebApiFixture.Client.PostAsync("/auth/signup", body);
+            var requestResult = await ApiFixture.Client.PostAsync("/auth/signup", body);
 
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
@@ -166,7 +167,7 @@ namespace Callisto.Module.Authentication.Tests
                 LastName = "test",
             };
 
-            var create = await WebApiFixture.UserManager.CreateAsync(user, "Password!2");
+            var create = await ApiFixture.UserManager.CreateAsync(user, "Password!2");
 
             var login = new LoginViewModel()
             {
@@ -174,15 +175,15 @@ namespace Callisto.Module.Authentication.Tests
                 Password = "Password!2"
             };
 
-            var signin = await WebApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
+            var signin = await ApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
             var r = signin.ToRequestResult();
 
-            var notification = WebApiFixture.GetService<INotificationModule>();
+            var notification = ApiFixture.GetService<INotificationModule>();
             notification.SubmitEmailNotification(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>()).Returns(c =>
             {
                 return RequestResult.Success();
             });
-            var client = WebApiFixture.Server.CreateClient();
+            var client = ApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
 
@@ -200,7 +201,7 @@ namespace Callisto.Module.Authentication.Tests
         [Fact]
         public async Task WebApiShouldReturn401WithoutToken()
         {
-            var reset = await WebApiFixture.Client.GetAsync("/auth/reset");
+            var reset = await ApiFixture.Client.GetAsync("/auth/reset");
 
             reset.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
@@ -211,7 +212,7 @@ namespace Callisto.Module.Authentication.Tests
         [Fact]
         public async Task WebApiShouldReturn401WithInvalidToken()
         {
-            var client = WebApiFixture.Server.CreateClient();
+            var client = ApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"wakka wakka");
 
             var reset = await client.GetAsync("/auth/reset");
@@ -226,7 +227,7 @@ namespace Callisto.Module.Authentication.Tests
         [Fact]
         public async Task WebApiUserDetailsShouldReturnWhenAllIsWell()
         {
-            await WebApiFixture.Session.Authentication.RegisterUserAsync(new RegisterViewModel()
+            await ApiFixture.Session.Authentication.RegisterUserAsync(new RegisterViewModel()
             {
                 CompanyName = "MyCompany",
                 ConfirmPassword = "Pass!2",
@@ -242,10 +243,10 @@ namespace Callisto.Module.Authentication.Tests
                 Password = "Pass!2"
             };
 
-            var signin = await WebApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
+            var signin = await ApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
             var r = signin.ToRequestResult();
 
-            var client = WebApiFixture.Server.CreateClient();
+            var client = ApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
             var result = await client.GetAsync("/auth/user");
@@ -265,7 +266,7 @@ namespace Callisto.Module.Authentication.Tests
         public async Task WebApiUserDetailsShouldBeUnauthorized()
         {
 
-            var client = WebApiFixture.Server.CreateClient();
+            var client = ApiFixture.Server.CreateClient();
 
             var result = await client.GetAsync("/auth/user");
 

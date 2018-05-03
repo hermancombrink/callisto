@@ -4,6 +4,18 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Callisto.Tests</AssemblyName>
+
+    <RootNamespace>Callisto.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +41,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Callisto.Core.Storage\Callisto.Core.Storage.csproj" />
     <ProjectReference Include="..\..\src\Callisto.Web.Api\Callisto.Web.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestData\test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
