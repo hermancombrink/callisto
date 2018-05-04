@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Interfaces
@@ -36,5 +37,13 @@ namespace Callisto.Module.Assets.Interfaces
         /// <param name="asset">The <see cref="Asset"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task SaveAssetAsync(Asset asset);
+
+        /// <summary>
+        /// The GetTopLevelAssets
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{Asset}}"/></returns>
+        Task<IEnumerable<Asset>> GetTopLevelAssets(long companyRefId);
     }
 }

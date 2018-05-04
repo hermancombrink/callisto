@@ -7,7 +7,8 @@
 	[AssetNumber] NVARCHAR(256) NULL, 
 	[Name] NVARCHAR(256) NULL, 
     [Description] NVARCHAR(512) NULL,
-	[CompanyRefId] BIGINT NOT NULL
+	[CompanyRefId] BIGINT NOT NULL, 
+    [ParrentAssetRefId] BIGINT NULL
 )
 GO
 

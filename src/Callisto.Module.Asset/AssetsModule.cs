@@ -5,6 +5,7 @@ using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets
@@ -96,6 +97,24 @@ namespace Callisto.Module.Assets
             await AssetRepo.SaveAssetAsync(asset);
 
             return RequestResult<AssetViewModel>.Success(model);
+        }
+
+        /// <summary>
+        /// The GetTopLevelAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<AssetViewModel>>> GetTopLevelAssets()
+        {
+            var assets = await AssetRepo.GetTopLevelAssets(Session.CurrentCompanyRef);
+
+            var results = new List<AssetViewModel>();
+
+            foreach (var item in assets)
+            {
+                results.Add(ModelFactory.CreateAsset(item));
+            }
+
+            return RequestResult<IEnumerable<AssetViewModel>>.Success(results);
         }
     }
 }

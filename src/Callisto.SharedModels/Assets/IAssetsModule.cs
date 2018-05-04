@@ -1,6 +1,7 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Assets.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.SharedModels.Asset
@@ -30,5 +31,11 @@ namespace Callisto.SharedModels.Asset
         /// <param name="model">The <see cref="AssetViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         Task<RequestResult<AssetViewModel>> SaveAssetAsync(AssetViewModel model);
+
+        /// <summary>
+        /// The GetTopLevelAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        Task<RequestResult<IEnumerable<AssetViewModel>>> GetTopLevelAssets();
     }
 }

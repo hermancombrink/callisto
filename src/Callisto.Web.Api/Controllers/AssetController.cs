@@ -4,6 +4,7 @@ using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Web.Api.Controllers
@@ -61,6 +62,16 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
         {
             return await CallistoSession.Assets.GetAssetAsync(id);
+        }
+
+        /// <summary>
+        /// The GetAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        [HttpGet]
+        public async Task<RequestResult<IEnumerable<AssetViewModel>>> GetAssets()
+        {
+            return await CallistoSession.Assets.GetTopLevelAssets();
         }
     }
 }

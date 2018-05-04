@@ -26,6 +26,10 @@ export class AssetService extends BaseService {
     return this.http.put<RequestTypedResult<AssetViewModel>>(this.getUrl(`asset`), model, this.httpOptions);
   }
 
+  GetTopLevelAssets(): Observable<RequestTypedResult<AssetViewModel[]>> {
+    return this.http.get<RequestTypedResult<AssetViewModel[]>>(this.getUrl(`asset`), this.httpOptions);
+  }
+
   GetAssetTree(): TreeModel[] {
     return [
       {

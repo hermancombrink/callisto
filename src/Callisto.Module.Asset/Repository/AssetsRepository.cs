@@ -2,6 +2,8 @@
 using Callisto.Module.Assets.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Repository
@@ -65,6 +67,17 @@ namespace Callisto.Module.Assets.Repository
         public async Task<Asset> GetAssetById(Guid id)
         {
             return await Context.Assets.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        /// <summary>
+        /// The GetTopLevelAssets
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{Asset}}"/></returns>
+        public async Task<IEnumerable<Asset>> GetTopLevelAssets(long companyRefId)
+        {
+            return await Context.Assets.Where(c => c.CompanyRefId == companyRefId).ToListAsync();
         }
     }
 }
