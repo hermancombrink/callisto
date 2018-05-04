@@ -31,6 +31,7 @@
     <None Remove="ClientApp\src\app\account\base.component.ts" />
     <None Remove="ClientApp\src\app\account\models\userViewModel.ts" />
     <None Remove="ClientApp\src\app\asset\models\AssetAddViewModel.ts" />
+    <None Remove="ClientApp\src\app\asset\models\assetViewModel.ts" />
     <None Remove="ClientApp\src\app\core\auth.guard.ts" />
     <None Remove="ClientApp\src\app\core\auth.jwt.interceptor.ts" />
     <None Remove="ClientApp\src\app\core\base.service.ts" />
@@ -56,6 +57,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\account\base.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\account\models\loginViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\account\models\registerViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\asset\models\assetViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\asset\models\assetAddViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\auth.jwt.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\base.service.ts" />

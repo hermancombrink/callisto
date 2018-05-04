@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Repository
@@ -43,6 +44,16 @@ namespace Callisto.Module.Assets.Repository
         public async Task<Asset> GetAssetById(long refId)
         {
             return await Context.Assets.FirstOrDefaultAsync(c => c.RefId == refId);
+        }
+
+        /// <summary>
+        /// The GetAssetById
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{Asset}"/></returns>
+        public async Task<Asset> GetAssetById(Guid id)
+        {
+            return await Context.Assets.FirstOrDefaultAsync(c => c.Id == id);
         }
     }
 }

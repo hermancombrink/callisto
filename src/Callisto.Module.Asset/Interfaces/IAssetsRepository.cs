@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Interfaces
@@ -21,5 +22,13 @@ namespace Callisto.Module.Assets.Interfaces
         /// <param name="refId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task{Asset}"/></returns>
         Task<Asset> GetAssetById(long refId);
+
+        /// <summary>
+        /// The GetAssetById
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{Asset}"/></returns>
+        Task<Asset> GetAssetById(Guid id);
+
     }
 }

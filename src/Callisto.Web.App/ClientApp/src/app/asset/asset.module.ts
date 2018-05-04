@@ -2,24 +2,34 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
-import { AlertModule, TypeaheadModule } from 'ngx-bootstrap';
+import { AlertModule, TypeaheadModule, ModalModule, TooltipModule  } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AssetRoutes } from './routes';
-import { CreateComponent } from './create/create.component';
 import { ViewComponent } from './view/view.component';
 import { AssetService } from './asset.service';
+import { CreateModalComponent } from './create-modal/create-modal.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     CoreModule,
-    AlertModule.forRoot(),
+    AlertModule,
     TypeaheadModule,
+    TooltipModule,
+    ModalModule.forRoot(),
     RouterModule.forChild(AssetRoutes)
   ],
-  declarations: [CreateComponent, ViewComponent],
+  declarations: [
+    ViewComponent,
+    CreateModalComponent,
+    DetailsComponent
+  ],
   providers: [AssetService],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  entryComponents: [
+    CreateModalComponent
+  ]
 })
 export class AssetModule { }

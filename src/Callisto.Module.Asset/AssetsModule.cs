@@ -60,7 +60,26 @@ namespace Callisto.Module.Assets
             var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef);
             await AssetRepo.AddAsset(asset);
 
-            return RequestResult.Success();
+            return RequestResult.Success($"{asset.Id}");
+        }
+
+        /// <summary>
+        /// The GetAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
+        public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
+        {
+            if (Session.CurrentCompanyRef == 0)
+            {
+                throw new ArgumentException($"Session does not contain valid company");
+            }
+
+            var asset = await AssetRepo.GetAssetById(id);
+
+            var viewModel = ModelFactory.CreateAsset(asset); ;
+
+            return RequestResult<AssetViewModel>.Success(viewModel);
         }
     }
 }

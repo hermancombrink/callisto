@@ -10,14 +10,20 @@
       <li>
         <a>assets</a>
       </li>
-      
+
     </ol>
   </div>
   <div class="col-sm-2">
     <div class="btn-header-group">
-      <button class="btn btn-outline btn-default dim" type="button"><i class="fa fa-plus-circle"></i></button>
-      <button class="btn btn-outline btn-default dim" type="button"><i class="fa fa-upload"></i></button>
-      <button class="btn btn-outline btn-default dim" type="button"><i class="fa fa-download"></i></button>
+      <button class="btn btn-outline btn-primary dim" type="button" (click)="createAsset()" tooltip="Create a new asset.">
+        <i class="fa fa-plus-circle"></i>
+      </button>
+      <button class="btn btn-outline btn-success dim" type="button" tooltip="Bulk upload assets.">
+        <i class="fa fa-upload"></i>
+      </button>
+      <button class="btn btn-outline btn-success dim" type="button" tooltip="Download assets to file.">
+        <i class="fa fa-download"></i>
+      </button>
     </div>
   </div>
 </div>

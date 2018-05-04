@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { AlertModule, TypeaheadModule } from 'ngx-bootstrap';
+import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
 
 
@@ -35,7 +35,7 @@ import { AssetModule } from './asset/asset.module';
     FormsModule,
     GridsterModule,
     TypeaheadModule.forRoot(),
-
+    TooltipModule.forRoot(),
     NavModule,
     AccountModule,
     AssetModule,

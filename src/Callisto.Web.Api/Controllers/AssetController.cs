@@ -3,6 +3,7 @@ using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Callisto.Web.Api.Controllers
@@ -38,6 +39,17 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> CreateAssetAsync([FromBody] AssetAddViewModel model)
         {
             return await CallistoSession.Assets.AddAssetAsync(model);
+        }
+
+        /// <summary>
+        /// The GetAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
+        [HttpGet("{id}")]
+        public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
+        {
+            return await CallistoSession.Assets.GetAssetAsync(id);
         }
     }
 }

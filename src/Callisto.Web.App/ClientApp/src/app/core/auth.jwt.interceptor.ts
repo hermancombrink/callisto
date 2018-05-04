@@ -27,6 +27,10 @@ export class JwtInterceptor implements HttpInterceptor {
             this.router.navigate(['/error/500']);
             break;
           }
+          case 0: {
+            this.router.navigate(['/error/500']);
+            break;
+          }
           case 404: {
             this.router.navigate(['/error/404']);
             break;

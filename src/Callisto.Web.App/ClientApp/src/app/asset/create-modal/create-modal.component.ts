@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { BsModalRef } from 'ngx-bootstrap';
 import { AssetAddViewModel } from '../models/AssetAddViewModel';
-import { AssetService } from '../asset.service';
-import { RequestStatus } from '../../core/models/requestStatus';
-import { MessageSeverity, AlertService } from '../../core/alert.service';
 import { Router } from '@angular/router';
+import { AssetService } from '../asset.service';
+import { AlertService, MessageSeverity } from '../../core/alert.service';
+import { RequestStatus } from '../../core/models/requestStatus';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  selector: 'app-create-modal',
+  templateUrl: './create-modal.component.html',
+  styleUrls: ['./create-modal.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateModalComponent implements OnInit {
 
-  private context: string = 'Add Asset';
+  context: string = 'Create Asset';
   model: AssetAddViewModel = new AssetAddViewModel();
 
   constructor(
-    private location: Location,
+    public bsModalRef: BsModalRef,
     private router: Router,
     private assetService: AssetService,
     private alertService: AlertService
@@ -32,8 +32,10 @@ export class CreateComponent implements OnInit {
         this.alertService.showMessage(this.context, `${c.friendlyMessage}`, MessageSeverity.warn);
       }
       else {
+        console.info(c.result);
         this.alertService.showMessage(this.context, `${this.model.Name} created`, MessageSeverity.info);
-        this.router.navigate(['/asset']);
+        this.bsModalRef.hide();
+        this.router.navigate(['/asset/details', c.result]);
       }
     }, e => {
       this.alertService.showMessage(this.context, `Oops.. That was not suppose to happen`, MessageSeverity.error);
@@ -41,6 +43,6 @@ export class CreateComponent implements OnInit {
   }
 
   onCancel() {
-    this.location.back();
+    this.bsModalRef.hide();
   }
 }

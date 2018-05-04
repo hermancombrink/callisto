@@ -28,5 +28,20 @@ namespace Callisto.Module.Assets
                 AssetNumber = model.AssetNumber
             };
         }
+
+        /// <summary>
+        /// The CreateAsset
+        /// </summary>
+        /// <param name="model">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="AssetViewModel"/></returns>
+        public static AssetViewModel CreateAsset(Asset model)
+        {
+            return new AssetViewModel()
+            {
+                Description = model.Description,
+                Name = model.Name,
+                AssetNumber = model.AssetNumber
+            };
+        }
     }
 }

@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
-    <h2>Add Asset</h2>
+    <h2> <i class="fa fa-database"></i> {{model?.name}}</h2>
     <ol class="breadcrumb">
       <li>
         <a [routerLink]="['/']">home</a>
@@ -9,14 +9,19 @@
         <a [routerLink]="['/asset']">assets</a>
       </li>
       <li class="active">
-        <strong>create</strong>
+        <strong>edit</strong>
       </li>
     </ol>
   </div>
   <div class="col-lg-2">
-
+    <div class="btn-header-group">
+      <button class="btn btn-outline btn-primary dim" type="button" (click)="onSubmit()" [disabled]="!form.form.valid" tooltip="Save current asset.">
+        <i class="fa fa-save"></i>
+      </button>
+    </div>
   </div>
 </div>
+
 
 <div class="row">
   <div class="col-lg-12">
@@ -26,15 +31,14 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>
-              <i class="fa fa-plus-circle"></i>
-              Create a new asset
+             
             </h4>
           </div>
           <div class="panel-body">
             <div class="form-group">
               <label class="col-sm-2 control-label">Asset #</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control input-sm" placeholder="eg. ABC123" required name="assetNumber" #assetNumber="ngModel" [(ngModel)]="model.AssetNumber">
+                <input type="text" class="form-control input-sm" placeholder="eg. ABC123" required name="assetNumber" #assetNumber="ngModel" [(ngModel)]="model.assetNumber">
                 <small [hidden]="assetNumber.valid || (assetNumber.pristine && !form.submitted)" class="text-danger">
                   <i class="fa fa-warning"></i>
                   Asset # is required.
@@ -44,7 +48,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control input-sm" placeholder="eg. Truck" required name="name" #name="ngModel" [(ngModel)]="model.Name">
+                <input type="text" class="form-control input-sm" placeholder="eg. Truck" required name="name" #name="ngModel" [(ngModel)]="model.name">
                 <small [hidden]="name.valid || (name.pristine && !form.submitted)" class="text-danger">
                   <i class="fa fa-warning"></i>
                   Name is required.
@@ -55,18 +59,13 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Description</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control input-sm" placeholder="eg. My construction truck" name="description" #description="ngModel" [(ngModel)]="model.Description">
+                <input type="text" class="form-control input-sm" placeholder="eg. My construction truck" name="description" #description="ngModel" [(ngModel)]="model.description">
               </div>
             </div>
           </div>
           <div class="panel-footer text-right">
-            <button class="btn btn-white btn-sm" type="button" (click)="onCancel()">
-              <i class="fa fa-close"></i>
-              Cancel
-            </button>
-            <button class="btn btn-primary btn-sm" type="submit" [disabled]="!form.form.valid">
+            <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
               <i class="fa fa-save"></i>
-              Save changes
             </button>
           </div>
         </div>
