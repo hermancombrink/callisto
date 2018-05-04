@@ -30,5 +30,11 @@ namespace Callisto.Module.Assets.Interfaces
         /// <returns>The <see cref="Task{Asset}"/></returns>
         Task<Asset> GetAssetById(Guid id);
 
+        /// <summary>
+        /// The SaveAssetAsync
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task SaveAssetAsync(Asset asset);
     }
 }

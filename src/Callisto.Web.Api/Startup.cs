@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,10 +79,11 @@ namespace Callisto.Web.Api
                         .AllowCredentials();
                     });
             });
-           
+
             services.AddCallistoMonitoring(Configuration);
 
-            services.AddMvc();
+            services.AddMvc()
+                    .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

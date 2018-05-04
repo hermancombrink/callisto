@@ -28,14 +28,14 @@ export class CreateModalComponent implements OnInit {
 
   onSubmit() {
     this.assetService.AddAsset(this.model).subscribe(c => {
-      if (c.status != RequestStatus.Success) {
-        this.alertService.showMessage(this.context, `${c.friendlyMessage}`, MessageSeverity.warn);
+      if (c.Status != RequestStatus.Success) {
+        this.alertService.showMessage(this.context, `${c.FriendlyMessage}`, MessageSeverity.warn);
       }
       else {
-        console.info(c.result);
+        console.info(c.Result);
         this.alertService.showMessage(this.context, `${this.model.Name} created`, MessageSeverity.info);
         this.bsModalRef.hide();
-        this.router.navigate(['/asset/details', c.result]);
+        this.router.navigate(['/asset/details', c.Result]);
       }
     }, e => {
       this.alertService.showMessage(this.context, `Oops.. That was not suppose to happen`, MessageSeverity.error);

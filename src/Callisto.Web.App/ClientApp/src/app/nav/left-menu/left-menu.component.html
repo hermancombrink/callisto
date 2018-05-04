@@ -6,10 +6,10 @@
           <img alt="image" class="img-circle logo_mini" src="app/assets/images/logo.png">
           <a dropdownToggle>
             <span class="block m-t-xs">
-              <strong class="font-bold">{{user?.firstName}} {{user?.lastName}}</strong>
+              <strong class="font-bold">{{user.FirstName}} {{user.LastName}}</strong>
             </span>
-            <span class="text-muted text-xs block">{{user?.email}} </span>
-            <span class="text-muted text-xs block">{{user?.company}} <b class="caret"></b></span>
+            <span class="text-muted text-xs block">{{user.Email}} </span>
+            <span class="text-muted text-xs block">{{user.Company}} <b class="caret"></b></span>
           </a>
           <ul class="animated fadeInRight dropdown-menu" *dropdownMenu>
             <li><a href="#">Profile</a></li>

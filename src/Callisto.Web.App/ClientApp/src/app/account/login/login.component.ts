@@ -34,8 +34,8 @@ export class LoginComponent extends BaseComponent {
 
   onSubmit() {
     this.authService.Login(this.model).subscribe(c => {
-      if (c.status != RequestStatus.Success) {
-        this.errorPanel.error = c.friendlyMessage;
+      if (c.Status != RequestStatus.Success) {
+        this.errorPanel.error = c.FriendlyMessage;
       }
       else {
         this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);

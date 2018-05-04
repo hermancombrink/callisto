@@ -29,6 +29,14 @@ namespace Callisto.Module.Assets
             };
         }
 
+        public static void SetSaveAssetState(AssetViewModel model, Asset asset)
+        {
+            asset.AssetNumber = model.AssetNumber;
+            asset.Description = model.Description;
+            asset.Name = model.Name;
+            asset.ModifiedAt = DateTime.Now;
+        }
+
         /// <summary>
         /// The CreateAsset
         /// </summary>
@@ -38,6 +46,7 @@ namespace Callisto.Module.Assets
         {
             return new AssetViewModel()
             {
+                Id = model.Id,
                 Description = model.Description,
                 Name = model.Name,
                 AssetNumber = model.AssetNumber

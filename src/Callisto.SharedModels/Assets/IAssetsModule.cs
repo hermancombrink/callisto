@@ -23,5 +23,12 @@ namespace Callisto.SharedModels.Asset
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id);
+
+        /// <summary>
+        /// The SaveAssetAsync
+        /// </summary>
+        /// <param name="model">The <see cref="AssetViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
+        Task<RequestResult<AssetViewModel>> SaveAssetAsync(AssetViewModel model);
     }
 }

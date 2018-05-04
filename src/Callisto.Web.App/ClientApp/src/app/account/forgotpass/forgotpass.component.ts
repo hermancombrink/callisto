@@ -27,8 +27,8 @@ export class ForgotpassComponent extends BaseComponent {
 
   onSubmit() {
     this.authService.Forget(this.model.email).subscribe(c => {
-      if (c.status != RequestStatus.Success) {
-        this.errorPanel.error = c.friendlyMessage;
+      if (c.Status != RequestStatus.Success) {
+        this.errorPanel.error = c.FriendlyMessage;
       }
       else {
         this.alertService.showMessage('Password Reset', 'Email instructions has been sent', MessageSeverity.info);

@@ -1,5 +1,6 @@
 export class AssetViewModel {
-  public assetNumber: string;
-  public name: string;
-  public description: string;
+  public Id: string;
+  public AssetNumber: string;
+  public Name: string;
+  public Description: string;
 }

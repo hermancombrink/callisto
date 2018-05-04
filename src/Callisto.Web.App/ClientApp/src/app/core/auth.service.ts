@@ -45,8 +45,8 @@ export class AuthService {
   Login(model: LoginViewModel): Observable<RequestResult> {
     return this.http.post<RequestResult>(this.getUrl('auth/login'), model, this.httpOptions).pipe(
       tap(c => {
-        if (c.status == RequestStatus.Success) {
-          localStorage.setItem('auth_token', c.result);
+        if (c.Status == RequestStatus.Success) {
+          localStorage.setItem('auth_token', c.Result);
         }
       }));
   }
@@ -58,7 +58,7 @@ export class AuthService {
   SignOut(): Observable<RequestResult> {
     return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
       tap(c => {
-        if (c.status == RequestStatus.Success) {
+        if (c.Status == RequestStatus.Success) {
           this.ClearToken();
         }
       })

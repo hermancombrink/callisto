@@ -20,4 +20,8 @@ export class AssetService extends BaseService {
   GetAsset(id: string): Observable<RequestTypedResult<AssetViewModel>> {
     return this.http.get<RequestTypedResult<AssetViewModel>>(this.getUrl(`asset/${id}`), this.httpOptions);
   }
+
+  SaveAsset(model: AssetViewModel): Observable<RequestTypedResult<AssetViewModel>> {
+    return this.http.put<RequestTypedResult<AssetViewModel>>(this.getUrl(`asset`), model, this.httpOptions);
+  }
 }

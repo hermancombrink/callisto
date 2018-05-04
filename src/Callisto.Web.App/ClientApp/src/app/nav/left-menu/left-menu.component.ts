@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class LeftMenuComponent implements AfterViewInit, OnInit {
 
-  user: UserViewModel;
+  user: UserViewModel = new UserViewModel();
   menuElement: any;
 
   constructor(private router: Router,
@@ -36,8 +36,8 @@ export class LeftMenuComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.authService.GetUser().subscribe(c => {
-      if (c.status == RequestStatus.Success) {
-        this.user = c.result;
+      if (c.Status == RequestStatus.Success) {
+        this.user = c.Result;
       }
     })
   }

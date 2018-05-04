@@ -70,16 +70,32 @@ namespace Callisto.Module.Assets
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
         {
-            if (Session.CurrentCompanyRef == 0)
-            {
-                throw new ArgumentException($"Session does not contain valid company");
-            }
-
             var asset = await AssetRepo.GetAssetById(id);
 
-            var viewModel = ModelFactory.CreateAsset(asset); ;
+            var viewModel = ModelFactory.CreateAsset(asset);
 
             return RequestResult<AssetViewModel>.Success(viewModel);
+        }
+
+        /// <summary>
+        /// The SaveAssetAsync
+        /// </summary>
+        /// <param name="model">The <see cref="AssetViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult<AssetViewModel>> SaveAssetAsync(AssetViewModel model)
+        {
+            var asset = await AssetRepo.GetAssetById(model.Id);
+
+            if (asset == null)
+            {
+                return RequestResult<AssetViewModel>.Failed($"Failed to find asset {model.Name}", model);
+            }
+
+            ModelFactory.SetSaveAssetState(model, asset);
+
+            await AssetRepo.SaveAssetAsync(asset);
+
+            return RequestResult<AssetViewModel>.Success(model);
         }
     }
 }

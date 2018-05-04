@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetViewModel } from '../models/assetViewModel';
 import { AssetService } from '../asset.service';
-import { AlertService } from '../../core/alert.service';
+import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { RequestStatus } from '../../core/models/requestStatus';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +21,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private assetService: AssetService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -29,12 +31,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
       console.info(this.id);
 
       this.assetService.GetAsset(this.id).subscribe(c => {
-        if (c.status != RequestStatus.Success) {
-          console.error(c.friendlyMessage);
+        if (c.Status != RequestStatus.Success) {
+          console.error(c.FriendlyMessage);
         }
         else {
-          this.model = c.result;
-          console.log(this.model);
+          this.model = c.Result;
         }
       }, e => {
         console.error(e);
@@ -47,6 +48,17 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.assetService.SaveAsset(this.model).subscribe(c => {
+      if (c.Status != RequestStatus.Success) {
+        console.error(c.FriendlyMessage);
+      }
+      else {
+        this.model = c.Result;
+        this.alertService.showMessage(this.context, 'Asset saved', MessageSeverity.success);
+      }
+    }, e => {
+      console.error(e);
+    });
   }
 
 

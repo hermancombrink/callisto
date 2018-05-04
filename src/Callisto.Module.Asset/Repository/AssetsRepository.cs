@@ -47,6 +47,17 @@ namespace Callisto.Module.Assets.Repository
         }
 
         /// <summary>
+        /// The SaveAssetAsync
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task SaveAssetAsync(Asset asset)
+        {
+            Context.Assets.Attach(asset);
+            await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
         /// The GetAssetById
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>
