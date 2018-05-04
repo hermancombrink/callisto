@@ -9,6 +9,7 @@ import { ViewComponent } from './view/view.component';
 import { AssetService } from './asset.service';
 import { CreateModalComponent } from './create-modal/create-modal.component';
 import { DetailsComponent } from './details/details.component';
+import { TreeModule } from 'ng2-tree';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DetailsComponent } from './details/details.component';
     AlertModule,
     TypeaheadModule,
     TooltipModule,
+    TreeModule,
     ModalModule.forRoot(),
     RouterModule.forChild(AssetRoutes)
   ],
