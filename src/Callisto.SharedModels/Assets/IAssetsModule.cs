@@ -33,9 +33,10 @@ namespace Callisto.SharedModels.Asset
         Task<RequestResult<AssetViewModel>> SaveAssetAsync(AssetViewModel model);
 
         /// <summary>
-        /// The GetTopLevelAssets
+        /// The GetAssetTree
         /// </summary>
-        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
-        Task<RequestResult<IEnumerable<AssetViewModel>>> GetTopLevelAssets();
+        /// <param name="id">The <see cref="Guid?"/></param>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAsync(Guid? id = null);
     }
 }

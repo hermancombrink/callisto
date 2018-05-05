@@ -62,7 +62,7 @@ namespace Callisto.Tests
             });
             var result = await module.SubmitEmailNotification(model);
             result.Status.Should().Be(RequestStatus.Exception);
-            result.FriendlyMessage.Should().Be("Oops. That was not suppose to happen");
+            result.FriendlyMessage.Should().Be("That was not suppose to happen");
             result.SystemMessage.Should().Be("Email exception");
             sender.Received(1).SendEmailAsync(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>());
         }

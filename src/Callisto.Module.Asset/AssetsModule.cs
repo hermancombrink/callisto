@@ -84,7 +84,7 @@ namespace Callisto.Module.Assets
         {
             var asset = await AssetRepo.GetAssetById(id);
 
-            var viewModel = ModelFactory.CreateAsset(asset);
+            var viewModel = ModelFactory.CreateAssetViewModel(asset);
 
             return RequestResult<AssetViewModel>.Success(viewModel);
         }
@@ -113,19 +113,29 @@ namespace Callisto.Module.Assets
         /// <summary>
         /// The GetTopLevelAssets
         /// </summary>
-        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
-        public async Task<RequestResult<IEnumerable<AssetViewModel>>> GetTopLevelAssets()
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAsync(Guid? id = null)
         {
-            var assets = await AssetRepo.GetTopLevelAssets(Session.CurrentCompanyRef);
+            Asset parent = null;
+            if (id != null)
+            {
+                 parent = await AssetRepo.GetAssetById(id.Value);
+                if (parent == null)
+                {
+                    throw new InvalidOperationException($"Failed to find parent asset");
+                }
+            }
 
-            var results = new List<AssetViewModel>();
+            var assets = await AssetRepo.GetAssetTree(Session.CurrentCompanyRef, parent?.RefId);
+
+            var results = new List<AssetTreeViewModel>();
 
             foreach (var item in assets)
             {
-                results.Add(ModelFactory.CreateAsset(item));
+                results.Add(ModelFactory.CreateAssetViewModel(item));
             }
 
-            return RequestResult<IEnumerable<AssetViewModel>>.Success(results);
+            return RequestResult<IEnumerable<AssetTreeViewModel>>.Success(results);
         }
     }
 }

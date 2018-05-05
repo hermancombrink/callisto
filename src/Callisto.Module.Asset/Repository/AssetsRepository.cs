@@ -1,8 +1,10 @@
 ﻿using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
+using EntityFrameworkCore.RawSQLExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -75,9 +77,11 @@ namespace Callisto.Module.Assets.Repository
         /// <param name="id">The <see cref="Guid"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task{IEnumerable{Asset}}"/></returns>
-        public async Task<IEnumerable<Asset>> GetTopLevelAssets(long companyRefId)
+        public async Task<IEnumerable<AssetTreeModel>> GetAssetTree(long companyRefId, long? refId = null)
         {
-            return await Context.Assets.Where(c => c.CompanyRefId == companyRefId && c.ParentRefId == null).ToListAsync();
+            return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetAssetTree",
+                new SqlParameter("@CompanyRefId", companyRefId),
+                new SqlParameter("@RefId", refId)).ToListAsync();
         }
     }
 }

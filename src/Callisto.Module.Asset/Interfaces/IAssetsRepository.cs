@@ -41,9 +41,9 @@ namespace Callisto.Module.Assets.Interfaces
         /// <summary>
         /// The GetTopLevelAssets
         /// </summary>
-        /// <param name="id">The <see cref="Guid"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
-        /// <returns>The <see cref="Task{IEnumerable{Asset}}"/></returns>
-        Task<IEnumerable<Asset>> GetTopLevelAssets(long companyRefId);
+        /// <param name="refiId">The <see cref="long?"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{AssetTreeModel}}"/></returns>
+        Task<IEnumerable<AssetTreeModel>> GetAssetTree(long companyRefId, long? refiId = null);
     }
 }

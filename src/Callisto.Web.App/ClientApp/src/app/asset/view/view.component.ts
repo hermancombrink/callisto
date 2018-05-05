@@ -7,6 +7,7 @@ import { TreeStatus, Ng2TreeSettings } from 'ng2-tree/src/tree.types';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertService } from '../../core/alert.service';
+import { AssetTreeViewModel } from '../models/assetViewModel';
 
 @Component({
   selector: 'app-view',
@@ -22,6 +23,52 @@ export class ViewComponent implements OnInit {
 
   tree: TreeModel;
 
+  private getTreeModel(): TreeModel {
+    var model = {
+      value: ``,
+      settings: {
+        rightMenu: true,
+        leftMenu: true,
+        cssClasses: {
+          'expanded': 'fa fa-caret-down fa-lg',
+          'collapsed': 'fa fa-caret-right fa-lg',
+          'leaf': 'fa fa-lg',
+          'empty': 'fa fa-caret-right disabled'
+        },
+        templates: {
+          'node': `<span class="label label-info"><i class= "fa fa-building" ></i></span>`,
+          'leaf': `<span class="label label-primary"><i class= "fa fa-bolt" ></i></span>`,
+          'leftMenu': `<i class="fa fa-bars"></i>`
+        },
+        menuItems: [
+          { action: NodeMenuItemAction.Custom, name: 'View Details', cssClass: 'fa fa-address-card-o' },
+          { action: NodeMenuItemAction.Custom, name: 'Add Child', cssClass: 'fa fa-plus' },
+          { action: NodeMenuItemAction.Custom, name: 'Remove', cssClass: 'fa fa-trash-o' }
+        ]
+      }
+    }
+
+
+    return model;
+  };
+
+  private getChildTreeModel(asset: AssetTreeViewModel): TreeModel {
+    var model = this.getTreeModel();
+    model.value = `${asset.AssetNumber} - ${asset.Name}`;
+    model.id = asset.Id;
+    if (asset.Children) {
+      model.loadChildren = (callback) => {
+        this.assetService.GetAssetTree(asset.Id).toPromise().then(childAsset => {
+          var assets = childAsset.Result.map(a => {
+            return this.getChildTreeModel(a);
+          });
+          callback(assets);
+        });
+      };
+    }
+    return model;
+  };
+
   constructor(
     private modalService: BsModalService,
     private assetService: AssetService,
@@ -31,39 +78,12 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.assetService.GetTopLevelAssets().subscribe(results => {
+    this.assetService.GetAssetTree().toPromise().then(results => {
       this.assets = results.Result.map(asset => {
-        return {
-          id: asset.Id,
-          value: `${asset.AssetNumber} - ${asset.Name}`,
-          emitLoadNextLevel: true
-        }
+        return this.getChildTreeModel(asset);
       });
-      this.tree = {
-        value: '',
-        settings: {
-          isCollapsedOnInit: false,
-          rightMenu: true,
-          leftMenu: true,
-          cssClasses: {
-            'expanded': 'fa fa-caret-down fa-lg',
-            'collapsed': 'fa fa-caret-right fa-lg',
-            'leaf': 'fa fa-lg',
-            'empty': 'fa fa-caret-right disabled'
-          },
-          templates: {
-            'node': `<span class="label label-info"><i class= "fa fa-building" ></i></span>`,
-            'leaf': `<span class="label label-primary"><i class= "fa fa-bolt" ></i></span>`,
-            'leftMenu': `<i class="fa fa-bars"></i>`
-          },
-          menuItems: [
-            { action: NodeMenuItemAction.Custom, name: 'View Details', cssClass: 'fa fa-address-card-o' },
-            { action: NodeMenuItemAction.Custom, name: 'Add Child', cssClass: 'fa fa-plus' },
-            { action: NodeMenuItemAction.Custom, name: 'Remove', cssClass: 'fa fa-trash-o' }
-          ]
-        },
-        children: this.assets
-      };
+      this.tree = this.getTreeModel();
+      this.tree.children = this.assets;
     });
   }
 

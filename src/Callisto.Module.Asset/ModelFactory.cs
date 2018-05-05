@@ -30,6 +30,11 @@ namespace Callisto.Module.Assets
             };
         }
 
+        /// <summary>
+        /// The SetSaveAssetState
+        /// </summary>
+        /// <param name="model">The <see cref="AssetViewModel"/></param>
+        /// <param name="asset">The <see cref="Asset"/></param>
         public static void SetSaveAssetState(AssetViewModel model, Asset asset)
         {
             asset.AssetNumber = model.AssetNumber;
@@ -43,7 +48,7 @@ namespace Callisto.Module.Assets
         /// </summary>
         /// <param name="model">The <see cref="Asset"/></param>
         /// <returns>The <see cref="AssetViewModel"/></returns>
-        public static AssetViewModel CreateAsset(Asset model)
+        public static AssetViewModel CreateAssetViewModel(Asset model)
         {
             return new AssetViewModel()
             {
@@ -51,6 +56,23 @@ namespace Callisto.Module.Assets
                 Description = model.Description,
                 Name = model.Name,
                 AssetNumber = model.AssetNumber
+            };
+        }
+
+        /// <summary>
+        /// The CreateAsset
+        /// </summary>
+        /// <param name="model">The <see cref="AssetTreeModel"/></param>
+        /// <returns>The <see cref="AssetTreeViewModel"/></returns>
+        public static AssetTreeViewModel CreateAssetViewModel(AssetTreeModel model)
+        {
+            return new AssetTreeViewModel()
+            {
+                Description = model.Description,
+                Name = model.Name,
+                AssetNumber = model.AssetNumber,
+                Id = model.Id,
+                Children = model.Children
             };
         }
     }

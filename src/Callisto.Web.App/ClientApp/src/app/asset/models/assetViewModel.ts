@@ -4,3 +4,8 @@ export class AssetViewModel {
   public Name: string;
   public Description: string;
 }
+
+
+export class AssetTreeViewModel extends AssetViewModel {
+  public Children: number;
+}

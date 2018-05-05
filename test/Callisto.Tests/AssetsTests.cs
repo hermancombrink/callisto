@@ -31,6 +31,7 @@ namespace Callisto.Tests
             session.CurrentCompanyRef.Returns(1);
             var assetModule = new AssetsModule(session, Substitute.For<ILogger<AssetsModule>>(), repo);
             var model = fixture.Create<AssetAddViewModel>();
+            model.ParentId = Guid.Empty;
             var result = await assetModule.AddAssetAsync(model);
             result.Status.Should().Be(RequestStatus.Success);
         }
