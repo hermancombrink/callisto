@@ -40,7 +40,7 @@ foreach($testProject in $testProjects)
 	Write-Host "testing $($testProject)..." -ForegroundColor Green
 
     $dotnetArguments = "xunit" `
-	 ,"--fx-version 2.0.0" `
+	, "--fx-version 2.0.0" `
     , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
 	, "-nobuild" `
 	, "-msbuildverbosity $verbosity" `
