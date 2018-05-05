@@ -29,5 +29,10 @@ namespace Callisto.Module.Assets.Repository.Models
         /// Gets or sets the CompanyRefId
         /// </summary>
         public long CompanyRefId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ParentRefId
+        /// </summary>
+        public long? ParentRefId { get; set; }
     }
 }

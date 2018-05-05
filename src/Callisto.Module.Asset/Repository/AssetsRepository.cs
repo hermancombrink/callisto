@@ -77,7 +77,7 @@ namespace Callisto.Module.Assets.Repository
         /// <returns>The <see cref="Task{IEnumerable{Asset}}"/></returns>
         public async Task<IEnumerable<Asset>> GetTopLevelAssets(long companyRefId)
         {
-            return await Context.Assets.Where(c => c.CompanyRefId == companyRefId).ToListAsync();
+            return await Context.Assets.Where(c => c.CompanyRefId == companyRefId && c.ParentRefId == null).ToListAsync();
         }
     }
 }

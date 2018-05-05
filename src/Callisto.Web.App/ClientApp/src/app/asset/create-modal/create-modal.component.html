@@ -2,12 +2,16 @@
   <div class="modal-header">
     <h4 class="modal-title pull-left">
     <i class="fa fa-database"></i>
-    {{context}}</h4>
+    Create Asset</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
+
+    <div class="well well-sm" *ngIf="parentId">
+      <span>{{parentName}}</span>
+    </div>
 
     <div class="form-group">
       <label class="col-sm-2 control-label">Asset # *</label>

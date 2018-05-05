@@ -12,8 +12,8 @@ import { RequestStatus } from '../../core/models/requestStatus';
   styleUrls: ['./create-modal.component.css']
 })
 export class CreateModalComponent implements OnInit {
-
-  context: string = 'Create Asset';
+  parentId: string;
+  parentName: string;
   model: AssetAddViewModel = new AssetAddViewModel();
 
   constructor(
@@ -24,21 +24,21 @@ export class CreateModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.model.ParentId = this.parentId;
   }
 
   onSubmit() {
     this.assetService.AddAsset(this.model).subscribe(c => {
       if (c.Status != RequestStatus.Success) {
-        this.alertService.showMessage(this.context, `${c.FriendlyMessage}`, MessageSeverity.warn);
+        this.alertService.showWarningMessage(`${c.FriendlyMessage}`);
       }
       else {
-        console.info(c.Result);
-        this.alertService.showMessage(this.context, `${this.model.Name} created`, MessageSeverity.info);
+        this.alertService.showSuccessMessage(`${this.model.Name} created`);
         this.bsModalRef.hide();
         this.router.navigate(['/asset/details', c.Result]);
       }
     }, e => {
-      this.alertService.showMessage(this.context, `Oops.. That was not suppose to happen`, MessageSeverity.error);
+      this.alertService.showErrorMessage();
     });
   }
 

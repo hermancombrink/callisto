@@ -8,6 +8,7 @@ import { HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { Utilities } from './utilities';
+import { concat } from 'rxjs/operators';
 
 @Injectable()
 export class AlertService {
@@ -33,7 +34,35 @@ export class AlertService {
   }
 
 
+  showErrorMessage(message?: string) {
+    if (!message) {
+      message = "That was not suppose to happen!"
+    }
+    this.showMessage("Oops!", message, MessageSeverity.error);
+  }
 
+  showWarningMessage(message?: string) {
+    if (!message) {
+      message = "That was not suppose to happen!"
+    }
+    this.showMessage("Oops!", message, MessageSeverity.warn);
+  }
+
+  showSuccessMessage(message: string)
+  showSuccessMessage(message: string, context?: string) {
+    if (!context)
+      context = "Callisto";
+
+    this.showMessage(context, message, MessageSeverity.success);
+  }
+
+  showInfoMessage(message: string)
+  showInfoMessage(message: string, context?: string) {
+    context = "Callisto";
+
+    this.showMessage(context, message, MessageSeverity.info);
+  }
+  
   showMessage(summary: string)
   showMessage(summary: string, detail: string, severity: MessageSeverity)
   showMessage(summaryAndDetails: string[], summaryAndDetailsSeparator: string, severity: MessageSeverity)

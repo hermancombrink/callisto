@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Assets.Interfaces;
+using Callisto.Module.Assets.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Assets.ViewModels;
@@ -58,7 +59,17 @@ namespace Callisto.Module.Assets
                 throw new ArgumentException($"Session does not contain valid company");
             }
 
-            var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef);
+            Asset parent = null;
+            if (model.ParentId != default)
+            {
+                parent = await AssetRepo.GetAssetById(model.ParentId);
+                if (parent == null)
+                {
+                    throw new InvalidOperationException($"Unable to find parent asset");
+                }
+            }
+
+            var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef, parent);
             await AssetRepo.AddAsset(asset);
 
             return RequestResult.Success($"{asset.Id}");

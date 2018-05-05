@@ -13,7 +13,7 @@ namespace Callisto.SharedKernel
         /// <summary>
         /// Defines the ExceptionFriendlyMessage
         /// </summary>
-        public static string ExceptionFriendlyMessage = "Oops. That was not suppose to happen";
+        public static string ExceptionFriendlyMessage = "That was not suppose to happen";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestResult"/> class.

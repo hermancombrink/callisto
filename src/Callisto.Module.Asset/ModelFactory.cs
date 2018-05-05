@@ -15,7 +15,7 @@ namespace Callisto.Module.Assets
         /// <param name="model">The <see cref="AssetAddViewModel"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <returns>The <see cref="Asset"/></returns>
-        public static Asset CreateAsset(AssetAddViewModel model, long companyRefId)
+        public static Asset CreateAsset(AssetAddViewModel model, long companyRefId, Asset parent = null)
         {
             return new Asset()
             {
@@ -25,7 +25,8 @@ namespace Callisto.Module.Assets
                 Id = Guid.NewGuid(),
                 Description = model.Description,
                 Name = model.Name,
-                AssetNumber = model.AssetNumber
+                AssetNumber = model.AssetNumber,
+                ParentRefId = parent?.RefId
             };
         }
 

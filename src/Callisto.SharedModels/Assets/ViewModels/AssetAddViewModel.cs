@@ -1,4 +1,6 @@
-﻿namespace Callisto.SharedModels.Assets.ViewModels
+﻿using System;
+
+namespace Callisto.SharedModels.Assets.ViewModels
 {
     /// <summary>
     /// Defines the <see cref="AssetAddViewModel" />
@@ -19,5 +21,10 @@
         /// Gets or sets the Description
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ParentId
+        /// </summary>
+        public Guid ParentId { get; set; }
     }
 }

@@ -28,17 +28,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.info(this.id);
 
       this.assetService.GetAsset(this.id).subscribe(c => {
         if (c.Status != RequestStatus.Success) {
-          console.error(c.FriendlyMessage);
+          this.alertService.showWarningMessage(c.FriendlyMessage);
         }
         else {
           this.model = c.Result;
         }
       }, e => {
-        console.error(e);
+        this.alertService.showErrorMessage('Failed to load asset details');
       });
     });
   }
@@ -50,14 +49,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status != RequestStatus.Success) {
-        console.error(c.FriendlyMessage);
+        this.alertService.showWarningMessage(c.FriendlyMessage);
       }
       else {
         this.model = c.Result;
-        this.alertService.showMessage(this.context, 'Asset saved', MessageSeverity.success);
+        this.alertService.showSuccessMessage('Asset saved');
       }
     }, e => {
-      console.error(e);
+      this.alertService.showErrorMessage();
     });
   }
 

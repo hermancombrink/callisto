@@ -6,4 +6,4 @@ var AssetAddViewModel = /** @class */ (function () {
     return AssetAddViewModel;
 }());
 exports.AssetAddViewModel = AssetAddViewModel;
-//# sourceMappingURL=createAssetViewModel.js.map
+//# sourceMappingURL=assetAddViewModel.js.map

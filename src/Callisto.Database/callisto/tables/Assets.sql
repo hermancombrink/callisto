@@ -8,7 +8,7 @@
 	[Name] NVARCHAR(256) NULL, 
     [Description] NVARCHAR(512) NULL,
 	[CompanyRefId] BIGINT NOT NULL, 
-    [ParrentAssetRefId] BIGINT NULL
+    [ParentRefId] BIGINT NULL
 )
 GO
 
@@ -19,8 +19,16 @@ GO
 ALTER TABLE [callisto].[Assets] CHECK CONSTRAINT [FK_Assets_Companies]
 GO
 
+ALTER TABLE [callisto].[Assets]  WITH CHECK ADD  CONSTRAINT [FK_Assets_Assets] FOREIGN KEY([ParentRefId])
+REFERENCES [callisto].[Assets] ([RefId])
+GO
+
+ALTER TABLE [callisto].[Assets] CHECK CONSTRAINT [FK_Assets_Assets]
+GO
+
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Asset_Id] ON [callisto].[Assets]
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+

@@ -40,7 +40,7 @@ namespace Callisto.Session.Provider
             {
                 httpContext.Response.ContentType = "application/json";
                 var response = RequestResult.Critical(ex);
-                await httpContext.Response.WriteAsync(response.ToJson( true, SharedKernel.Enum.JsonContractResolver.CamelCase));
+                await httpContext.Response.WriteAsync(response.ToJson( true, SharedKernel.Enum.JsonContractResolver.Default));
             }
         }
     }
