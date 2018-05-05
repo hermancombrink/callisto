@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   ClearToken() {
-    
     localStorage.removeItem('auth_token');
   }
 
@@ -37,6 +36,10 @@ export class AuthService {
         'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
       })
     };
+  }
+
+  get authHeader() {
+    return { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` };
   }
 
   Register(model: RegisterViewModel): Observable<RequestResult> {

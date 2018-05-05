@@ -5,6 +5,8 @@ import { AssetService } from '../asset.service';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { Location } from '@angular/common';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit, OnDestroy {
-  context: string = 'Asset Details';
+
   id: string;
   private sub: any;
   model: AssetViewModel = new AssetViewModel();
@@ -60,5 +62,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+ 
+  public uploader: FileUploader = new FileUploader({
+    url: environment.apiUrl,
+    autoUpload: true,
+    removeAfterUpload: true
+  });
 
+  public hasBaseDropZoneOver: boolean = false;
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
 }

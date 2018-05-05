@@ -4,7 +4,6 @@ Param
  [string]$verbosity="q"
 )
 
-
 function getTool([string]$name, [string]$tool) {
 	$packageDir = Join-Path -Path $env:USERPROFILE -ChildPath "\.nuget\packages\$name"
 	$latestTool = Join-Path -Path (Get-ChildItem -Path $packageDir | Sort-Object Fullname -Descending)[0].FullName -ChildPath "tools\$tool.exe"

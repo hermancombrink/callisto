@@ -39,6 +39,17 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div ng2FileDrop
+                     [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                     (fileOver)="fileOverBase($event)"
+                     [uploader]="uploader"
+                     class="well my-drop-zone">
+                  Drop new display picture for {{model.Name}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-sm-2 control-label">Asset #</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control input-sm" placeholder="eg. ABC123" required name="assetNumber" #assetNumber="ngModel" [(ngModel)]="model.AssetNumber">
