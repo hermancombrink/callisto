@@ -51,3 +51,4 @@ UpgradeLog*.htm
 *.jfm
 Output/
 /docker/sql/Callisto_Create.sql
+/test/Results

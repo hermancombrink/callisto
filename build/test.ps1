@@ -1,16 +1,14 @@
+Param
+(
+ [Parameter(Mandatory=$false)]
+ [string]$verbosity="q"
+)
 
 
-function openCover() {
-	$nugetOpenCoverPackage = Join-Path -Path $env:USERPROFILE -ChildPath "\.nuget\packages\OpenCover"
-	$latestOpenCover = Join-Path -Path ((Get-ChildItem -Path $nugetOpenCoverPackage | Sort-Object Fullname -Descending)[0].FullName) -ChildPath "tools\OpenCover.Console.exe"
-	return $latestOpenCover
-}
-
-
-function cobertura() {
-	$nugetCoberturaConverterPackage = Join-Path -Path $env:USERPROFILE -ChildPath "\.nuget\packages\OpenCoverToCoberturaConverter"
-	$latestCoberturaConverter = Join-Path -Path (Get-ChildItem -Path $nugetCoberturaConverterPackage | Sort-Object Fullname -Descending)[0].FullName -ChildPath "tools\OpenCoverToCoberturaConverter.exe"
-	return $latestCoberturaConverter
+function getTool([string]$name, [string]$tool) {
+	$packageDir = Join-Path -Path $env:USERPROFILE -ChildPath "\.nuget\packages\$name"
+	$latestTool = Join-Path -Path (Get-ChildItem -Path $packageDir | Sort-Object Fullname -Descending)[0].FullName -ChildPath "tools\$tool.exe"
+	return $latestTool
 }
 
 function cleanResults()
@@ -29,13 +27,12 @@ function cleanResults()
 
 $testProjects = get-childitem .\test -Depth 2 | where { $_.extension -eq ".csproj" }
 
-echo $testProjects
-
 cleanResults
 
-$openCover = openCover
-$cobertura = cobertura
- $t = ""
+$openCover = getTool -name "OpenCover" -tool "OpenCover.Console"
+$cobertura = getTool -name "OpenCoverToCoberturaConverter" -tool "OpenCoverToCoberturaConverter"
+$reportGen = getTool -name "reportgenerator" -tool "ReportGenerator"
+
 foreach($testProject in $testProjects)
 {
     $t = $testProject.Directory.Parent.FullName
@@ -43,9 +40,11 @@ foreach($testProject in $testProjects)
 	Write-Host "testing $($testProject)..." -ForegroundColor Green
 
     $dotnetArguments = "xunit" `
-    ,"--fx-version 2.0.0" `
+	 ,"--fx-version 2.0.0" `
     , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
-    , "-configuration Debug" `
+	, "-nobuild" `
+	, "-msbuildverbosity $verbosity" `
+    , "-configuration Debug" 
 
     Write-Host "with args $($dotnetArguments)..." -ForegroundColor Gray
 
@@ -53,19 +52,24 @@ foreach($testProject in $testProjects)
         -register:user `
         -target:dotnet.exe `
         -targetdir:$t\$($testProject.Directory.BaseName) `
-        "-targetargs:$dotnetArguments" `
+        -targetargs:"$dotnetArguments" `
         -returntargetcode `
         -output:"$t\Results\OpenCover.coverageresults" `
         -mergeoutput `
         -oldStyle `
         -excludebyattribute:System.CodeDom.Compiler.GeneratedCodeAttribute `
 		-filter:"+[Callisto.*]* -[*Tests]*"
-
-	& $cobertura `
-    -input:"$t\Results\OpenCover.coverageresults" `
-    -output:"$t\Results\Cobertura.coverageresults" `
-    "-sources:$t\Results"
 }
 
+Write-Host "converting coverage to Cobertura..." -ForegroundColor Green
+& $cobertura `
+-input:"test\Results\OpenCover.coverageresults" `
+-output:"test\Results\Cobertura.coverageresults" `
+-sources:"test\Results"
 
 
+Write-Host "generating html output..." -ForegroundColor Green
+& $reportGen `
+-targetdir:"test\Results\Coverage" `
+-reports:"test\Results\Cobertura.coverageresults" `
+-reporttypes:"Html;HtmlChart;HtmlSummary" 
