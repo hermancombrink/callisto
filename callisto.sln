@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{732D33CA
 		build\ngserve.ps1 = build\ngserve.ps1
 		build\run.ps1 = build\run.ps1
 		build\stop.ps1 = build\stop.ps1
+		build\test.ps1 = build\test.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F1E2E52-F101-4E51-B707-B833323895ED}"
@@ -181,7 +182,7 @@ Global
 		{DA2FABCB-614B-4D7F-AF6B-8308D81274BD} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal

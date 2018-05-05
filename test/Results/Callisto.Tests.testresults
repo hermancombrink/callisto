@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assemblies timestamp="05/05/2018 21:57:29">
+  <assembly name="Callisto.Tests.dll" environment="64-bit .NET Standard [collection-per-class, parallel (4 threads)]" test-framework="xUnit.net 2.3.1.3858" run-date="2018-05-05" run-time="21:57:23" total="29" passed="25" failed="4" skipped="0" time="5.899" errors="0">
+    <errors />
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Callisto.Tests.AssetsTests" time="1.106">
+      <test name="Callisto.Tests.AssetsTests.AddAssestShouldReturnSuccessWhenAllIsWell" type="Callisto.Tests.AssetsTests" method="AddAssestShouldReturnSuccessWhenAllIsWell" time="1.020455" result="Pass" />
+      <test name="Callisto.Tests.AssetsTests.AddAssestShouldThrowWhenSessionHasNoCompany" type="Callisto.Tests.AssetsTests" method="AddAssestShouldThrowWhenSessionHasNoCompany" time="0.0858232" result="Pass" />
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Callisto.Tests.StorageTests" time="1.593">
+      <test name="Callisto.Tests.StorageTests.StorageShouldFailWhenInvalidConnectionIsUsed" type="Callisto.Tests.StorageTests" method="StorageShouldFailWhenInvalidConnectionIsUsed" time="0.1082833" result="Pass" />
+      <test name="Callisto.Tests.StorageTests.StorageShouldObtainBlobReference" type="Callisto.Tests.StorageTests" method="StorageShouldObtainBlobReference" time="0.5074302" result="Pass" />
+      <test name="Callisto.Tests.StorageTests.StorageShouldSaveFile" type="Callisto.Tests.StorageTests" method="StorageShouldSaveFile" time="0.9764651" result="Pass" />
+      <test name="Callisto.Tests.StorageTests.StorageShouldBeAbleToObtainStorageAccount" type="Callisto.Tests.StorageTests" method="StorageShouldBeAbleToObtainStorageAccount" time="0.0009699" result="Pass" />
+    </collection>
+    <collection total="6" passed="4" failed="2" skipped="0" name="Test collection for Callisto.Tests.ApiTests" time="1.525">
+      <test name="Callisto.Tests.ApiTests.ApiShouldStartUpWhenAllIsWell" type="Callisto.Tests.ApiTests" method="ApiShouldStartUpWhenAllIsWell" time="1.1766922" result="Fail">
+        <failure exception-type="Xunit.Sdk.XunitException">
+          <message><![CDATA[Expected object to be Failed, but found Exception.]]></message>
+          <stack-trace><![CDATA[   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\XUnit2TestFramework.cs:line 35
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\TestFrameworkProvider.cs:line 41
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\DefaultAssertionStrategy.cs:line 26
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\AssertionScope.cs:line 228
+   at FluentAssertions.Primitives.ObjectAssertions.Be(Object expected, String because, Object[] becauseArgs) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Primitives\ObjectAssertions.cs:line 36
+   at Callisto.Tests.ApiTests.<ApiShouldStartUpWhenAllIsWell>d__4.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()]]></stack-trace>
+        </failure>
+      </test>
+      <test name="Callisto.Tests.ApiTests.ApiShouldHaveAllDependantServiceRegisteredForCallisto" type="Callisto.Tests.ApiTests" method="ApiShouldHaveAllDependantServiceRegisteredForCallisto" time="0.0179321" result="Fail">
+        <failure exception-type="System.ArgumentNullException">
+          <message><![CDATA[System.ArgumentNullException : Value cannot be null.\r\nParameter name: connectionString]]></message>
+          <stack-trace><![CDATA[   at Microsoft.EntityFrameworkCore.Utilities.Check.NotEmpty(String value, String parameterName)
+   at Microsoft.EntityFrameworkCore.SqlServerDbContextOptionsExtensions.UseSqlServer(DbContextOptionsBuilder optionsBuilder, String connectionString, Action`1 sqlServerOptionsAction)
+   at Callisto.Module.Authentication.Startup.IServiceCollectionExtensions.<>c__DisplayClass1_0.<AddCallistoAuthentication>b__0(DbContextOptionsBuilder options)
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.<>c__DisplayClass0_0`1.<AddDbContext>b__0(IServiceProvider p, DbContextOptionsBuilder b)
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.DbContextOptionsFactory[TContext](IServiceProvider applicationServiceProvider, Action`2 optionsAction)
+   at Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.<>c__DisplayClass5_0`1.<AddCoreServices>b__0(IServiceProvider p)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitFactory(FactoryCallSite factoryCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScoped(ScopedCallSite scopedCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScoped(ScopedCallSite scopedCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitTransient(TransientCallSite transientCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitTransient(TransientCallSite transientCallSite, ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(IServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.<>c__DisplayClass22_0.<RealizeService>b__0(ServiceProvider provider)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at Callisto.Session.Provider.CallistoSession.get_Authentication()]]></stack-trace>
+        </failure>
+      </test>
+      <test name="Callisto.Tests.ApiTests.ApiAllMetricsShouldBeEnabled(endpoint: \&quot;/metrics\&quot;)" type="Callisto.Tests.ApiTests" method="ApiAllMetricsShouldBeEnabled" time="0.2097186" result="Pass" />
+      <test name="Callisto.Tests.ApiTests.ApiAllMetricsShouldBeEnabled(endpoint: \&quot;/metrics-text\&quot;)" type="Callisto.Tests.ApiTests" method="ApiAllMetricsShouldBeEnabled" time="0.0756659" result="Pass" />
+      <test name="Callisto.Tests.ApiTests.ApiAllMetricsShouldBeEnabled(endpoint: \&quot;/health\&quot;)" type="Callisto.Tests.ApiTests" method="ApiAllMetricsShouldBeEnabled" time="0.0416052" result="Pass" />
+      <test name="Callisto.Tests.ApiTests.ApiAllMetricsShouldBeEnabled(endpoint: \&quot;/ping\&quot;)" type="Callisto.Tests.ApiTests" method="ApiAllMetricsShouldBeEnabled" time="0.0036909" result="Pass" />
+    </collection>
+    <collection total="10" passed="8" failed="2" skipped="0" name="Test collection for Callisto.Tests.AuthenticationTests" time="2.018">
+      <test name="Callisto.Tests.AuthenticationTests.ResetPasswordShouldReturnTokenWhenAllIsWell" type="Callisto.Tests.AuthenticationTests" method="ResetPasswordShouldReturnTokenWhenAllIsWell" time="1.3431009" result="Fail">
+        <failure exception-type="System.Net.Http.HttpRequestException">
+          <message><![CDATA[System.Net.Http.HttpRequestException : Response status code does not indicate success: 401 (Unauthorized).]]></message>
+          <stack-trace><![CDATA[   at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at Callisto.Tests.AuthenticationTests.<ResetPasswordShouldReturnTokenWhenAllIsWell>d__10.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()]]></stack-trace>
+        </failure>
+      </test>
+      <test name="Callisto.Tests.AuthenticationTests.WebApiLoginShouldFailWithNoExistingAccount" type="Callisto.Tests.AuthenticationTests" method="WebApiLoginShouldFailWithNoExistingAccount" time="0.1265127" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiLoginShouldSucceedWithValidCredentials" type="Callisto.Tests.AuthenticationTests" method="WebApiLoginShouldSucceedWithValidCredentials" time="0.3958871" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiRegisterShouldFailWhenAccountExists" type="Callisto.Tests.AuthenticationTests" method="WebApiRegisterShouldFailWhenAccountExists" time="0.0413361" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiUserDetailsShouldBeUnauthorized" type="Callisto.Tests.AuthenticationTests" method="WebApiUserDetailsShouldBeUnauthorized" time="0.0083831" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiLoginShouldFailWithInvalidEmailAddress" type="Callisto.Tests.AuthenticationTests" method="WebApiLoginShouldFailWithInvalidEmailAddress" time="0.0149325" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiRegisterShouldSucceedWithAllIsWell" type="Callisto.Tests.AuthenticationTests" method="WebApiRegisterShouldSucceedWithAllIsWell" time="0.0277304" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiUserDetailsShouldReturnWhenAllIsWell" type="Callisto.Tests.AuthenticationTests" method="WebApiUserDetailsShouldReturnWhenAllIsWell" time="0.0482722" result="Fail">
+        <failure exception-type="Xunit.Sdk.XunitException">
+          <message><![CDATA[Expected object to be OK, but found Unauthorized.]]></message>
+          <stack-trace><![CDATA[   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\XUnit2TestFramework.cs:line 35
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\TestFrameworkProvider.cs:line 41
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\DefaultAssertionStrategy.cs:line 26
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Execution\AssertionScope.cs:line 228
+   at FluentAssertions.Primitives.ObjectAssertions.Be(Object expected, String because, Object[] becauseArgs) in C:\projects\fluentassertions-vf06b\Src\FluentAssertions\Primitives\ObjectAssertions.cs:line 36
+   at Callisto.Tests.AuthenticationTests.<WebApiUserDetailsShouldReturnWhenAllIsWell>d__13.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()]]></stack-trace>
+        </failure>
+      </test>
+      <test name="Callisto.Tests.AuthenticationTests.WebApiShouldReturn401WithoutToken" type="Callisto.Tests.AuthenticationTests" method="WebApiShouldReturn401WithoutToken" time="0.0086259" result="Pass" />
+      <test name="Callisto.Tests.AuthenticationTests.WebApiShouldReturn401WithInvalidToken" type="Callisto.Tests.AuthenticationTests" method="WebApiShouldReturn401WithInvalidToken" time="0.0034085" result="Pass" />
+    </collection>
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Callisto.Tests.NotificationsTests" time="5.581">
+      <test name="Callisto.Tests.NotificationsTests.EmailSenderShouldSendNotificationWithSendGrid" type="Callisto.Tests.NotificationsTests" method="EmailSenderShouldSendNotificationWithSendGrid" time="2.7975055" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.SubmitNotificationShouldBeCriticalWhenSenderFailed" type="Callisto.Tests.NotificationsTests" method="SubmitNotificationShouldBeCriticalWhenSenderFailed" time="0.136705" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.EmailSenderShouldSendWithTemplate" type="Callisto.Tests.NotificationsTests" method="EmailSenderShouldSendWithTemplate" time="1.2255946" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.SubmitNotificationShouldSucceedWhenAllIsWell" type="Callisto.Tests.NotificationsTests" method="SubmitNotificationShouldSucceedWhenAllIsWell" time="0.0052464" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.SendGridFactoryShouldSetTokensAndTemplateId" type="Callisto.Tests.NotificationsTests" method="SendGridFactoryShouldSetTokensAndTemplateId" time="0.0025653" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.EmailSenderShouldFailWithInvalidApiKey" type="Callisto.Tests.NotificationsTests" method="EmailSenderShouldFailWithInvalidApiKey" time="1.4108385" result="Pass" />
+      <test name="Callisto.Tests.NotificationsTests.EmailSenderShouldThrowWhenOptionsNotConfigured" type="Callisto.Tests.NotificationsTests" method="EmailSenderShouldThrowWhenOptionsNotConfigured" time="0.0024813" result="Pass" />
+    </collection>
+  </assembly>
+</assemblies>
