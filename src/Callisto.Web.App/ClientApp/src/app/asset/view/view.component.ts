@@ -7,7 +7,8 @@ import { TreeStatus, Ng2TreeSettings } from 'ng2-tree/src/tree.types';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertService } from '../../core/alert.service';
-import { AssetTreeViewModel } from '../models/assetViewModel';
+import { AssetTreeViewModel, AssetViewModel } from '../models/assetViewModel';
+import { RequestStatus } from '../../core/models/requestStatus';
 
 @Component({
   selector: 'app-view',
@@ -18,6 +19,8 @@ export class ViewComponent implements OnInit {
   bsModalRef: BsModalRef;
 
   assets: TreeModel[];
+  currentAsset: AssetViewModel;
+
 
   @ViewChild('treeComponent') treeComponent;
 
@@ -25,10 +28,9 @@ export class ViewComponent implements OnInit {
 
   private getTreeModel(): TreeModel {
     var model = {
+      static: true,
       value: ``,
       settings: {
-        rightMenu: true,
-        leftMenu: true,
         cssClasses: {
           'expanded': 'fa fa-caret-down fa-lg',
           'collapsed': 'fa fa-caret-right fa-lg',
@@ -117,7 +119,42 @@ export class ViewComponent implements OnInit {
     }
   }
 
+  handleSelected(e) {
+    this.assetService.GetAsset(e.node.node.id).subscribe(c => {
+      if (c.Status == RequestStatus.Success) {
+        this.currentAsset = c.Result;
+      }
+      else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+      }
+    }, e => this.alertService.showErrorMessage());
+  }
+
+  handleMoved(e) {
+    console.log(e);
+  }
+
   handleNextLevel(e) {
     console.log(e);
   }
+
+  onSubmit() {
+    this.assetService.SaveAsset(this.currentAsset).subscribe(c => {
+      if (c.Status != RequestStatus.Success) {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+      }
+      else {
+        this.currentAsset = c.Result;
+        this.alertService.showSuccessMessage('Asset saved');
+        this.ngOnInit();
+      }
+    }, e => {
+      this.alertService.showErrorMessage();
+    });
+  }
+
+  onDetails() {
+    this.router.navigate(['/asset/details', this.currentAsset.Id]);
+  }
+
 }
