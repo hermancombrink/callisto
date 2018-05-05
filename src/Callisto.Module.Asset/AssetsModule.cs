@@ -100,7 +100,7 @@ namespace Callisto.Module.Assets
 
             if (asset == null)
             {
-                return RequestResult<AssetViewModel>.Failed($"Failed to find asset {model.Name}", model);
+                throw new InvalidOperationException($"Unable to find asset");
             }
 
             ModelFactory.SetSaveAssetState(model, asset);
