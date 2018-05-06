@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Assets.ViewModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -38,5 +39,13 @@ namespace Callisto.SharedModels.Asset
         /// <param name="id">The <see cref="Guid?"/></param>
         /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
         Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAsync(Guid? id = null);
+
+        /// <summary>
+        /// The UploadAssetPicAsync
+        /// </summary>
+        /// <param name="file">The <see cref="IFormFile"/></param>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> UploadAssetPicAsync(IFormFile file, Guid id);
     }
 }

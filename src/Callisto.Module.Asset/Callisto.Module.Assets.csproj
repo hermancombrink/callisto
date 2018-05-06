@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Callisto.Core.Storage\Callisto.Core.Storage.csproj" />
     <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 

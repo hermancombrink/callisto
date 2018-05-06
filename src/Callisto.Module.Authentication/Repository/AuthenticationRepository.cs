@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Authentication.Interfaces;
+using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,10 @@ namespace Callisto.Module.Authentication.Repository
         /// </summary>
         private ApplicationDbContext Context { get; }
 
+        /// <summary>
+        /// The BeginTransaction
+        /// </summary>
+        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
         public async Task<IDbContextTransaction> BeginTransaction()
         {
             return await Context.Database.BeginTransactionAsync();
@@ -95,6 +100,16 @@ namespace Callisto.Module.Authentication.Repository
                     SubscriptionId = lastSubsrition.SubscriptionId
                 });
             }
+        }
+
+        /// <summary>
+        /// The GetCompany
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{Company}"/></returns>
+        public async Task<Company> GetCompany(long refId)
+        {
+            return await Context.Companies.FindAsync(refId);
         }
     }
 }

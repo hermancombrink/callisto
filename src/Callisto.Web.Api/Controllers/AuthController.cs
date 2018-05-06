@@ -95,5 +95,7 @@ namespace Callisto.Web.Api.Controllers
         {
             return await CallistoSession.Authentication.SignOutAsync(CallistoSession.UserName);
         }
+
+
     }
 }

@@ -4,6 +4,8 @@ using Callisto.SharedKernel;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
+using Callisto.SharedModels.Storage;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,11 +27,13 @@ namespace Callisto.Module.Assets
         public AssetsModule(
                ICallistoSession session,
             ILogger<AssetsModule> logger,
-            IAssetsRepository assetRepo)
+            IAssetsRepository assetRepo,
+            IStorage storage)
         {
             Session = session;
             Logger = logger;
             AssetRepo = assetRepo;
+            Storage = storage;
         }
 
         /// <summary>
@@ -41,6 +45,11 @@ namespace Callisto.Module.Assets
         /// Gets the AssetRepo
         /// </summary>
         private IAssetsRepository AssetRepo { get; }
+
+        /// <summary>
+        /// Gets the Storage
+        /// </summary>
+        private IStorage Storage { get; }
 
         /// <summary>
         /// Gets the Logger
@@ -119,7 +128,7 @@ namespace Callisto.Module.Assets
             Asset parent = null;
             if (id != null)
             {
-                 parent = await AssetRepo.GetAssetById(id.Value);
+                parent = await AssetRepo.GetAssetById(id.Value);
                 if (parent == null)
                 {
                     throw new InvalidOperationException($"Failed to find parent asset");
@@ -136,6 +145,37 @@ namespace Callisto.Module.Assets
             }
 
             return RequestResult<IEnumerable<AssetTreeViewModel>>.Success(results);
+        }
+
+        /// <summary>
+        /// The UploadAssetPicAsync
+        /// </summary>
+        /// <param name="file">The <see cref="IFormFile"/></param>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> UploadAssetPicAsync(IFormFile file, Guid id)
+        {
+            var asset = await AssetRepo.GetAssetById(id);
+
+            if (asset == null)
+            {
+                throw new InvalidOperationException($"Unable to find asset");
+            }
+
+            var company = await Session.Authentication.GetCompanyByRefId(asset.CompanyRefId);
+
+            if (company.Status != SharedKernel.Enum.RequestStatus.Success)
+            {
+                throw new InvalidOperationException($"Unable to find company");
+            }
+
+            using (var stream = file.OpenReadStream())
+            {
+                var bytes = new byte[stream.Length];
+                await stream.ReadAsync(bytes, 0, (int)stream.Length);
+                var filePath = await Storage.SaveFile(bytes, $"{asset.Id}", $"{company.Result.Id}");
+                return RequestResult.Success(filePath);
+            }
         }
     }
 }

@@ -7,6 +7,8 @@ import { RequestStatus } from '../../core/models/requestStatus';
 import { Location } from '@angular/common';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-details',
@@ -24,6 +26,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private assetService: AssetService,
     private alertService: AlertService,
+    private authService: AuthService,
     private location: Location
   ) { }
 
@@ -40,6 +43,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
         }
       }, e => {
         this.alertService.showErrorMessage('Failed to load asset details');
+      });
+
+      this.uploader = new FileUploader({
+        url: `${environment.apiUrl}asset/pic/${this.id}`,
+        autoUpload: true,
+        authToken: this.authService.authToken
       });
     });
   }
@@ -62,12 +71,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     });
   }
 
- 
-  public uploader: FileUploader = new FileUploader({
-    url: environment.apiUrl,
-    autoUpload: true,
-    removeAfterUpload: true
-  });
+  public uploader: FileUploader;
 
   public hasBaseDropZoneOver: boolean = false;
   public fileOverBase(e: any): void {

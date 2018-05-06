@@ -43,5 +43,12 @@ namespace Callisto.SharedModels.Auth
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> SignOutAsync(string email);
+
+        /// <summary>
+        /// The GetCompanyByRefId
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{CompanyViewModel}}"/></returns>
+        Task<RequestResult<CompanyViewModel>> GetCompanyByRefId(long refId);
     }
 }

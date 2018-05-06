@@ -1,4 +1,5 @@
-﻿using Callisto.SharedKernel;
+﻿using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
@@ -29,5 +30,12 @@ namespace Callisto.Module.Authentication.Interfaces
         /// </summary>
         /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
         Task<IDbContextTransaction> BeginTransaction();
+
+        /// <summary>
+        /// The GetCompany
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{Company}"/></returns>
+        Task<Company> GetCompany(long refId);
     }
 }

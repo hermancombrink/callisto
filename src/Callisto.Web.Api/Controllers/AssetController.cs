@@ -2,6 +2,7 @@
 using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,12 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> CreateAssetAsync([FromBody] AssetAddViewModel model)
         {
             return await CallistoSession.Assets.AddAssetAsync(model);
+        }
+
+        [HttpPost("pic/{id}")]
+        public async Task<RequestResult> UpdatePicutre(IFormFile file, [FromRoute] Guid id)
+        {
+            return await CallistoSession.Assets.UploadAssetPicAsync(file, id);
         }
 
         /// <summary>

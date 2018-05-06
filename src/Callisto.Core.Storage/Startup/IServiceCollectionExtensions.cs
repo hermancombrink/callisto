@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Callisto.Core.Storage.Options;
+using Callisto.SharedModels.Storage;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Callisto.Core.Storage.Startup
 {
@@ -14,8 +17,9 @@ namespace Callisto.Core.Storage.Startup
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="config">The <see cref="IConfiguration"/></param>
         public static void AddCallistoStorage(this IServiceCollection services,
-            IConfiguration config)
+            IConfiguration config, StorageOptions options)
         {
+            services.TryAddTransient<IStorage, AzureBlobStorage>();
         }
     }
 }

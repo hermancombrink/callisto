@@ -1,6 +1,8 @@
-﻿using Callisto.Module.Assets.Interfaces;
+﻿using Callisto.Core.Storage;
+using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository;
 using Callisto.SharedModels.Asset;
+using Callisto.SharedModels.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,7 @@ namespace Callisto.Module.Assets.Startup
             services.AddDbContext<AssetDbContext>(dbContextFactory);
             services.TryAddTransient<IAssetsRepository, AssetsRepository>();
             services.TryAddTransient<IAssetsModule, AssetsModule>();
+
 
             return services;
         }

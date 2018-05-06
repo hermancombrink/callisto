@@ -1,5 +1,7 @@
 ﻿using App.Metrics.Health;
 using Callisto.Core.Metrics.Startup;
+using Callisto.Core.Storage.Options;
+using Callisto.Core.Storage.Startup;
 using Callisto.Module.Assets.Startup;
 using Callisto.Module.Authentication.Health;
 using Callisto.Module.Authentication.Options;
@@ -56,6 +58,8 @@ namespace Callisto.Web.Api
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                 dbConnectionString);
+
+            services.AddCallistoStorage(Configuration, services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
 
             services.AddCallistoAssets(Configuration,
                 dbConnectionString);

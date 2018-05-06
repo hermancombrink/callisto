@@ -49,6 +49,21 @@ namespace Callisto.Module.Authentication
         }
 
         /// <summary>
+        /// The CreateCompany
+        /// </summary>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="CompanyViewModel"/></returns>
+        public static CompanyViewModel CreateCompany(Company company)
+        {
+            return new CompanyViewModel()
+            {
+                Id = company.Id,
+                Description = company.Description,
+                Name = company.Name
+            };
+        }
+
+        /// <summary>
         /// The GetSubscription
         /// </summary>
         /// <param name="company">The <see cref="Company"/></param>

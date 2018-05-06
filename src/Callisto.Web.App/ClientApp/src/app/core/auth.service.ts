@@ -38,8 +38,8 @@ export class AuthService {
     };
   }
 
-  get authHeader() {
-    return { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` };
+  get authToken() {
+    return `Bearer ${localStorage.getItem('auth_token')}`;
   }
 
   Register(model: RegisterViewModel): Observable<RequestResult> {
