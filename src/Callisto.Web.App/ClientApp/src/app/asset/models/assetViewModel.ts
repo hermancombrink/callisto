@@ -3,10 +3,12 @@ export class AssetViewModel {
   public AssetNumber: string;
   public Name: string;
   public Description: string;
-  public PictureUrl: string;
 }
-
 
 export class AssetTreeViewModel extends AssetViewModel {
   public Children: number;
+}
+
+export class AssetDetailViewModel extends AssetViewModel {
+  public PictureUrl: string;
 }

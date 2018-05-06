@@ -99,11 +99,25 @@ namespace Callisto.Module.Assets
         }
 
         /// <summary>
+        /// The GetAssetDetailsAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetDetailViewModel}}"/></returns>
+        public async Task<RequestResult<AssetDetailViewModel>> GetAssetDetailsAsync(Guid id)
+        {
+            var asset = await AssetRepo.GetAssetById(id);
+
+            var viewModel = ModelFactory.CreateAssetDetailViewModel(asset);
+
+            return RequestResult<AssetDetailViewModel>.Success(viewModel);
+        }
+
+        /// <summary>
         /// The SaveAssetAsync
         /// </summary>
         /// <param name="model">The <see cref="AssetViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult<AssetViewModel>> SaveAssetAsync(AssetViewModel model)
+        public async Task<RequestResult> SaveAssetAsync(AssetDetailViewModel model)
         {
             var asset = await AssetRepo.GetAssetById(model.Id);
 
@@ -116,7 +130,7 @@ namespace Callisto.Module.Assets
 
             await AssetRepo.SaveAssetAsync(asset);
 
-            return RequestResult<AssetViewModel>.Success(model);
+            return RequestResult.Success();
         }
 
         /// <summary>
@@ -169,13 +183,19 @@ namespace Callisto.Module.Assets
                 throw new InvalidOperationException($"Unable to find company");
             }
 
+            var urlPath = string.Empty;
             using (var stream = file.OpenReadStream())
             {
                 var bytes = new byte[stream.Length];
                 await stream.ReadAsync(bytes, 0, (int)stream.Length);
-                var filePath = await Storage.SaveFile(bytes, $"{asset.Id}", $"{company.Result.Id}");
-                return RequestResult.Success(filePath);
+                urlPath = await Storage.SaveFile(bytes, $"{asset.Id}", $"{company.Result.Id}");
             }
+
+            asset.PictureUrl = urlPath;
+
+            await AssetRepo.SaveAssetAsync(asset);
+
+            return RequestResult.Success(urlPath);
         }
     }
 }

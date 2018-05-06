@@ -8,7 +8,8 @@
 	[Name] NVARCHAR(256) NULL, 
     [Description] NVARCHAR(512) NULL,
 	[CompanyRefId] BIGINT NOT NULL, 
-    [ParentRefId] BIGINT NULL
+    [ParentRefId] BIGINT NULL, 
+    [PictureUrl] NVARCHAR(512) NULL
 )
 GO
 

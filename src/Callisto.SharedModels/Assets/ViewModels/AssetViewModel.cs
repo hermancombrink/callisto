@@ -38,4 +38,15 @@ namespace Callisto.SharedModels.Assets.ViewModels
         /// </summary>
         public int Children { get; set; }
     }
+
+    /// <summary>
+    /// Defines the <see cref="AssetDetailViewModel" />
+    /// </summary>
+    public class AssetDetailViewModel : AssetViewModel
+    {
+        /// <summary>
+        /// Gets or sets the Children
+        /// </summary>
+        public string PictureUrl { get; set; }
+    }
 }

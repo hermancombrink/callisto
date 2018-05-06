@@ -40,7 +40,8 @@
           <div class="panel-body">
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-4 text-center">
-                <img class="picture" [src]="model.PictureUrl" src-fallback="app/assets/images/no-image.jpg">
+                <img class="picture" [src]="model.PictureUrl" *ngIf="!!model.PictureUrl">
+                <img class="picture" src="app/assets/images/no-image.jpg" *ngIf="!model.PictureUrl">
               </div>
               <div class=" col-sm-4">
                 <div ng2FileDrop

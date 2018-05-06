@@ -29,10 +29,9 @@ export class CreateModalComponent implements OnInit {
 
   onSubmit() {
     this.assetService.AddAsset(this.model).subscribe(c => {
-      if (c.Status != RequestStatus.Success) {
+      if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(`${c.FriendlyMessage}`);
-      }
-      else {
+      } else {
         this.alertService.showSuccessMessage(`${this.model.Name} created`);
         this.bsModalRef.hide();
         this.router.navigate(['/asset/details', c.Result]);

@@ -35,7 +35,7 @@ namespace Callisto.Module.Assets
         /// </summary>
         /// <param name="model">The <see cref="AssetViewModel"/></param>
         /// <param name="asset">The <see cref="Asset"/></param>
-        public static void SetSaveAssetState(AssetViewModel model, Asset asset)
+        public static void SetSaveAssetState(AssetDetailViewModel model, Asset asset)
         {
             asset.AssetNumber = model.AssetNumber;
             asset.Description = model.Description;
@@ -56,6 +56,23 @@ namespace Callisto.Module.Assets
                 Description = model.Description,
                 Name = model.Name,
                 AssetNumber = model.AssetNumber
+            };
+        }
+
+        /// <summary>
+        /// The CreateAssetDetailViewModel
+        /// </summary>
+        /// <param name="model">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="AssetDetailViewModel"/></returns>
+        public static AssetDetailViewModel CreateAssetDetailViewModel(Asset model)
+        {
+            return new AssetDetailViewModel()
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                AssetNumber = model.AssetNumber,
+                PictureUrl = model.PictureUrl
             };
         }
 

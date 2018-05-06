@@ -34,5 +34,10 @@ namespace Callisto.Module.Assets.Repository.Models
         /// Gets or sets the ParentRefId
         /// </summary>
         public long? ParentRefId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PictureUrl
+        /// </summary>
+        public string PictureUrl { get; set; }
     }
 }

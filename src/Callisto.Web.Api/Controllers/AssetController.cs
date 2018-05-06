@@ -43,6 +43,12 @@ namespace Callisto.Web.Api.Controllers
             return await CallistoSession.Assets.AddAssetAsync(model);
         }
 
+        /// <summary>
+        /// The UpdatePicutre
+        /// </summary>
+        /// <param name="file">The <see cref="IFormFile"/></param>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
         [HttpPost("pic/{id}")]
         public async Task<RequestResult> UpdatePicutre(IFormFile file, [FromRoute] Guid id)
         {
@@ -55,7 +61,7 @@ namespace Callisto.Web.Api.Controllers
         /// <param name="model">The <see cref="AssetViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         [HttpPut]
-        public async Task<RequestResult<AssetViewModel>> SaveAssetAsync([FromBody] AssetViewModel model)
+        public async Task<RequestResult> SaveAssetAsync([FromBody] AssetDetailViewModel model)
         {
             return await CallistoSession.Assets.SaveAssetAsync(model);
         }
@@ -69,6 +75,17 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
         {
             return await CallistoSession.Assets.GetAssetAsync(id);
+        }
+
+        /// <summary>
+        /// The GetAssetDetailAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetDetailViewModel}}"/></returns>
+        [HttpGet("details/{id}")]
+        public async Task<RequestResult<AssetDetailViewModel>> GetAssetDetailAsync(Guid id)
+        {
+            return await CallistoSession.Assets.GetAssetDetailsAsync(id);
         }
 
         /// <summary>
