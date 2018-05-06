@@ -1,5 +1,5 @@
 <ng2-toasty></ng2-toasty>
-<spinner [filteredUrlPatterns]="['^(?=.*api)(?=^(?!.*tree))']"  [debounceDelay]="200"></spinner>
+<spinner [debounceDelay]="100"></spinner>
 
 <!-- Wrapper-->
 <div id="wrapper" [class.white-bg]="!isAuthenticated">
@@ -18,9 +18,8 @@
     <router-outlet></router-outlet>
 
     <!-- Footer -->
-    <div class="footer">
+    <div class="footer" *ngIf="isAuthenticated">
       <div class="pull-right">
-       
       </div>
       <div>
         <strong>Copyright</strong> ESA Developments &copy; 2018-2019

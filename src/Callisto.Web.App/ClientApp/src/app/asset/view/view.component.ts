@@ -27,7 +27,7 @@ export class ViewComponent implements OnInit {
   tree: TreeModel;
 
   private getTreeModel(): TreeModel {
-    var model = {
+    let model = {
       static: true,
       value: ``,
       settings: {
@@ -39,7 +39,7 @@ export class ViewComponent implements OnInit {
         },
         templates: {
           'node': `<span class="label label-info"><i class= "fa fa-building" ></i></span>`,
-          'leaf': `<span class="label label-primary"><i class= "fa fa-bolt" ></i></span>`,
+          'leaf': `<span class="label label-primary"><i class= "fa fa-address-card-o" ></i></span>`,
           'leftMenu': `<i class="fa fa-bars"></i>`
         },
         menuItems: [
@@ -55,13 +55,13 @@ export class ViewComponent implements OnInit {
   };
 
   private getChildTreeModel(asset: AssetTreeViewModel): TreeModel {
-    var model = this.getTreeModel();
+    let model = this.getTreeModel();
     model.value = `${asset.AssetNumber} - ${asset.Name}`;
     model.id = asset.Id;
     if (asset.Children) {
       model.loadChildren = (callback) => {
         this.assetService.GetAssetTree(asset.Id).toPromise().then(childAsset => {
-          var assets = childAsset.Result.map(a => {
+          let assets = childAsset.Result.map(a => {
             return this.getChildTreeModel(a);
           });
           callback(assets);
@@ -121,13 +121,12 @@ export class ViewComponent implements OnInit {
 
   handleSelected(e) {
     this.assetService.GetAsset(e.node.node.id).subscribe(c => {
-      if (c.Status == RequestStatus.Success) {
+      if (c.Status === RequestStatus.Success) {
         this.currentAsset = c.Result;
-      }
-      else {
+      } else {
         this.alertService.showWarningMessage(c.FriendlyMessage);
       }
-    }, e => this.alertService.showErrorMessage());
+    }, err => this.alertService.showErrorMessage());
   }
 
   handleMoved(e) {
@@ -140,10 +139,9 @@ export class ViewComponent implements OnInit {
 
   onSubmit() {
     this.assetService.SaveAsset(this.currentAsset).subscribe(c => {
-      if (c.Status != RequestStatus.Success) {
+      if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(c.FriendlyMessage);
-      }
-      else {
+      } else {
         this.currentAsset = c.Result;
         this.alertService.showSuccessMessage('Asset saved');
         this.ngOnInit();
@@ -156,5 +154,4 @@ export class ViewComponent implements OnInit {
   onDetails() {
     this.router.navigate(['/asset/details', this.currentAsset.Id]);
   }
-
 }

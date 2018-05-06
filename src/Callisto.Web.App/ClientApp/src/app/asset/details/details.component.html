@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
-    <h2> <i class="fa fa-database"></i> {{model.Name}}</h2>
+    <h2> <i class="fa fa-address-card-o"></i> {{model.Name}}</h2>
     <ol class="breadcrumb">
       <li>
         <a [routerLink]="['/']">home</a>
@@ -15,12 +15,7 @@
   </div>
   <div class="col-lg-2">
     <div class="btn-header-group">
-      <button class="btn btn-outline btn-default dim" type="button" (click)="location.back()" tooltip="Back.">
-        <i class="fa fa-angle-double-left"></i>
-      </button>
-      <button class="btn btn-outline btn-primary dim" type="button" (click)="onSubmit()" [disabled]="!form.form.valid" tooltip="Save current asset.">
-        <i class="fa fa-save"></i>
-      </button>
+    
     </div>
   </div>
 </div>
@@ -49,7 +44,7 @@
                      (fileOver)="fileOverBase($event)"
                      [uploader]="uploader"
                      class="well my-drop-zone">
-                  Upload new display picture for {{model.Name}}
+                  Upload new display picture
                 </div>
               </div>
             </div>
@@ -81,6 +76,9 @@
             </div>
           </div>
           <div class="panel-footer text-right">
+              <button class="btn btn-outline btn-default dim" type="button" (click)="location.back()" tooltip="Back.">
+                  <i class="fa fa-angle-double-left"></i>
+                </button>
             <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
               <i class="fa fa-save"></i>
             </button>
