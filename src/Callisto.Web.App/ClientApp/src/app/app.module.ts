@@ -8,7 +8,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
 
-
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
@@ -20,8 +19,6 @@ import { AccountModule } from './account/account.module';
 import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
 import { AssetModule } from './asset/asset.module';
-
-
 
 @NgModule({
   declarations: [

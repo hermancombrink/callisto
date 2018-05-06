@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   apiUrl = environment.apiUrl;
+  successResponse = new RequestResult();
 
   constructor(private http: HttpClient) { }
 
@@ -27,9 +28,7 @@ export class AuthService {
     localStorage.removeItem('auth_token');
   }
 
-  successResponse = new RequestResult();
-
-  get httpOptions(){
+  get httpOptions() {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,7 +48,7 @@ export class AuthService {
   Login(model: LoginViewModel): Observable<RequestResult> {
     return this.http.post<RequestResult>(this.getUrl('auth/login'), model, this.httpOptions).pipe(
       tap(c => {
-        if (c.Status == RequestStatus.Success) {
+        if (c.Status === RequestStatus.Success) {
           localStorage.setItem('auth_token', c.Result);
         }
       }));
@@ -62,7 +61,7 @@ export class AuthService {
   SignOut(): Observable<RequestResult> {
     return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
       tap(c => {
-        if (c.Status == RequestStatus.Success) {
+        if (c.Status === RequestStatus.Success) {
           this.ClearToken();
         }
       })

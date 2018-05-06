@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from './core/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
@@ -11,7 +11,7 @@ const alertify: any = require('../assets/scripts/alertify.js');
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
 
   stickyToasties: number[] = [];
 

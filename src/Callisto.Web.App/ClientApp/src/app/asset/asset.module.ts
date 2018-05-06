@@ -11,12 +11,15 @@ import { CreateModalComponent } from './create-modal/create-modal.component';
 import { DetailsComponent } from './details/details.component';
 import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload'
+import { ImgFallbackModule  } from 'ngx-img-fallback';
+
 
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ImgFallbackModule,
     CoreModule,
     AlertModule,
     TypeaheadModule,

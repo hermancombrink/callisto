@@ -3,6 +3,7 @@ export class AssetViewModel {
   public AssetNumber: string;
   public Name: string;
   public Description: string;
+  public PictureUrl: string;
 }
 
 

@@ -1,9 +1,14 @@
 .my-drop-zone {
   border: dotted 3px lightgray;
   text-align:center;
+  width: 140px;
+  height: 120px;
 }
 
 .nv-file-over {
   border: dotted 3px red;
 }
 
+.picture {
+ height: 120px;
+}
