@@ -197,5 +197,35 @@ namespace Callisto.Module.Assets
 
             return RequestResult.Success(urlPath);
         }
+
+        public async Task<RequestResult> UpdateParentAsync(Guid id, Guid? parentid = null)
+        {
+            var asset = await AssetRepo.GetAssetById(id);
+
+            if (asset == null)
+            {
+                throw new InvalidOperationException($"Unable to find asset");
+            }
+
+            if (parentid == null)
+            {
+                asset.ParentRefId = null;
+            }
+            else
+            {
+                var parent = await AssetRepo.GetAssetById(parentid.Value);
+
+                if (parent == null)
+                {
+                    throw new InvalidOperationException($"Unable to find asset");
+                }
+
+                asset.ParentRefId = parent.RefId;
+            }
+
+            await AssetRepo.SaveAssetAsync(asset);
+
+            return RequestResult.Success();
+        }
     }
 }

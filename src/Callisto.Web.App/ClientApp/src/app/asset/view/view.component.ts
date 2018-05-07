@@ -130,7 +130,15 @@ export class ViewComponent implements OnInit {
   }
 
   handleMoved(e) {
-    console.log(e);
+    console.log(e.node.node.id);
+    console.log(e.node.parent.node.id);
+    this.assetService.UpdateParent(e.node.node.id, e.node.parent.node.id || '').subscribe(c => {
+      if (c.Status === RequestStatus.Success) {
+        this.alertService.showSuccessMessage('Asset updated');
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+      }
+    }, err => this.alertService.showErrorMessage());
   }
 
   handleNextLevel(e) {

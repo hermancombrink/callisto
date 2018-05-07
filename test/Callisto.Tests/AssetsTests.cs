@@ -134,7 +134,7 @@ namespace Callisto.Tests
             var fixture = new Fixture();
             var repo = Substitute.For<IAssetsRepository>();
             var session = Substitute.For<ICallistoSession>();
-            var viewModel = fixture.Create<AssetViewModel>();
+            var viewModel = fixture.Create<AssetDetailViewModel>();
             repo.GetAssetById(Arg.Any<Guid>()).Returns(fixture.Create<Asset>());
             var assetModule = new AssetsModule(session, Substitute.For<ILogger<AssetsModule>>(), repo, Storage);
             var model = fixture.Create<AssetViewModel>();
@@ -156,7 +156,7 @@ namespace Callisto.Tests
             session.CurrentCompanyRef.Returns(1);
             repo.GetAssetById(Arg.Any<Guid>()).Returns<Asset>(c => null);
             var assetModule = new AssetsModule(session, Substitute.For<ILogger<AssetsModule>>(), repo, Storage);
-            var model = fixture.Create<AssetViewModel>();
+            var model = fixture.Create<AssetDetailViewModel>();
             Func<Task> act = async () => await assetModule.SaveAssetAsync(model);
             act.Should().Throw<InvalidOperationException>();
             repo.Received(1).GetAssetById(Arg.Any<Guid>());

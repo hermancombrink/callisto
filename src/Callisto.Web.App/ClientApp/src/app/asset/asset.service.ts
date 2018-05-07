@@ -18,6 +18,10 @@ export class AssetService extends BaseService {
     return this.http.post<RequestResult>(this.getUrl('asset/create'), model, this.httpOptions);
   }
 
+  UpdateParent(id: string, parentid: string): Observable<RequestResult> {
+    return this.http.put<RequestResult>(this.getUrl(`asset/parent/${id}/${parentid}`), null, this.httpOptions);
+  }
+
   GetAsset(id: string): Observable<RequestTypedResult<AssetViewModel>> {
     return this.http.get<RequestTypedResult<AssetViewModel>>(this.getUrl(`asset/${id}`), this.httpOptions);
   }

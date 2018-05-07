@@ -54,5 +54,13 @@ namespace Callisto.SharedModels.Asset
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> UploadAssetPicAsync(IFormFile file, Guid id);
+
+        /// <summary>
+        /// The UpdateParentAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <param name="parentid">The <see cref="Guid?"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> UpdateParentAsync(Guid id, Guid? parentid = null);
     }
 }

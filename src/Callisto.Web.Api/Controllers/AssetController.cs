@@ -67,6 +67,17 @@ namespace Callisto.Web.Api.Controllers
         }
 
         /// <summary>
+        /// The SaveAssetAsync
+        /// </summary>
+        /// <param name="model">The <see cref="AssetViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
+        [HttpPut("parent/{id}/{parentid?}")]
+        public async Task<RequestResult> UpdateParentAsync(Guid id, Guid? parentid = null)
+        {
+            return await CallistoSession.Assets.UpdateParentAsync(id, parentid);
+        }
+
+        /// <summary>
         /// The GetAssetAsync
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>

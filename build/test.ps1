@@ -31,6 +31,7 @@ cleanResults
 $openCover = getTool -name "OpenCover" -tool "OpenCover.Console"
 $cobertura = getTool -name "OpenCoverToCoberturaConverter" -tool "OpenCoverToCoberturaConverter"
 $reportGen = getTool -name "reportgenerator" -tool "ReportGenerator"
+$codecov   = getTool -name "codecov" -tool "codecov"
 
 foreach($testProject in $testProjects)
 {
@@ -66,9 +67,13 @@ Write-Host "converting coverage to Cobertura..." -ForegroundColor Green
 -output:"test\Results\Cobertura.coverageresults" `
 -sources:"test\Results"
 
-
 Write-Host "generating html output..." -ForegroundColor Green
 & $reportGen `
 -targetdir:"test\Results\Coverage" `
 -reports:"test\Results\Cobertura.coverageresults" `
 -reporttypes:"Html;HtmlChart;HtmlSummary" 
+
+Write-Host "submitting coverage to github..." -ForegroundColor Green
+& $codecov `
+-f "test\Results\OpenCover.coverageresults" `
+-t "cdf4eeb7-be3f-4879-8ec1-620cdeb9529a"
