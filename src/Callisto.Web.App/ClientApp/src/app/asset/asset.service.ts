@@ -38,4 +38,8 @@ export class AssetService extends BaseService {
     id = id || '';
     return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/${id}`), this.httpOptions);
   }
+
+  RemoveAsset(id: string): Observable<RequestResult> {
+    return this.http.delete<RequestResult>(this.getUrl(`asset/${id}`), this.httpOptions);
+  }
 }

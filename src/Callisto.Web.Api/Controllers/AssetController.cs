@@ -108,5 +108,16 @@ namespace Callisto.Web.Api.Controllers
         {
             return await CallistoSession.Assets.GetAssetTreeAsync(id);
         }
+
+        /// <summary>
+        /// The RemoveAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
+        [HttpDelete("{id}")]
+        public async Task<RequestResult> RemoveAssetAsync(Guid id)
+        {
+            return await CallistoSession.Assets.RemoveAssetAsync(id);
+        }
     }
 }

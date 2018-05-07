@@ -8,6 +8,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { AlertService } from './alert.service';
 import { JwtInterceptor } from './auth.jwt.interceptor';
 import { BaseService } from './base.service';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 @NgModule({
   imports: [
@@ -15,9 +16,9 @@ import { BaseService } from './base.service';
     HttpClientModule,
     AlertModule.forRoot(),
   ],
-  declarations: [ResultErrorComponent],
+  declarations: [ResultErrorComponent, AlertDialogComponent],
   providers: [],
-  exports: [ResultErrorComponent]
+  exports: [ResultErrorComponent, AlertDialogComponent]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

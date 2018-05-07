@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Repository
@@ -58,6 +57,27 @@ namespace Callisto.Module.Assets.Repository
         public async Task SaveAssetAsync(Asset asset)
         {
             Context.Assets.Attach(asset);
+            await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// The GetAssetChildren
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="Task{int}"/></returns>
+        public async Task<int> GetAssetChildren(Asset asset)
+        {
+            return await Context.Assets.CountAsync(c => c.ParentRefId == asset.RefId);
+        }
+
+        /// <summary>
+        /// The RemoveAssetAsync
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveAssetAsync(Asset asset)
+        {
+            Context.Assets.Remove(asset);
             await Context.SaveChangesAsync();
         }
 

@@ -62,5 +62,12 @@ namespace Callisto.SharedModels.Asset
         /// <param name="parentid">The <see cref="Guid?"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> UpdateParentAsync(Guid id, Guid? parentid = null);
+
+        /// <summary>
+        /// The RemoveAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> RemoveAssetAsync(Guid id);
     }
 }

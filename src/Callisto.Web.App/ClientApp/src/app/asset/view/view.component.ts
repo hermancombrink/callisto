@@ -6,7 +6,7 @@ import { AssetService } from '../asset.service';
 import { TreeStatus, Ng2TreeSettings } from 'ng2-tree/src/tree.types';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { AlertService } from '../../core/alert.service';
+import { AlertService, DialogType, MessageSeverity } from '../../core/alert.service';
 import { AssetTreeViewModel, AssetViewModel } from '../models/assetViewModel';
 import { RequestStatus } from '../../core/models/requestStatus';
 
@@ -94,29 +94,49 @@ export class ViewComponent implements OnInit {
   }
 
   onMenuItemSelected(e) {
-    console.log(e);
+
+    let id = e.node.node.id;
+
     switch (e.selectedItem) {
       case 'Add Child': {
-        const initialState = {
-          parentId: e.node.node.id,
-          parentName: e.node.node.value
-        };
-        this.bsModalRef = this.modalService.show(CreateModalComponent, { initialState });
+        this.addAsset(id, e.node.node.value);
         break;
       }
       case 'Remove': {
-        this.alertService.showInfoMessage('Remove Item');
+        this.removeAsset(id);
         break;
       }
       case 'View Details': {
-        this.router.navigate(['/asset/details', e.node.node.id]);
+        this.router.navigate(['/asset/details', id]);
         break;
       }
       default: {
-        this.alertService.showInfoMessage('Load children');
         break;
       }
     }
+  }
+
+  addAsset(id: string, name: string) {
+    const initialState = {
+      parentId: id,
+      parentName: name
+    };
+    this.bsModalRef = this.modalService.show(CreateModalComponent, { initialState });
+  }
+
+  removeAsset(id: string) {
+    this.alertService.showDialog("Do you want to remove this item?", "Are you sure?", MessageSeverity.warn, x => {
+      this.assetService.RemoveAsset(id).subscribe(c => {
+        if (c.Status !== RequestStatus.Success) {
+          this.alertService.showWarningMessage(c.FriendlyMessage);
+        } else {
+          this.alertService.showSuccessMessage('Asset removed');
+          this.ngOnInit();
+        }
+      }, e => {
+        this.alertService.showErrorMessage();
+      });
+    }, true);
   }
 
   handleSelected(e) {
@@ -130,8 +150,6 @@ export class ViewComponent implements OnInit {
   }
 
   handleMoved(e) {
-    console.log(e.node.node.id);
-    console.log(e.node.parent.node.id);
     this.assetService.UpdateParent(e.node.node.id, e.node.parent.node.id || '').subscribe(c => {
       if (c.Status === RequestStatus.Success) {
         this.alertService.showSuccessMessage('Asset updated');

@@ -1,0 +1,22 @@
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <i [ngClass]="cssIcon"></i>
+      {{dialog.title}}
+    </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{dialog.message}}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default  dim " type="button" (click)="onCancel()" *ngIf="dialog.cancelbtn">
+      <i class="fa fa-close"></i> 
+    </button>
+    <button class="btn btn-primary dim" type="button" (click)="onSubmit()">
+      <i class="fa fa-check-circle"></i>
+    </button>
+  </div>

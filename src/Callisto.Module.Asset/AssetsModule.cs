@@ -198,6 +198,12 @@ namespace Callisto.Module.Assets
             return RequestResult.Success(urlPath);
         }
 
+        /// <summary>
+        /// The UpdateParentAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <param name="parentid">The <see cref="Guid?"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> UpdateParentAsync(Guid id, Guid? parentid = null)
         {
             var asset = await AssetRepo.GetAssetById(id);
@@ -224,6 +230,31 @@ namespace Callisto.Module.Assets
             }
 
             await AssetRepo.SaveAssetAsync(asset);
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The RemoveAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> RemoveAssetAsync(Guid id)
+        {
+            var asset = await AssetRepo.GetAssetById(id);
+
+            if (asset == null)
+            {
+                throw new InvalidOperationException($"Unable to find asset");
+            }
+
+            var chilren = await AssetRepo.GetAssetChildren(asset);
+            if (chilren > 0)
+            {
+                return RequestResult.Validation("Cannot delete an asset that is associated as a parent with other assets");
+            }
+
+            await AssetRepo.RemoveAssetAsync(asset);
 
             return RequestResult.Success();
         }

@@ -3,8 +3,8 @@ import { AuthService } from './core/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
 import { ToastOptions, ToastData, ToastyService, ToastyConfig } from 'ng2-toasty';
-
-const alertify: any = require('../assets/scripts/alertify.js');
+import { BsModalService } from 'ngx-bootstrap';
+import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
   constructor(private toastyService: ToastyService,
     private toastyConfig: ToastyConfig,
     private alertService: AlertService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private modalService: BsModalService) {
 
     this.toastyConfig.theme = 'bootstrap';
     this.toastyConfig.position = 'top-right';
@@ -81,43 +82,9 @@ export class AppComponent implements OnInit {
 
   showDialog(dialog: AlertDialog) {
 
-    alertify.set({
-      labels: {
-        ok: dialog.okLabel || 'OK',
-        cancel: dialog.cancelLabel || 'Cancel'
-      }
-    });
-
-    switch (dialog.type) {
-      case DialogType.alert:
-        alertify.alert(dialog.message);
-        break;
-      case DialogType.confirm:
-        alertify
-          .confirm(dialog.message, (e) => {
-            if (e) {
-              dialog.okCallback();
-            } else {
-              if (dialog.cancelCallback) {
-                dialog.cancelCallback();
-              }
-            }
-          });
-
-        break;
-      case DialogType.prompt:
-        alertify
-          .prompt(dialog.message, (e, val) => {
-            if (e) {
-              dialog.okCallback(val);
-            } else {
-              if (dialog.cancelCallback) {
-                dialog.cancelCallback();
-              }
-            }
-          }, dialog.defaultValue);
-
-        break;
-    }
+    const initialState = {
+      dialog: dialog
+    };
+    this.modalService.show(AlertDialogComponent, { initialState });
   }
 }

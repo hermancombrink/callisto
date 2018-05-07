@@ -19,6 +19,7 @@ import { AccountModule } from './account/account.module';
 import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
 import { AssetModule } from './asset/asset.module';
+import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,10 @@ import { AssetModule } from './asset/asset.module';
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertDialogComponent
+  ]
 })
 export class AppModule {
   constructor(private router: Router) {

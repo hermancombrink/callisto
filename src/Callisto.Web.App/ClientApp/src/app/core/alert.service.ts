@@ -20,18 +20,24 @@ export class AlertService {
   private _isLoading = false;
   private loadingMessageId: any;
 
-
-
   showDialog(message: string)
-  showDialog(message: string, type: DialogType, okCallback: (val?: any) => any)
-  showDialog(message: string, type: DialogType, okCallback?: (val?: any) => any, cancelCallback?: () => any, okLabel?: string, cancelLabel?: string, defaultValue?: string)
-  showDialog(message: string, type?: DialogType, okCallback?: (val?: any) => any, cancelCallback?: () => any, okLabel?: string, cancelLabel?: string, defaultValue?: string) {
+  showDialog(message: string, title?: string)
+  showDialog(message: string, title?: string, severity?: MessageSeverity)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean, cancelCallback?: () => any)
+  {
+    title = title || '';
+    severity = severity || MessageSeverity.default;
 
-    if (!type) {
-      type = DialogType.alert;
-    }
-
-    this.dialogs.next({ message: message, type: type, okCallback: okCallback, cancelCallback: cancelCallback, okLabel: okLabel, cancelLabel: cancelLabel, defaultValue: defaultValue });
+    this.dialogs.next({
+      message: message,
+      okCallback: okCallback,
+      cancelCallback: cancelCallback,
+      cancelbtn: cancelbtn,
+      title: title,
+      severity: severity
+    });
   }
 
 
@@ -236,8 +242,8 @@ export class AlertService {
 
 // ******************** Dialog ******************** //
 export class AlertDialog {
-  constructor(public message: string, public type: DialogType, public okCallback: (val?: any) => any, public cancelCallback: () => any,
-    public defaultValue: string, public okLabel: string, public cancelLabel: string) {
+  constructor(public message: string, public okCallback: (val?: any) => any, public cancelCallback: () => any,
+    public cancelbtn: boolean, public title: string, public severity: MessageSeverity) {
 
   }
 }
