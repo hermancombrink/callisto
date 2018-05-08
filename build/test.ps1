@@ -1,5 +1,6 @@
 Param
 (
+ [switch]$submitResults,
  [Parameter(Mandatory=$false)]
  [string]$verbosity="q"
 )
@@ -41,9 +42,9 @@ foreach($testProject in $testProjects)
 
     $dotnetArguments = "xunit" `
 	, "--fx-version 2.0.0" `
+	, "-msbuildverbosity $verbosity" `
     , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
 	#, "-nobuild" `
-	, "-msbuildverbosity $verbosity" `
     , "-configuration Debug" 
 
     Write-Host "with args $($dotnetArguments)..." -ForegroundColor Gray
@@ -73,7 +74,14 @@ Write-Host "generating html output..." -ForegroundColor Green
 -reports:"test\Results\Cobertura.coverageresults" `
 -reporttypes:"Html;HtmlChart;HtmlSummary" 
 
-Write-Host "submitting coverage to github..." -ForegroundColor Green
-& $codecov `
--f "test\Results\OpenCover.coverageresults" `
--t "cdf4eeb7-be3f-4879-8ec1-620cdeb9529a"
+if($submitResults)
+{
+	Write-Host "submitting coverage to github..." -ForegroundColor Green
+	& $codecov `
+	-f "test\Results\OpenCover.coverageresults" `
+	-t "cdf4eeb7-be3f-4879-8ec1-620cdeb9529a"
+}
+else
+{
+	Write-Host "Skipping coverage to github..."  -ForegroundColor Gray
+}
