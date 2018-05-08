@@ -13,6 +13,7 @@ using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -54,19 +55,13 @@ namespace Callisto.Web.Api
             var dbConnectionString = Configuration.GetConnectionString("callisto");
 
             services.AddCallistoAuthentication(
-                Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                 dbConnectionString);
 
-            services.AddCallistoStorage(Configuration, services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
-
-            services.AddCallistoAssets(Configuration,
-                dbConnectionString);
-
-            services.AddCallistoNotification(
-               Configuration,
-               services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
+            services.AddCallistoStorage(services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
+            services.AddCallistoAssets(dbConnectionString);
+            services.AddCallistoNotification(services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
             services.AddCallistoSession();
 
@@ -87,6 +82,7 @@ namespace Callisto.Web.Api
             services.AddCallistoMonitoring(Configuration);
 
             services.AddMvc()
+                    .AddMetrics()
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
@@ -101,17 +97,11 @@ namespace Callisto.Web.Api
         {
             loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseCallistoMonitoring();
+            app.UseMiddleware<ServiceExceptionMiddleware>();
 
             app.UseCors("AllowAll");
             app.UseAuthentication();
-
-            app.UseMiddleware<ServiceExceptionMiddleware>();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

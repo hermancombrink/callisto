@@ -36,7 +36,6 @@ namespace Callisto.Tests.Startups
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddCallistoAuthentication(
-                Configuration,
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
                dbFactory =>

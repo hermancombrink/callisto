@@ -20,10 +20,8 @@ namespace Callisto.Module.Assets.Startup
         /// The UseCallistoAuthentication
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
-        IConfiguration config,
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
             services.AddDbContext<AssetDbContext>(dbContextFactory);
@@ -38,14 +36,12 @@ namespace Callisto.Module.Assets.Startup
         /// The AddCallistoAssets
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
-        IConfiguration config,
         string connectionString)
         {
-            return AddCallistoAssets(services, config, options => options.UseSqlServer(connectionString));
+            return AddCallistoAssets(services, options => options.UseSqlServer(connectionString));
         }
     }
 }

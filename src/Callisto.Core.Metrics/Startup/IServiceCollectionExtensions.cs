@@ -28,8 +28,9 @@ namespace Callisto.Core.Metrics.Startup
             var metrics = AppMetrics.CreateDefaultBuilder()
              .OutputMetrics.AsPrometheusPlainText()
              .Build();
-            services.AddMetrics(metrics);
-            services.AddMetricsTrackingMiddleware(config);
+            
+            services.AddMetrics();
+            services.AddMetricsTrackingMiddleware();
             services.AddMetricsEndpoints(config, c =>
             {
                 c.MetricsEndpointOutputFormatter =
@@ -37,6 +38,8 @@ namespace Callisto.Core.Metrics.Startup
             });
             services.AddHealthEndpoints(config);
             services.AddHealth(c => c.BuildAndAddTo(services));
+
+            
         }
 
         /// <summary>
