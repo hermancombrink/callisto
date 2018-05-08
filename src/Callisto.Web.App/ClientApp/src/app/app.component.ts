@@ -59,15 +59,14 @@ export class AppComponent implements OnInit {
         this.profileLoaded = true;
       } else {
         this.alertService.showWarningMessage(c.FriendlyMessage);
-        this.router.navigate(['/account/login']);
+        this.signOut();
       }
       this.completedLoad = true;
     }, err => {
       if (err instanceof HttpErrorResponse) {
         switch (err.status) {
           case 401: {
-            this.authService.ClearToken();
-            this.router.navigate(['/account/login']);
+            this.signOut();
             break;
           }
           case 404: {
@@ -86,6 +85,11 @@ export class AppComponent implements OnInit {
 
       this.completedLoad = true;
     });
+  }
+
+  signOut() {
+    this.authService.ClearToken();
+    this.router.navigate(['/account/login']);
   }
 
   setToastSettings() {
