@@ -31,12 +31,13 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService, BaseService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: JwtInterceptor,
-          multi: true
-        }]
+      providers: [AuthService, AuthGuard, AlertService, BaseService
+        //,{
+        //  provide: HTTP_INTERCEPTORS,
+        //  useClass: JwtInterceptor,
+        //  multi: true
+        //}
+      ]
     };
   }
 

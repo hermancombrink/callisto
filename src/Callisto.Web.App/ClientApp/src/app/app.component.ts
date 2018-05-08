@@ -5,6 +5,10 @@ import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } 
 import { ToastOptions, ToastData, ToastyService, ToastyConfig } from 'ng2-toasty';
 import { BsModalService } from 'ngx-bootstrap';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
+import { UserViewModel } from './core/models/userViewModel';
+import { RequestStatus } from './core/models/requestStatus';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,26 +19,80 @@ export class AppComponent implements OnInit {
 
   stickyToasties: number[] = [];
 
-  get isAuthenticated() {
-    return this.authService.IsAuthenticated();
-  }
+  user: UserViewModel = new UserViewModel();
+  profileLoaded = false;
+  completedLoad = false;
 
   constructor(private toastyService: ToastyService,
     private toastyConfig: ToastyConfig,
     private alertService: AlertService,
     private authService: AuthService,
+    private router: Router,
     private modalService: BsModalService) {
 
-    this.toastyConfig.theme = 'bootstrap';
-    this.toastyConfig.position = 'top-right';
-    this.toastyConfig.limit = 100;
-    this.toastyConfig.showClose = true;
+    this.setToastSettings();
   }
 
   ngOnInit() {
     this.alertService.getDialogEvent().subscribe(alert => this.showDialog(alert));
     this.alertService.getMessageEvent().subscribe(message => this.showToast(message, false));
     this.alertService.getStickyMessageEvent().subscribe(message => this.showToast(message, true));
+
+    this.loadUserProfile();
+
+    this.authService.loggedIn.subscribe(c => {
+      if (c.Status == RequestStatus.Success) {
+        this.loadUserProfile();
+      }
+    });
+
+    this.authService.loggedOut.subscribe(c => {
+      this.profileLoaded = false;
+    });
+  }
+
+  loadUserProfile() {
+
+    this.authService.GetUser().subscribe(c => {
+      if (c.Status == RequestStatus.Success) {
+        this.user = c.Result;
+        this.profileLoaded = true;
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+        this.router.navigate(['/account/login']);
+      }
+      this.completedLoad = true;
+    }, err => {
+      if (err instanceof HttpErrorResponse) {
+        switch (err.status) {
+          case 401: {
+            this.authService.ClearToken();
+            this.router.navigate(['/account/login']);
+            break;
+          }
+          case 404: {
+            this.router.navigate(['/error/404']);
+            break;
+          }
+          default:
+          case 500:
+          case 0: {
+            this.alertService.showErrorMessage();
+            this.router.navigate(['/error/500']);
+            break;
+          }
+        }
+      }
+
+      this.completedLoad = true;
+    });
+  }
+
+  setToastSettings() {
+    this.toastyConfig.theme = 'bootstrap';
+    this.toastyConfig.position = 'top-right';
+    this.toastyConfig.limit = 100;
+    this.toastyConfig.showClose = true;
   }
 
   showToast(message: AlertMessage, isSticky: boolean) {

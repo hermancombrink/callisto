@@ -79,10 +79,8 @@ namespace Callisto.Web.Api
                     });
             });
 
-            services.AddCallistoMonitoring(Configuration);
-
             services.AddMvc()
-                    .AddMetrics()
+                    .AddCallistoMetrics(services, Configuration)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 

@@ -17,6 +17,8 @@ export class AuthService {
 
   apiUrl = environment.apiUrl;
   successResponse = new RequestResult();
+  loggedIn = new Subject<RequestResult>();
+  loggedOut = new Subject<RequestResult>();
 
   constructor(private http: HttpClient) { }
 
@@ -50,7 +52,10 @@ export class AuthService {
       tap(c => {
         if (c.Status === RequestStatus.Success) {
           localStorage.setItem('auth_token', c.Result);
+        
         }
+
+        this.loggedIn.next(c);
       }));
   }
 
@@ -64,6 +69,8 @@ export class AuthService {
         if (c.Status === RequestStatus.Success) {
           this.ClearToken();
         }
+
+        this.loggedOut.next(c);
       })
     )
   }

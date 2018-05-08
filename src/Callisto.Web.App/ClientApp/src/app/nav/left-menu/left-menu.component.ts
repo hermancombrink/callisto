@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import 'jquery-slimscroll';
 import { AuthService } from '../../core/auth.service';
@@ -15,13 +15,15 @@ declare var $: any;
 })
 export class LeftMenuComponent implements AfterViewInit, OnInit {
 
-  user: UserViewModel = new UserViewModel();
+  @Input() user: UserViewModel = new UserViewModel();
   menuElement: any;
 
   constructor(private router: Router,
     private authService: AuthService,
     private element: ElementRef,
-    private alertService: AlertService) { }
+    private alertService: AlertService) {
+
+  }
 
   ngAfterViewInit() {
     this.menuElement = this.element.nativeElement.querySelector('#side-menu');
@@ -35,11 +37,7 @@ export class LeftMenuComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.GetUser().subscribe(c => {
-      if (c.Status == RequestStatus.Success) {
-        this.user = c.Result;
-      }
-    })
+   
   }
 
   Logout() {

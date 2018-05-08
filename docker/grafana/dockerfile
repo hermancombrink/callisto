@@ -1,5 +1,7 @@
 FROM grafana/grafana
 
+ENV GF_INSTALL_PLUGINS="grafana-piechart-panel"
+
 RUN mkdir -p /var/lib/grafana/dashboards
 COPY api.json /var/lib/grafana/dashboards/api.json
 

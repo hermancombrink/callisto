@@ -1,14 +1,10 @@
 ﻿using App.Metrics;
 using App.Metrics.Formatters.Prometheus;
-using App.Metrics.Health;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Callisto.Core.Metrics.Startup
 {
@@ -28,7 +24,7 @@ namespace Callisto.Core.Metrics.Startup
             var metrics = AppMetrics.CreateDefaultBuilder()
              .OutputMetrics.AsPrometheusPlainText()
              .Build();
-            
+
             services.AddMetrics();
             services.AddMetricsTrackingMiddleware();
             services.AddMetricsEndpoints(config, c =>
@@ -38,8 +34,20 @@ namespace Callisto.Core.Metrics.Startup
             });
             services.AddHealthEndpoints(config);
             services.AddHealth(c => c.BuildAndAddTo(services));
+        }
 
-            
+        /// <summary>
+        /// The AddCallistoMetrics
+        /// </summary>
+        /// <param name="mvc">The <see cref="IMvcBuilder"/></param>
+        /// <param name="services">The <see cref="IServiceCollection"/></param>
+        /// <param name="config">The <see cref="IConfiguration"/></param>
+        /// <returns>The <see cref="IMvcBuilder"/></returns>
+        public static IMvcBuilder AddCallistoMetrics(this IMvcBuilder mvc, IServiceCollection services, IConfiguration config)
+        {
+            services.AddCallistoMonitoring(config);
+            mvc.AddMetrics();
+            return mvc;
         }
 
         /// <summary>

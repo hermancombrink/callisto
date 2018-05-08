@@ -16,31 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
         // do stuff with response if you want
       }
     }, (err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        switch (err.status) {
-          case 401: {
-            this.authService.ClearToken();
-            this.router.navigate(['/account/login']);
-            break;
-          }
-          case 500: {
-            this.router.navigate(['/error/500']);
-            break;
-          }
-          case 0: {
-            this.router.navigate(['/error/500']);
-            break;
-          }
-          case 404: {
-            this.router.navigate(['/error/404']);
-            break;
-          }
-          default:
-            {
-              break;
-            }
-        }
-      }
+
     });
   }
 }
