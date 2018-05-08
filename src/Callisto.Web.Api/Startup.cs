@@ -1,9 +1,7 @@
-﻿using App.Metrics.Health;
-using Callisto.Core.Metrics.Startup;
+﻿using Callisto.Core.Metrics.Startup;
 using Callisto.Core.Storage.Options;
 using Callisto.Core.Storage.Startup;
 using Callisto.Module.Assets.Startup;
-using Callisto.Module.Authentication.Health;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
@@ -13,15 +11,11 @@ using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
 namespace Callisto.Web.Api
@@ -108,4 +102,3 @@ namespace Callisto.Web.Api
         }
     }
 }
-
