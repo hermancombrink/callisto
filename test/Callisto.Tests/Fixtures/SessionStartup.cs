@@ -15,13 +15,7 @@ namespace Callisto.Tests.Startups
         public SessionStartup(IHostingEnvironment env, IConfiguration configuration) : base(configuration)
         {
             env.ApplicationName = "Callisto.Web.Api";
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+           
         }
     }
 }

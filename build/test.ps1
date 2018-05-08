@@ -42,7 +42,7 @@ foreach($testProject in $testProjects)
     $dotnetArguments = "xunit" `
 	, "--fx-version 2.0.0" `
     , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
-	, "-nobuild" `
+	#, "-nobuild" `
 	, "-msbuildverbosity $verbosity" `
     , "-configuration Debug" 
 

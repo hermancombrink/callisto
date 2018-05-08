@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedModels.Session;
 using Callisto.Tests.Startups;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.TestHost;
@@ -20,10 +21,11 @@ namespace Callisto.Tests.Fixtures
         /// </summary>
         public AuthApiFixture()
         {
-            var host = new WebHostBuilder()
+            var host = WebHost.CreateDefaultBuilder()
                       .UseStartup<AuthSartup>();
 
             Server = new TestServer(host);
+            
             Context = Server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
             UserManager = Server.Host.Services.GetService(typeof(UserManager<ApplicationUser>)) as UserManager<ApplicationUser>;
             SignInManger = Server.Host.Services.GetService(typeof(SignInManager<ApplicationUser>)) as SignInManager<ApplicationUser>;

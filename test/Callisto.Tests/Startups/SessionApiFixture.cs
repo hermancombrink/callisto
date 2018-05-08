@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedModels.Session;
 using Callisto.Tests.Startups;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System;
@@ -17,7 +18,7 @@ namespace Callisto.Tests
         /// </summary>
         public SessionApiFixture()
         {
-            var host = new WebHostBuilder()
+            var host = WebHost.CreateDefaultBuilder()
                       .UseStartup<SessionStartup>();
 
             Server = new TestServer(host);

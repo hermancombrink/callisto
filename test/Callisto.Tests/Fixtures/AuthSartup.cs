@@ -26,13 +26,6 @@ namespace Callisto.Tests.Startups
         public AuthSartup(IHostingEnvironment env, IConfiguration configuration) : base(configuration)
         {
             env.ApplicationName = "Callisto.Web.Api";
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

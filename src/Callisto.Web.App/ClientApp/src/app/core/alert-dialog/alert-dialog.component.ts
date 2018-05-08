@@ -11,7 +11,7 @@ export class AlertDialogComponent implements OnInit {
 
   dialog: AlertDialog;
 
-  private cssIcon: string;
+  cssIcon: string;
 
   constructor(public bsModalRef: BsModalRef) { }
 
