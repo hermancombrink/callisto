@@ -81,6 +81,7 @@
     <Build Include="callisto\tables\Companies.sql" />
     <Build Include="callisto\tables\Subscriptions.sql" />
     <Build Include="callisto\procedures\usp_GetAssetTree.sql" />
+    <Build Include="callisto\tables\Locations.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Callisto.Database.refactorlog" />

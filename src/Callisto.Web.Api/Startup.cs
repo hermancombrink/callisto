@@ -39,7 +39,6 @@ namespace Callisto.Web.Api
         /// </summary>
         public IConfiguration Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
         /// The ConfigureServices
         /// </summary>
@@ -78,7 +77,6 @@ namespace Callisto.Web.Api
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// <summary>
         /// The Configure
         /// </summary>
