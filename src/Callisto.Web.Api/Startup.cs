@@ -107,12 +107,15 @@ namespace Callisto.Web.Api
             }
 
             app.UseCallistoMonitoring();
-            app.UseMiddleware<ServiceExceptionMiddleware>();
 
             app.UseCors("AllowAll");
             app.UseAuthentication();
+
+            app.UseMiddleware<ServiceExceptionMiddleware>();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
             app.UseMvc();
         }
     }
