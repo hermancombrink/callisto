@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [callisto].[Locations](
-	[RefId] [bigint] NOT NULL,
-	[Id] [uniqueidentifier] NOT NULL,
-	[CreatedAt] [datetime] NULL,
-	[ModifiedAt] [datetime] NULL,
+	[RefId] [bigint] IDENTITY(1,1) NOT NULL,
+    [Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(), 
+    [CreatedAt] DATETIME NULL DEFAULT GETDATE(), 
+    [ModifiedAt] DATETIME NULL DEFAULT GETDATE(), 
 	[Latitude] [decimal](18, 14) NULL,
 	[Longitude] [decimal](18, 14) NULL,
 	[Address] [nvarchar](1024) NULL,
