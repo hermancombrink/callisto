@@ -23,12 +23,13 @@ import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component
 import { LocationComponent } from './location/location.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../environments/environment';
+import { LocationModule } from './location/location.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    LocationComponent
+    HomeComponent
+    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,15 +39,12 @@ import { environment } from '../environments/environment';
     GridsterModule,
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
+
     NavModule,
+    LocationModule,
     AccountModule,
     AssetModule,
     ErrorModule,
-
-    AgmCoreModule.forRoot({
-      apiKey: environment.mapsApiKey,
-      libraries: ["places"]
-    }),
 
     CoreModule.forRoot(),
     ToastyModule.forRoot(),

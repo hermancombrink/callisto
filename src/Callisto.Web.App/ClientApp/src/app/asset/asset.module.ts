@@ -11,10 +11,12 @@ import { CreateModalComponent } from './create-modal/create-modal.component';
 import { DetailsComponent } from './details/details.component';
 import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload'
+import { LocationModule } from '../location/location.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    LocationModule,
     FormsModule,
     CoreModule,
     AlertModule,

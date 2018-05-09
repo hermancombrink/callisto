@@ -40,6 +40,7 @@
     <None Remove="ClientApp\src\app\core\models\requestStatus.ts" />
     <None Remove="ClientApp\src\app\core\utilities.ts" />
     <None Remove="ClientApp\src\app\home\GridOptions.ts" />
+    <None Remove="ClientApp\src\app\location\models\locationViewModel.ts" />
     <None Remove="ClientApp\src\app\routes.ts" />
     <None Remove="ClientApp\src\assets\images\logo.png" />
     <None Remove="ClientApp\src\favicon.ico" />
@@ -68,6 +69,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\core\models\requestStatus.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\utilities.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\home\gridOptions.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\location\models\locationViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\routes.ts" />
   </ItemGroup>
 
