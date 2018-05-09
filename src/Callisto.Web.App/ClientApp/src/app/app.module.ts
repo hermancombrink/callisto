@@ -21,6 +21,8 @@ import { ErrorModule } from './error/error.module';
 import { AssetModule } from './asset/asset.module';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 import { LocationComponent } from './location/location.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,11 @@ import { LocationComponent } from './location/location.component';
     AccountModule,
     AssetModule,
     ErrorModule,
+
+    AgmCoreModule.forRoot({
+      apiKey: environment.mapsApiKey,
+      libraries: ["places"]
+    }),
 
     CoreModule.forRoot(),
     ToastyModule.forRoot(),

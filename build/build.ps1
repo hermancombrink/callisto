@@ -58,7 +58,7 @@ else
 			popd
 		}
 
-		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity
+		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity -nowarn:MSB3277
 	}
 }
 

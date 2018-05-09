@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var home_component_1 = require("./home/home.component");
 var auth_guard_1 = require("./core/auth.guard");
+var location_component_1 = require("./location/location.component");
 exports.AppRoutes = [
-    { path: '', component: home_component_1.HomeComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] }
+    { path: '', component: home_component_1.HomeComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'location', component: location_component_1.LocationComponent, pathMatch: 'full', canActivate: [auth_guard_1.AuthGuard] }
 ];
 //# sourceMappingURL=routes.js.map
