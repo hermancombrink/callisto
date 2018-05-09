@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Notification;
 
 namespace Callisto.SharedModels.Session
@@ -23,6 +24,11 @@ namespace Callisto.SharedModels.Session
         /// Gets or sets the Assets
         /// </summary>
         IAssetsModule Assets { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Location
+        /// </summary>
+        ILocationModule Location { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether IsAuthenticated
