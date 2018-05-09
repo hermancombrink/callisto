@@ -24,6 +24,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
+  mapVisible = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +62,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
+  }
+
+  showMap() {
+    this.mapVisible = !this.mapVisible;
   }
 
   private setupAsset() {
