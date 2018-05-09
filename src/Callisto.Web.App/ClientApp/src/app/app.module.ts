@@ -20,11 +20,13 @@ import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
 import { AssetModule } from './asset/asset.module';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
