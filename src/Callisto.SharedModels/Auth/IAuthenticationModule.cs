@@ -28,20 +28,27 @@ namespace Callisto.SharedModels.Auth
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        Task<RequestResult> ResetPassword(string email);
+        Task<RequestResult> ResetPasswordAsync(string email);
 
         /// <summary>
         /// The GetUserByName
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
-        Task<RequestResult<UserViewModel>> GetUserByName(string email);
+        Task<RequestResult<UserViewModel>> GetUserByNameAsync(string email);
 
         /// <summary>
         /// The SignOut
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        Task<RequestResult> SignOut(string email);
+        Task<RequestResult> SignOutAsync(string email);
+
+        /// <summary>
+        /// The GetCompanyByRefId
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{CompanyViewModel}}"/></returns>
+        Task<RequestResult<CompanyViewModel>> GetCompanyByRefId(long refId);
     }
 }

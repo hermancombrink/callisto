@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using App.Metrics.AspNetCore;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Callisto.Web.Api

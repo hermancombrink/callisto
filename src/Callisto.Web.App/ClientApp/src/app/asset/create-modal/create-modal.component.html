@@ -1,0 +1,52 @@
+<form class="form-horizontal"  role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+    <i class="fa fa-database"></i>
+    Create Asset</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="well well-sm" *ngIf="parentId">
+      <span>{{parentName}}</span>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Asset # *</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control input-sm" placeholder="eg. ABC123" required name="assetNumber" #assetNumber="ngModel" [(ngModel)]="model.AssetNumber">
+        <small [hidden]="assetNumber.valid || (assetNumber.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Asset # is required.
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Name *</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control input-sm" placeholder="eg. Truck" required name="name" #name="ngModel" [(ngModel)]="model.Name">
+        <small [hidden]="name.valid || (name.pristine && !form.submitted)" class="text-danger">
+          <i class="fa fa-warning"></i>
+          Name is required.
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control input-sm" placeholder="eg. My construction truck" name="description" #description="ngModel" [(ngModel)]="model.Description">
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default  dim " type="button" (click)="onCancel()">
+      <i class="fa fa-close"></i>
+    </button>
+    <button class="btn btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Create a new asset.">
+      <i class="fa fa-save"></i>
+    </button>
+  </div>
+</form>

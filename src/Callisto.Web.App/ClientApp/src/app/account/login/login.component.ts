@@ -6,6 +6,7 @@ import { ResultErrorComponent } from '../../core/result-error/result-error.compo
 import { RequestStatus } from '../../core/models/requestStatus';
 import { Router } from '@angular/router';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ import { AlertService, MessageSeverity } from '../../core/alert.service';
 export class LoginComponent extends BaseComponent {
 
   @ViewChild('error') errorPanel: ResultErrorComponent;
+
+ 
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -31,17 +34,15 @@ export class LoginComponent extends BaseComponent {
 
   onSubmit() {
     this.authService.Login(this.model).subscribe(c => {
-      if (c.status != RequestStatus.Success) {
-        this.errorPanel.error = c.friendlyMessage;
-        console.error(c.friendlyMessage);
+      if (c.Status != RequestStatus.Success) {
+        this.errorPanel.error = c.FriendlyMessage;
       }
       else {
         this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
-        setTimeout(c => this.router.navigate(['/']), 500);
+        this.router.navigate(['/']);
       }
-      console.info(c);
     }, e => {
-      console.error(e);
+      this.errorPanel.error = environment.httpNotFound;
     });
   }
 }

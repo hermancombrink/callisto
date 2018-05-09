@@ -2,6 +2,7 @@
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -59,7 +60,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("reset")]
         public async Task<RequestResult> ResetPassworod()
         {
-            return await CallistoSession.Authentication.ResetPassword(CallistoSession.UserName);
+            return await CallistoSession.Authentication.ResetPasswordAsync(CallistoSession.UserName);
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("forgot")]
         public async Task<RequestResult> ForgotPassworod(string email)
         {
-            return await CallistoSession.Authentication.ResetPassword(email);
+            return await CallistoSession.Authentication.ResetPasswordAsync(email);
         }
 
         /// <summary>
@@ -81,7 +82,7 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("user")]
         public async Task<RequestResult<UserViewModel>> GetUser()
         {
-            return await CallistoSession.Authentication.GetUserByName(CallistoSession.UserName);
+            return await CallistoSession.Authentication.GetUserByNameAsync(CallistoSession.UserName);
         }
 
         /// <summary>
@@ -92,7 +93,9 @@ namespace Callisto.Web.Api.Controllers
         [HttpGet("signout")]
         public async Task<RequestResult> SignOut()
         {
-            return await CallistoSession.Authentication.SignOut(CallistoSession.UserName);
+            return await CallistoSession.Authentication.SignOutAsync(CallistoSession.UserName);
         }
+
+
     }
 }

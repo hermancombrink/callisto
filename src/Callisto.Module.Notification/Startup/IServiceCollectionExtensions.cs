@@ -15,11 +15,8 @@ namespace Callisto.Module.Notification.Startup
         /// The AddSendGridNotificationModule
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="configsection">The <see cref="string"/></param>
-        public static void UseCallistNotification(this IServiceCollection services,
-            IConfiguration config,
-            MailOptions mailOptions)
+        public static void AddCallistoNotification(this IServiceCollection services, MailOptions mailOptions)
         {
             services.AddTransient<IEmailSender, SimpleSendGridEmailSender>();
             services.AddSingleton<ISendGridMalFactory, SendGridMailFactory>();

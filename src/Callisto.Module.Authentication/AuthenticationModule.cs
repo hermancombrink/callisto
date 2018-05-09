@@ -87,41 +87,38 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RegisterUserAsync(RegisterViewModel model)
         {
-            return await RequestResult.From(async () =>
-             {
-                 Logger.LogDebug($"Attempting register for {model.Email}");
+            Logger.LogDebug($"Attempting register for {model.Email}");
 
-                 if (model is null)
-                 {
-                     return RequestResult.Validation($"Request cannot be null");
-                 }
+            if (model is null)
+            {
+                return RequestResult.Validation($"Request cannot be null");
+            }
 
-                 if (!model.Validate(out string msg).isValid)
-                 {
-                     return RequestResult.Validation(msg);
-                 }
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
 
-                 using (var tran = await AuthRepo.BeginTransaction())
-                 {
-                     var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
-                     if (!companyResult.IsSuccess())
-                     {
-                         Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
-                         return companyResult.AsResult;
-                     }
+            using (var tran = await AuthRepo.BeginTransaction())
+            {
+                var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
+                if (!companyResult.IsSuccess())
+                {
+                    Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
+                    return companyResult.AsResult;
+                }
 
-                     var appUser = ModelFactory.CreateUser(model, companyResult.Result);
-                     var user = await UserManager.CreateAsync(appUser, model.Password);
-                     if (!user.Succeeded)
-                     {
-                         return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
-                     }
+                var appUser = ModelFactory.CreateUser(model, companyResult.Result);
+                var user = await UserManager.CreateAsync(appUser, model.Password);
+                if (!user.Succeeded)
+                {
+                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                }
 
-                     tran.Commit();
-                 }
+                tran.Commit();
+            }
 
-                 return RequestResult.Success();
-             });
+            return RequestResult.Success();
         }
 
         /// <summary>
@@ -149,7 +146,7 @@ namespace Callisto.Module.Authentication
                 var result = await SignInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    var token = JwtFactory.GetToken(model.Email, user.Id);
+                    var token = JwtFactory.GetToken(user);
                     return RequestResult.Success(token);
                 }
             }
@@ -162,29 +159,27 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="model">The <see cref="ResetPasswordViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult> ResetPassword(string email)
+        public async Task<RequestResult> ResetPasswordAsync(string email)
         {
-            return await RequestResult.From(async () =>
+
+            if (string.IsNullOrEmpty(email))
             {
-                if (string.IsNullOrEmpty(email))
-                {
-                    return RequestResult.Failed($"Email cannot be empty");
-                }
+                return RequestResult.Failed($"Email cannot be empty");
+            }
 
-                var user = await UserManager.FindByEmailAsync(email);
-                if (user != null)
-                {
-                    var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+            var user = await UserManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                    var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
-                         "Your password has been reset",
-                         $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
+                var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
+                     "Your password has been reset",
+                     $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
 
-                    return result;
-                }
+                return result;
+            }
 
-                return RequestResult.Failed($"Failed to find login for account {email}");
-            });
+            return RequestResult.Failed($"Failed to find login for account {email}");
         }
 
         /// <summary>
@@ -192,7 +187,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{UserViewModel}"/></returns>
-        public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
+        public async Task<RequestResult<UserViewModel>> GetUserByNameAsync(string email)
         {
             return await AuthRepo.GetUserByName(email);
         }
@@ -202,10 +197,27 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult> SignOut(string email)
+        public async Task<RequestResult> SignOutAsync(string email)
         {
             await SignInManager.SignOutAsync();
             return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The GetCompanyByRefId
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{CompanyViewModel}}"/></returns>
+        public async Task<RequestResult<CompanyViewModel>> GetCompanyByRefId(long refId)
+        {
+            var company = await AuthRepo.GetCompany(refId);
+
+            if (company == null)
+            {
+                throw new InvalidOperationException($"Unable to find company");
+            }
+
+            return RequestResult<CompanyViewModel>.Success(ModelFactory.CreateCompany(company));
         }
     }
 }

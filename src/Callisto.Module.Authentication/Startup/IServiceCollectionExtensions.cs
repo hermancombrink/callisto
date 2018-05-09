@@ -1,4 +1,6 @@
-﻿using Callisto.Module.Authentication.Interfaces;
+﻿using App.Metrics.Health;
+using Callisto.Module.Authentication.Health;
+using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
@@ -24,13 +26,11 @@ namespace Callisto.Module.Authentication.Startup
         /// The UseCallistoAuthentication
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="authOptions">The <see cref="AuthOptions"/></param>
         /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
         /// <param name="dbContextFactory">The <see cref="Action{DbContextOptionsBuilder}"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
-            IConfiguration config,
+        public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
             Action<DbContextOptionsBuilder> dbContextFactory)
@@ -66,6 +66,9 @@ namespace Callisto.Module.Authentication.Startup
 
             services.TryAddSingleton<IJwtFactory, JwtFactory>();
 
+            //TODO: inject health check back when fixed
+            //services.TryAddSingleton<HealthCheck, DbContextHealthCheck>();
+
             return services;
         }
 
@@ -73,18 +76,16 @@ namespace Callisto.Module.Authentication.Startup
         /// The UseCallistoAuthentication
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="config">The <see cref="IConfiguration"/></param>
         /// <param name="authOptions">The <see cref="AuthOptions"/></param>
         /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection UseCallistoAuthentication(this IServiceCollection services,
-            IConfiguration config,
+        public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
             AuthOptions authOptions,
             JwtIssuerOptions issuerOptions,
             string connectionString)
         {
-            return UseCallistoAuthentication(services, config, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
+            return AddCallistoAuthentication(services, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
         }
     }
 }

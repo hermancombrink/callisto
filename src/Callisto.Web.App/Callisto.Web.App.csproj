@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <DebugType>full</DebugType>
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
@@ -30,11 +31,15 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\account\base.component.ts" />
     <None Remove="ClientApp\src\app\account\models\userViewModel.ts" />
+    <None Remove="ClientApp\src\app\asset\models\AssetAddViewModel.ts" />
+    <None Remove="ClientApp\src\app\asset\models\assetViewModel.ts" />
     <None Remove="ClientApp\src\app\core\auth.guard.ts" />
     <None Remove="ClientApp\src\app\core\auth.jwt.interceptor.ts" />
+    <None Remove="ClientApp\src\app\core\base.service.ts" />
     <None Remove="ClientApp\src\app\core\models\requestResult.ts" />
     <None Remove="ClientApp\src\app\core\models\requestStatus.ts" />
     <None Remove="ClientApp\src\app\core\utilities.ts" />
+    <None Remove="ClientApp\src\app\home\GridOptions.ts" />
     <None Remove="ClientApp\src\app\routes.ts" />
     <None Remove="ClientApp\src\assets\images\logo.png" />
     <None Remove="ClientApp\src\favicon.ico" />
@@ -53,12 +58,16 @@
     <TypeScriptCompile Include="ClientApp\src\app\account\base.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\account\models\loginViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\account\models\registerViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\asset\models\assetViewModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\asset\models\assetAddViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\auth.jwt.interceptor.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\base.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\models\userViewModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\models\requestResult.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\models\requestStatus.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\core\utilities.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\home\gridOptions.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\routes.ts" />
   </ItemGroup>
 
@@ -66,6 +75,10 @@
     <Content Update="wwwroot\favicon.ico">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\scripts\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

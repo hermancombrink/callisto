@@ -32,9 +32,12 @@ services:
       - "80:80"
     networks:
       - default
-
+   
   sql:
     image: hermancombrink/callisto-sql
+    build: 
+      context: docker/sql/
+      dockerfile: dockerfile
     networks: 
       - default
     ports:

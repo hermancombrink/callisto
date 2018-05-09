@@ -14,4 +14,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CompanyRefId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="dec4c87b-8b52-4fee-b856-bc4828660170" ChangeDateTime="05/05/2018 00:48:06">
+    <Property Name="ElementName" Value="[callisto].[Assets].[ParrentAssetRefId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[callisto].[Assets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ParrentRefId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ddbbf2f0-266b-4edc-987b-acdd138ee2c0" ChangeDateTime="05/05/2018 00:56:09">
+    <Property Name="ElementName" Value="[callisto].[Assets].[ParrentRefId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[callisto].[Assets]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ParentRefId" />
+  </Operation>
 </Operations>

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj" />
+    <ProjectReference Include="..\Callisto.Module.Asset\Callisto.Module.Assets.csproj" />
     <ProjectReference Include="..\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj" />
     <ProjectReference Include="..\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />

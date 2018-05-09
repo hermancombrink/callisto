@@ -21,11 +21,6 @@ services:
       context: docker/nginx/
       dockerfile: dockerfile
 
-  sql: 
-    build: 
-      context: docker/sql/
-      dockerfile: dockerfile
-
   rabbit: 
     build: 
       context: docker/rabbitmq/

@@ -6,6 +6,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    apiUrl: 'http://localapi.callisto.com/'
+    apiUrl: 'http://localapi.callisto.com/',
+    httpNotFound: 'Oops, we seem to be down. Please try again later'
 };
 //# sourceMappingURL=environment.js.map

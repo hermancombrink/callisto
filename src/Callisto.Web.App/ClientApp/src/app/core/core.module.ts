@@ -7,6 +7,8 @@ import { ResultErrorComponent } from './result-error/result-error.component';
 import { AlertModule } from 'ngx-bootstrap';
 import { AlertService } from './alert.service';
 import { JwtInterceptor } from './auth.jwt.interceptor';
+import { BaseService } from './base.service';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 @NgModule({
   imports: [
@@ -14,9 +16,9 @@ import { JwtInterceptor } from './auth.jwt.interceptor';
     HttpClientModule,
     AlertModule.forRoot(),
   ],
-  declarations: [ResultErrorComponent],
+  declarations: [ResultErrorComponent, AlertDialogComponent],
   providers: [],
-  exports: [ResultErrorComponent]
+  exports: [ResultErrorComponent, AlertDialogComponent]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
@@ -29,12 +31,13 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: JwtInterceptor,
-          multi: true
-        }]
+      providers: [AuthService, AuthGuard, AlertService, BaseService
+        //,{
+        //  provide: HTTP_INTERCEPTORS,
+        //  useClass: JwtInterceptor,
+        //  multi: true
+        //}
+      ]
     };
   }
 

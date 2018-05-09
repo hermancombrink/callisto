@@ -1,7 +1,7 @@
 export class UserViewModel {
-  public email: string;
-  public firstName: string;
-  public lastName: string;
-  public company: string;
-  public subscriptionId: string;
+  public Email: string;
+  public FirstName: string;
+  public LastName: string;
+  public Company: string;
+  public SubscriptionId: string;
 }

@@ -1,9 +1,12 @@
-﻿using Callisto.SharedModels.Auth;
+﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Asset;
+using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 
 namespace Callisto.Session.Provider
 {
@@ -31,6 +34,29 @@ namespace Callisto.Session.Provider
         /// Gets the UserName
         /// </summary>
         public string UserName => HttpContextAccessor.HttpContext?.User?.Identity?.Name ?? string.Empty;
+
+        /// <summary>
+        /// Gets the CurrentCompanyRef
+        /// </summary>
+        public long CurrentCompanyRef
+        {
+            get
+            {
+                var claim = HttpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == CallistoJwtClaimTypes.Company);
+                if (claim != null)
+                {
+                    long.TryParse(claim.Value, out long companyRefId);
+                    return companyRefId;
+                }
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Gets the EmailAddress
+        /// </summary>
+        public string EmailAddress => HttpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Properties.Any(x => x.Value == CallistoJwtClaimTypes.Email))?.Value ?? string.Empty;
 
         /// <summary>
         /// Gets the ServiceProvider
@@ -68,6 +94,20 @@ namespace Callisto.Session.Provider
         {
             get { return _notification ?? (_notification = ServiceProvider.GetRequiredService<INotificationModule>()); }
             set { _notification = value; }
+        }
+
+        /// <summary>
+        /// Defines the _assets
+        /// </summary>
+        private IAssetsModule _assets;
+
+        /// <summary>
+        /// Gets or sets the Assets
+        /// </summary>
+        public IAssetsModule Assets
+        {
+            get { return _assets ?? (_assets = ServiceProvider.GetRequiredService<IAssetsModule>()); }
+            set { _assets = value; }
         }
     }
 }

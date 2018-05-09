@@ -8,6 +8,7 @@ import { HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { Utilities } from './utilities';
+import { concat } from 'rxjs/operators';
 
 @Injectable()
 export class AlertService {
@@ -19,20 +20,55 @@ export class AlertService {
   private _isLoading = false;
   private loadingMessageId: any;
 
-
-
   showDialog(message: string)
-  showDialog(message: string, type: DialogType, okCallback: (val?: any) => any)
-  showDialog(message: string, type: DialogType, okCallback?: (val?: any) => any, cancelCallback?: () => any, okLabel?: string, cancelLabel?: string, defaultValue?: string)
-  showDialog(message: string, type?: DialogType, okCallback?: (val?: any) => any, cancelCallback?: () => any, okLabel?: string, cancelLabel?: string, defaultValue?: string) {
+  showDialog(message: string, title?: string)
+  showDialog(message: string, title?: string, severity?: MessageSeverity)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean)
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean, cancelCallback?: () => any)
+  {
+    title = title || '';
+    severity = severity || MessageSeverity.default;
 
-    if (!type)
-      type = DialogType.alert;
-
-    this.dialogs.next({ message: message, type: type, okCallback: okCallback, cancelCallback: cancelCallback, okLabel: okLabel, cancelLabel: cancelLabel, defaultValue: defaultValue });
+    this.dialogs.next({
+      message: message,
+      okCallback: okCallback,
+      cancelCallback: cancelCallback,
+      cancelbtn: cancelbtn,
+      title: title,
+      severity: severity
+    });
   }
 
 
+  showErrorMessage(message?: string) {
+    if (!message) {
+      message = 'That was not suppose to happen!';
+    }
+    this.showMessage('Oops!', message, MessageSeverity.error);
+  }
+
+  showWarningMessage(message?: string) {
+    if (!message) {
+      message = 'That was not suppose to happen!';
+    }
+    this.showMessage('Oops!', message, MessageSeverity.warn);
+  }
+
+  showSuccessMessage(message: string)
+  showSuccessMessage(message: string, context?: string) {
+    if (!context) {
+      context = 'Callisto';
+    }
+    this.showMessage(context, message, MessageSeverity.success);
+  }
+
+  showInfoMessage(message: string)
+  showInfoMessage(message: string, context?: string) {
+    context = 'Callisto';
+
+    this.showMessage(context, message, MessageSeverity.info);
+  }
 
   showMessage(summary: string)
   showMessage(summary: string, detail: string, severity: MessageSeverity)
@@ -40,8 +76,9 @@ export class AlertService {
   showMessage(response: HttpResponseBase, ignoreValue_useNull: string, severity: MessageSeverity)
   showMessage(data: any, separatorOrDetail?: string, severity?: MessageSeverity) {
 
-    if (!severity)
+    if (!severity) {
       severity = MessageSeverity.default;
+    }
 
     if (data instanceof HttpResponseBase) {
       data = Utilities.getHttpResponseMessage(data);
@@ -49,13 +86,12 @@ export class AlertService {
     }
 
     if (data instanceof Array) {
-      for (let message of data) {
-        let msgObject = Utilities.splitInTwo(message, separatorOrDetail);
+      for (const message of data) {
+        const msgObject = Utilities.splitInTwo(message, separatorOrDetail);
 
         this.showMessageHelper(msgObject.firstPart, msgObject.secondPart, severity, false);
       }
-    }
-    else {
+    } else {
       this.showMessageHelper(data, separatorOrDetail, severity, false);
     }
   }
@@ -67,8 +103,9 @@ export class AlertService {
   showStickyMessage(response: HttpResponseBase, ignoreValue_useNull: string, severity: MessageSeverity)
   showStickyMessage(data: string | string[] | HttpResponseBase, separatorOrDetail?: string, severity?: MessageSeverity, error?: any) {
 
-    if (!severity)
+    if (!severity) {
       severity = MessageSeverity.default;
+    }
 
     if (data instanceof HttpResponseBase) {
       data = Utilities.getHttpResponseMessage(data);
@@ -77,17 +114,16 @@ export class AlertService {
 
 
     if (data instanceof Array) {
-      for (let message of data) {
-        let msgObject = Utilities.splitInTwo(message, separatorOrDetail);
+      for (const message of data) {
+        const msgObject = Utilities.splitInTwo(message, separatorOrDetail);
 
         this.showMessageHelper(msgObject.firstPart, msgObject.secondPart, severity, true);
       }
-    }
-    else {
+    } else {
 
       if (error) {
 
-        let msg = `Severity: "${MessageSeverity[severity]}", Summary: "${data}", Detail: "${separatorOrDetail}", Error: "${Utilities.safeStringify(error)}"`;
+        const msg = `Severity: '${MessageSeverity[severity]}', Summary: '${data}', Detail: '${separatorOrDetail}', Error: '${Utilities.safeStringify(error)}'`;
 
         switch (severity) {
           case MessageSeverity.default:
@@ -118,16 +154,16 @@ export class AlertService {
 
 
   private showMessageHelper(summary: string, detail: string, severity: MessageSeverity, isSticky: boolean) {
-
-    if (isSticky)
+    if (isSticky) {
       this.stickyMessages.next({ severity: severity, summary: summary, detail: detail });
-    else
+    } else {
       this.messages.next({ severity: severity, summary: summary, detail: detail });
+    }
   }
 
 
 
-  startLoadingMessage(message = "Loading...", caption = "") {
+  startLoadingMessage(message = 'Loading...', caption = '') {
     this._isLoading = true;
     clearTimeout(this.loadingMessageId);
 
@@ -204,10 +240,10 @@ export class AlertService {
 
 
 
-//******************** Dialog ********************//
+// ******************** Dialog ******************** //
 export class AlertDialog {
-  constructor(public message: string, public type: DialogType, public okCallback: (val?: any) => any, public cancelCallback: () => any,
-    public defaultValue: string, public okLabel: string, public cancelLabel: string) {
+  constructor(public message: string, public okCallback: (val?: any) => any, public cancelCallback: () => any,
+    public cancelbtn: boolean, public title: string, public severity: MessageSeverity) {
 
   }
 }
@@ -217,14 +253,14 @@ export enum DialogType {
   confirm,
   prompt
 }
-//******************** End ********************//
+// ******************** End ******************** //
 
 
 
 
 
 
-//******************** Growls ********************//
+// ******************** Growls ******************** //
 export class AlertMessage {
   constructor(public severity: MessageSeverity, public summary: string, public detail: string) { }
 }
@@ -237,4 +273,4 @@ export enum MessageSeverity {
   warn,
   wait
 }
-//******************** End ********************//
+// ******************** End ******************** //

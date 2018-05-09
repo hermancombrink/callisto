@@ -6,39 +6,32 @@
           <img alt="image" class="img-circle logo_mini" src="app/assets/images/logo.png">
           <a dropdownToggle>
             <span class="block m-t-xs">
-              <strong class="font-bold">{{user?.firstName}} {{user?.lastName}}</strong>
+              <strong class="font-bold">{{user.FirstName}} {{user.LastName}}</strong>
             </span>
-            <span class="text-muted text-xs block">{{user?.email}} </span>
-            <span class="text-muted text-xs block">{{user?.company}} </span>
+            <span class="text-muted text-xs block">{{user.Email}} </span>
+            <span class="text-muted text-xs block">{{user.Company}} <b class="caret"></b></span>
           </a>
+          <ul class="animated fadeInRight dropdown-menu" *dropdownMenu>
+            <li><a href="#">Profile</a></li>
+            <li class="divider"></li>
+            <li><a (click)="Logout()">Logout</a></li>
+          </ul>
         </div>
         <div class="logo-element">
           <img class="logo_mini" src="app/assets/images/logo.png" />
         </div>
       </li>
       <li>
-        <a [routerLink]="['/account/login']">
+        <a [routerLink]="['/']">
           <i class="fa fa-dashboard"></i>
           <span class="nav-label">Dashboard</span>
         </a>
       </li>
       <li [ngClass]="{active: activeRoute('asset')}">
-        <a href="#">
+        <a [routerLink]="['/asset']">
           <i class="fa fa-database"></i>
           <span class="nav-label">Asset Register</span>
-          <span class="fa arrow"></span>
         </a>
-        <ul class="nav nav-second-level collapse" [ngClass]="{in: activeRoute('asset')}">
-          <li [ngClass]="{active: activeRoute('asset/new')}">
-            <a [routerLink]="['/asset/new']">New Asset</a>
-          </li>
-          <li [ngClass]="{active: activeRoute('asset')}">
-            <a [routerLink]="['/asset']">Find Assets</a>
-          </li>
-          <li [ngClass]="{active: activeRoute('assets/bulk')}">
-            <a [routerLink]="['/dashboards/dashboard2']">Bulk Upload</a>
-          </li>
-        </ul>
       </li>
     </ul>
   </div>

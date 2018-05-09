@@ -1,4 +1,5 @@
-﻿using Callisto.SharedKernel.Models;
+﻿using Callisto.SharedKernel;
+using Callisto.SharedKernel.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Callisto.Module.Authentication.Repository.Models
@@ -6,7 +7,7 @@ namespace Callisto.Module.Authentication.Repository.Models
     /// <summary>
     /// Defines the <see cref="Company" />
     /// </summary>
-    [Table("Companies", Schema = "callisto")]
+    [Table("Companies", Schema = DbConstants.CallistoSchema)]
     public class Company : BaseEfModel
     {
         /// <summary>

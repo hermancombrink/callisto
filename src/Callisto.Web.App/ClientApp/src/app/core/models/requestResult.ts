@@ -1,14 +1,13 @@
-import { RequestStatus } from "./requestStatus";
+import { RequestStatus } from './requestStatus';
 
 export class RequestResult {
-  result: string = '';
-  status: RequestStatus = RequestStatus.Success;
-  friendlyMessage: string = '';
+  Result = '';
+  Status: RequestStatus = RequestStatus.Success;
+  FriendlyMessage = '';
 }
 
-
 export class RequestTypedResult<T> {
-  result: T;
-  status: RequestStatus = RequestStatus.Success;
-  friendlyMessage: string = '';
+  Result: T;
+  Status: RequestStatus = RequestStatus.Success;
+  FriendlyMessage = '';
 }

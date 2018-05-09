@@ -28,9 +28,8 @@ export class SignupComponent extends BaseComponent {
 
   onSubmit() {
     this.authService.Register(this.model).subscribe(c => {
-      if (c.status != RequestStatus.Success) {
-        this.errorPanel.error = c.friendlyMessage;
-        console.error(c.friendlyMessage);
+      if (c.Status != RequestStatus.Success) {
+        this.errorPanel.error = c.FriendlyMessage;
       }
       else {
         this.isRregistered = true;

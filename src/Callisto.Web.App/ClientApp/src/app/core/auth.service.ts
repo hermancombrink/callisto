@@ -16,6 +16,9 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   apiUrl = environment.apiUrl;
+  successResponse = new RequestResult();
+  loggedIn = new Subject<RequestResult>();
+  loggedOut = new Subject<RequestResult>();
 
   constructor(private http: HttpClient) { }
 
@@ -27,15 +30,17 @@ export class AuthService {
     localStorage.removeItem('auth_token');
   }
 
-  successResponse = new RequestResult();
-
-  get httpOptions(){
+  get httpOptions() {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
       })
     };
+  }
+
+  get authToken() {
+    return `Bearer ${localStorage.getItem('auth_token')}`;
   }
 
   Register(model: RegisterViewModel): Observable<RequestResult> {
@@ -45,9 +50,12 @@ export class AuthService {
   Login(model: LoginViewModel): Observable<RequestResult> {
     return this.http.post<RequestResult>(this.getUrl('auth/login'), model, this.httpOptions).pipe(
       tap(c => {
-        if (c.status == RequestStatus.Success) {
-          localStorage.setItem('auth_token', c.result);
+        if (c.Status === RequestStatus.Success) {
+          localStorage.setItem('auth_token', c.Result);
+        
         }
+
+        this.loggedIn.next(c);
       }));
   }
 
@@ -58,9 +66,11 @@ export class AuthService {
   SignOut(): Observable<RequestResult> {
     return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
       tap(c => {
-        if (c.status == RequestStatus.Success) {
+        if (c.Status === RequestStatus.Success) {
           this.ClearToken();
         }
+
+        this.loggedOut.next(c);
       })
     )
   }

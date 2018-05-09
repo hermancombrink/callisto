@@ -1,5 +1,7 @@
-﻿using App.Metrics.Health;
-using Callisto.Core.Metrics.Startup;
+﻿using Callisto.Core.Metrics.Startup;
+using Callisto.Core.Storage.Options;
+using Callisto.Core.Storage.Startup;
+using Callisto.Module.Assets.Startup;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Notification.Options;
@@ -12,9 +14,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
 namespace Callisto.Web.Api
@@ -38,24 +39,24 @@ namespace Callisto.Web.Api
         /// </summary>
         public IConfiguration Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
         /// The ConfigureServices
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.UseCallistoAuthentication(
-                Configuration,
+            var dbConnectionString = Configuration.GetConnectionString("callisto");
+
+            services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                Configuration.GetConnectionString("callisto"));
+                dbConnectionString);
 
-            services.UseCallistNotification(
-               Configuration,
-               services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
+            services.AddCallistoStorage(services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
+            services.AddCallistoAssets(dbConnectionString);
+            services.AddCallistoNotification(services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
-            services.UseCallistoSession();
+            services.AddCallistoSession();
 
             services.AddCors(options =>
             {
@@ -71,12 +72,11 @@ namespace Callisto.Web.Api
                     });
             });
 
-            services.AddCallistoMonitoring(Configuration);
-
-            services.AddMvc();
+            services.AddMvc()
+                    .AddCallistoMetrics(services, Configuration)
+                    .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// <summary>
         /// The Configure
         /// </summary>
@@ -87,17 +87,15 @@ namespace Callisto.Web.Api
         {
             loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseCallistoMonitoring();
             app.UseMiddleware<ServiceExceptionMiddleware>();
+
             app.UseCors("AllowAll");
             app.UseAuthentication();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
             app.UseMvc();
         }
     }

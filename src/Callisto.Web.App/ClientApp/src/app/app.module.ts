@@ -5,8 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { AlertModule } from 'ngx-bootstrap';
-
+import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
+import { GridsterModule } from 'angular-gridster2';
 
 import { AppComponent } from './app.component';
 
@@ -18,8 +18,8 @@ import { NavModule } from './nav/nav.module';
 import { AccountModule } from './account/account.module';
 import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
-
-
+import { AssetModule } from './asset/asset.module';
+import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,16 +31,24 @@ import { ErrorModule } from './error/error.module';
     HttpClientModule,
     NgHttpLoaderModule,
     FormsModule,
+    GridsterModule,
+    TypeaheadModule.forRoot(),
+    TooltipModule.forRoot(),
     NavModule,
     AccountModule,
+    AssetModule,
     ErrorModule,
+
     CoreModule.forRoot(),
     ToastyModule.forRoot(),
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertDialogComponent
+  ]
 })
 export class AppModule {
   constructor(private router: Router) {
