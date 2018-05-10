@@ -38,6 +38,10 @@ export class LocationComponent implements OnInit {
   }
 
   setLocation(locModel: LocationViewModel) {
+    if (!locModel) {
+      return;
+    }
+
     this.model = locModel;
     this.showMarker = true;
     this.zoom = 12;
