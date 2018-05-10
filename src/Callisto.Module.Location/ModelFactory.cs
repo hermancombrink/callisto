@@ -63,5 +63,31 @@ namespace Callisto.Module.Locations
             location.UTCOffsetMinutes = viewModel.UTCOffsetMinutes;
             location.Vicinity = viewModel.Vicinity;
         }
+
+        /// <summary>
+        /// The CreateLocation
+        /// </summary>
+        /// <param name="location">The <see cref="Location"/></param>
+        /// <returns>The <see cref="LocationViewModel"/></returns>
+        public static LocationViewModel CreateLocation(Location location)
+        {
+            return new LocationViewModel()
+            {
+                City = location.City,
+                Country = location.Country,
+                CountryCode = location.CountryCode,
+                FormattedAddress = location.FormattedAddress,
+                GooglePlaceId = location.GooglePlaceId,
+                GoogleURL = location.GoogleURL,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude,
+                PostCode = location.PostCode,
+                Route = location.Route,
+                State = location.State,
+                StateCode = location.StateCode,
+                UTCOffsetMinutes = location.UTCOffsetMinutes,
+                Vicinity = location.Vicinity
+            };
+        }
     }
 }

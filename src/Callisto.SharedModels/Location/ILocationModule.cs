@@ -14,7 +14,13 @@ namespace Callisto.SharedModels.Location
         /// </summary>
         /// <param name="viewModel">The <see cref="LocationViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        Task<RequestResult<long>> UpsertCompanyLocation(LocationViewModel viewModel);
+        Task<RequestResult<long>> UpsertLocation(LocationViewModel viewModel);
 
+        /// <summary>
+        /// The GetLocation
+        /// </summary>
+        /// <param name="locationRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{LocationViewModel}}"/></returns>
+        Task<RequestResult<LocationViewModel>> GetLocation(long locationRefId);
     }
 }

@@ -32,6 +32,13 @@ namespace Callisto.Module.Assets.Interfaces
         Task AddAssetLocation(AssetLocation assetLocation);
 
         /// <summary>
+        /// The GetAssetLocationByAssetId
+        /// </summary>
+        /// <param name="assetRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{AssetLocation}"/></returns>
+        Task<AssetLocation> GetAssetLocationByAssetId(long assetRefId);
+
+        /// <summary>
         /// The GetAssetById
         /// </summary>
         /// <param name="refId">The <see cref="long"/></param>

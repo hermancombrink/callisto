@@ -69,6 +69,16 @@ namespace Callisto.Module.Assets.Repository
         }
 
         /// <summary>
+        /// The GetAssetLocationByAssetId
+        /// </summary>
+        /// <param name="assetRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{AssetLocation}"/></returns>
+        public async Task<AssetLocation> GetAssetLocationByAssetId(long assetRefId)
+        {
+            return await Context.AssetLocations.FirstOrDefaultAsync(c => c.AssetRefId == assetRefId);
+        }
+
+        /// <summary>
         /// The GetAssetById
         /// </summary>
         /// <param name="refId">The <see cref="long"/></param>

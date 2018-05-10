@@ -37,6 +37,12 @@ export class LocationComponent implements OnInit {
     this.map.triggerResize(true);
   }
 
+  setLocation(locModel: LocationViewModel) {
+    this.model = locModel;
+    this.showMarker = true;
+    this.zoom = 12;
+  }
+
   private setAutoComplete() {
     let autocomplete = new google.maps.places.Autocomplete(this.searchInput, {
       types: ["address"]
@@ -62,13 +68,13 @@ export class LocationComponent implements OnInit {
         this.model.Route = this.findAddressItem(place, 'route');
         this.model.Vicinity = this.findAddressItem(place, 'sublocality');
         this.model.City = this.findAddressItem(place, 'locality');
-        this.model.State = this.findAddressItem(place, 'administrative_area_level_1'); 
-        this.model.Country = this.findAddressItem(place, 'country');  
+        this.model.State = this.findAddressItem(place, 'administrative_area_level_1');
+        this.model.Country = this.findAddressItem(place, 'country');
 
-        this.model.PostCode = this.findAddressItem(place, 'postal_code'); 
+        this.model.PostCode = this.findAddressItem(place, 'postal_code');
 
-        this.model.StateCode = this.findAddressItem(place, 'administrative_area_level_1', true);  
-        this.model.CountryCode = this.findAddressItem(place, 'country', true); 
+        this.model.StateCode = this.findAddressItem(place, 'administrative_area_level_1', true);
+        this.model.CountryCode = this.findAddressItem(place, 'country', true);
 
         this.model.GoogleUrl = place.url;
         this.model.GooglePlaceId = place.place_id;
@@ -97,6 +103,9 @@ export class LocationComponent implements OnInit {
     if (!this.showMarker) {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
+          if (this.model.Latitude) {
+            return;
+          }
           this.model.Latitude = position.coords.latitude;
           this.model.Longitude = position.coords.longitude;
         });

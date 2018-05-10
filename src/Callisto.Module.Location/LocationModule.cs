@@ -49,7 +49,7 @@ namespace Callisto.Module.Locations
         /// </summary>
         /// <param name="viewModel">The <see cref="LocationViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        public async Task<RequestResult<long>> UpsertCompanyLocation(LocationViewModel viewModel)
+        public async Task<RequestResult<long>> UpsertLocation(LocationViewModel viewModel)
         {
 
             var location = await LocationRepo.GetLocationByPlaceId(viewModel.GooglePlaceId, this.Session.CurrentCompanyRef);
@@ -66,6 +66,22 @@ namespace Callisto.Module.Locations
             }
 
             return RequestResult<long>.Success(location.RefId);
+        }
+
+        /// <summary>
+        /// The GetLocation
+        /// </summary>
+        /// <param name="locationRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{LocationViewModel}}"/></returns>
+        public async Task<RequestResult<LocationViewModel>> GetLocation(long locationRefId)
+        {
+            var location = await LocationRepo.GetLocationById(locationRefId);
+            if (location == null)
+            {
+                return RequestResult<LocationViewModel>.Validation("Failed to find asset", null);
+            }
+
+            return RequestResult<LocationViewModel>.Success(ModelFactory.CreateLocation(location));
         }
     }
 }

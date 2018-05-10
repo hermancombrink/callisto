@@ -108,7 +108,15 @@ namespace Callisto.Module.Assets
         {
             var asset = await AssetRepo.GetAssetById(id);
 
+
             var viewModel = ModelFactory.CreateAssetDetailViewModel(asset);
+
+            var location = await AssetRepo.GetAssetLocationByAssetId(asset.RefId);
+            if (location != null)
+            {
+                var locationResult = await Session.Location.GetLocation(location.LocationRefId);
+                viewModel.Location = locationResult.Result;
+            }
 
             return RequestResult<AssetDetailViewModel>.Success(viewModel);
         }
@@ -133,7 +141,7 @@ namespace Callisto.Module.Assets
 
                 await AssetRepo.SaveAssetAsync(asset);
 
-                var locationResult = await Session.Location.UpsertCompanyLocation(model.Location);
+                var locationResult = await Session.Location.UpsertLocation(model.Location);
                 if (locationResult.Status != RequestStatus.Success)
                 {
                     throw new InvalidOperationException($"Failed to create location");

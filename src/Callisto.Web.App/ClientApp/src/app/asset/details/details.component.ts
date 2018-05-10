@@ -82,6 +82,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.alertService.showWarningMessage(c.FriendlyMessage);
       } else {
         this.model = c.Result;
+        this.locationPanel.setLocation(this.model.Location);
       }
     }, e => {
       this.alertService.showErrorMessage('Failed to load asset details');
