@@ -35,6 +35,7 @@
     <ProjectReference Include="..\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj" />
     <ProjectReference Include="..\Callisto.Module.Asset\Callisto.Module.Assets.csproj" />
     <ProjectReference Include="..\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj" />
+    <ProjectReference Include="..\Callisto.Module.Location\Callisto.Module.Locations.csproj" />
     <ProjectReference Include="..\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />
   </ItemGroup>

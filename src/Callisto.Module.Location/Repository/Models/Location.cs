@@ -2,7 +2,7 @@
 using Callisto.SharedKernel.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Callisto.Module.Location.Repository.Models
+namespace Callisto.Module.Locations.Repository.Models
 {
     /// <summary>
     /// Defines the <see cref="Location" />

@@ -101,7 +101,7 @@
             </div>
             <div class="form-group" [hidden]="!mapVisible">
               <div class="col-sm-offset-2 col-sm-10">
-                <app-location [searchInput]="searchInput"></app-location>
+                <app-location [searchInput]="searchInput" #location></app-location>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@
             <button class="btn btn-outline btn-default dim" type="button" (click)="location.back()" tooltip="Back.">
               <i class="fa fa-angle-double-left"></i>
             </button>
-            <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
+            <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Save current asset.">
               <i class="fa fa-save"></i>
             </button>
           </div>

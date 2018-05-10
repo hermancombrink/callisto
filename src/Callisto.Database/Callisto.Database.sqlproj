@@ -83,6 +83,7 @@
     <Build Include="callisto\procedures\usp_GetAssetTree.sql" />
     <Build Include="callisto\tables\Locations.sql" />
     <Build Include="dbo\Procedures\GetNetTableStructure.sql" />
+    <Build Include="callisto\tables\AssetLocations.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Callisto.Database.refactorlog" />

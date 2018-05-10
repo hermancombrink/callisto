@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Startup\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
+    <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 
 </Project>

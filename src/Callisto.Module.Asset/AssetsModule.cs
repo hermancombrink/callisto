@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedKernel.Enum;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Assets.ViewModels;
 using Callisto.SharedModels.Session;
@@ -126,9 +127,22 @@ namespace Callisto.Module.Assets
                 throw new InvalidOperationException($"Unable to find asset");
             }
 
-            ModelFactory.SetSaveAssetState(model, asset);
+            using (var tran = await AssetRepo.BeginTransaction())
+            {
+                ModelFactory.SetSaveAssetState(model, asset);
 
-            await AssetRepo.SaveAssetAsync(asset);
+                await AssetRepo.SaveAssetAsync(asset);
+
+                var locationResult = await Session.Location.UpsertCompanyLocation(model.Location);
+                if (locationResult.Status != RequestStatus.Success)
+                {
+                    throw new InvalidOperationException($"Failed to create location");
+                }
+
+                await AssetRepo.AddAssetLocation(ModelFactory.CreateAssetLocation(asset, locationResult.Result));
+
+                tran.Commit();
+            }
 
             return RequestResult.Success();
         }

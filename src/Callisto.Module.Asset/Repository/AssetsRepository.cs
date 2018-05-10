@@ -2,6 +2,7 @@
 using Callisto.Module.Assets.Repository.Models;
 using EntityFrameworkCore.RawSQLExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -29,6 +30,15 @@ namespace Callisto.Module.Assets.Repository
         private AssetDbContext Context { get; }
 
         /// <summary>
+        /// The BeginTransaction
+        /// </summary>
+        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
+        public async Task<IDbContextTransaction> BeginTransaction()
+        {
+            return await Context.Database.BeginTransactionAsync();
+        }
+
+        /// <summary>
         /// The AddTask
         /// </summary>
         /// <param name="asset">The <see cref="Asset"/></param>
@@ -36,6 +46,25 @@ namespace Callisto.Module.Assets.Repository
         public async Task AddAsset(Asset asset)
         {
             await Context.Assets.AddAsync(asset);
+            await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// The UpsertAssetLocation
+        /// </summary>
+        /// <param name="assetLocation">The <see cref="AssetLocation"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task AddAssetLocation(AssetLocation assetLocation)
+        {
+            var assetLoc = await Context.AssetLocations.FirstOrDefaultAsync(c => c.AssetRefId == assetLocation.AssetRefId && c.LocationRefId == assetLocation.LocationRefId);
+            if (assetLoc == null)
+            {
+                await Context.AddAsync(assetLocation);
+            }
+            else
+            {
+                assetLoc.ModifiedAt = DateTime.Now;
+            }
             await Context.SaveChangesAsync();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +12,24 @@ namespace Callisto.Module.Assets.Interfaces
     public interface IAssetsRepository
     {
         /// <summary>
+        /// The BeginTransaction
+        /// </summary>
+        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
+        Task<IDbContextTransaction> BeginTransaction();
+
+        /// <summary>
         /// The AddAsset
         /// </summary>
         /// <param name="asset">The <see cref="Asset"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task AddAsset(Asset asset);
+
+        /// <summary>
+        /// The AddAssetLocation
+        /// </summary>
+        /// <param name="assetLocation">The <see cref="AssetLocation"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task AddAssetLocation(AssetLocation assetLocation);
 
         /// <summary>
         /// The GetAssetById

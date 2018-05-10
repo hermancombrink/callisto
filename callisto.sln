@@ -95,7 +95,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Tests", "test\Call
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "storage", "storage", "{1445759F-F6A9-405A-8BC7-0611EA9B430F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Module.Location", "src\Callisto.Module.Location\Callisto.Module.Location.csproj", "{237C00C5-0BF1-4387-AC8F-94278E866A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Locations", "src\Callisto.Module.Location\Callisto.Module.Locations.csproj", "{237C00C5-0BF1-4387-AC8F-94278E866A7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,7 +192,7 @@ Global
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

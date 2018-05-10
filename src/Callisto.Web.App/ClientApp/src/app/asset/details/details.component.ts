@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssetDetailViewModel } from '../models/assetViewModel';
 import { AssetService } from '../asset.service';
@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth.service';
 import { HttpHeaders } from '@angular/common/http';
 import { RequestResult } from '../../core/models/requestResult';
+import { LocationComponent } from '../../location/location.component';
 
 @Component({
   selector: 'app-details',
@@ -22,9 +23,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private sub: any;
   model: AssetDetailViewModel = new AssetDetailViewModel();
 
+  @ViewChild('location') locationPanel: LocationComponent;
+
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
-  mapVisible = true;
+  mapVisible = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +52,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    
+    this.model.Location = this.locationPanel.model;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(c.FriendlyMessage);
@@ -66,6 +71,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   showMap() {
     this.mapVisible = !this.mapVisible;
+    if (this.mapVisible) {
+      this.locationPanel.draw();
+    }
   }
 
   private setupAsset() {

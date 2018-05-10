@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Callisto.SharedModels.Location.ViewModels;
+using System;
 
 namespace Callisto.SharedModels.Assets.ViewModels
 {
@@ -48,5 +49,10 @@ namespace Callisto.SharedModels.Assets.ViewModels
         /// Gets or sets the Children
         /// </summary>
         public string PictureUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Location
+        /// </summary>
+        public LocationViewModel Location { get; set; }
     }
 }

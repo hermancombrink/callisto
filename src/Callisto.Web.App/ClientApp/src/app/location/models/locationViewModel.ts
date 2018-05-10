@@ -2,7 +2,7 @@ export class LocationViewModel  {
   public Latitude: number;
   public Longitude: number;
 
-  public FormatterAddress: string;
+  public FormattedAddress: string;
 
   public Route: string;
   public Vicinity: string;

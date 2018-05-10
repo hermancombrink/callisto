@@ -4,6 +4,7 @@ using Callisto.Core.Storage.Startup;
 using Callisto.Module.Assets.Startup;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Startup;
+using Callisto.Module.Locations.Startup;
 using Callisto.Module.Notification.Options;
 using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider;
@@ -53,9 +54,11 @@ namespace Callisto.Web.Api
                 dbConnectionString);
 
             services.AddCallistoStorage(services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
-            services.AddCallistoAssets(dbConnectionString);
             services.AddCallistoNotification(services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
+            services.AddCallistoAssets(dbConnectionString);
+            services.AddCallistoLocations(dbConnectionString);
+            
             services.AddCallistoSession();
 
             services.AddCors(options =>

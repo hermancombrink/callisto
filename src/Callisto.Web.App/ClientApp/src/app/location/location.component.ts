@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { } from '@types/googlemaps';
 import { ViewChild, ElementRef, NgZone, } from '@angular/core';
 import { LocationViewModel } from './models/locationViewModel';
@@ -19,54 +19,78 @@ export class LocationComponent implements OnInit {
 
   @Input() searchInput: HTMLInputElement
 
+  @ViewChild('map') map: AgmMap;
+
+
+  private hasLoaded = false;
 
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit() {
-
     this.setCurrentPosition();
-
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchInput, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      this.setAutoComplete();
+    }).catch(e => console.log(e));
+  }
 
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
+  draw() {
+    this.map.triggerResize(true);
+  }
 
-          this.zoom = 12;
+  private setAutoComplete() {
+    let autocomplete = new google.maps.places.Autocomplete(this.searchInput, {
+      types: ["address"]
+    });
+    autocomplete.addListener("place_changed", () => {
+      this.ngZone.run(() => {
+        //get the place result
+        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //set latitude, longitude and zoom
-          this.model.Latitude = place.geometry.location.lat();
-          this.model.Longitude = place.geometry.location.lng();
+        //verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
 
-          this.model.FormatterAddress = place.formatted_address;
+        this.zoom = 12;
 
-          this.model.Route = place.address_components.find(c => c.types.some(x => x == 'route')).long_name;
-          this.model.Vicinity = place.address_components.find(c => c.types.some(x => x == 'sublocality')).long_name;
-          this.model.City = place.address_components.find(c => c.types.some(x => x == 'locality')).long_name;
-          this.model.State = place.address_components.find(c => c.types.some(x => x == 'administrative_area_level_1')).long_name;
-          this.model.Country = place.address_components.find(c => c.types.some(x => x == 'country')).long_name;
+        //set latitude, longitude and zoom
+        this.model.Latitude = place.geometry.location.lat();
+        this.model.Longitude = place.geometry.location.lng();
 
-          this.model.PostCode = place.address_components.find(c => c.types.some(x => x == 'postal_code')).long_name;
+        this.model.FormattedAddress = place.formatted_address;
 
-          this.model.StateCode = place.address_components.find(c => c.types.some(x => x == 'administrative_area_level_1')).short_name;
-          this.model.CountryCode = place.address_components.find(c => c.types.some(x => x == 'country')).short_name;
+        this.model.Route = this.findAddressItem(place, 'route');
+        this.model.Vicinity = this.findAddressItem(place, 'sublocality');
+        this.model.City = this.findAddressItem(place, 'locality');
+        this.model.State = this.findAddressItem(place, 'administrative_area_level_1'); 
+        this.model.Country = this.findAddressItem(place, 'country');  
 
-          this.model.GoogleUrl = place.url;
-          this.model.GooglePlaceId = place.place_id;
-          this.model.UTCOffsetMinutes = place.utc_offset;
+        this.model.PostCode = this.findAddressItem(place, 'postal_code'); 
 
-          this.showMarker = true;
-        });
+        this.model.StateCode = this.findAddressItem(place, 'administrative_area_level_1', true);  
+        this.model.CountryCode = this.findAddressItem(place, 'country', true); 
+
+        this.model.GoogleUrl = place.url;
+        this.model.GooglePlaceId = place.place_id;
+        this.model.UTCOffsetMinutes = place.utc_offset;
+
+        this.showMarker = true;
       });
     });
+  }
+
+  private findAddressItem(place: google.maps.places.PlaceResult, prop: string, useShort: boolean = false): string {
+    try {
+      let part = place.address_components.find(c => c.types.some(x => x == prop));
+      if (part) {
+        return useShort ? part.short_name : part.long_name;
+      }
+      return '';
+    }
+    catch {
+      console.error('failed to find ' + prop);
+      return '';
+    }
   }
 
   private setCurrentPosition() {
@@ -81,7 +105,7 @@ export class LocationComponent implements OnInit {
     } else {
       this.zoom = 12;
     }
-    
+
   }
 
 }

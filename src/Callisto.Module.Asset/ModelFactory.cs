@@ -31,6 +31,24 @@ namespace Callisto.Module.Assets
         }
 
         /// <summary>
+        /// The CreateAssetLocation
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <param name="locationRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="AssetLocation"/></returns>
+        public static AssetLocation CreateAssetLocation(Asset asset, long locationRefId)
+        {
+            return new AssetLocation()
+            {
+                AssetRefId = asset.RefId,
+                LocationRefId = locationRefId,
+                Id = Guid.NewGuid(),
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now
+            };
+        }
+
+        /// <summary>
         /// The SetSaveAssetState
         /// </summary>
         /// <param name="model">The <see cref="AssetViewModel"/></param>
