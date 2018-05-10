@@ -20,7 +20,7 @@ namespace Callisto.Module.Locations
         /// <param name="logger">The <see cref="ILogger{LocationModule}"/></param>
         /// <param name="locationRepo">The <see cref="ILocationRepository"/></param>
         public LocationModule(
-               ICallistoSession session,
+            ICallistoSession session,
             ILogger<LocationModule> logger,
             ILocationRepository locationRepo)
         {
