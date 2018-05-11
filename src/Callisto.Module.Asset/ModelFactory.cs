@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
 using Callisto.SharedModels.Assets.ViewModels;
+using Callisto.SharedModels.Location.ViewModels;
 using System;
 
 namespace Callisto.Module.Assets
@@ -66,14 +67,18 @@ namespace Callisto.Module.Assets
         /// </summary>
         /// <param name="model">The <see cref="Asset"/></param>
         /// <returns>The <see cref="AssetViewModel"/></returns>
-        public static AssetViewModel CreateAssetViewModel(Asset model)
+        public static AssetInfoViewModel CreateAssetViewModel(Asset model, LocationViewModel location = null)
         {
-            return new AssetViewModel()
+            return new AssetInfoViewModel()
             {
                 Id = model.Id,
                 Description = model.Description,
                 Name = model.Name,
-                AssetNumber = model.AssetNumber
+                AssetNumber = model.AssetNumber,
+                HasLocation = location != null,
+                Latitude = location?.Latitude,
+                Longitude = location?.Longitude,
+                FormattedAddress = location?.FormattedAddress
             };
         }
 

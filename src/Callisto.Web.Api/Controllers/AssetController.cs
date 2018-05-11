@@ -83,7 +83,7 @@ namespace Callisto.Web.Api.Controllers
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         [HttpGet("{id}")]
-        public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
+        public async Task<RequestResult<AssetInfoViewModel>> GetAssetAsync(Guid id)
         {
             return await CallistoSession.Assets.GetAssetAsync(id);
         }

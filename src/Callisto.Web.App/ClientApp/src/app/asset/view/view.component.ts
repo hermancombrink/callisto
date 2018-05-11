@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AlertService, DialogType, MessageSeverity } from '../../core/alert.service';
 import { AssetTreeViewModel, AssetViewModel } from '../models/assetViewModel';
 import { RequestStatus } from '../../core/models/requestStatus';
+import { LocationComponent } from '../../location/location.component';
 
 @Component({
   selector: 'app-view',
@@ -17,14 +18,11 @@ import { RequestStatus } from '../../core/models/requestStatus';
 })
 export class ViewComponent implements OnInit {
   bsModalRef: BsModalRef;
-
   assets: TreeModel[];
-  currentAsset: AssetViewModel;
-
+  tree: TreeModel;
+  selectedId: string;
 
   @ViewChild('treeComponent') treeComponent;
-
-  tree: TreeModel;
 
   private getTreeModel(): TreeModel {
     let model = {
@@ -49,7 +47,6 @@ export class ViewComponent implements OnInit {
         ]
       }
     }
-
 
     return model;
   };
@@ -125,7 +122,7 @@ export class ViewComponent implements OnInit {
   }
 
   removeAsset(id: string) {
-    this.alertService.showDialog("Do you want to remove this item?", "Are you sure?", MessageSeverity.warn, x => {
+    this.alertService.showDialog('Do you want to remove this item?', 'Are you sure?', MessageSeverity.warn, x => {
       this.assetService.RemoveAsset(id).subscribe(c => {
         if (c.Status !== RequestStatus.Success) {
           this.alertService.showWarningMessage(c.FriendlyMessage);
@@ -140,13 +137,7 @@ export class ViewComponent implements OnInit {
   }
 
   handleSelected(e) {
-    this.assetService.GetAsset(e.node.node.id).subscribe(c => {
-      if (c.Status === RequestStatus.Success) {
-        this.currentAsset = c.Result;
-      } else {
-        this.alertService.showWarningMessage(c.FriendlyMessage);
-      }
-    }, err => this.alertService.showErrorMessage());
+    this.selectedId = e.node.node.id;
   }
 
   handleMoved(e) {
@@ -161,23 +152,5 @@ export class ViewComponent implements OnInit {
 
   handleNextLevel(e) {
     console.log(e);
-  }
-
-  onSubmit() {
-    this.assetService.SaveAsset(this.currentAsset).subscribe(c => {
-      if (c.Status !== RequestStatus.Success) {
-        this.alertService.showWarningMessage(c.FriendlyMessage);
-      } else {
-        this.currentAsset = c.Result;
-        this.alertService.showSuccessMessage('Asset saved');
-        this.ngOnInit();
-      }
-    }, e => {
-      this.alertService.showErrorMessage();
-    });
-  }
-
-  onDetails() {
-    this.router.navigate(['/asset/details', this.currentAsset.Id]);
   }
 }

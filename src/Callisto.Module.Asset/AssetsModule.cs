@@ -4,6 +4,7 @@ using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Assets.ViewModels;
+using Callisto.SharedModels.Location.ViewModels;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Storage;
 using Microsoft.AspNetCore.Http;
@@ -90,13 +91,16 @@ namespace Callisto.Module.Assets
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
-        public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
+        public async Task<RequestResult<AssetInfoViewModel>> GetAssetAsync(Guid id)
         {
             var asset = await AssetRepo.GetAssetById(id);
 
-            var viewModel = ModelFactory.CreateAssetViewModel(asset);
+            var location = await GetAssetLocationAsync(asset);
 
-            return RequestResult<AssetViewModel>.Success(viewModel);
+            var viewModel = ModelFactory.CreateAssetViewModel(asset, location);
+
+        
+            return RequestResult<AssetInfoViewModel>.Success(viewModel);
         }
 
         /// <summary>
@@ -108,17 +112,29 @@ namespace Callisto.Module.Assets
         {
             var asset = await AssetRepo.GetAssetById(id);
 
-
             var viewModel = ModelFactory.CreateAssetDetailViewModel(asset);
 
+            viewModel.Location = await GetAssetLocationAsync(asset);
+
+            return RequestResult<AssetDetailViewModel>.Success(viewModel);
+        }
+
+        /// <summary>
+        /// The GetAssetLocationAsync
+        /// </summary>
+        /// <param name="asset">The <see cref="Asset"/></param>
+        /// <returns>The <see cref="Task{LocationViewModel}"/></returns>
+        private async Task<LocationViewModel> GetAssetLocationAsync(Asset asset)
+        {
             var location = await AssetRepo.GetAssetLocationByAssetId(asset.RefId);
+
             if (location != null)
             {
                 var locationResult = await Session.Location.GetLocation(location.LocationRefId);
-                viewModel.Location = locationResult.Result;
+                return locationResult.Result;
             }
 
-            return RequestResult<AssetDetailViewModel>.Success(viewModel);
+            return null;
         }
 
         /// <summary>
@@ -200,7 +216,7 @@ namespace Callisto.Module.Assets
 
             var company = await Session.Authentication.GetCompanyByRefId(asset.CompanyRefId);
 
-            if (company.Status != SharedKernel.Enum.RequestStatus.Success)
+            if (company.Status != RequestStatus.Success)
             {
                 throw new InvalidOperationException($"Unable to find company");
             }

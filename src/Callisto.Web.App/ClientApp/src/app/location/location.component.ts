@@ -21,49 +21,48 @@ export class LocationComponent implements OnInit {
 
   @ViewChild('map') map: AgmMap;
 
-
   private hasLoaded = false;
 
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.setCurrentPosition();
+  }
+
+  initAutoComplete() {
     this.mapsAPILoader.load().then(() => {
       this.setAutoComplete();
     }).catch(e => console.log(e));
+  }
+
+  initLocation(locModel: LocationViewModel) {
+    if (!locModel || !locModel.Latitude || !locModel.Longitude) {
+      this.showMarker = false;
+      return;
+    }
+    this.model = locModel;
+    this.showMarker = true;
+    this.zoom = 12;
+    this.draw();
   }
 
   draw() {
     this.map.triggerResize(true);
   }
 
-  setLocation(locModel: LocationViewModel) {
-    if (!locModel) {
-      return;
-    }
-
-    this.model = locModel;
-    this.showMarker = true;
-    this.zoom = 12;
-  }
-
   private setAutoComplete() {
     let autocomplete = new google.maps.places.Autocomplete(this.searchInput, {
-      types: ["address"]
+      types: ['address']
     });
-    autocomplete.addListener("place_changed", () => {
+    autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
-        //get the place result
         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-        //verify result
         if (place.geometry === undefined || place.geometry === null) {
           return;
         }
 
         this.zoom = 12;
-
-        //set latitude, longitude and zoom
         this.model.Latitude = place.geometry.location.lat();
         this.model.Longitude = place.geometry.location.lng();
 
@@ -80,7 +79,7 @@ export class LocationComponent implements OnInit {
         this.model.StateCode = this.findAddressItem(place, 'administrative_area_level_1', true);
         this.model.CountryCode = this.findAddressItem(place, 'country', true);
 
-        this.model.GoogleUrl = place.url;
+        this.model.GoogleURL = place.url;
         this.model.GooglePlaceId = place.place_id;
         this.model.UTCOffsetMinutes = place.utc_offset;
 
@@ -91,13 +90,12 @@ export class LocationComponent implements OnInit {
 
   private findAddressItem(place: google.maps.places.PlaceResult, prop: string, useShort: boolean = false): string {
     try {
-      let part = place.address_components.find(c => c.types.some(x => x == prop));
+      let part = place.address_components.find(c => c.types.some(x => x === prop));
       if (part) {
         return useShort ? part.short_name : part.long_name;
       }
       return '';
-    }
-    catch {
+    } catch {
       console.error('failed to find ' + prop);
       return '';
     }
@@ -105,7 +103,7 @@ export class LocationComponent implements OnInit {
 
   private setCurrentPosition() {
     if (!this.showMarker) {
-      if ("geolocation" in navigator) {
+      if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
           if (this.model.Latitude) {
             return;

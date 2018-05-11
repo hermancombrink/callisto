@@ -30,6 +30,32 @@ namespace Callisto.SharedModels.Assets.ViewModels
     }
 
     /// <summary>
+    /// Defines the <see cref="AssetInfoViewModel" />
+    /// </summary>
+    public class AssetInfoViewModel : AssetViewModel
+    {
+        /// <summary>
+        /// Gets or sets a value indicating whether hasLocation
+        /// </summary>
+        public bool HasLocation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Latitude
+        /// </summary>
+        public decimal? Latitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Longitude
+        /// </summary>
+        public decimal? Longitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the FormattedAddress
+        /// </summary>
+        public string FormattedAddress { get; set; }
+    }
+
+    /// <summary>
     /// Defines the <see cref="AssetTreeViewModel" />
     /// </summary>
     public class AssetTreeViewModel : AssetViewModel

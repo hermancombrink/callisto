@@ -13,10 +13,10 @@
 	[State] [nvarchar](256) NULL,
 	[Country] [nvarchar](256) NULL,
 	[PostCode] [nvarchar](64) NULL,
-	[CountryCode] [nvarchar](16) NULL,
-	[StateCode] [nvarchar](16) NULL,
+	[CountryCode] [nvarchar](32) NULL,
+	[StateCode] [nvarchar](32) NULL,
 	[UTCOffsetMinutes] [int] NULL,
-	[GooglePlaceId] [nvarchar](50) NULL,
+	[GooglePlaceId] [nvarchar](100) NULL,
 	[GoogleURL] [nvarchar](2056) NULL,
 
     CONSTRAINT [PK_Locations] PRIMARY KEY CLUSTERED 

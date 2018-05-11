@@ -1,10 +1,18 @@
-import { LocationViewModel } from "../../location/models/locationViewModel";
+import { LocationViewModel } from '../../location/models/locationViewModel';
 
 export class AssetViewModel {
   public Id: string;
   public AssetNumber: string;
   public Name: string;
   public Description: string;
+}
+
+export class AssetInfoViewModel extends AssetViewModel {
+
+  public HasLocation: boolean;
+  public Latitude: number;
+  public Longitude: number;
+  public FormattedAddress: string;
 }
 
 export class AssetTreeViewModel extends AssetViewModel {

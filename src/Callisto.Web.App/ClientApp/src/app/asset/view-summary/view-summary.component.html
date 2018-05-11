@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <button class="btn btn-sm btn-outline btn-default dim pull-right" type="button" tooltip="Details." (click)="onDetails()">
+      <i class="fa fa-angle-double-right"></i>
+    </button>
+    <div class="row">
+      <div class="col-sm-4">
+        <label>#</label>
+      </div>
+      <div class="col-sm-4">
+        <label class="control-label">
+          {{currentAsset?.AssetNumber}}
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label>Name</label>
+      </div>
+      <div class="col-sm-8">
+        <label class="control-label">
+          {{currentAsset?.Name}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label>Description</label>
+      </div>
+      <div class="col-sm-8">
+        <label class="control-label">
+          {{currentAsset?.Description}}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default" [hidden]="!currentAsset?.HasLocation">
+  <div class="panel-body">
+    <app-location #location></app-location>
+  </div>
+</div>

@@ -15,7 +15,7 @@
   </div>
   <div class="col-lg-2">
     <div class="btn-header-group">
-      <button class="btn btn-outline btn-default dim" type="button" (click)="location.back()" tooltip="Back.">
+      <button class="btn btn-outline btn-default dim" type="button" (click)="_location.back()" tooltip="Back.">
         <i class="fa fa-angle-double-left"></i>
       </button>
       <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
@@ -114,7 +114,7 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-footer text-right">
-            <button class="btn btn-outline btn-default dim" type="button" (click)="location.back()" tooltip="Back.">
+            <button class="btn btn-outline btn-default dim" type="button" (click)="_location.back()" tooltip="Back.">
               <i class="fa fa-angle-double-left"></i>
             </button>
             <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Save current asset.">

@@ -35,7 +35,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private assetService: AssetService,
     private alertService: AlertService,
     private authService: AuthService,
-    public location: Location
+    public _location: Location
   ) { }
 
   ngOnInit() {
@@ -52,7 +52,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    
     this.model.Location = this.locationPanel.model;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
@@ -82,7 +81,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.alertService.showWarningMessage(c.FriendlyMessage);
       } else {
         this.model = c.Result;
-        this.locationPanel.setLocation(this.model.Location);
+        this.locationPanel.initAutoComplete();
+        this.locationPanel.initLocation(this.model.Location);
       }
     }, e => {
       this.alertService.showErrorMessage('Failed to load asset details');
