@@ -75,6 +75,7 @@ namespace Callisto.Module.Assets
                 Description = model.Description,
                 Name = model.Name,
                 AssetNumber = model.AssetNumber,
+                PictureUrl = model.PictureUrl,
                 HasLocation = location != null,
                 Latitude = location?.Latitude,
                 Longitude = location?.Longitude,

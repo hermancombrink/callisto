@@ -13,6 +13,7 @@ export class AssetInfoViewModel extends AssetViewModel {
   public Latitude: number;
   public Longitude: number;
   public FormattedAddress: string;
+  public PictureUrl: string;
 }
 
 export class AssetTreeViewModel extends AssetViewModel {

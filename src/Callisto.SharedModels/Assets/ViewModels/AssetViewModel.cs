@@ -53,6 +53,11 @@ namespace Callisto.SharedModels.Assets.ViewModels
         /// Gets or sets the FormattedAddress
         /// </summary>
         public string FormattedAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the PictureUrl
+        /// </summary>
+        public string PictureUrl { get; set; }
     }
 
     /// <summary>

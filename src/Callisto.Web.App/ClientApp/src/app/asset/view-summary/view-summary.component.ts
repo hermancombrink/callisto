@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, DoCheck, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from '../../core/alert.service';
-import { AssetViewModel } from '../models/assetViewModel';
+import { AssetViewModel, AssetInfoViewModel } from '../models/assetViewModel';
 import { AssetService } from '../asset.service';
 import { LocationComponent } from '../../location/location.component';
 import { RequestStatus } from '../../core/models/requestStatus';
@@ -15,7 +15,7 @@ export class ViewSummaryComponent implements OnInit, DoCheck {
   @Input() id: string;
   @ViewChild('location') locationPanel: LocationComponent;
 
-  currentAsset: AssetViewModel;
+  currentAsset: AssetInfoViewModel;
   private _currentId: string;
 
   constructor(
