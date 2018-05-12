@@ -9,12 +9,13 @@ import { AlertService } from './alert.service';
 import { JwtInterceptor } from './auth.jwt.interceptor';
 import { BaseService } from './base.service';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { CacheService } from './cache.service';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    AlertModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [ResultErrorComponent, AlertDialogComponent],
   providers: [],
@@ -31,13 +32,7 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService, BaseService
-        //,{
-        //  provide: HTTP_INTERCEPTORS,
-        //  useClass: JwtInterceptor,
-        //  multi: true
-        //}
-      ]
+      providers: [AuthService, AuthGuard, AlertService, BaseService, CacheService]
     };
   }
 

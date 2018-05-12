@@ -38,10 +38,8 @@
         <div class="panel-body">
           <tree [tree]="tree" #treeComponent [settings]="{ rootIsVisible: false }"
                 (menuItemSelected)="onMenuItemSelected($event)"
-                (loadNextLevel)="handleNextLevel($event)"
                 (nodeSelected)="handleSelected($event)"
                 (nodeMoved)="handleMoved($event)"></tree>
-
         </div>
         <div class="panel-footer text-right">
         </div>

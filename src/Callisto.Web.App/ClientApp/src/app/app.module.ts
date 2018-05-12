@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
+
 import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
@@ -29,7 +30,6 @@ import { LocationModule } from './location/location.module';
   declarations: [
     AppComponent,
     HomeComponent
-    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,6 +47,7 @@ import { LocationModule } from './location/location.module';
     ErrorModule,
 
     CoreModule.forRoot(),
+
     ToastyModule.forRoot(),
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)

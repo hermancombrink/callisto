@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { TreeModule, TreeModel, NodeMenuItemAction, MenuItemSelectedEvent, Tree } from 'ng2-tree';
+import { TreeModule, TreeModel, NodeMenuItemAction, MenuItemSelectedEvent, Tree, TreeComponent } from 'ng2-tree';
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 import { AssetService } from '../asset.service';
 import { TreeStatus, Ng2TreeSettings } from 'ng2-tree/src/tree.types';
@@ -10,24 +10,28 @@ import { AlertService, DialogType, MessageSeverity } from '../../core/alert.serv
 import { AssetTreeViewModel, AssetViewModel } from '../models/assetViewModel';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { LocationComponent } from '../../location/location.component';
+import { CacheService } from '../../core/cache.service';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css']
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnDestroy {
+
   bsModalRef: BsModalRef;
   assets: TreeModel[];
   tree: TreeModel;
   selectedId: string;
 
-  @ViewChild('treeComponent') treeComponent;
+  @ViewChild('treeComponent') treeComponent: TreeComponent;
+
+  private readonly tree_key = 'asset_tree_view_cache';
 
   private getTreeModel(): TreeModel {
     let model = {
-      static: true,
       value: ``,
+      id: 1,
       settings: {
         cssClasses: {
           'expanded': 'fa fa-caret-down fa-lg',
@@ -70,20 +74,35 @@ export class ViewComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
+    private readonly cache: CacheService,
     private assetService: AssetService,
     private alertService: AlertService,
     private router: Router,
-  ) {
-  }
+  ) { }
+
+
 
   ngOnInit() {
-    this.assetService.GetAssetTree().toPromise().then(results => {
-      this.assets = results.Result.map(asset => {
-        return this.getChildTreeModel(asset);
+    if (this.cache.has(this.tree_key)) {
+    this.cache.get(this.tree_key).toPromise().then(c => {
+        let model = c as TreeModel;
+        model = this.cleanChildren(model);
+        this.tree = model;
       });
-      this.tree = this.getTreeModel();
-      this.tree.children = this.assets;
-    });
+    } else {
+      this.assetService.GetAssetTree().toPromise().then(results => {
+        this.assets = results.Result.map(asset => {
+          return this.getChildTreeModel(asset);
+        });
+        this.tree = this.getTreeModel();
+        this.tree.children = this.assets;
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    const currentModel = this.treeComponent.tree.toTreeModel();
+    this.cache.set(this.tree_key, currentModel);
   }
 
   createAsset() {
@@ -91,9 +110,7 @@ export class ViewComponent implements OnInit {
   }
 
   onMenuItemSelected(e) {
-
     let id = e.node.node.id;
-
     switch (e.selectedItem) {
       case 'Add Child': {
         this.addAsset(id, e.node.node.value);
@@ -150,7 +167,13 @@ export class ViewComponent implements OnInit {
     }, err => this.alertService.showErrorMessage());
   }
 
-  handleNextLevel(e) {
-    console.log(e);
+  private cleanChildren(model: TreeModel): TreeModel {
+    if (model.children && model.children.length > 0) {
+      model.children.forEach(child => {
+        child = this.cleanChildren(child);
+      });
+      model.loadChildren = null;
+    }
+    return model;
   }
 }
