@@ -70,20 +70,33 @@ namespace Callisto.Module.Assets
                 throw new ArgumentException($"Session does not contain valid company");
             }
 
-            Asset parent = null;
-            if (model.ParentId != default)
+            using (var tran = await AssetRepo.BeginTransaction())
             {
-                parent = await AssetRepo.GetAssetById(model.ParentId);
-                if (parent == null)
+                Asset parent = null;
+                AssetLocation parentLocation = null;
+                if (model.ParentId != default)
                 {
-                    throw new InvalidOperationException($"Unable to find parent asset");
+                    parent = await AssetRepo.GetAssetById(model.ParentId);
+                    if (parent == null)
+                    {
+                        throw new InvalidOperationException($"Unable to find parent asset");
+                    }
+
+                    parentLocation = await AssetRepo.GetAssetLocationByAssetId(parent.RefId);
                 }
+
+                var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef, parent);
+                await AssetRepo.AddAsset(asset);
+
+                if (parentLocation != null)
+                {
+                    var childLocation = ModelFactory.CreateAssetLocation(asset, parentLocation.LocationRefId);
+                    await AssetRepo.AddAssetLocation(childLocation);
+                }
+
+                tran.Commit();
+                return RequestResult.Success($"{asset.Id}");
             }
-
-            var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef, parent);
-            await AssetRepo.AddAsset(asset);
-
-            return RequestResult.Success($"{asset.Id}");
         }
 
         /// <summary>
@@ -99,7 +112,7 @@ namespace Callisto.Module.Assets
 
             var viewModel = ModelFactory.CreateAssetViewModel(asset, location);
 
-        
+
             return RequestResult<AssetInfoViewModel>.Success(viewModel);
         }
 

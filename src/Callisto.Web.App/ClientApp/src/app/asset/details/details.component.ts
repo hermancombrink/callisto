@@ -11,6 +11,8 @@ import { AuthService } from '../../core/auth.service';
 import { HttpHeaders } from '@angular/common/http';
 import { RequestResult } from '../../core/models/requestResult';
 import { LocationComponent } from '../../location/location.component';
+import { CacheService } from '../../core/cache.service';
+import { assetConstants } from '../models/constants';
 
 @Component({
   selector: 'app-details',
@@ -29,13 +31,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
   hasBaseDropZoneOver = false;
   mapVisible = false;
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private assetService: AssetService,
     private alertService: AlertService,
     private authService: AuthService,
-    public _location: Location
+    public _location: Location,
+    private readonly _cache: CacheService
   ) { }
 
   ngOnInit() {
@@ -73,6 +77,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (this.mapVisible) {
       this.locationPanel.draw();
     }
+  }
+
+  removeAsset() {
+    this.alertService.showDialog('Do you want to remove this item?', 'Are you sure?', MessageSeverity.warn, x => {
+      this.assetService.RemoveAsset(this.id).subscribe(c => {
+        if (c.Status !== RequestStatus.Success) {
+          this.alertService.showWarningMessage(c.FriendlyMessage);
+        } else {
+          this.alertService.showSuccessMessage('Asset removed');
+          this._location.back();
+        }
+      }, e => {
+        this.alertService.showErrorMessage();
+      });
+    }, true);
   }
 
   private setupAsset() {

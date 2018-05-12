@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Assets.Repository
@@ -75,7 +76,7 @@ namespace Callisto.Module.Assets.Repository
         /// <returns>The <see cref="Task{AssetLocation}"/></returns>
         public async Task<AssetLocation> GetAssetLocationByAssetId(long assetRefId)
         {
-            return await Context.AssetLocations.FirstOrDefaultAsync(c => c.AssetRefId == assetRefId);
+            return await Context.AssetLocations.OrderByDescending(c => c.LocationRefId).FirstOrDefaultAsync(c => c.AssetRefId == assetRefId);
         }
 
         /// <summary>
@@ -117,6 +118,13 @@ namespace Callisto.Module.Assets.Repository
         public async Task RemoveAssetAsync(Asset asset)
         {
             Context.Assets.Remove(asset);
+
+            var locations = await Context.AssetLocations.Where(c => c.AssetRefId == asset.RefId).ToListAsync();
+            if (locations != null)
+            {
+                Context.AssetLocations.RemoveRange(locations);
+            }
+
             await Context.SaveChangesAsync();
         }
 
@@ -129,6 +137,7 @@ namespace Callisto.Module.Assets.Repository
         {
             return await Context.Assets.FirstOrDefaultAsync(c => c.Id == id);
         }
+
 
         /// <summary>
         /// The GetTopLevelAssets

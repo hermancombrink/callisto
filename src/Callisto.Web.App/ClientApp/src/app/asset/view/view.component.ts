@@ -4,13 +4,15 @@ import { TreeModule, TreeModel, NodeMenuItemAction, MenuItemSelectedEvent, Tree,
 import { CreateModalComponent } from '../create-modal/create-modal.component';
 import { AssetService } from '../asset.service';
 import { TreeStatus, Ng2TreeSettings } from 'ng2-tree/src/tree.types';
-import { Subject } from 'rxjs';
+import { Subject, Observer, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertService, DialogType, MessageSeverity } from '../../core/alert.service';
 import { AssetTreeViewModel, AssetViewModel } from '../models/assetViewModel';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { LocationComponent } from '../../location/location.component';
 import { CacheService } from '../../core/cache.service';
+import { assetConstants } from '../models/constants';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-view',
@@ -23,10 +25,9 @@ export class ViewComponent implements OnInit, OnDestroy {
   assets: TreeModel[];
   tree: TreeModel;
   selectedId: string;
+  onClear: Subscription;
 
   @ViewChild('treeComponent') treeComponent: TreeComponent;
-
-  private readonly tree_key = 'asset_tree_view_cache';
 
   private getTreeModel(): TreeModel {
     let model = {
@@ -57,7 +58,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   private getChildTreeModel(asset: AssetTreeViewModel): TreeModel {
     let model = this.getTreeModel();
-    model.value = `${asset.AssetNumber} - ${asset.Name}`;
+    model.value = `${asset.Name}`;
     model.id = asset.Id;
     if (asset.Children) {
       model.loadChildren = (callback) => {
@@ -83,8 +84,16 @@ export class ViewComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    if (this.cache.has(this.tree_key)) {
-    this.cache.get(this.tree_key).toPromise().then(c => {
+    if (!this.onClear) {
+      this.onClear = this.assetService.OnCachClear.subscribe(c => {
+        if (c) {
+          this.refresh();
+        }
+      });
+    }
+
+    if (this.cache.has(assetConstants.treeCacheKey)) {
+      this.cache.get(assetConstants.treeCacheKey).toPromise().then(c => {
         let model = c as TreeModel;
         model = this.cleanChildren(model);
         this.tree = model;
@@ -102,7 +111,13 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     const currentModel = this.treeComponent.tree.toTreeModel();
-    this.cache.set(this.tree_key, currentModel);
+    this.cache.set(assetConstants.treeCacheKey, currentModel);
+    this.onClear.unsubscribe();
+  }
+
+  refresh() {
+    this.cache.remove(assetConstants.treeCacheKey);
+    this.ngOnInit();
   }
 
   createAsset() {
@@ -145,7 +160,6 @@ export class ViewComponent implements OnInit, OnDestroy {
           this.alertService.showWarningMessage(c.FriendlyMessage);
         } else {
           this.alertService.showSuccessMessage('Asset removed');
-          this.ngOnInit();
         }
       }, e => {
         this.alertService.showErrorMessage();

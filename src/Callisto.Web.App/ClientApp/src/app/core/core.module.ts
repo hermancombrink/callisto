@@ -32,7 +32,12 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService, BaseService, CacheService]
+      providers: [AuthService, AuthGuard, AlertService, BaseService, CacheService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: JwtInterceptor,
+          multi: true
+        }]
     };
   }
 

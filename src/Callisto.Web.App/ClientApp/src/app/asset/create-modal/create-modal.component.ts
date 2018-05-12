@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AssetService } from '../asset.service';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { RequestStatus } from '../../core/models/requestStatus';
+import { CacheService } from '../../core/cache.service';
+import { assetConstants } from '../models/constants';
 
 @Component({
   selector: 'app-create-modal',
@@ -20,7 +22,8 @@ export class CreateModalComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private router: Router,
     private assetService: AssetService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private readonly _cache: CacheService
   ) { }
 
   ngOnInit() {
@@ -34,7 +37,6 @@ export class CreateModalComponent implements OnInit {
       } else {
         this.alertService.showSuccessMessage(`${this.model.Name} created`);
         this.bsModalRef.hide();
-        this.router.navigate(['/asset/details', c.Result]);
       }
     }, e => {
       this.alertService.showErrorMessage();
