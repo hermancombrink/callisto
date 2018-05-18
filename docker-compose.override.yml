@@ -41,7 +41,7 @@ services:
     networks: 
       - default
     ports:
-      - "1434:1433"   
+      - "8001:1433"   
     volumes: 
       - sqlvolume:/var/opt/mssql
 
@@ -50,27 +50,36 @@ services:
     networks: 
       - default
     ports:
-      - "15673:15672"  
+      - "8002:15672"  
     volumes:
       - rabbitvolume:/var/lib/rabbitmq
 
   prometheus:
     image: hermancombrink/callisto-prometheus
     ports:
-      - "9090:9090"
+      - "8003:9090"
     networks:
       - default
 
   grafana:
     image: hermancombrink/callisto-grafana
     ports:
-      - "3000:3000"
+      - "8004:3000"
     networks:
       - default
+
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "8005:9000"
 
 volumes:
   sqlvolume:
   rabbitvolume:
+  portainer_data:
 
 networks:
   default:
