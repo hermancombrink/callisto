@@ -213,6 +213,24 @@ namespace Callisto.Module.Assets
         }
 
         /// <summary>
+        /// The GetAssetTreeAllAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAllAsync()
+        {
+            var assets = await AssetRepo.GetAssetTreeAll(Session.CurrentCompanyRef);
+
+            var results = new List<AssetTreeViewModel>();
+
+            foreach (var item in assets)
+            {
+                results.Add(ModelFactory.CreateAssetViewModel(item));
+            }
+
+            return RequestResult<IEnumerable<AssetTreeViewModel>>.Success(results);
+        }
+
+        /// <summary>
         /// The UploadAssetPicAsync
         /// </summary>
         /// <param name="file">The <see cref="IFormFile"/></param>

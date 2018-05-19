@@ -13,6 +13,8 @@ import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload'
 import { LocationModule } from '../location/location.module';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
+import {  DxTreeListModule } from 'devextreme-angular';
+
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import { ViewSummaryComponent } from './view-summary/view-summary.component';
     FormsModule,
     CoreModule,
     AlertModule,
+    DxTreeListModule,
     TypeaheadModule,
     TooltipModule,
     TreeModule,

@@ -34,16 +34,50 @@
       <div class="panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-database"></i> Assets
-
-            <button type="button" class="btn btn-sm btn-default" (click)="refresh()">
-              <i class="fa fa-refresh"></i>
-            </button>
         </div>
         <div class="panel-body">
-          <tree [tree]="tree" #treeComponent [settings]="{ rootIsVisible: false }"
-                (menuItemSelected)="onMenuItemSelected($event)"
-                (nodeSelected)="handleSelected($event)"
-                (nodeMoved)="handleMoved($event)"></tree>
+
+         <dx-tree-list 
+            id="assetTree"
+            keyExpr="Id"
+            parentIdExpr="ParentId"
+            [dataSource]="assetData"
+            [showRowLines]="true"
+            [columnAutoWidth]="true"
+            [expandedRowKeys]="[1]"
+            hasItemsExpr="Children"
+            (onSelection)="handleSelected($event)"
+            (onRowClick)="handleSelected($event)"
+            rootValue="">
+
+            <dxo-search-panel [visible]="true" width="250"></dxo-search-panel>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-state-storing [enabled]="true" type="localStorage" storageKey="treeListStorage"></dxo-state-storing>
+            
+
+            <dxi-column dataField="Name" caption="Name" sortOrder="asc"></dxi-column>
+            <dxi-column dataField="Description" caption="Description" sortOrder="asc"></dxi-column>
+            <dxi-column dataField="Children" [visible]="false"></dxi-column>
+            <dxi-column dataField="Id" cellTemplate="controlTemplate" 
+              caption="" 
+              [allowFiltering]="false" 
+              [allowSorting]="false" 
+              [allowSearch]="false">
+            </dxi-column>
+            <div *dxTemplate="let options of 'controlTemplate'">
+                <a class="btn btn-xs btn-primary" (click)="handleView(options)">
+                  <i class="fa fa-pencil"></i>
+                </a>
+                <a class="btn btn-xs btn-success" (click)="handleAdd(options)">
+                    <i class="fa fa-plus"></i>
+                  </a>
+                  <a class="btn btn-xs btn-danger" (click)="handleRemove(options)">
+                      <i class="fa fa-trash"></i>
+                    </a>
+            </div>
+        </dx-tree-list>
         </div>
         <div class="panel-footer text-right">
         </div>

@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localapi.callisto.com/',
+  apiUrl: 'http://localhost:61596/',
   httpNotFound: 'Oops, we seem to be down. Please try again later',
   mapsApiKey: 'AIzaSyAGNBkfIWooPTKx1fpNk0ylKuLIxrY9sWI'
 };

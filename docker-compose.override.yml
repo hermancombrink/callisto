@@ -29,7 +29,7 @@ services:
       - api
       - app
     ports:
-      - "80:80"
+      - "8000:80"
     networks:
       - default
    

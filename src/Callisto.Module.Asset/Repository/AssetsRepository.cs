@@ -138,7 +138,6 @@ namespace Callisto.Module.Assets.Repository
             return await Context.Assets.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-
         /// <summary>
         /// The GetTopLevelAssets
         /// </summary>
@@ -150,6 +149,17 @@ namespace Callisto.Module.Assets.Repository
             return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetAssetTree",
                 new SqlParameter("@CompanyRefId", companyRefId),
                 new SqlParameter("@RefId", refId)).ToListAsync();
+        }
+
+        /// <summary>
+        /// The GetAssetTreeAll
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{AssetTreeModel}}"/></returns>
+        public async Task<IEnumerable<AssetTreeModel>> GetAssetTreeAll(long companyRefId)
+        {
+            return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetAssetTreeAll",
+                new SqlParameter("@CompanyRefId", companyRefId)).ToListAsync();
         }
     }
 }

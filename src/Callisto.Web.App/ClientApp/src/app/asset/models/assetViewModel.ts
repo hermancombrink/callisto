@@ -18,10 +18,10 @@ export class AssetInfoViewModel extends AssetViewModel {
 
 export class AssetTreeViewModel extends AssetViewModel {
   public Children: number;
+  public ParentId: string;
 }
 
 export class AssetDetailViewModel extends AssetViewModel {
   public PictureUrl: string;
-
   public Location: LocationViewModel;
 }

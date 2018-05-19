@@ -23,26 +23,11 @@ export class AssetService extends BaseService {
   }
 
   AddAsset(model: AssetAddViewModel): Observable<RequestResult> {
-    return this.http.post<RequestResult>(this.getUrl('asset/create'), model, this.httpOptions)
-    .pipe(
-      tap(c => {
-        if (c.Status === RequestStatus.Success) {
-          this.OnCachClear.next(true);
-        }
-      })
-    );
+    return this.http.post<RequestResult>(this.getUrl('asset/create'), model, this.httpOptions);
   }
 
   UpdateParent(id: string, parentid: string): Observable<RequestResult> {
-    return this.http.put<RequestResult>(this.getUrl(`asset/parent/${id}/${parentid}`), null, this.httpOptions)
-    .pipe(
-      tap(c => {
-        if (c.Status === RequestStatus.Success) {
-          this.cache.remove(assetConstants.treeCacheKey);
-          this.OnCachClear.next(true);
-        }
-      })
-    );
+    return this.http.put<RequestResult>(this.getUrl(`asset/parent/${id}/${parentid}`), null, this.httpOptions);
   }
 
   GetAsset(id: string): Observable<RequestTypedResult<AssetInfoViewModel>> {
@@ -54,20 +39,16 @@ export class AssetService extends BaseService {
   }
 
   SaveAsset(model: AssetViewModel): Observable<RequestTypedResult<AssetDetailViewModel>> {
-    return this.http.put<RequestTypedResult<AssetDetailViewModel>>(this.getUrl(`asset`), model, this.httpOptions)
-    .pipe(
-      tap(c => {
-        if (c.Status === RequestStatus.Success) {
-          this.cache.remove(assetConstants.treeCacheKey);
-          this.OnCachClear.next(true);
-        }
-      })
-    );
+    return this.http.put<RequestTypedResult<AssetDetailViewModel>>(this.getUrl(`asset`), model, this.httpOptions);
   }
 
   GetAssetTree(id?: string): Observable<RequestTypedResult<AssetTreeViewModel[]>> {
     id = id || '';
     return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/${id}`), this.httpOptions);
+  }
+
+  GetAssetTreeAll(): Observable<RequestTypedResult<AssetTreeViewModel[]>> {
+    return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/all`), this.httpOptions);
   }
 
   RemoveAsset(id: string): Observable<RequestResult> {

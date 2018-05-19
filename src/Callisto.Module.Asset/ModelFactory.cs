@@ -113,7 +113,8 @@ namespace Callisto.Module.Assets
                 Name = model.Name,
                 AssetNumber = model.AssetNumber,
                 Id = model.Id,
-                Children = model.Children
+                Children = model.Children,
+                ParentId = model.ParentId
             };
         }
     }
