@@ -4,6 +4,7 @@ import { AuthService } from '../../core/auth.service';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { ResultErrorComponent } from '../../core/result-error/result-error.component';
 import { RegisterViewModel } from '../models/registerViewModel';
+import { DxFormComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-signup',
@@ -17,21 +18,27 @@ export class SignupComponent extends BaseComponent {
   }
 
   @ViewChild('error') errorPanel: ResultErrorComponent;
+  @ViewChild('dxForm') dxForm: DxFormComponent;
 
   model = new RegisterViewModel();
 
-  isRregistered: boolean = false;
+  isRregistered = false;
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     super.ngOnInit();
   }
 
   onSubmit() {
+    let isvalid = this.dxForm.instance.validate();
+    if (!isvalid.isValid) {
+      return;
+    }
+
     this.authService.Register(this.model).subscribe(c => {
-      if (c.Status != RequestStatus.Success) {
+      if (c.Status !== RequestStatus.Success) {
         this.errorPanel.error = c.FriendlyMessage;
-      }
-      else {
+      } else {
         this.isRregistered = true;
         this.errorPanel.error = '';
       }
@@ -40,4 +47,8 @@ export class SignupComponent extends BaseComponent {
       console.error(e);
     });
   }
+
+  passwordComparison = () => {
+    return this.dxForm.instance.option('formData').Password;
+};
 }

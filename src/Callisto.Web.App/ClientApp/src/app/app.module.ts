@@ -4,13 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 
-import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
 
 import { AppComponent } from './app.component';
-
 import { CoreModule } from './core/core.module';
 import { AuthGuard } from './core/auth.guard';
 
@@ -23,8 +21,9 @@ import { AssetModule } from './asset/asset.module';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 import { LocationComponent } from './location/location.component';
 import { AgmCoreModule } from '@agm/core';
-import { environment } from '../environments/environment';
 import { LocationModule } from './location/location.module';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { LocationModule } from './location/location.module';
     GridsterModule,
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
-
     NavModule,
     LocationModule,
     AccountModule,
@@ -48,7 +46,6 @@ import { LocationModule } from './location/location.module';
 
     CoreModule.forRoot(),
 
-    ToastyModule.forRoot(),
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)
   ],

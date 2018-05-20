@@ -9,25 +9,26 @@
     <p>
       <small>A full commercial of the site will be available early 2019.</small>
     </p>
-    <p>Login in. </p>
     <form class="m-t" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
-      <div class="form-group">
-        <input type="email" class="form-control" placeholder="Email" required #email="ngModel"
-               [(ngModel)]="model.Email" name="email"
-               pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
-        <small [hidden]="email.valid || (email.pristine && !form.submitted)" class="text-danger">
-          <i class="fa fa-warning"></i>
-          Email format should be <i>john@doe.com</i>.
-        </small>
-      </div>
-      <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" required
-               [(ngModel)]="model.Password" name="password" #password="ngModel">
-        <small [hidden]="password.valid || (password.pristine && !form.submitted)" class="text-danger">
-          <i class="fa fa-warning"></i>
-          Password required.
-        </small>
-      </div>
+     <dx-form 
+        id="form" 
+        #dxForm 
+        [formData]="model" 
+        [readOnly]="false" 
+        [showColonAfterLabel]="true" 
+        [showValidationSummary]="true"
+          validationGroup="formData">
+          <dxi-item itemType="group" caption="Log In">
+            <dxi-item dataField="Email">
+              <dxi-validation-rule type="required" message="Email is required">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="Password" [editorOptions]="{ mode: 'password' }">
+                <dxi-validation-rule type="required" message="Password is required">
+                </dxi-validation-rule>
+            </dxi-item>
+          </dxi-item>
+        </dx-form>  
 
       <app-result-error #error></app-result-error>
 

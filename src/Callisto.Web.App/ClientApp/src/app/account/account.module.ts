@@ -12,6 +12,7 @@ import { CoreModule } from '../core/core.module';
 import { LoginViewModel } from './models/loginViewModel';
 import { RegisterViewModel } from './models/registerViewModel';
 import { BaseComponent } from './base.component';
+import { DxValidatorModule, DxTextBoxModule, DxFormModule } from 'devextreme-angular';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { BaseComponent } from './base.component';
     FormsModule,
     CoreModule,
     AlertModule.forRoot(),
-    RouterModule.forChild(AccountRoutes)
+    RouterModule.forChild(AccountRoutes),
+
+    DxValidatorModule, DxTextBoxModule, DxFormModule
   ],
   declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent],
   exports: [RouterModule]

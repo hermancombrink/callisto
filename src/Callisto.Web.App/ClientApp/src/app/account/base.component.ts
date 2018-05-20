@@ -10,11 +10,9 @@ export class BaseComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    //$("body").addClass("white-bg");
   }
 
   ngOnDestroy(): void {
-   // $("body").removeClass("white-bg");
   }
 
 }

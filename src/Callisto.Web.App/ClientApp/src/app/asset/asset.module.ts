@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
-import { AlertModule, TypeaheadModule, ModalModule, TooltipModule  } from 'ngx-bootstrap';
+import { AlertModule, TypeaheadModule, ModalModule, TooltipModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AssetRoutes } from './routes';
 import { ViewComponent } from './view/view.component';
@@ -13,7 +13,10 @@ import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload'
 import { LocationModule } from '../location/location.module';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
-import {  DxTreeListModule } from 'devextreme-angular';
+import {
+  DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
+  DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule
+} from 'devextreme-angular';
 
 
 @NgModule({
@@ -23,13 +26,16 @@ import {  DxTreeListModule } from 'devextreme-angular';
     FormsModule,
     CoreModule,
     AlertModule,
-    DxTreeListModule,
+
     TypeaheadModule,
     TooltipModule,
     TreeModule,
     FileUploadModule,
     ModalModule.forRoot(),
-    RouterModule.forChild(AssetRoutes)
+    RouterModule.forChild(AssetRoutes),
+
+    DxTreeListModule, DxAutocompleteModule, DxSelectBoxModule, DxNumberBoxModule,
+    DxCheckBoxModule, DxValidatorModule, DxTextBoxModule, DxFormModule
   ],
   declarations: [
     ViewComponent,

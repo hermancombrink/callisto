@@ -13,19 +13,6 @@
   width: 200px;
 }
 
-#toasty.toasty-position-top-right {
-  top: 20px;
-  right: 20px;
-}
-
-#toasty .toast.toasty-theme-bootstrap {
-  font-size: 1em;
-}
-
-#toasty .toast.toasty-theme-bootstrap .toast-text .toast-title {
-  font-size: 1.04em;
-}
-
 .btn-header-group {
   float:right;
   padding: 25px 0px 0px 0px;
@@ -36,4 +23,13 @@ h2 i.fa {
 
 .value-container {
   cursor: pointer !important;
+}
+
+.dx-texteditor-buttons-container .btn-xs
+{
+  margin: 1px;
+}
+
+.btn-default {
+  color: #000 !important;
 }

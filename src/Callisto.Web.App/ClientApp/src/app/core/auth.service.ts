@@ -52,7 +52,6 @@ export class AuthService {
       tap(c => {
         if (c.Status === RequestStatus.Success) {
           localStorage.setItem('auth_token', c.Result);
-        
         }
 
         this.loggedIn.next(c);

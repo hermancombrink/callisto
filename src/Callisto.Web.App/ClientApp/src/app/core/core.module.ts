@@ -10,6 +10,7 @@ import { JwtInterceptor } from './auth.jwt.interceptor';
 import { BaseService } from './base.service';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { CacheService } from './cache.service';
+import { DxValidatorModule, DxAutocompleteModule, DxTextBoxModule, DxTreeListModule } from 'devextreme-angular';
 
 @NgModule({
   imports: [

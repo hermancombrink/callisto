@@ -29,10 +29,12 @@ export class ViewComponent implements OnInit, OnDestroy {
     private assetService: AssetService,
     private alertService: AlertService,
     private router: Router,
-  ) { }
+  ) {
+    this.modalService.onHidden.subscribe(c => this.loadAssets());
+   }
 
   ngOnInit() {
-   this.loadAssets();
+    this.loadAssets();
   }
 
   ngOnDestroy() {
@@ -80,7 +82,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       parentId: id,
       parentName: name
     };
-   this.modalService.onHidden.subscribe(c => this.loadAssets());
+
     this.bsModalRef = this.modalService.show(CreateModalComponent, { initialState });
   }
 
@@ -101,7 +103,9 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   handleSelected(e) {
     this.selectedId = e.data.Id;
-    e.component.updateDimensions();
+    setTimeout(() => {
+      e.component.updateDimensions();
+    }, 30);
   }
 
   handleView(e) {
@@ -111,7 +115,11 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   handleRemove(e) {
-    this.removeAsset(e.data.Id);
+    if (e.data.Children) {
+      this.alertService.showWarningMessage('You can only remove leaf level assets');
+    } else {
+      this.removeAsset(e.data.Id);
+    }
   }
 
   handleAdd(e) {

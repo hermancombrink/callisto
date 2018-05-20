@@ -13,6 +13,8 @@ import { RequestResult } from '../../core/models/requestResult';
 import { LocationComponent } from '../../location/location.component';
 import { CacheService } from '../../core/cache.service';
 import { assetConstants } from '../models/constants';
+import { FormControl } from '@angular/forms';
+import { DxFormComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-details',
@@ -26,6 +28,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   model: AssetDetailViewModel = new AssetDetailViewModel();
 
   @ViewChild('location') locationPanel: LocationComponent;
+  @ViewChild('dxForm') dxForm: DxFormComponent;
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
@@ -40,12 +43,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public _location: Location,
     private readonly _cache: CacheService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-
       this.setupAsset();
       this.setUploader();
     });
@@ -56,6 +59,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    let isvalid = this.dxForm.instance.validate();
+    if (!isvalid.isValid) {
+      return;
+    }
     this.model.Location = this.locationPanel.model;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
@@ -115,12 +122,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
       authToken: this.authService.authToken
     });
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      let result = <RequestResult> JSON.parse(response)
+      let result = <RequestResult>JSON.parse(response)
       if (status === 200 && result.Status === RequestStatus.Success) {
         this.model.PictureUrl = result.Result;
       } else {
         this.alertService.showWarningMessage(result.FriendlyMessage);
       }
-  };
+    };
   }
 }
