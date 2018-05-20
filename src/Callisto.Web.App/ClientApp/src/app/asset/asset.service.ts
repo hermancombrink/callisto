@@ -15,8 +15,6 @@ import { assetConstants } from './models/constants';
 @Injectable()
 export class AssetService extends BaseService {
 
-  OnCachClear = new Subject<boolean>();
-
   constructor(http: HttpClient,
     private readonly cache: CacheService) {
     super(http);
@@ -51,15 +49,11 @@ export class AssetService extends BaseService {
     return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/all`), this.httpOptions);
   }
 
+  GetAssetTreeParents(id: string): Observable<RequestTypedResult<AssetTreeViewModel[]>> {
+    return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/parents/${id}`), this.httpOptions);
+  }
+
   RemoveAsset(id: string): Observable<RequestResult> {
-    return this.http.delete<RequestResult>(this.getUrl(`asset/${id}`), this.httpOptions)
-    .pipe(
-      tap(c => {
-        if (c.Status === RequestStatus.Success) {
-          this.cache.remove(assetConstants.treeCacheKey);
-          this.OnCachClear.next(true);
-        }
-      })
-    );
+    return this.http.delete<RequestResult>(this.getUrl(`asset/${id}`), this.httpOptions);
   }
 }

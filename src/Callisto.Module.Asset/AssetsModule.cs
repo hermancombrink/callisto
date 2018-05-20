@@ -125,7 +125,13 @@ namespace Callisto.Module.Assets
         {
             var asset = await AssetRepo.GetAssetById(id);
 
-            var viewModel = ModelFactory.CreateAssetDetailViewModel(asset);
+            Asset parent = null;
+            if (asset.ParentRefId != null)
+            {
+                parent = await AssetRepo.GetAssetById(asset.ParentRefId.Value);
+            }
+
+            var viewModel = ModelFactory.CreateAssetDetailViewModel(asset, parent);
 
             viewModel.Location = await GetAssetLocationAsync(asset);
 
@@ -166,7 +172,9 @@ namespace Callisto.Module.Assets
 
             using (var tran = await AssetRepo.BeginTransaction())
             {
-                ModelFactory.SetSaveAssetState(model, asset);
+                var parent = await GetAssetParentAsync(model.ParentId);
+
+                ModelFactory.SetSaveAssetState(model, asset, parent);
 
                 await AssetRepo.SaveAssetAsync(asset);
 
@@ -219,6 +227,32 @@ namespace Callisto.Module.Assets
         public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAllAsync()
         {
             var assets = await AssetRepo.GetAssetTreeAll(Session.CurrentCompanyRef);
+
+            var results = new List<AssetTreeViewModel>();
+
+            foreach (var item in assets)
+            {
+                results.Add(ModelFactory.CreateAssetViewModel(item));
+            }
+
+            return RequestResult<IEnumerable<AssetTreeViewModel>>.Success(results);
+        }
+
+        /// <summary>
+        /// The GetPotentialAssetParentsAsync
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetPotentialAssetParentsAsync(Guid Id)
+        {
+            var asset = await AssetRepo.GetAssetById(Id);
+
+            if (asset == null)
+            {
+                throw new InvalidOperationException($"Unable to find asset");
+            }
+
+            var assets = await AssetRepo.GetPotentialTreeParents(Session.CurrentCompanyRef, asset.RefId);
 
             var results = new List<AssetTreeViewModel>();
 
@@ -326,6 +360,20 @@ namespace Callisto.Module.Assets
             await AssetRepo.RemoveAssetAsync(asset);
 
             return RequestResult.Success();
+        }
+
+        private async Task<Asset> GetAssetParentAsync(Guid? parentId)
+        {
+            Asset parent = null;
+            if (parentId != null && parentId != Guid.Empty)
+            {
+                parent = await AssetRepo.GetAssetById(parentId.Value);
+                if (parent == null)
+                {
+                    throw new InvalidOperationException($"Failed to find parent asset");
+                }
+            }
+            return parent;
         }
     }
 }

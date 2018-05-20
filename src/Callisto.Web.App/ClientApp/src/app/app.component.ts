@@ -94,12 +94,12 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    let type = 'info';
+    let type = 'success';
     switch (message.severity) {
       case MessageSeverity.success:  type = 'success'; break;
       case MessageSeverity.error:  type = 'error'; break;
       case MessageSeverity.warn:  type = 'warning'; break;
-      default: type = 'info'; break;
+      default: type = 'success'; break;
     }
 
     notify(message.detail || message.summary, type);

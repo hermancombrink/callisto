@@ -54,12 +54,13 @@ namespace Callisto.Module.Assets
         /// </summary>
         /// <param name="model">The <see cref="AssetViewModel"/></param>
         /// <param name="asset">The <see cref="Asset"/></param>
-        public static void SetSaveAssetState(AssetDetailViewModel model, Asset asset)
+        public static void SetSaveAssetState(AssetDetailViewModel model, Asset asset, Asset parent = null)
         {
             asset.AssetNumber = model.AssetNumber;
             asset.Description = model.Description;
             asset.Name = model.Name;
             asset.ModifiedAt = DateTime.Now;
+            asset.ParentRefId = parent?.RefId;
         }
 
         /// <summary>
@@ -84,11 +85,27 @@ namespace Callisto.Module.Assets
         }
 
         /// <summary>
+        /// The CreateAssetViewModel
+        /// </summary>
+        /// <param name="model">The <see cref="AssetModel"/></param>
+        /// <returns>The <see cref="AssetViewModel"/></returns>
+        public static AssetViewModel CreateAssetViewModel(AssetModel model)
+        {
+            return new AssetViewModel()
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Name = model.Name,
+                AssetNumber = model.AssetNumber
+            };
+        }
+
+        /// <summary>
         /// The CreateAssetDetailViewModel
         /// </summary>
         /// <param name="model">The <see cref="Asset"/></param>
         /// <returns>The <see cref="AssetDetailViewModel"/></returns>
-        public static AssetDetailViewModel CreateAssetDetailViewModel(Asset model)
+        public static AssetDetailViewModel CreateAssetDetailViewModel(Asset model, Asset parent = null)
         {
             return new AssetDetailViewModel()
             {
@@ -96,7 +113,8 @@ namespace Callisto.Module.Assets
                 Description = model.Description,
                 Name = model.Name,
                 AssetNumber = model.AssetNumber,
-                PictureUrl = model.PictureUrl
+                PictureUrl = model.PictureUrl,
+                ParentId = parent?.Id
             };
         }
 

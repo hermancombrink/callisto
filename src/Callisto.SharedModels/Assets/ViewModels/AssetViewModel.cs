@@ -82,6 +82,11 @@ namespace Callisto.SharedModels.Assets.ViewModels
     public class AssetDetailViewModel : AssetViewModel
     {
         /// <summary>
+        /// Gets or sets the ParentId
+        /// </summary>
+        public Guid? ParentId { get; set; }
+
+        /// <summary>
         /// Gets or sets the Children
         /// </summary>
         public string PictureUrl { get; set; }

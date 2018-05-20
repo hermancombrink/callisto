@@ -44,13 +44,7 @@
             </div>
           </div>
         </div>
-        <dx-form 
-        id="form" 
-        #dxForm 
-        [formData]="model" 
-        [readOnly]="false" 
-        [showColonAfterLabel]="true" 
-        [showValidationSummary]="true"
+        <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
           validationGroup="formData">
           <dxi-item itemType="group" caption="Basic Details">
             <dxi-item dataField="Name" [editorOptions]="{ placeholder : 'eg. Truck' }">
@@ -61,6 +55,31 @@
             </dxi-item>
             <dxi-item dataField="AssetNumber" [editorOptions]="{ placeholder : 'eg. 001' }">
               <dxo-label text="Asset #"></dxo-label>
+            </dxi-item>
+            <dxi-item>
+              <dxo-label text="Parent"></dxo-label>
+              <dx-drop-down-box 
+              placeholder="Assign parent asset..." 
+              [(value)]="model.ParentId" 
+              [showClearButton]="true" 
+              displayExpr="Name" 
+              valueExpr="Id" 
+              [dataSource]="parentTree"
+              (onValueChanged)="syncTreeViewSelection($event)">
+                <div *dxTemplate="let data of 'content'">
+                  <dx-tree-view 
+                  [dataSource]="parentTree" 
+                  dataStructure="plain" 
+                  keyExpr="Id" 
+                  parentIdExpr="ParentId" 
+                  selectionMode="single"
+                  displayExpr="Name" 
+                  [selectByClick]="true"
+                  (onContentReady)="$event.component.selectItem(model.ParentId)"
+                  (onItemSelectionChanged)="treeView_itemSelectionChanged($event)">
+                  </dx-tree-view>
+                </div>
+              </dx-drop-down-box>
             </dxi-item>
           </dxi-item>
           <dxi-item itemType="group" caption="Location Information">

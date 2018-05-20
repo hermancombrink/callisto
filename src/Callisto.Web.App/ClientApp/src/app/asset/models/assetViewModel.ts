@@ -24,4 +24,5 @@ export class AssetTreeViewModel extends AssetViewModel {
 export class AssetDetailViewModel extends AssetViewModel {
   public PictureUrl: string;
   public Location: LocationViewModel;
+  public ParentId: string;
 }

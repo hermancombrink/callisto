@@ -120,6 +120,16 @@ namespace Callisto.Web.Api.Controllers
         }
 
         /// <summary>
+        /// The GetAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        [HttpGet("tree/parents/{id}")]
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetPotentialAssetTreeParents(Guid id)
+        {
+            return await CallistoSession.Assets.GetPotentialAssetParentsAsync(id);
+        }
+
+        /// <summary>
         /// The RemoveAssetAsync
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>

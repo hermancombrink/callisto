@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssetDetailViewModel } from '../models/assetViewModel';
+import { AssetDetailViewModel, AssetTreeViewModel } from '../models/assetViewModel';
 import { AssetService } from '../asset.service';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { RequestStatus } from '../../core/models/requestStatus';
@@ -14,7 +14,7 @@ import { LocationComponent } from '../../location/location.component';
 import { CacheService } from '../../core/cache.service';
 import { assetConstants } from '../models/constants';
 import { FormControl } from '@angular/forms';
-import { DxFormComponent } from 'devextreme-angular';
+import { DxFormComponent, DxTreeViewComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-details',
@@ -29,11 +29,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild('location') locationPanel: LocationComponent;
   @ViewChild('dxForm') dxForm: DxFormComponent;
+  @ViewChild(DxTreeViewComponent) treeView;
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   mapVisible = false;
-
+  parentTree: AssetTreeViewModel[];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,8 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private assetService: AssetService,
     private alertService: AlertService,
     private authService: AuthService,
-    public _location: Location,
-    private readonly _cache: CacheService
+    public _location: Location
   ) {
   }
 
@@ -64,6 +64,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       return;
     }
     this.model.Location = this.locationPanel.model;
+    this.model.ParentId = this.model.ParentId ? this.model.ParentId[0] : null;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(c.FriendlyMessage);
@@ -109,6 +110,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.model = c.Result;
         this.locationPanel.initAutoComplete();
         this.locationPanel.initLocation(this.model.Location);
+
+        this.assetService.GetAssetTreeParents(this.id).subscribe(t => {
+          this.parentTree = t.Result;
+        });
       }
     }, e => {
       this.alertService.showErrorMessage('Failed to load asset details');
@@ -129,5 +134,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.alertService.showWarningMessage(result.FriendlyMessage);
       }
     };
+  }
+
+  syncTreeViewSelection() {
+    if (!this.treeView) { return; }
+
+    if (!this.model.ParentId) {
+      this.treeView.instance.unselectAll();
+    } else {
+      this.treeView.instance.selectItem(this.model.ParentId);
+    }
+  }
+
+  treeView_itemSelectionChanged(e) {
+    this.model.ParentId = e.component.getSelectedNodesKeys();
   }
 }

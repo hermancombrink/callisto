@@ -161,5 +161,18 @@ namespace Callisto.Module.Assets.Repository
             return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetAssetTreeAll",
                 new SqlParameter("@CompanyRefId", companyRefId)).ToListAsync();
         }
+
+        /// <summary>
+        /// The GetPotentialTreeParents
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{AssetModel}}"/></returns>
+        public async Task<IEnumerable<AssetTreeModel>> GetPotentialTreeParents(long companyRefId, long refId)
+        {
+            return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetPotentialParents",
+                 new SqlParameter("@CompanyRefId", companyRefId),
+                 new SqlParameter("@RefId", refId)).ToListAsync();
+        }
     }
 }

@@ -5,14 +5,15 @@ BEGIN
 	SET NOCOUNT ON;
 
 	SELECT 
-	assets.RefId, 
-	assets.Id, 
-	(SELECT parent.Id from callisto.Assets parent WITH (NOLOCK) WHERE assets.ParentRefId = parent.RefId) as ParentId,
-	assets.AssetNumber, 
-	assets.Name, 
-	assets.Description,
-	assets.CompanyRefId, 
-	(SELECT COUNT(1) FROM callisto.Assets childcount WHERE assets.RefId = childcount.ParentRefId) AS Children
+       assets.RefId, 
+       assets.Id, 
+       parent.Id as ParentId,
+       assets.AssetNumber, 
+       assets.Name, 
+       assets.Description,
+       assets.CompanyRefId, 
+       (SELECT COUNT(1) FROM callisto.Assets childcount WHERE assets.RefId = childcount.ParentRefId) AS Children
 	FROM callisto.Assets assets WITH (NOLOCK)
-	WHERE  assets.CompanyRefId = @CompanyRefId
+	LEFT JOIN  callisto.Assets parent WITH (NOLOCK) ON assets.ParentRefId = parent.RefId
+	WHERE assets.CompanyRefId = @CompanyRefId
 END

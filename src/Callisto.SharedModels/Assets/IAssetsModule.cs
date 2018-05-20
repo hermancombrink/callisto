@@ -54,6 +54,13 @@ namespace Callisto.SharedModels.Asset
         Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAllAsync();
 
         /// <summary>
+        /// The GetPotentialAssetParentsAsync
+        /// </summary>
+        /// <param name="Id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetPotentialAssetParentsAsync(Guid Id);
+
+        /// <summary>
         /// The UploadAssetPicAsync
         /// </summary>
         /// <param name="file">The <see cref="IFormFile"/></param>
