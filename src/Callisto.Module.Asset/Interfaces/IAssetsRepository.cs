@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
+using Callisto.SharedModels.Location.ViewModels;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -95,5 +96,12 @@ namespace Callisto.Module.Assets.Interfaces
         /// <param name="asset">The <see cref="Asset"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task RemoveAssetAsync(Asset asset);
+
+        /// <summary>
+        /// The GetBestAssetLocation
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{LocationViewModel}"/></returns>
+        Task<LocationViewModel> GetBestAssetLocation(long refId);
     }
 }

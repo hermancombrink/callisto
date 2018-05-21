@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
+using Callisto.SharedModels.Location.ViewModels;
 using EntityFrameworkCore.RawSQLExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -173,6 +174,12 @@ namespace Callisto.Module.Assets.Repository
             return await Context.Database.StoredProcedure<AssetTreeModel>("callisto.usp_GetPotentialParents",
                  new SqlParameter("@CompanyRefId", companyRefId),
                  new SqlParameter("@RefId", refId)).ToListAsync();
+        }
+
+        public async Task<LocationViewModel> GetBestAssetLocation(long refId)
+        {
+            return await Context.Database.SqlQuery<LocationViewModel>("select * from callisto.udf_GetAssetBestLocation(@RefId)",
+                 new SqlParameter("@RefId", refId)).FirstOrDefaultAsync();
         }
     }
 }

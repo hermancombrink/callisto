@@ -70,33 +70,12 @@ namespace Callisto.Module.Assets
                 throw new ArgumentException($"Session does not contain valid company");
             }
 
-            using (var tran = await AssetRepo.BeginTransaction())
-            {
-                Asset parent = null;
-                AssetLocation parentLocation = null;
-                if (model.ParentId != default)
-                {
-                    parent = await AssetRepo.GetAssetById(model.ParentId);
-                    if (parent == null)
-                    {
-                        throw new InvalidOperationException($"Unable to find parent asset");
-                    }
+            Asset parent = await GetAssetParentAsync(model.ParentId);
 
-                    parentLocation = await AssetRepo.GetAssetLocationByAssetId(parent.RefId);
-                }
+            var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef, parent);
+            await AssetRepo.AddAsset(asset);
 
-                var asset = ModelFactory.CreateAsset(model, Session.CurrentCompanyRef, parent);
-                await AssetRepo.AddAsset(asset);
-
-                if (parentLocation != null)
-                {
-                    var childLocation = ModelFactory.CreateAssetLocation(asset, parentLocation.LocationRefId);
-                    await AssetRepo.AddAssetLocation(childLocation);
-                }
-
-                tran.Commit();
-                return RequestResult.Success($"{asset.Id}");
-            }
+            return RequestResult.Success($"{asset.Id}");
         }
 
         /// <summary>
@@ -108,10 +87,9 @@ namespace Callisto.Module.Assets
         {
             var asset = await AssetRepo.GetAssetById(id);
 
-            var location = await GetAssetLocationAsync(asset);
+            var location = await AssetRepo.GetBestAssetLocation(asset.RefId);
 
             var viewModel = ModelFactory.CreateAssetViewModel(asset, location);
-
 
             return RequestResult<AssetInfoViewModel>.Success(viewModel);
         }
