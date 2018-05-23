@@ -4,9 +4,7 @@ Param
  [switch]$ignoreDotNetBuild,
  [switch]$ignoreSqlBuild,
  [Parameter(Mandatory=$false)]
- [string]$verbosity="q",
- [Parameter(Mandatory=$false)]
- [string]$msbuild="C:\'Program Files (x86)'\'Microsoft Visual Studio'\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"
+ [string]$verbosity="q"
 )
 
 $proj = (
@@ -26,10 +24,7 @@ if($ignoreDotNetBuild)
 else
 {
 	Write-Host "msbuild restore..." -ForegroundColor Cyan
-	Write-Host $msbuild
-	$restore = $msbuild + " /t:restore callisto.sln  /verbosity:$verbosity"
-	Invoke-Expression $restore
-	#dotnet restore callisto.sln -nowarn:msb3202,nu1503 -v $verbosity
+	msbuild /t:restore callisto.sln /verbosity:$verbosity
 
 	foreach( $p in $proj)
 	{
@@ -77,8 +72,8 @@ else
 			Write-Host "cleaning publish..."  -ForegroundColor Gray
 			Remove-Item -Path $t -Force -Recurse
 		}
-	$build = $msbuild + " $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity"
-	Invoke-Expression $build
+
+	msbuild $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity
 	Move-Item -Path "$p\bin\Release\Callisto_Create.sql" -Destination .\docker\sql\ -Force
 }
 
