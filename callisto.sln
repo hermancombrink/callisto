@@ -34,6 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{14
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		.gitignore = .gitignore
+		docker-compose.azure.yml = docker-compose.azure.yml
 		docker-compose.override.yml = docker-compose.override.yml
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
@@ -192,7 +193,7 @@ Global
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal

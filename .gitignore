@@ -53,3 +53,5 @@ UpgradeLog*.htm
 Output/
 /docker/sql/Callisto_Create.sql
 /test/Results
+/src/Callisto.Web.Api/appsettings.Azure.json
+/docker-compose.azure.yml
