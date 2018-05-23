@@ -136,7 +136,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     };
   }
 
-  syncTreeViewSelection() {
+  syncTreeViewSelection(e) {
     if (!this.treeView) { return; }
 
     if (!this.model.ParentId) {
