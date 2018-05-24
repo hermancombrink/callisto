@@ -25,6 +25,7 @@ else
 {
 	Write-Host "msbuild restore..." -ForegroundColor Cyan
 	msbuild /t:restore callisto.sln /verbosity:$verbosity
+	Write-Host "msbuild restore done" -ForegroundColor Cyan
 
 	foreach( $p in $proj)
 	{
@@ -54,6 +55,8 @@ else
 		}
 
 		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity -nowarn:MSB3277
+
+		Write-Host "dotnet publish done" -ForegroundColor Cyan
 	}
 }
 
@@ -75,6 +78,8 @@ else
 
 	msbuild $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity
 	Move-Item -Path "$p\bin\Release\Callisto_Create.sql" -Destination .\docker\sql\ -Force
+
+	Write-Host "sql build done" -ForegroundColor Cyan
 }
 
 
@@ -82,6 +87,7 @@ if($dockerCompose)
 {
 	Write-Host "docker compose..."  -ForegroundColor Cyan
 	docker-compose build
+	Write-Host "docker compose done"
 }
 else
 {
