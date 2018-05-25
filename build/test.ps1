@@ -2,7 +2,9 @@ Param
 (
  [switch]$submitResults,
  [Parameter(Mandatory=$false)]
- [string]$verbosity="q"
+ [string]$verbosity="q",
+ [Parameter(Mandatory=$false)]
+ [string]$fxversion="2.0.0"
 )
 
 function getTool([string]$name, [string]$tool) {
@@ -41,7 +43,7 @@ foreach($testProject in $testProjects)
 	Write-Host "testing $($testProject)..." -ForegroundColor Green
 
     $dotnetArguments = "xunit" `
-	, "--fx-version 2.0.0" `
+	, "--fx-version $fxversion" `
 	, "-msbuildverbosity $verbosity" `
     , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
 	#, "-nobuild" `
