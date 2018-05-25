@@ -15,16 +15,19 @@ import { assetConstants } from './models/constants';
 @Injectable()
 export class AssetService extends BaseService {
 
+  assetKey = 'global_asset_tree';
   constructor(http: HttpClient,
     private readonly cache: CacheService) {
     super(http);
   }
 
   AddAsset(model: AssetAddViewModel): Observable<RequestResult> {
+    this.cache.remove(this.assetKey);
     return this.http.post<RequestResult>(this.getUrl('asset/create'), model, this.httpOptions);
   }
 
   UpdateParent(id: string, parentid: string): Observable<RequestResult> {
+    this.cache.remove(this.assetKey);
     return this.http.put<RequestResult>(this.getUrl(`asset/parent/${id}/${parentid}`), null, this.httpOptions);
   }
 
@@ -37,6 +40,7 @@ export class AssetService extends BaseService {
   }
 
   SaveAsset(model: AssetViewModel): Observable<RequestTypedResult<AssetDetailViewModel>> {
+    this.cache.remove(this.assetKey);
     return this.http.put<RequestTypedResult<AssetDetailViewModel>>(this.getUrl(`asset`), model, this.httpOptions);
   }
 
@@ -46,7 +50,17 @@ export class AssetService extends BaseService {
   }
 
   GetAssetTreeAll(): Observable<RequestTypedResult<AssetTreeViewModel[]>> {
-    return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/all`), this.httpOptions);
+    if (this.cache.has(this.assetKey)) {
+      return this.cache.get(this.assetKey);
+    }
+
+    return this.http.get<RequestTypedResult<AssetTreeViewModel[]>>(this.getUrl(`asset/tree/all`), this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success)  {
+          this.cache.set(this.assetKey, c);
+        }
+      })
+    );
   }
 
   GetAssetTreeParents(id: string): Observable<RequestTypedResult<AssetTreeViewModel[]>> {
@@ -54,6 +68,7 @@ export class AssetService extends BaseService {
   }
 
   RemoveAsset(id: string): Observable<RequestResult> {
+    this.cache.remove(this.assetKey);
     return this.http.delete<RequestResult>(this.getUrl(`asset/${id}`), this.httpOptions);
   }
 }
