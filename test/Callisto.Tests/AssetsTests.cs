@@ -179,7 +179,7 @@ namespace Callisto.Tests
             var model = fixture.Create<AssetViewModel>();
             var result = await assetModule.SaveAssetAsync(viewModel);
             result.Status.Should().Be(RequestStatus.Success);
-            repo.Received(1).GetAssetById(Arg.Any<Guid>());
+            repo.Received(2).GetAssetById(Arg.Any<Guid>());
             repo.Received(1).SaveAssetAsync(Arg.Any<Asset>());
             repo.Received(1).AddAssetLocation(Arg.Any<AssetLocation>());
         }
@@ -201,7 +201,7 @@ namespace Callisto.Tests
             var model = fixture.Create<AssetViewModel>();
             Func<Task> act = async () => { var result = await assetModule.SaveAssetAsync(viewModel); };
             act.Should().Throw<InvalidOperationException>();
-            repo.Received(1).GetAssetById(Arg.Any<Guid>());
+            repo.Received(2).GetAssetById(Arg.Any<Guid>());
             repo.Received(1).SaveAssetAsync(Arg.Any<Asset>());
             repo.Received(0).AddAssetLocation(Arg.Any<AssetLocation>());
         }
