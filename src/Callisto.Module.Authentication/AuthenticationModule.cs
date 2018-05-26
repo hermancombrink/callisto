@@ -91,7 +91,7 @@ namespace Callisto.Module.Authentication
 
             if (model is null)
             {
-                return RequestResult.Validation($"Request cannot be null");
+                throw new ArgumentNullException(nameof(model));
             }
 
             if (!model.Validate(out string msg).isValid)
@@ -218,6 +218,35 @@ namespace Callisto.Module.Authentication
             }
 
             return RequestResult<CompanyViewModel>.Success(ModelFactory.CreateCompany(company));
+        }
+
+        public async Task<RequestResult> UpdateNewProfileAsync(NewAccountViewModel model)
+        {
+            var user = await this.AuthRepo.GetUser(this.Session.UserName);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Failed to find user");
+            }
+
+            var company = await this.AuthRepo.GetCompany(this.Session.CurrentCompanyRef);
+            if (company == null)
+            {
+                throw new InvalidOperationException($"Failed to find company");
+            }
+
+            ModelFactory.UpdateNewUserDetails(user, company, model);
+
+            using (var tran = await AuthRepo.BeginTransaction())
+            {
+                await this.AuthRepo.UpdateUser(user);
+
+                await this.AuthRepo.UpdateCompany(company);
+
+                tran.Commit();
+            }
+              
+
+            return RequestResult.Success();
         }
     }
 }

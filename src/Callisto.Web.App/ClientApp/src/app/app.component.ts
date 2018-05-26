@@ -50,14 +50,18 @@ export class AppComponent implements OnInit {
   loadUserProfile() {
 
     this.authService.GetUser().subscribe(c => {
+      this.completedLoad = true;
+
       if (c.Status === RequestStatus.Success) {
         this.user = c.Result;
         this.profileLoaded = true;
+        if (!this.user.ProfileCompleted) {
+          this.router.navigate(['/account/details']);
+        }
       } else {
         this.alertService.showWarningMessage(c.FriendlyMessage);
         this.signOut();
       }
-      this.completedLoad = true;
     }, err => {
       if (err instanceof HttpErrorResponse) {
         switch (err.status) {
@@ -96,9 +100,9 @@ export class AppComponent implements OnInit {
 
     let type = 'success';
     switch (message.severity) {
-      case MessageSeverity.success:  type = 'success'; break;
-      case MessageSeverity.error:  type = 'error'; break;
-      case MessageSeverity.warn:  type = 'warning'; break;
+      case MessageSeverity.success: type = 'success'; break;
+      case MessageSeverity.error: type = 'error'; break;
+      case MessageSeverity.warn: type = 'warning'; break;
       default: type = 'success'; break;
     }
 

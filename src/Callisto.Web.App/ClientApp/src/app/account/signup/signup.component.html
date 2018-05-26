@@ -16,21 +16,6 @@
       <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
         validationGroup="formData">
         <dxi-item itemType="group" caption="Register new account">
-          <dxi-item dataField="FirstName" [editorOptions]="{ placeholder : 'eg. John' }">
-            <dxo-label text="Name"></dxo-label>
-            <dxi-validation-rule type="required" message="Name is required">
-            </dxi-validation-rule>
-          </dxi-item>
-          <dxi-item dataField="LastName" [editorOptions]="{ placeholder : 'eg. Doe' }">
-            <dxo-label text="Last name"></dxo-label>
-            <dxi-validation-rule type="required" message="Lastname is required">
-            </dxi-validation-rule>
-          </dxi-item>
-          <dxi-item dataField="CompanyName" [editorOptions]="{ placeholder : 'eg. Callisto Toys' }">
-            <dxo-label text="Company"></dxo-label>
-            <dxi-validation-rule type="required" message="Company name is required">
-            </dxi-validation-rule>
-          </dxi-item>
           <dxi-item dataField="Email" [editorOptions]="{ placeholder : 'eg. johndoe@callisto.com' }">
             <dxo-label text="Email"></dxo-label>
             <dxi-validation-rule type="required" message="Email name is required">

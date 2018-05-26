@@ -12,8 +12,8 @@ import { CoreModule } from '../core/core.module';
 import { LoginViewModel } from './models/loginViewModel';
 import { RegisterViewModel } from './models/registerViewModel';
 import { BaseComponent } from './base.component';
-import { DxValidatorModule, DxTextBoxModule, DxFormModule } from 'devextreme-angular';
-
+import { DxValidatorModule, DxTextBoxModule, DxFormModule, DxRadioGroupModule } from 'devextreme-angular';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   imports: [
@@ -23,9 +23,9 @@ import { DxValidatorModule, DxTextBoxModule, DxFormModule } from 'devextreme-ang
     AlertModule.forRoot(),
     RouterModule.forChild(AccountRoutes),
 
-    DxValidatorModule, DxTextBoxModule, DxFormModule
+    DxValidatorModule, DxTextBoxModule, DxFormModule, DxRadioGroupModule
   ],
-  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent],
+  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent, DetailsComponent],
   exports: [RouterModule]
 })
 export class AccountModule { }

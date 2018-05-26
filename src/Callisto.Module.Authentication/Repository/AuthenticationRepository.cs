@@ -4,6 +4,7 @@ using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,11 +47,6 @@ namespace Callisto.Module.Authentication.Repository
             if (Context.Users.Any(c => c.UserName == model.Email || c.Email == model.Email))
             {
                 return RequestResult<long>.Failed("User already exists");
-            }
-
-            if (Context.Companies.Any(c => c.Name == model.CompanyName))
-            {
-                return RequestResult<long>.Failed("Company already exists");
             }
 
             var company = ModelFactory.CreateCompany(model);
@@ -100,6 +96,28 @@ namespace Callisto.Module.Authentication.Repository
                     SubscriptionId = lastSubsrition.SubscriptionId
                 });
             }
+        }
+
+        /// <summary>
+        /// The UpdateUser
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task UpdateUser(ApplicationUser user)
+        {
+            Context.Users.Attach(user);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task<ApplicationUser> GetUser(string userName)
+        {
+            return await Context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
+        }
+
+        public async Task UpdateCompany(Company company)
+        {
+            Context.Companies.Attach(company);
+            await Context.SaveChangesAsync();
         }
 
         /// <summary>

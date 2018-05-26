@@ -8,24 +8,6 @@ namespace Callisto.SharedModels.Auth.ViewModels
     public class RegisterViewModel
     {
         /// <summary>
-        /// Gets or sets the FirstName
-        /// </summary>
-        [Required]
-        public string FirstName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the LastName
-        /// </summary>
-        [Required]
-        public string LastName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the CompanyName
-        /// </summary>
-        [Required]
-        public string CompanyName { get; set; }
-
-        /// <summary>
         /// Gets or sets the Email
         /// </summary>
         [Required]

@@ -17,9 +17,9 @@ namespace Callisto.Tests
     /// <summary>
     /// Defines the <see cref="StorageTests" />
     /// </summary>
-    public class StorageTests : IClassFixture<AzureStorageFixture>
+    public class StorageTests 
     {
-        public StorageTests(AzureStorageFixture storage)
+        public StorageTests()
         {
 
         }
@@ -34,7 +34,7 @@ namespace Callisto.Tests
         /// <summary>
         /// The StorageShouldBeAbleToObtainStorageAccount
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Requires emulator install")]
         public void StorageShouldBeAbleToObtainStorageAccount()
         {
             var logger = Substitute.For<ILogger<AzureBlobStorage>>();
@@ -48,7 +48,7 @@ namespace Callisto.Tests
         /// <summary>
         /// The StorageShouldFailWhenInvalidConnectionIsUsed
         /// </summary>
-        [Fact]
+        [Fact(Skip = "Requires emulator install")]
         public void StorageShouldFailWhenInvalidConnectionIsUsed()
         {
             var logger = Substitute.For<ILogger<AzureBlobStorage>>();
@@ -66,7 +66,7 @@ namespace Callisto.Tests
         /// The StorageShouldObtainBlobReference
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        [Fact]
+        [Fact(Skip = "Requires emulator install")]
         public async Task StorageShouldObtainBlobReference()
         {
             var logger = Substitute.For<ILogger<AzureBlobStorage>>();
@@ -84,7 +84,7 @@ namespace Callisto.Tests
         /// The StorageShouldSaveFile
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        [Fact]
+        [Fact(Skip = "Requires emulator install")]
         public async Task StorageShouldSaveFile()
         {
             var logger = Substitute.For<ILogger<AzureBlobStorage>>();

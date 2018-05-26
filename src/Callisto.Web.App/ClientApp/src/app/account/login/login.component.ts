@@ -39,14 +39,14 @@ export class LoginComponent extends BaseComponent {
     }
 
     this.authService.Login(this.model).subscribe(c => {
-      if (c.Status !== RequestStatus.Success) {
-        this.errorPanel.error = c.FriendlyMessage;
-      } else {
+      if (c.Status === RequestStatus.Success) {
         this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
         this.router.navigate(['/']);
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
       }
     }, e => {
-      this.errorPanel.error = environment.httpNotFound;
+      this.alertService.showErrorMessage();
     });
   }
 }

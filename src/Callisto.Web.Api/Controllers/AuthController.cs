@@ -85,6 +85,13 @@ namespace Callisto.Web.Api.Controllers
             return await CallistoSession.Authentication.GetUserByNameAsync(CallistoSession.UserName);
         }
 
+        [Authorize]
+        [HttpPost("user")]
+        public async Task<RequestResult> UpdateNewProfile([FromBody] NewAccountViewModel model)
+        {
+            return await CallistoSession.Authentication.UpdateNewProfileAsync(model);
+        }
+
         /// <summary>
         /// The SignOut
         /// </summary>

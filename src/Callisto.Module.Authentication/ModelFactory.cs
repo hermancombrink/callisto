@@ -25,8 +25,8 @@ namespace Callisto.Module.Authentication
             {
                 Email = model.Email,
                 UserName = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FirstName = string.Empty,
+                LastName = string.Empty,
                 CompanyRefId = companyRefId
             };
         }
@@ -41,8 +41,8 @@ namespace Callisto.Module.Authentication
             return new Company()
             {
                 Id = Guid.NewGuid(),
-                Description = model.CompanyName,
-                Name = model.CompanyName,
+                Description = string.Empty,
+                Name = string.Empty,
                 CreatedAt = DateTime.Now,
                 ModifiedAt = DateTime.Now
             };
@@ -128,6 +128,14 @@ namespace Callisto.Module.Authentication
                 },
                 SaveToken = true
             };
+        }
+
+        public static void UpdateNewUserDetails(ApplicationUser user, Company company, NewAccountViewModel model)
+        {
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            company.Name = model.CompanyName;
         }
     }
 }

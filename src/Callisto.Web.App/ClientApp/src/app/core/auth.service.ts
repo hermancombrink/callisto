@@ -11,6 +11,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { LoginViewModel } from '../account/models/loginViewModel';
 import { UserViewModel } from './models/userViewModel';
 import { Router } from '@angular/router';
+import { CacheService } from './cache.service';
+import { NewAccountViewModel } from './models/newAccountViewModel';
 
 @Injectable()
 export class AuthService {
@@ -19,8 +21,10 @@ export class AuthService {
   successResponse = new RequestResult();
   loggedIn = new Subject<RequestResult>();
   loggedOut = new Subject<RequestResult>();
+  currentUser: UserViewModel;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private readonly cache: CacheService) { }
 
   IsAuthenticated() {
     return !!localStorage.getItem('auth_token');
@@ -75,7 +79,18 @@ export class AuthService {
   }
 
   GetUser(): Observable<RequestTypedResult<UserViewModel>> {
-    return this.http.get<RequestTypedResult<UserViewModel>>(this.getUrl('auth/user'), this.httpOptions)
+
+    return this.http.get<RequestTypedResult<UserViewModel>>(this.getUrl('auth/user'), this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.currentUser = c.Result;
+        }
+      })
+    )
+  }
+
+  UpdateProfile(model: NewAccountViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/user'), model, this.httpOptions);
   }
 
   private getUrl(endpoint: string): string {

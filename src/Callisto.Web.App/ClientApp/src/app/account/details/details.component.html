@@ -1,0 +1,65 @@
+<div class="wrapper wrapper-content animated fadeInUp border-bottom ">
+  <form class="m-t form-horizontal" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Tell Us About Yourself
+      </div>
+      <div class="panel-body">
+        <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true" validationGroup="formData">
+          <dxi-item itemType="group" caption="This information will help us serve you better.">
+            <dxi-item dataField="FirstName" [editorOptions]="{ placeholder : 'eg. John' }">
+              <dxo-label text="First Name"></dxo-label>
+              <dxi-validation-rule type="required" message="Fist name is required">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="LastName" [editorOptions]="{ placeholder : 'eg. Doe' }">
+              <dxo-label text="Last Name"></dxo-label>
+              <dxi-validation-rule type="required" message="Last name is required">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="CompanyName" [editorOptions]="{ placeholder : 'eg. My Private Company' }">
+              <dxo-label text="Company Name"></dxo-label>
+              <dxi-validation-rule type="required" message="Company name is required">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="CompanyWebsite">
+              <dxo-label text="Company Website"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="UserRole">
+              <dxo-label text="User Role"></dxo-label>
+              <dx-radio-group [items]="roles" [(value)]="model.UserRole">
+              </dx-radio-group>
+            </dxi-item>
+            <dxi-item dataField="CompanySize">
+              <dxo-label text="Company Size"></dxo-label>
+              <dx-radio-group [items]="companysize" [(value)]="model.CompanySize">
+              </dx-radio-group>
+            </dxi-item>
+          </dxi-item>
+          <dxi-item 
+          itemType="simple"
+          dataField="Accepted"
+          editorType="dxCheckBox"
+          [editorOptions]="{ 
+              text: 'I agree to the Terms and Conditions',
+              value: false
+          }">
+          <dxo-label
+              [visible]="false">
+          </dxo-label>
+          <dxi-validation-rule 
+              type="compare"
+              [comparisonTarget]="checkComparison"
+              message="You must agree to the Terms and Conditions">
+          </dxi-validation-rule>
+      </dxi-item>
+        </dx-form>
+      </div>
+      <div class="panel-footer text-right">
+        <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid">
+          <i class="fa fa-save"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
