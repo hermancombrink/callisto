@@ -56,6 +56,11 @@ else
 
 		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity -nowarn:MSB3277
 
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
 		Write-Host "dotnet publish done" -ForegroundColor Cyan
 	}
 }
@@ -70,13 +75,20 @@ else
 	$p = ".\src\Callisto.Database\"
 	$t = getPublishDir "Callisto.Database" -framework ''
 	Write-Host $t
+	
 		if(Test-Path -Path $t)
 		{
 			Write-Host "cleaning publish..."  -ForegroundColor Gray
 			Remove-Item -Path $t -Force -Recurse
 		}
 
-	msbuild $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity
+		msbuild $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity
+
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
 	Move-Item -Path "$p\bin\Release\Callisto_Create.sql" -Destination .\docker\sql\ -Force
 
 	Write-Host "sql build done" -ForegroundColor Cyan
@@ -86,7 +98,14 @@ else
 if($dockerCompose)
 {
 	Write-Host "docker compose..."  -ForegroundColor Cyan
-	docker-compose build
+		
+		docker-compose build
+	
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
 	Write-Host "docker compose done"
 }
 else
