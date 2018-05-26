@@ -11,7 +11,7 @@
     <p>
       <small>A full commercial of the site will be available early 2019.</small>
     </p>
-    <form class="m-t" role="form" #form="ngForm" (ngSubmit)="onSubmit()" [hidden]="!!isRregistered">
+    <form class="m-t" role="form" #form="ngForm" (ngSubmit)="onSubmit()">
 
       <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
         validationGroup="formData">
@@ -46,20 +46,6 @@
       </p>
       <a class="btn btn-sm btn-white btn-block" [routerLink]="['/account/login']">Login</a>
     </form>
-
-    <div [hidden]="!isRregistered">
-      <alert type="success">
-        <p>
-          <i class="fa fa-check"></i> Success...!
-        </p>
-        <p>
-          Welcome to callisto, please proceed to login.
-        </p>
-
-        <a class="btn btn-sm btn-white btn-block" [routerLink]="['/account/login']">Login</a>
-
-      </alert>
-    </div>
 
     <p class="m-t">
       <small>Proudly developed and maintained by ESA Developments &copy; 2018</small>
