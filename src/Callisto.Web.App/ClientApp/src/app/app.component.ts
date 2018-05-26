@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from './core/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
     this.authService.loggedIn.subscribe(c => {
       if (c.Status === RequestStatus.Success) {
         this.loadUserProfile();
+        this.authService.currentUser.subscribe(x => this.user = x);
       }
     });
 
@@ -46,6 +47,8 @@ export class AppComponent implements OnInit {
       this.profileLoaded = false;
     });
   }
+
+
 
   loadUserProfile() {
 

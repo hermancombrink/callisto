@@ -21,10 +21,12 @@ export class AuthService {
   successResponse = new RequestResult();
   loggedIn = new Subject<RequestResult>();
   loggedOut = new Subject<RequestResult>();
-  currentUser: UserViewModel;
+  currentUser: Subject<UserViewModel>;
 
   constructor(private http: HttpClient,
-    private readonly cache: CacheService) { }
+    private readonly cache: CacheService) {
+    this.currentUser = new Subject<UserViewModel>();
+  }
 
   IsAuthenticated() {
     return !!localStorage.getItem('auth_token');
@@ -83,7 +85,7 @@ export class AuthService {
     return this.http.get<RequestTypedResult<UserViewModel>>(this.getUrl('auth/user'), this.httpOptions).pipe(
       tap(c => {
         if (c.Status === RequestStatus.Success) {
-          this.currentUser = c.Result;
+          this.currentUser.next(c.Result);
         }
       })
     )
