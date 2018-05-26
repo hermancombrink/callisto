@@ -2,7 +2,9 @@
   <div>
     <div>
       <h1 class="logo-name">
-        <img src="/app/assets/images/logo.png" />
+        <a href="/">
+          <img src="/app/assets/images/logo.png" />
+        </a>
       </h1>
     </div>
     <h3>Welcome to Callisto</h3>
@@ -10,33 +12,33 @@
       <small>A full commercial of the site will be available early 2019.</small>
     </p>
     <form class="m-t" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
-     <dx-form 
-        id="form" 
-        #dxForm 
-        [formData]="model" 
-        [readOnly]="false" 
-        [showColonAfterLabel]="true" 
-        [showValidationSummary]="true"
-          validationGroup="formData">
-          <dxi-item itemType="group" caption="Log In">
-            <dxi-item dataField="Email">
-              <dxi-validation-rule type="required" message="Email is required">
-              </dxi-validation-rule>
-            </dxi-item>
-            <dxi-item dataField="Password" [editorOptions]="{ mode: 'password' }">
-                <dxi-validation-rule type="required" message="Password is required">
-                </dxi-validation-rule>
-            </dxi-item>
+      <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
+        validationGroup="formData">
+        <dxi-item itemType="group" caption="Log In">
+          <dxi-item dataField="Email">
+            <dxi-validation-rule type="required" message="Email is required">
+            </dxi-validation-rule>
           </dxi-item>
-        </dx-form>  
+          <dxi-item dataField="Password" [editorOptions]="{ mode: 'password' }">
+            <dxi-validation-rule type="required" message="Password is required">
+            </dxi-validation-rule>
+          </dxi-item>
+        </dxi-item>
+      </dx-form>
 
       <app-result-error #error></app-result-error>
 
       <button [disabled]="!form.form.valid" type="submit" class="btn btn-primary block full-width m-b">Login</button>
-      <a [routerLink]="['/account/forgotpass']"><small>Forgot password?</small></a>
-      <p class="text-muted text-center"><small>Do not have an account?</small></p>
+      <a [routerLink]="['/account/forgotpass']">
+        <small>Forgot password?</small>
+      </a>
+      <p class="text-muted text-center">
+        <small>Do not have an account?</small>
+      </p>
       <a [routerLink]="['/account/signup']" class="btn btn-sm btn-white btn-block">Create an account</a>
     </form>
-    <p class="m-t"> <small>Proudly developed and maintained by ESA Developments &copy; 2018</small> </p>
+    <p class="m-t">
+      <small>Proudly developed and maintained by ESA Developments &copy; 2018</small>
+    </p>
   </div>
 </div>
