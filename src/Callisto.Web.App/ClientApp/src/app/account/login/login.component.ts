@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { environment } from '../../../environments/environment';
 import { DxFormComponent } from 'devextreme-angular';
+import { SocialUser } from 'angular5-social-auth';
 
 @Component({
   selector: 'app-login',
@@ -52,6 +53,12 @@ export class LoginComponent extends BaseComponent {
 
   onGoogleLogin() {
     this.authService.LoginWithGoogle().then(user => {
+      this.loginWithSocial(user);
+    }).catch(err => this.alertService.showErrorMessage());
+  }
+
+  loginWithSocial(user: SocialUser) {
+
       this.authService.LoginWithSocial(user).subscribe(c => {
         if (c.Status === RequestStatus.Success) {
           this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
@@ -62,6 +69,5 @@ export class LoginComponent extends BaseComponent {
       }, e => {
         this.alertService.showErrorMessage();
       });
-    }).catch(err => this.alertService.showErrorMessage());
   }
 }

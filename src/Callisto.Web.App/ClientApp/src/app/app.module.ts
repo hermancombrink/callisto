@@ -56,7 +56,9 @@ import {
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)
   ],
-  providers: [AccountGuard],
+  providers: [
+    AccountGuard
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     AlertDialogComponent
