@@ -36,6 +36,16 @@
         <dxi-column dataField="PostCode" [visible]="false"></dxi-column>
         <dxi-column dataField="Latitude" [visible]="false"></dxi-column>
         <dxi-column dataField="Longitude" [visible]="false"></dxi-column>
+        <dxi-column dataField="GoogelPlaceId" cellTemplate="controlTemplate" caption="" [allowExporting]="false" [allowFiltering]="false" [allowSorting]="false" [allowSearch]="false">
+        </dxi-column>
+        <div *dxTemplate="let options of 'controlTemplate'">
+          <a class="btn btn-xs btn-success">
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a class="btn btn-xs btn-danger">
+            <i class="fa fa-trash"></i>
+          </a>
+        </div>
         <dxo-summary>
           <dxi-total-item column="Route" summaryType="count">
           </dxi-total-item>
