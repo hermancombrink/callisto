@@ -49,4 +49,19 @@ export class LoginComponent extends BaseComponent {
       this.alertService.showErrorMessage();
     });
   }
+
+  onGoogleLogin() {
+    this.authService.LoginWithGoogle().then(user => {
+      this.authService.LoginWithSocial(user).subscribe(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
+          this.router.navigate(['/']);
+        } else {
+          this.alertService.showWarningMessage(c.FriendlyMessage);
+        }
+      }, e => {
+        this.alertService.showErrorMessage();
+      });
+    }).catch(err => this.alertService.showErrorMessage());
+  }
 }

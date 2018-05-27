@@ -13,6 +13,14 @@ import { UserViewModel } from './models/userViewModel';
 import { Router } from '@angular/router';
 import { CacheService } from './cache.service';
 import { NewAccountViewModel } from './models/newAccountViewModel';
+import {
+  AuthService as SocialAuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  LinkedinLoginProvider,
+  SocialUser
+} from 'angular5-social-auth';
+
 
 @Injectable()
 export class AuthService {
@@ -23,8 +31,10 @@ export class AuthService {
   loggedOut = new Subject<RequestResult>();
   currentUser: Subject<UserViewModel>;
 
-  constructor(private http: HttpClient,
-    private readonly cache: CacheService) {
+  constructor(
+    private http: HttpClient,
+    private readonly cache: CacheService,
+    private socialAuth: SocialAuthService) {
     this.currentUser = new Subject<UserViewModel>();
   }
 
@@ -57,11 +67,36 @@ export class AuthService {
     return this.http.post<RequestResult>(this.getUrl('auth/login'), model, this.httpOptions).pipe(
       tap(c => {
         if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
           localStorage.setItem('auth_token', c.Result);
         }
 
         this.loggedIn.next(c);
       }));
+  }
+
+  LoginWithSocial(model: SocialUser): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/social'), model, this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
+          localStorage.setItem('auth_token', c.Result);
+        }
+
+        this.loggedIn.next(c);
+      }));
+  }
+
+  LoginWithGoogle(): Promise<SocialUser> {
+    return this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  LoginWithFacebook(): Promise<SocialUser> {
+    return this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  LoginWithLinkedIn(): Promise<SocialUser> {
+    return this.socialAuth.signIn(LinkedinLoginProvider.PROVIDER_ID);
   }
 
   Forget(email: string): Observable<RequestResult> {
@@ -72,6 +107,7 @@ export class AuthService {
     return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
       tap(c => {
         if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
           this.ClearToken();
         }
 

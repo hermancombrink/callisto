@@ -8,8 +8,8 @@ import { LocationComponent } from './location.component';
   imports: [
     CommonModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.mapsApiKey,
-      libraries: ["places"]
+      apiKey: environment.googleApiKey,
+      libraries: ['places']
     }),
   ],
   declarations: [LocationComponent],

@@ -11,6 +11,7 @@
     <p>
       <small>A full commercial of the site will be available early 2019.</small>
     </p>
+
     <form class="m-t" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
       <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
         validationGroup="formData">
@@ -36,6 +37,15 @@
         <small>Do not have an account?</small>
       </p>
       <a [routerLink]="['/account/signup']" class="btn btn-sm btn-white btn-block">Create an account</a>
+      <!-- <a class="btn btn-block btn-social btn-facebook">
+          <span class="fa fa-facebook"></span> Sign in with Facebook
+      </a>
+      <a class="btn btn-block btn-social btn-linkedin">
+          <span class="fa fa-linkedin"></span> Sign in with LinkedIn
+      </a> -->
+      <a class="btn btn-block btn-social btn-google" (click)="onGoogleLogin()">
+          <span class="fa fa-google"></span> Sign in with Google
+      </a>
     </form>
     <p class="m-t">
       <small>Proudly developed and maintained by ESA Developments &copy; 2018</small>

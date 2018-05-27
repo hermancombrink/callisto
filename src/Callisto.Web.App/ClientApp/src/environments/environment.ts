@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   apiUrl: 'http://localapi.callisto.com/',
   httpNotFound: 'Oops, we seem to be down. Please try again later',
-  mapsApiKey: 'AIzaSyAGNBkfIWooPTKx1fpNk0ylKuLIxrY9sWI'
+  googleApiKey: 'AIzaSyAGNBkfIWooPTKx1fpNk0ylKuLIxrY9sWI',
+  googleOAuthKey: '943293721620-r5p95lpi1vmktkmmuf31cvetm985a4ai.apps.googleusercontent.com'
 };

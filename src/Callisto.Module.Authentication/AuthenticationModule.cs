@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
@@ -122,6 +123,47 @@ namespace Callisto.Module.Authentication
         }
 
         /// <summary>
+        /// The LoginWithSocialAsync
+        /// </summary>
+        /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> LoginWithSocialAsync(SocialLoginViewModel model)
+        {
+            var user = await AuthRepo.GetUser(model.Email);
+
+            if (user == null)
+            {
+                var registerResult = await RegisterUserAsync(ModelFactory.CreateRegistration(model));
+                if (registerResult.Status != RequestStatus.Success)
+                {
+                    throw new InvalidOperationException($"Failed to register user with social name");
+                }
+
+                user = await AuthRepo.GetUser(model.Email);
+            }
+
+            var logins = await UserManager.GetLoginsAsync(user);
+            var currentLogin = logins.FirstOrDefault(c => c.ProviderKey == model.Provider);
+            if (currentLogin == null)
+            {
+                var createResult = await UserManager.AddLoginAsync(user, new UserLoginInfo(model.Provider, model.Token, model.Name));
+                if (!createResult.Succeeded)
+                {
+                    throw new InvalidOperationException($"Failed to add login for user");
+                }
+            }
+
+            var result = await SignInManager.ExternalLoginSignInAsync(model.Provider, model.Token, false);
+            if (result.Succeeded)
+            {
+                var token = JwtFactory.GetToken(user);
+                return RequestResult.Success(token);
+            }
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
         /// The LoginUserAsync
         /// </summary>
         /// <param name="model">The <see cref="LoginViewModel"/></param>
@@ -220,6 +262,11 @@ namespace Callisto.Module.Authentication
             return RequestResult<CompanyViewModel>.Success(ModelFactory.CreateCompany(company));
         }
 
+        /// <summary>
+        /// The UpdateNewProfileAsync
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> UpdateNewProfileAsync(NewAccountViewModel model)
         {
             var user = await this.AuthRepo.GetUser(this.Session.UserName);
@@ -244,7 +291,7 @@ namespace Callisto.Module.Authentication
 
                 tran.Commit();
             }
-              
+
 
             return RequestResult.Success();
         }

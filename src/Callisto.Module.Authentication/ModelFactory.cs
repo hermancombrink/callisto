@@ -130,12 +130,33 @@ namespace Callisto.Module.Authentication
             };
         }
 
+        /// <summary>
+        /// The UpdateNewUserDetails
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
         public static void UpdateNewUserDetails(ApplicationUser user, Company company, NewAccountViewModel model)
         {
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
 
             company.Name = model.CompanyName;
+        }
+
+        /// <summary>
+        /// The CreateRegistration
+        /// </summary>
+        /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
+        /// <returns>The <see cref="RegisterViewModel"/></returns>
+        public static RegisterViewModel CreateRegistration(SocialLoginViewModel model)
+        {
+            return new RegisterViewModel()
+            {
+                Email = model.Email,
+                Password = model.IdToken,
+                ConfirmPassword = model.IdToken
+            };
         }
     }
 }

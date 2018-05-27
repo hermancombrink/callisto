@@ -69,6 +69,7 @@ namespace Callisto.Module.Authentication.Repository
             var qry = from user in Context.Users
                       join company in Context.Companies on user.CompanyRefId equals company.RefId
                       join subscription in Context.Subscriptions on company.RefId equals subscription.CompanyRefId
+                      where user.UserName.ToLower().Trim() == email.ToLower().Trim()
                       select new
                       {
                           user.FirstName,

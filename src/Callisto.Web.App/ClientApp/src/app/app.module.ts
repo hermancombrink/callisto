@@ -4,7 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
+import {
+  AlertModule,
+  TypeaheadModule,
+  TooltipModule
+} from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -21,6 +25,13 @@ import { LocationComponent } from './location/location.component';
 import { AgmCoreModule } from '@agm/core';
 import { LocationModule } from './location/location.module';
 import { environment } from '../environments/environment';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  LinkedinLoginProvider
+} from 'angular5-social-auth';
 
 @NgModule({
   declarations: [
@@ -32,6 +43,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     NgHttpLoaderModule,
     FormsModule,
+    SocialLoginModule,
     GridsterModule,
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),

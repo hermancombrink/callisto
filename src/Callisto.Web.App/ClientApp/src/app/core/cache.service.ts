@@ -66,6 +66,10 @@ export class CacheService {
     return this.cache.delete(key);
   }
 
+  clear() {
+    this.cache.clear();
+  }
+
   /**
    * Publishes the value to all observers of the given
    * in progress observables if observers exist.

@@ -11,6 +11,8 @@ import { BaseService } from './base.service';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { CacheService } from './cache.service';
 import { DxValidatorModule, DxAutocompleteModule, DxTextBoxModule, DxTreeListModule } from 'devextreme-angular';
+import { AuthServiceConfig, GoogleLoginProvider } from 'angular5-social-auth';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [
@@ -38,7 +40,30 @@ export class CoreModule {
           provide: HTTP_INTERCEPTORS,
           useClass: JwtInterceptor,
           multi: true
-        }]
+        },
+        {
+          provide: AuthServiceConfig,
+          useFactory: () => {
+            let config = new AuthServiceConfig(
+              [
+                // {
+                //   id: FacebookLoginProvider.PROVIDER_ID,
+                //   provider: new FacebookLoginProvider('Your-Facebook-app-id')
+                // },
+                {
+                  id: GoogleLoginProvider.PROVIDER_ID,
+                  provider: new GoogleLoginProvider(environment.googleOAuthKey)
+                },
+                // {
+                //   id: LinkedinLoginProvider.PROVIDER_ID,
+                //   provider: new GoogleLoginProvid('Your-Linkedin-Client-Id')
+                // },
+              ]
+            )
+            return config;
+          }
+        }
+      ]
     };
   }
 
