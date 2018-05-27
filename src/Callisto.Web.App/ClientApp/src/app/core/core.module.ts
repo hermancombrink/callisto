@@ -43,28 +43,22 @@ export class CoreModule {
         },
         {
           provide: AuthServiceConfig,
-          useFactory: () => {
-            let config = new AuthServiceConfig(
-              [
-                // {
-                //   id: FacebookLoginProvider.PROVIDER_ID,
-                //   provider: new FacebookLoginProvider('Your-Facebook-app-id')
-                // },
-                {
-                  id: GoogleLoginProvider.PROVIDER_ID,
-                  provider: new GoogleLoginProvider(environment.googleOAuthKey)
-                },
-                // {
-                //   id: LinkedinLoginProvider.PROVIDER_ID,
-                //   provider: new GoogleLoginProvid('Your-Linkedin-Client-Id')
-                // },
-              ]
-            )
-            return config;
-          }
+          useFactory: getAuthServiceConfigs
         }
       ]
     };
   }
+}
 
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+    [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(environment.googleOAuthKey)
+      }
+    ]
+  );
+  return config;
 }
