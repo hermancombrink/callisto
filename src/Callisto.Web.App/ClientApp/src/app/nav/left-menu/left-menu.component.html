@@ -28,9 +28,15 @@
         </a>
       </li>
       <li [ngClass]="{active: activeRoute('asset')}">
-        <a [routerLink]="['/asset']">
+        <a [routerLink]="['/asset']" >
           <i class="fa fa-database"></i>
           <span class="nav-label">Assets</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('location')}">
+        <a [routerLink]="['/location']">
+          <i class="fa fa-map"></i>
+          <span class="nav-label">Locations</span>
         </a>
       </li>
     </ul>
