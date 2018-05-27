@@ -4,6 +4,7 @@ using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Location.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Locations
@@ -82,6 +83,23 @@ namespace Callisto.Module.Locations
             }
 
             return RequestResult<LocationViewModel>.Success(ModelFactory.CreateLocation(location));
+        }
+
+        /// <summary>
+        /// The GetLocations
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{LocationViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<LocationViewModel>>> GetLocations()
+        {
+
+            var list = new List<LocationViewModel>();
+            var locations = await LocationRepo.GetLocationsByCompany(Session.CurrentCompanyRef);
+            foreach (var item in locations)
+            {
+                list.Add(ModelFactory.CreateLocation(item));
+            }
+
+            return RequestResult<IEnumerable<LocationViewModel>>.Success(list);
         }
     }
 }

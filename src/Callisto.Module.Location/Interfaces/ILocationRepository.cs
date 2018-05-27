@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Locations.Repository.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Locations.Interfaces
@@ -44,5 +45,12 @@ namespace Callisto.Module.Locations.Interfaces
         /// <param name="location">The <see cref="Location"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task SaveLocation(Location location);
+
+        /// <summary>
+        /// The GetLocationsByCompany
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{Location}}"/></returns>
+        Task<IEnumerable<Location>> GetLocationsByCompany(long companyRefId);
     }
 }

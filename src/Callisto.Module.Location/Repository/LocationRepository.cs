@@ -2,6 +2,8 @@
 using Callisto.Module.Locations.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Locations.Repository
@@ -76,6 +78,16 @@ namespace Callisto.Module.Locations.Repository
         public async Task<Location> GetLocationById(long refId)
         {
             return await Context.Locations.FindAsync(refId);
+        }
+
+        /// <summary>
+        /// The GetLocationsByCompany
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{Location}}"/></returns>
+        public async Task<IEnumerable<Location>> GetLocationsByCompany(long companyRefId)
+        {
+            return await Context.Locations.Where(c => c.CompanyRefId == companyRefId).ToListAsync();
         }
     }
 }

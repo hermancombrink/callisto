@@ -28,7 +28,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private assetService: AssetService,
     private alertService: AlertService,
-    private router: Router,
+    private router: Router
   ) {
     this.modalService.onHidden.subscribe(c => this.loadAssets());
    }
