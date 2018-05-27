@@ -151,7 +151,7 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="RegisterViewModel"/></returns>
         public static RegisterViewModel CreateRegistration(SocialLoginViewModel model)
         {
-            var pass = Guid.NewGuid().ToString();
+            var pass = $"dkv0HaHBKPn1wvO1M6rg{Guid.NewGuid()}";
             return new RegisterViewModel()
             {
                 Email = model.Email,
