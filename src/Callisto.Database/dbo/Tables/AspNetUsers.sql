@@ -17,6 +17,7 @@
  [FirstName] NVARCHAR(256) NULL, 
     [LastName] NVARCHAR(256) NULL, 
     [CompanyRefId] BIGINT NULL, 
+    [JobRole] NVARCHAR(50) NULL, 
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

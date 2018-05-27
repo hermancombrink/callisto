@@ -5,7 +5,9 @@
 	[ModifiedAt] [datetime] NULL DEFAULT (GETDATE()),
 	[Name] [nvarchar](256) NULL,
 	[Description] [nvarchar](512) NULL,
- CONSTRAINT [PK_Companies] PRIMARY KEY CLUSTERED 
+ [Website] NVARCHAR(200) NULL, 
+    [Employees] NVARCHAR(50) NULL, 
+    CONSTRAINT [PK_Companies] PRIMARY KEY CLUSTERED 
 (
 	[RefId] ASC
 ))

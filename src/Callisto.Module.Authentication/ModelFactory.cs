@@ -140,8 +140,11 @@ namespace Callisto.Module.Authentication
         {
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
+            user.JobRole = model.UserRole;
 
             company.Name = model.CompanyName;
+            company.Website = model.CompanyWebsite;
+            company.Employees = model.CompanySize;
         }
 
         /// <summary>
