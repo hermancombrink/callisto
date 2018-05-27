@@ -41,12 +41,12 @@ export class DetailsComponent implements OnInit {
     private authService: AuthService,
     public _location: Location
   ) {
+    this.model.UserRole = 'CEO';
+    this.model.CompanySize = '1 - 500';
   }
 
   ngOnInit() {
     this.authService.currentUser.subscribe(c => {
-      this.model.UserRole = 'CEO';
-      this.model.CompanySize = '1 - 500';
       this.model.FirstName = c.FirstName;
       this.model.LastName = c.LastName;
       this.model.CompanyName = c.Company;

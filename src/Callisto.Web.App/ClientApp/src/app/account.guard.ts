@@ -7,9 +7,11 @@ import { DetailsComponent } from './account/details/details.component';
 @Injectable()
 export class AccountGuard implements CanDeactivate<DetailsComponent> {
     canDeactivate(component: DetailsComponent) {
-        return component.isComplete();
+        return component.isComplete() || !this.authService.IsAuthenticated();
     }
 
-    constructor(private router: Router) { }
+    constructor(
+        private authService: AuthService,
+        private router: Router) { }
 
 }

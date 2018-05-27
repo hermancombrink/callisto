@@ -18,7 +18,6 @@ export class TopMenuComponent implements OnInit {
     private alertService: AlertService) { }
 
   ngOnInit() {
- 
   }
 
   toggleNavigation(): void {

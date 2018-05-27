@@ -9,6 +9,7 @@ import { RequestStatus } from './core/models/requestStatus';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
+import { detectBody } from './app.helpers';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,12 @@ export class AppComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService) { }
 
+  onResize() {
+    detectBody();
+  }
+
   ngOnInit() {
+    detectBody();
     this.alertService.getDialogEvent().subscribe(alert => this.showDialog(alert));
     this.alertService.getMessageEvent().subscribe(message => this.showToast(message, false));
     this.alertService.getStickyMessageEvent().subscribe(message => this.showToast(message, true));
@@ -47,7 +53,6 @@ export class AppComponent implements OnInit {
       this.profileLoaded = false;
     });
   }
-
 
 
   loadUserProfile() {
