@@ -151,11 +151,12 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="RegisterViewModel"/></returns>
         public static RegisterViewModel CreateRegistration(SocialLoginViewModel model)
         {
+            var pass = Guid.NewGuid().ToString();
             return new RegisterViewModel()
             {
                 Email = model.Email,
-                Password = model.IdToken,
-                ConfirmPassword = model.IdToken
+                Password = pass,
+                ConfirmPassword = pass
             };
         }
     }
