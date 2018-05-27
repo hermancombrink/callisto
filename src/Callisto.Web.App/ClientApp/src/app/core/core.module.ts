@@ -14,6 +14,18 @@ import { DxValidatorModule, DxAutocompleteModule, DxTextBoxModule, DxTreeListMod
 import { AuthServiceConfig, GoogleLoginProvider } from 'angular5-social-auth';
 import { environment } from '../../environments/environment';
 
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+    [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(environment.googleOAuthKey)
+      }
+    ]
+  );
+  return config;
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -48,17 +60,4 @@ export class CoreModule {
       ]
     };
   }
-}
-
-
-export function getAuthServiceConfigs() {
-  let config = new AuthServiceConfig(
-    [
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider(environment.googleOAuthKey)
-      }
-    ]
-  );
-  return config;
 }
