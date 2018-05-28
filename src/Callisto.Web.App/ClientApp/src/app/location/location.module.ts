@@ -7,19 +7,22 @@ import { ViewComponent } from './view/view.component';
 import { RouterModule } from '@angular/router';
 import { LocationRoutes } from './routes';
 import { LocationService } from './location.service';
-import { DxDataGridModule } from 'devextreme-angular';
+import { DxDataGridModule, DxValidatorModule, DxTextBoxModule, DxFormModule } from 'devextreme-angular';
+import { ViewSummaryComponent } from './view-summary/view-summary.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    DxDataGridModule,
+    FormsModule,
+    DxDataGridModule, DxValidatorModule, DxTextBoxModule, DxFormModule,
     RouterModule.forChild(LocationRoutes),
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
       libraries: ['places']
     }),
   ],
-  declarations: [LocationComponent, ViewComponent],
+  declarations: [LocationComponent, ViewComponent, ViewSummaryComponent],
   providers: [LocationService],
   exports: [LocationComponent]
 })

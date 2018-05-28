@@ -73,6 +73,7 @@ namespace Callisto.Module.Locations
         {
             return new LocationViewModel()
             {
+                Id = location.Id,
                 City = location.City,
                 Country = location.Country,
                 CountryCode = location.CountryCode,

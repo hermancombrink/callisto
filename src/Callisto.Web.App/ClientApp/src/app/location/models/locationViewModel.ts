@@ -1,4 +1,5 @@
 export class LocationViewModel  {
+  public Id?: string;
   public Latitude: number;
   public Longitude: number;
 

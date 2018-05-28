@@ -14,6 +14,7 @@ import { RequestStatus } from '../../core/models/requestStatus';
 export class ViewComponent implements OnInit {
 
   locations: LocationViewModel[] = []
+  selectedId: string;
 
   constructor(
     private modalService: BsModalService,
@@ -29,6 +30,14 @@ export class ViewComponent implements OnInit {
         this.alertService.showWarningMessage(c.FriendlyMessage);
       }
     }, err => this.alertService.showErrorMessage());
+  }
+
+  handleSelected(e) {
+    console.log(e);
+    this.selectedId = e.data.Id;
+    setTimeout(() => {
+      e.component.updateDimensions();
+    }, 30);
   }
 
 }

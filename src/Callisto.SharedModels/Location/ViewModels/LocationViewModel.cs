@@ -1,10 +1,17 @@
-﻿namespace Callisto.SharedModels.Location.ViewModels
+﻿using System;
+
+namespace Callisto.SharedModels.Location.ViewModels
 {
     /// <summary>
     /// Defines the <see cref="LocationViewModel" />
     /// </summary>
     public class LocationViewModel
     {
+        /// <summary>
+        /// Gets or sets the Id
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Gets or sets the Latitude
         /// </summary>
