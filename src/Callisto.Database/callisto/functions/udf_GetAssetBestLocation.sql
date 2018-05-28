@@ -59,6 +59,7 @@ BEGIN
 	inner join callisto.AssetLocations al on a.refid = al.assetrefid
 	inner join callisto.Locations l on al.LocationRefId = l.refId
 	where a.RefId = @RefId
+	order by al.LocationRefId desc
 	END
 	ELSE BEGIN
 	declare @parentRefId bigint = (

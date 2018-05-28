@@ -64,7 +64,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       return;
     }
     this.model.Location = this.locationPanel.model;
-    this.model.ParentId = this.model.ParentId ? this.model.ParentId[0] : null;
+    this.model.ParentId = this.model.ParentId && this.model.ParentId !== '0' ? this.model.ParentId : null;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(c.FriendlyMessage);

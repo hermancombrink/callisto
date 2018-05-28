@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Location.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -29,5 +30,19 @@ namespace Callisto.SharedModels.Location
         /// </summary>
         /// <returns>The <see cref="Task{RequestResult{IEnumerable{LocationViewModel}}}"/></returns>
         Task<RequestResult<IEnumerable<LocationViewModel>>> GetLocations();
+
+        /// <summary>
+        /// The RemoveLocation
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> RemoveLocation(Guid id);
+
+        /// <summary>
+        /// The SaveLocation
+        /// </summary>
+        /// <param name="model">The <see cref="LocationViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> SaveLocation(LocationViewModel model);
     }
 }

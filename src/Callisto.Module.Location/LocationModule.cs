@@ -4,6 +4,7 @@ using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Location.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -79,7 +80,7 @@ namespace Callisto.Module.Locations
             var location = await LocationRepo.GetLocationById(locationRefId);
             if (location == null)
             {
-                return RequestResult<LocationViewModel>.Validation("Failed to find asset", null);
+                return RequestResult<LocationViewModel>.Validation("Failed to find location", null);
             }
 
             return RequestResult<LocationViewModel>.Success(ModelFactory.CreateLocation(location));
@@ -100,6 +101,42 @@ namespace Callisto.Module.Locations
             }
 
             return RequestResult<IEnumerable<LocationViewModel>>.Success(list);
+        }
+
+        /// <summary>
+        /// The RemoveLocation
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> RemoveLocation(Guid id)
+        {
+            var location = await LocationRepo.GetLocationById(id);
+            if (location != null)
+            {
+                await LocationRepo.RemoveLocation(location);
+            }
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The SaveLocation
+        /// </summary>
+        /// <param name="model">The <see cref="LocationViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> SaveLocation(LocationViewModel model)
+        {
+            var location = await LocationRepo.GetLocationById(model.Id);
+            if (location == null)
+            {
+                throw new InvalidOperationException($"Failed cannot be found");
+            }
+
+            ModelFactory.UpdateLocation(location, model);
+
+            await LocationRepo.SaveLocation(location);
+
+            return RequestResult.Success();
         }
     }
 }

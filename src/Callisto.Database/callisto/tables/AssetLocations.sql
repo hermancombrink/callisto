@@ -21,6 +21,7 @@ GO
 
 ALTER TABLE [callisto].[AssetLocations]  ADD  CONSTRAINT [FK_AssetLocations_Locations] FOREIGN KEY([LocationRefId])
 REFERENCES [callisto].[Locations] ([RefId])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [callisto].[AssetLocations] CHECK CONSTRAINT [FK_AssetLocations_Locations]

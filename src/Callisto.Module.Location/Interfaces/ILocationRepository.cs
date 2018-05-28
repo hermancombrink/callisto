@@ -52,5 +52,12 @@ namespace Callisto.Module.Locations.Interfaces
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task{IEnumerable{Location}}"/></returns>
         Task<IEnumerable<Location>> GetLocationsByCompany(long companyRefId);
+
+        /// <summary>
+        /// The RemoveLocation
+        /// </summary>
+        /// <param name="location">The <see cref="Location"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task RemoveLocation(Location location);
     }
 }

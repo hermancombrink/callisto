@@ -3,6 +3,7 @@ using Callisto.SharedModels.Location.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,6 +39,28 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<IEnumerable<LocationViewModel>>> GetLocations()
         {
             return await CallistoSession.Location.GetLocations();
+        }
+
+        /// <summary>
+        /// The RemoveAssetAsync
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpDelete("{id}")]
+        public async Task<RequestResult> Remove(Guid id)
+        {
+            return await CallistoSession.Location.RemoveLocation(id);
+        }
+
+        /// <summary>
+        /// The SaveLocation
+        /// </summary>
+        /// <param name="model">The <see cref="LocationViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpPut]
+        public async Task<RequestResult> SaveLocation([FromBody] LocationViewModel model)
+        {
+            return await CallistoSession.Location.SaveLocation(model);
         }
     }
 }

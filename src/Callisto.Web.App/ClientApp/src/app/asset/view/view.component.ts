@@ -31,7 +31,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.modalService.onHidden.subscribe(c => this.loadAssets());
-   }
+  }
 
   ngOnInit() {
     this.loadAssets();

@@ -89,5 +89,16 @@ namespace Callisto.Module.Locations.Repository
         {
             return await Context.Locations.Where(c => c.CompanyRefId == companyRefId).ToListAsync();
         }
+
+        /// <summary>
+        /// The RemoveLocation
+        /// </summary>
+        /// <param name="location">The <see cref="Location"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveLocation(Location location)
+        {
+            Context.Locations.Remove(location);
+            await Context.SaveChangesAsync();
+        }
     }
 }

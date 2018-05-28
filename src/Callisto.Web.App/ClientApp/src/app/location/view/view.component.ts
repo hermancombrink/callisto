@@ -20,7 +20,8 @@ export class ViewComponent implements OnInit {
     private modalService: BsModalService,
     private locationService: LocationService,
     private alertService: AlertService,
-    private router: Router) { }
+    private router: Router) {
+    }
 
   ngOnInit() {
     this.locationService.GetLocations().subscribe(c => {
@@ -40,4 +41,13 @@ export class ViewComponent implements OnInit {
     }, 30);
   }
 
+  handleRemoved(e) {
+    this.locationService.GetLocations().subscribe(c => {
+      if (c.Status === RequestStatus.Success) {
+        this.locations = c.Result;
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+      }
+    }, err => this.alertService.showErrorMessage());
+  }
 }

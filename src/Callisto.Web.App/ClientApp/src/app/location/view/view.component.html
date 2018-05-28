@@ -54,7 +54,7 @@
 
   <div class="col-md-4" [hidden]="!selectedId">
     <div class="wrapper wrapper-content">
-      <app-view-summary *ngIf="grid.selectedRowKeys.length" [location]="grid.instance.getSelectedRowsData()[0]"></app-view-summary>
+      <app-view-summary *ngIf="grid.selectedRowKeys.length" (outDelete)="handleRemoved($event)" [location]="grid.instance.getSelectedRowsData()[0]"></app-view-summary>
     </div>
   </div>
 </div>
