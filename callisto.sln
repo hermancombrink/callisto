@@ -98,6 +98,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "storage", "storage", "{1445
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Locations", "src\Callisto.Module.Location\Callisto.Module.Locations.csproj", "{237C00C5-0BF1-4387-AC8F-94278E866A7B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "provider", "provider", "{F9C19E94-E52D-480B-B812-EA417A3F8D34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Module.Staff", "src\Callisto.Module.Staff\Callisto.Module.Staff.csproj", "{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,6 +166,10 @@ Global
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,9 +199,11 @@ Global
 		{DA2FABCB-614B-4D7F-AF6B-8308D81274BD} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 		{1445759F-F6A9-405A-8BC7-0611EA9B430F} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{237C00C5-0BF1-4387-AC8F-94278E866A7B} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
+		{F9C19E94-E52D-480B-B812-EA417A3F8D34} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal
