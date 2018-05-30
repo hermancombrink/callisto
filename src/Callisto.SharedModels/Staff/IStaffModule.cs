@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Callisto.SharedModels.Staff.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace Callisto.SharedModels.Staff
 {
@@ -11,13 +13,13 @@ namespace Callisto.SharedModels.Staff
         /// The AddStaffMember
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        Task AddStaffMember();
+        Task AddStaffMember(AddStaffViewModel model);
 
         /// <summary>
         /// The RemoveStaffMember
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        Task RemoveStaffMember();
+        Task RemoveStaffMember(Guid Id);
 
         /// <summary>
         /// The UpdateStaffMember

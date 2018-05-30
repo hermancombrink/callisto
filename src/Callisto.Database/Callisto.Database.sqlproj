@@ -90,6 +90,7 @@
     <Build Include="callisto\procedures\usp_GetAssetTreeAll.sql" />
     <Build Include="callisto\procedures\usp_GetPotentialParents.sql" />
     <Build Include="callisto\functions\udf_GetAssetBestLocation.sql" />
+    <Build Include="callisto\tables\Staff.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Callisto.Database.refactorlog" />

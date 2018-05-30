@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 namespace Callisto.SharedModels.Person
 {
     /// <summary>
-    /// Defines the <see cref="IPersonRepository" />
+    /// Defines the <see cref="IPersonProvider" />
     /// </summary>
-    public interface IPersonRepository<T> where T : BasePerson
-    {
+    public interface IPersonProvider<T> where T : BasePerson
+    { 
         /// <summary>
-        /// The AddPerson
-        /// </summary>
-        /// <param name="person">The <see cref="T"/></param>
-        /// <returns>The <see cref="Task"/></returns>
+      /// The AddPerson
+      /// </summary>
+      /// <param name="person">The <see cref="T"/></param>
+      /// <returns>The <see cref="Task"/></returns>
         Task AddPerson(T person);
 
         /// <summary>

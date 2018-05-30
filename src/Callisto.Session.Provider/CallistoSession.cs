@@ -4,6 +4,7 @@ using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
+using Callisto.SharedModels.Staff;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -123,6 +124,20 @@ namespace Callisto.Session.Provider
         {
             get { return _location ?? (_location = ServiceProvider.GetRequiredService<ILocationModule>()); }
             set { _location = value; }
+        }
+
+        /// <summary>
+        /// Defines the _staff
+        /// </summary>
+        private IStaffModule _staff;
+
+        /// <summary>
+        /// Gets or sets the Staff
+        /// </summary>
+        public IStaffModule Staff
+        {
+            get { return _staff ?? (_staff = ServiceProvider.GetRequiredService<IStaffModule>()); }
+            set { _staff = value; }
         }
     }
 }
