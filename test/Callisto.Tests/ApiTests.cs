@@ -60,6 +60,7 @@ namespace Callisto.Tests
         [InlineData("/metrics-text")]
         [InlineData("/health")]
         [InlineData("/ping")]
+        [InlineData("/env")]
         public async Task ApiAllMetricsShouldBeEnabled(string endpoint)
         {
             var client = ApiFixture.Client;
