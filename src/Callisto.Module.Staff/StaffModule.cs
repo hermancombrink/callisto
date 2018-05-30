@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Locations;
 using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Person;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
@@ -49,26 +50,35 @@ namespace Callisto.Module.Staff
         /// </summary>
         /// <param name="model">The <see cref="AddStaffViewModel"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        public async Task AddStaffMember(AddStaffViewModel model)
+        public async Task<RequestResult> AddStaffMember(AddStaffViewModel model)
         {
             var person = ModelFactory.CreateStaffMember(model, Session.CurrentCompanyRef);
             using (var tran = await StaffRepo.BeginTransaction())
             {
-                var createModel = ModelFactory.CreateStaffUser(model, Session.Authentication.GenerateRandomPassword());
+                if (model.CreateAccount)
+                {
+                    var createModel = ModelFactory.CreateStaffUser(model, Session.Authentication.GenerateRandomPassword());
 
-                await Session.Authentication.RegisterUserAsync(createModel);
+                    var result = await Session.Authentication.RegisterUserAsync(createModel);
+                    if (!result.IsSuccess())
+                    {
+                        return result;
+                    }
+                }
 
                 await PersonProvider.AddPerson(person);
 
                 tran.Commit();
             }
+
+            return RequestResult.Success();
         }
 
         /// <summary>
         /// The RemoveStaffMember
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        public async Task RemoveStaffMember(Guid Id)
+        public async Task<RequestResult> RemoveStaffMember(Guid Id)
         {
             var staffMember = await PersonProvider.GetPerson(Id);
 
@@ -78,13 +88,15 @@ namespace Callisto.Module.Staff
             }
 
             await PersonProvider.RemovePerson(staffMember);
+
+            return RequestResult.Success();
         }
 
         /// <summary>
         /// The UpdateStaffMember
         /// </summary>
         /// <returns>The <see cref="Task"/></returns>
-        public Task UpdateStaffMember()
+        public Task<RequestResult> UpdateStaffMember()
         {
             throw new NotImplementedException();
         }
