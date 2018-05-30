@@ -4,4 +4,5 @@ export class UserViewModel {
   public LastName: string;
   public Company: string;
   public SubscriptionId: string;
+  public ProfileCompleted: boolean;
 }

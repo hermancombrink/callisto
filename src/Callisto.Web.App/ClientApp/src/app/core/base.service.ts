@@ -1,12 +1,13 @@
-import { Injectable } from "@angular/core";
-import { RequestResult } from "./models/requestResult";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
+import { Injectable } from '@angular/core';
+import { RequestResult } from './models/requestResult';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class BaseService {
 
   apiUrl = environment.apiUrl;
+  successResponse = new RequestResult();
 
   constructor(protected http: HttpClient) { }
 
@@ -18,7 +19,6 @@ export class BaseService {
     localStorage.removeItem('auth_token');
   }
 
-  successResponse = new RequestResult();
 
   get httpOptions() {
     return {

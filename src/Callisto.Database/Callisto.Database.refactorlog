@@ -28,4 +28,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ParentRefId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4bfdea8b-605b-4fa0-8ccc-5dc700f82961" ChangeDateTime="05/27/2018 08:33:15">
+    <Property Name="ElementName" Value="[callisto].[Companies].[Company]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[callisto].[Companies]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Website" />
+  </Operation>
 </Operations>

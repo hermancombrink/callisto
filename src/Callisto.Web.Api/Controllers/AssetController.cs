@@ -83,7 +83,7 @@ namespace Callisto.Web.Api.Controllers
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
         [HttpGet("{id}")]
-        public async Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id)
+        public async Task<RequestResult<AssetInfoViewModel>> GetAssetAsync(Guid id)
         {
             return await CallistoSession.Assets.GetAssetAsync(id);
         }
@@ -107,6 +107,26 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssets(Guid? id = null)
         {
             return await CallistoSession.Assets.GetAssetTreeAsync(id);
+        }
+
+        /// <summary>
+        /// The GetAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        [HttpGet("tree/all")]
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetsAll()
+        {
+            return await CallistoSession.Assets.GetAssetTreeAllAsync();
+        }
+
+        /// <summary>
+        /// The GetAssets
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetViewModel}}}"/></returns>
+        [HttpGet("tree/parents/{id}")]
+        public async Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetPotentialAssetTreeParents(Guid id)
+        {
+            return await CallistoSession.Assets.GetPotentialAssetParentsAsync(id);
         }
 
         /// <summary>

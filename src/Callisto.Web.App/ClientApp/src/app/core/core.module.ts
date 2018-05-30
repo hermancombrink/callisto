@@ -9,12 +9,28 @@ import { AlertService } from './alert.service';
 import { JwtInterceptor } from './auth.jwt.interceptor';
 import { BaseService } from './base.service';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { CacheService } from './cache.service';
+import { DxValidatorModule, DxAutocompleteModule, DxTextBoxModule, DxTreeListModule } from 'devextreme-angular';
+import { AuthServiceConfig, GoogleLoginProvider } from 'angular5-social-auth';
+import { environment } from '../../environments/environment';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+    [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider(environment.googleOAuthKey)
+      }
+    ]
+  );
+  return config;
+}
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    AlertModule.forRoot(),
+    AlertModule.forRoot()
   ],
   declarations: [ResultErrorComponent, AlertDialogComponent],
   providers: [],
@@ -31,14 +47,17 @@ export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
-      providers: [AuthService, AuthGuard, AlertService, BaseService
-        //,{
-        //  provide: HTTP_INTERCEPTORS,
-        //  useClass: JwtInterceptor,
-        //  multi: true
-        //}
+      providers: [AuthService, AuthGuard, AlertService, BaseService, CacheService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: JwtInterceptor,
+          multi: true
+        },
+        {
+          provide: AuthServiceConfig,
+          useFactory: getAuthServiceConfigs
+        }
       ]
     };
   }
-
 }

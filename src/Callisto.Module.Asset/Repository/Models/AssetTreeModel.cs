@@ -41,5 +41,10 @@ namespace Callisto.Module.Assets.Repository.Models
         /// Gets or sets the Children
         /// </summary>
         public int Children { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ParentRefId
+        /// </summary>
+        public Guid? ParentId { get; set; }
     }
 }

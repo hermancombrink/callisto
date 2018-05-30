@@ -4,9 +4,7 @@ Param
  [switch]$ignoreDotNetBuild,
  [switch]$ignoreSqlBuild,
  [Parameter(Mandatory=$false)]
- [string]$verbosity="q",
- [Parameter(Mandatory=$false)]
- [string]$msbuild="C:\'Program Files (x86)'\'Microsoft Visual Studio'\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"
+ [string]$verbosity="q"
 )
 
 $proj = (
@@ -26,10 +24,8 @@ if($ignoreDotNetBuild)
 else
 {
 	Write-Host "msbuild restore..." -ForegroundColor Cyan
-	Write-Host $msbuild
-	$restore = $msbuild + " /t:restore callisto.sln  /verbosity:$verbosity"
-	Invoke-Expression $restore
-	#dotnet restore callisto.sln -nowarn:msb3202,nu1503 -v $verbosity
+	msbuild /t:restore callisto.sln /verbosity:$verbosity
+	Write-Host "msbuild restore done" -ForegroundColor Cyan
 
 	foreach( $p in $proj)
 	{
@@ -58,7 +54,14 @@ else
 			popd
 		}
 
-		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity
+		dotnet publish ".\src\$p" -c Release --no-restore -v $verbosity -nowarn:MSB3277
+
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
+		Write-Host "dotnet publish done" -ForegroundColor Cyan
 	}
 }
 
@@ -72,21 +75,38 @@ else
 	$p = ".\src\Callisto.Database\"
 	$t = getPublishDir "Callisto.Database" -framework ''
 	Write-Host $t
+	
 		if(Test-Path -Path $t)
 		{
 			Write-Host "cleaning publish..."  -ForegroundColor Gray
 			Remove-Item -Path $t -Force -Recurse
 		}
-	$build = $msbuild + " $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity"
-	Invoke-Expression $build
+
+		msbuild $p\Callisto.Database.sqlproj /p:Configuration=Release /verbosity:$verbosity
+
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
 	Move-Item -Path "$p\bin\Release\Callisto_Create.sql" -Destination .\docker\sql\ -Force
+
+	Write-Host "sql build done" -ForegroundColor Cyan
 }
 
 
 if($dockerCompose)
 {
 	Write-Host "docker compose..."  -ForegroundColor Cyan
-	docker-compose build
+		
+		docker-compose build
+	
+		if ($LASTEXITCODE -gt 0)
+		{
+			exit $LASTEXITCODE
+		}
+
+	Write-Host "docker compose done"
 }
 else
 {

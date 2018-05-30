@@ -1,26 +1,33 @@
 
-<div class="middle-box text-center loginscreen  animated fadeInDown">
+<div class="middle-box text-center loginscreen animated flipInX">
   <div>
     <div>
       <h1 class="logo-name">
-        <img src="app/assets/images/logo.png" />
+        <a href="/">
+          <img src="/app/assets/images/logo.png" />
+        </a>
       </h1>
     </div>
     <h3>Restart to Callisto</h3>
     <p>
       <small> Enter your email address and your password will be reset and emailed to you.</small>
     </p>
-    <p>Reset account. </p>
     <form class="m-t" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
-      <div class="form-group">
-        <input type="email" class="form-control" placeholder="Email" required
-               [(ngModel)]="model.email" name="email" #email="ngModel"
-               pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
-        <small [hidden]="email.valid || (email.pristine && !form.submitted)" class="text-danger">
-          <i class="fa fa-warning"></i>
-          Email format should be <i>john@doe.com</i>.
-        </small>
-      </div>
+        <dx-form 
+        id="form" 
+        #dxForm 
+        [formData]="model" 
+        [readOnly]="false" 
+        [showColonAfterLabel]="true" 
+        [showValidationSummary]="true"
+          validationGroup="formData">
+          <dxi-item itemType="group" caption="Reset password">
+            <dxi-item dataField="Email">
+              <dxi-validation-rule type="required" message="Email is required"></dxi-validation-rule>
+              <dxi-validation-rule type="email" message="Must be a valid email address"></dxi-validation-rule>
+            </dxi-item>
+          </dxi-item>
+        </dx-form>  
 
       <app-result-error #error></app-result-error>
 
@@ -31,5 +38,3 @@
     <p class="m-t"> <small>Proudly developed and maintained by ESA Developments &copy; 2018</small> </p>
   </div>
 </div>
-
-

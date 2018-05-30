@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Auth\Models\" />
+    <Compile Remove="Auth\Models\**" />
+    <EmbeddedResource Remove="Auth\Models\**" />
+    <None Remove="Auth\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Notification\ViewModels\" />
   </ItemGroup>
 

@@ -1,0 +1,60 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-10">
+    <h2>
+      <i class="fa fa-map"></i> Locations
+    </h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/']">home</a>
+      </li>
+      <li>
+        <a>locations</a>
+      </li>
+    </ol>
+  </div>
+  <div class="col-sm-2">
+  </div>
+</div>
+
+<div class="row">
+  <div [class.col-md-8]="selectedId" [class.col-md-12]="!selectedId">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Locations
+        </div>
+        <div class="panel-body">
+          <dx-data-grid 
+          #grid
+          id="gridContainer" [dataSource]="locations" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+            (onRowClick)="handleSelected($event)">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+            <dxo-paging [pageSize]="50"></dxo-paging>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxo-export [enabled]="true" fileName="Locations" [allowExportSelectedData]="true"></dxo-export>
+            <dxi-column dataField="Route" caption="Area"></dxi-column>
+            <dxi-column dataField="Vicinity" caption="Region"></dxi-column>
+            <dxi-column dataField="City"></dxi-column>
+            <dxi-column dataField="State"></dxi-column>
+            <dxi-column dataField="Country"></dxi-column>
+            <dxi-column dataField="PostCode" [visible]="false"></dxi-column>
+            <dxi-column dataField="Latitude" [visible]="false"></dxi-column>
+            <dxi-column dataField="Longitude" [visible]="false"></dxi-column>
+            <dxo-summary>
+              <dxi-total-item column="Route" summaryType="count">
+              </dxi-total-item>
+            </dxo-summary>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4" [hidden]="!selectedId">
+    <div class="wrapper wrapper-content">
+      <app-view-summary *ngIf="grid.selectedRowKeys.length" (outDelete)="handleRemoved($event)" [location]="grid.instance.getSelectedRowsData()[0]"></app-view-summary>
+    </div>
+  </div>
+</div>

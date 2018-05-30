@@ -24,6 +24,9 @@
     <PackageReference Include="App.Metrics.Formatters.Prometheus" Version="2.0.0" />
     <PackageReference Include="App.Metrics.Health.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
@@ -35,6 +38,7 @@
     <ProjectReference Include="..\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj" />
     <ProjectReference Include="..\Callisto.Module.Asset\Callisto.Module.Assets.csproj" />
     <ProjectReference Include="..\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj" />
+    <ProjectReference Include="..\Callisto.Module.Location\Callisto.Module.Locations.csproj" />
     <ProjectReference Include="..\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />
   </ItemGroup>

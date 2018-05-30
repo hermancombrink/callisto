@@ -22,21 +22,19 @@ export class ForgotpassComponent extends BaseComponent {
   }
 
   model = {
-    email : ''
+    Email : ''
   }
 
   onSubmit() {
-    this.authService.Forget(this.model.email).subscribe(c => {
-      if (c.Status != RequestStatus.Success) {
-        this.errorPanel.error = c.FriendlyMessage;
-      }
-      else {
-        this.alertService.showMessage('Password Reset', 'Email instructions has been sent', MessageSeverity.info);
+    this.authService.Forget(this.model.Email).subscribe(c => {
+      if (c.Status !== RequestStatus.Success) {
+        this.alertService.showWarningMessage(`${c.FriendlyMessage}`);
+      } else {
+        this.alertService.showSuccessMessage(`Email instructions has been sent to ${this.model.Email}`);
         this.router.navigate(['/account/login']);
       }
-      console.info(c);
     }, e => {
-      console.error(e);
+      this.alertService.showErrorMessage();
     });
   }
 

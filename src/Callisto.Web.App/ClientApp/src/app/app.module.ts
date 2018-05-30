@@ -3,16 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
-import { ToastyModule } from 'ng2-toasty';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
-import { AlertModule, TypeaheadModule, TooltipModule } from 'ngx-bootstrap';
+import {
+  AlertModule,
+  TypeaheadModule,
+  TooltipModule
+} from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
-
 import { AppComponent } from './app.component';
-
 import { CoreModule } from './core/core.module';
 import { AuthGuard } from './core/auth.guard';
-
+import { AccountGuard } from './account.guard';
 import { HomeComponent } from './home/home.component';
 import { NavModule } from './nav/nav.module';
 import { AccountModule } from './account/account.module';
@@ -20,6 +21,17 @@ import { AppRoutes } from './routes';
 import { ErrorModule } from './error/error.module';
 import { AssetModule } from './asset/asset.module';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
+import { LocationComponent } from './location/location.component';
+import { AgmCoreModule } from '@agm/core';
+import { LocationModule } from './location/location.module';
+import { environment } from '../environments/environment';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  LinkedinLoginProvider
+} from 'angular5-social-auth';
 
 @NgModule({
   declarations: [
@@ -31,20 +43,22 @@ import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component
     HttpClientModule,
     NgHttpLoaderModule,
     FormsModule,
+    SocialLoginModule,
     GridsterModule,
     TypeaheadModule.forRoot(),
     TooltipModule.forRoot(),
     NavModule,
+    LocationModule,
     AccountModule,
     AssetModule,
     ErrorModule,
-
     CoreModule.forRoot(),
-    ToastyModule.forRoot(),
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)
   ],
-  providers: [],
+  providers: [
+    AccountGuard
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     AlertDialogComponent

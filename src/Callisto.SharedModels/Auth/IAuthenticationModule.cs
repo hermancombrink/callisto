@@ -50,5 +50,19 @@ namespace Callisto.SharedModels.Auth
         /// <param name="refId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task{RequestResult{CompanyViewModel}}"/></returns>
         Task<RequestResult<CompanyViewModel>> GetCompanyByRefId(long refId);
+
+        /// <summary>
+        /// The UpdateNewProfileAsync
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> UpdateNewProfileAsync(NewAccountViewModel model);
+
+        /// <summary>
+        /// The LoginWithSocialAsync
+        /// </summary>
+        /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> LoginWithSocialAsync(SocialLoginViewModel model);
     }
 }

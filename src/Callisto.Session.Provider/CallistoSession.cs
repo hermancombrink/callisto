@@ -1,6 +1,7 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Http;
@@ -108,6 +109,20 @@ namespace Callisto.Session.Provider
         {
             get { return _assets ?? (_assets = ServiceProvider.GetRequiredService<IAssetsModule>()); }
             set { _assets = value; }
+        }
+
+        /// <summary>
+        /// Defines the _location
+        /// </summary>
+        private ILocationModule _location;
+
+        /// <summary>
+        /// Gets or sets the Location
+        /// </summary>
+        public ILocationModule Location
+        {
+            get { return _location ?? (_location = ServiceProvider.GetRequiredService<ILocationModule>()); }
+            set { _location = value; }
         }
     }
 }

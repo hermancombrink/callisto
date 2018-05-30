@@ -21,5 +21,10 @@ namespace Callisto.Module.Authentication.Repository.Models
         /// Gets or sets the CompanyName
         /// </summary>
         public long? CompanyRefId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the JobRole
+        /// </summary>
+        public string JobRole { get; set; }
     }
 }

@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { AssetAddViewModel } from '../models/AssetAddViewModel';
 import { Router } from '@angular/router';
 import { AssetService } from '../asset.service';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { RequestStatus } from '../../core/models/requestStatus';
+import { CacheService } from '../../core/cache.service';
+import { assetConstants } from '../models/constants';
+import { Subject } from 'rxjs';
+import { DxFormComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-create-modal',
@@ -15,12 +19,14 @@ export class CreateModalComponent implements OnInit {
   parentId: string;
   parentName: string;
   model: AssetAddViewModel = new AssetAddViewModel();
+  @ViewChild('dxForm') dxForm: DxFormComponent;
 
   constructor(
     public bsModalRef: BsModalRef,
     private router: Router,
     private assetService: AssetService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private readonly _cache: CacheService
   ) { }
 
   ngOnInit() {
@@ -28,13 +34,17 @@ export class CreateModalComponent implements OnInit {
   }
 
   onSubmit() {
+    let isvalid = this.dxForm.instance.validate();
+    if (!isvalid.isValid) {
+      return;
+    }
+
     this.assetService.AddAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
         this.alertService.showWarningMessage(`${c.FriendlyMessage}`);
       } else {
         this.alertService.showSuccessMessage(`${this.model.Name} created`);
         this.bsModalRef.hide();
-        this.router.navigate(['/asset/details', c.Result]);
       }
     }, e => {
       this.alertService.showErrorMessage();

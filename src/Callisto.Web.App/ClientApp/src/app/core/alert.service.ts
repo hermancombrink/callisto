@@ -25,8 +25,7 @@ export class AlertService {
   showDialog(message: string, title?: string, severity?: MessageSeverity)
   showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any)
   showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean)
-  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean, cancelCallback?: () => any)
-  {
+  showDialog(message: string, title?: string, severity?: MessageSeverity, okCallback?: (val?: any) => any, cancelbtn?: boolean, cancelCallback?: () => any) {
     title = title || '';
     severity = severity || MessageSeverity.default;
 

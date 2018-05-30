@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ResultErrorComponent implements OnInit {
 
+  // tslint:disable-next-line:no-inferrable-types
   error: string = '';
 
   constructor() { }

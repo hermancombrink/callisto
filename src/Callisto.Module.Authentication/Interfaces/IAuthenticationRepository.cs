@@ -37,5 +37,11 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="refId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task{Company}"/></returns>
         Task<Company> GetCompany(long refId);
+
+        Task UpdateUser(ApplicationUser user);
+
+        Task UpdateCompany(Company company);
+
+        Task<ApplicationUser> GetUser(string userName);
     }
 }

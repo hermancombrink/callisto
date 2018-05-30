@@ -31,5 +31,10 @@ namespace Callisto.SharedModels.Auth.ViewModels
         /// Gets or sets the SubscriptionId
         /// </summary>
         public Guid SubscriptionId { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether ProfileCompleted
+        /// </summary>
+        public bool ProfileCompleted => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Company);
     }
 }

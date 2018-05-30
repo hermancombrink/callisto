@@ -12,34 +12,27 @@
     <div class="well well-sm" *ngIf="parentId">
       <span>{{parentName}}</span>
     </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Asset # *</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control input-sm" placeholder="eg. ABC123" required name="assetNumber" #assetNumber="ngModel" [(ngModel)]="model.AssetNumber">
-        <small [hidden]="assetNumber.valid || (assetNumber.pristine && !form.submitted)" class="text-danger">
-          <i class="fa fa-warning"></i>
-          Asset # is required.
-        </small>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Name *</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control input-sm" placeholder="eg. Truck" required name="name" #name="ngModel" [(ngModel)]="model.Name">
-        <small [hidden]="name.valid || (name.pristine && !form.submitted)" class="text-danger">
-          <i class="fa fa-warning"></i>
-          Name is required.
-        </small>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Description</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control input-sm" placeholder="eg. My construction truck" name="description" #description="ngModel" [(ngModel)]="model.Description">
-      </div>
-    </div>
-
+    <dx-form 
+    id="form" 
+    #dxForm 
+    [formData]="model" 
+    [readOnly]="false" 
+    [showColonAfterLabel]="true" 
+    [showValidationSummary]="true"
+      validationGroup="formData">
+      <dxi-item itemType="group" caption="Basic Details">
+        <dxi-item dataField="Name" [editorOptions]="{ placeholder : 'eg. Truck' }">
+          <dxi-validation-rule type="required" message="Name is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Description" [editorOptions]="{ placeholder : 'eg. This is my favourite toy' }">
+        </dxi-item>
+        <dxi-item dataField="AssetNumber" [editorOptions]="{ placeholder : 'eg. 001' }">
+          <dxo-label text="Asset #"></dxo-label>
+        </dxi-item>
+      </dxi-item>
+    </dx-form>  
+    
   </div>
   <div class="modal-footer">
     <button class="btn btn-default  dim " type="button" (click)="onCancel()">

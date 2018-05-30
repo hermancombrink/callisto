@@ -16,9 +16,22 @@ namespace Callisto.Module.Assets.Repository
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<AssetLocation>().HasKey(table => new {
+                table.AssetRefId,
+                table.LocationRefId
+            });
+        }
+
         /// <summary>
         /// Gets or sets the Assets
         /// </summary>
         public DbSet<Asset> Assets { get; set; }
+
+        /// <summary>
+        /// Gets or sets the AssetLocations
+        /// </summary>
+        public DbSet<AssetLocation> AssetLocations { get; set; }
     }
 }

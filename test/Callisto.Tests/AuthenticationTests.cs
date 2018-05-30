@@ -229,12 +229,9 @@ namespace Callisto.Tests
         {
             await ApiFixture.Session.Authentication.RegisterUserAsync(new RegisterViewModel()
             {
-                CompanyName = "MyCompany",
                 ConfirmPassword = "Pass!2",
                 Password = "Pass!2",
                 Email = "newuser@test.com",
-                FirstName = "John",
-                LastName = "Doe"
             });
 
             var login = new LoginViewModel()
@@ -254,7 +251,7 @@ namespace Callisto.Tests
             result.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var uvm = result.ToRequestResult<UserViewModel>();
-            uvm.Result.Company.Should().Be("MyCompany");
+            uvm.Result.Company.Should().Be(string.Empty);
             uvm.Result.SubscriptionId.Should().NotBeEmpty();
         }
 

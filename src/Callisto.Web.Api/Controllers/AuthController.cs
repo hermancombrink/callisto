@@ -2,7 +2,6 @@
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -38,6 +37,17 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> LoginAsync([FromBody] LoginViewModel model)
         {
             return await CallistoSession.Authentication.LoginUserAsync(model);
+        }
+
+        /// <summary>
+        /// The LoginWithSocialAsync
+        /// </summary>
+        /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpPost("social")]
+        public async Task<RequestResult> LoginWithSocialAsync([FromBody] SocialLoginViewModel model)
+        {
+            return await CallistoSession.Authentication.LoginWithSocialAsync(model);
         }
 
         /// <summary>
@@ -86,6 +96,18 @@ namespace Callisto.Web.Api.Controllers
         }
 
         /// <summary>
+        /// The UpdateNewProfile
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [Authorize]
+        [HttpPost("user")]
+        public async Task<RequestResult> UpdateNewProfile([FromBody] NewAccountViewModel model)
+        {
+            return await CallistoSession.Authentication.UpdateNewProfileAsync(model);
+        }
+
+        /// <summary>
         /// The SignOut
         /// </summary>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
@@ -95,7 +117,5 @@ namespace Callisto.Web.Api.Controllers
         {
             return await CallistoSession.Authentication.SignOutAsync(CallistoSession.UserName);
         }
-
-
     }
 }

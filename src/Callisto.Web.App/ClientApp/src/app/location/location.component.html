@@ -1,0 +1,8 @@
+<agm-map [latitude]="model.Latitude" [longitude]="model.Longitude" [scrollwheel]="true" [zoom]="zoom" [fullscreenControl]="true" [mapTypeId]="'roadmap'" #map>
+  <agm-marker *ngIf="showMarker" [latitude]="model.Latitude" [longitude]="model.Longitude">
+    <agm-info-window *ngIf="model.FormattedAddress">
+      <strong [innerHTML]="model.FormattedAddress"></strong>
+    </agm-info-window>
+  </agm-marker>
+
+</agm-map>

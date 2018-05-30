@@ -10,10 +10,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>latest</LangVersion>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Codecov" Version="1.0.3" />
+    <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="AutoFixture" Version="4.2.1" />
     <PackageReference Include="FluentAssertions" Version="5.3.0" />
@@ -44,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Callisto.Core.Storage\Callisto.Core.Storage.csproj" />
+    <ProjectReference Include="..\..\src\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\..\src\Callisto.Web.Api\Callisto.Web.Api.csproj" />
   </ItemGroup>
 

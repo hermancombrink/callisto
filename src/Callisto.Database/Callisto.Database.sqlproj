@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{177df827-8f6f-4deb-99ed-bfecb889bac5}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureDatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -34,8 +34,9 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <SqlTargetName>Callisto</SqlTargetName>
+    <SuppressTSqlWarnings>71558,71502</SuppressTSqlWarnings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -47,7 +48,8 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
+    <SuppressTSqlWarnings>71558,71502</SuppressTSqlWarnings>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -67,6 +69,7 @@
     <Folder Include="callisto" />
     <Folder Include="callisto\tables" />
     <Folder Include="callisto\procedures" />
+    <Folder Include="callisto\functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\AspNetRoles.sql" />
@@ -82,6 +85,11 @@
     <Build Include="callisto\tables\Subscriptions.sql" />
     <Build Include="callisto\procedures\usp_GetAssetTree.sql" />
     <Build Include="callisto\tables\Locations.sql" />
+    <Build Include="dbo\Procedures\GetNetTableStructure.sql" />
+    <Build Include="callisto\tables\AssetLocations.sql" />
+    <Build Include="callisto\procedures\usp_GetAssetTreeAll.sql" />
+    <Build Include="callisto\procedures\usp_GetPotentialParents.sql" />
+    <Build Include="callisto\functions\udf_GetAssetBestLocation.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Callisto.Database.refactorlog" />

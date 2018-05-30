@@ -7,6 +7,8 @@ import { RequestStatus } from '../../core/models/requestStatus';
 import { Router } from '@angular/router';
 import { AlertService, MessageSeverity } from '../../core/alert.service';
 import { environment } from '../../../environments/environment';
+import { DxFormComponent } from 'devextreme-angular';
+import { SocialUser } from 'angular5-social-auth';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +18,8 @@ import { environment } from '../../../environments/environment';
 export class LoginComponent extends BaseComponent {
 
   @ViewChild('error') errorPanel: ResultErrorComponent;
-
- 
+  @ViewChild('dxForm') dxForm: DxFormComponent;
+  model = new LoginViewModel();
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -25,24 +27,47 @@ export class LoginComponent extends BaseComponent {
     super();
   }
 
-  model = new LoginViewModel();
-
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     super.ngOnInit();
     this.authService.ClearToken();
   }
 
   onSubmit() {
+    let isvalid = this.dxForm.instance.validate();
+    if (!isvalid.isValid) {
+      return;
+    }
+
     this.authService.Login(this.model).subscribe(c => {
-      if (c.Status != RequestStatus.Success) {
-        this.errorPanel.error = c.FriendlyMessage;
-      }
-      else {
+      if (c.Status === RequestStatus.Success) {
         this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
         this.router.navigate(['/']);
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
       }
     }, e => {
-      this.errorPanel.error = environment.httpNotFound;
+      this.alertService.showErrorMessage();
     });
+  }
+
+  onGoogleLogin() {
+    this.authService.LoginWithGoogle().then(user => {
+      this.loginWithSocial(user);
+    }).catch(err => this.alertService.showErrorMessage());
+  }
+
+  loginWithSocial(user: SocialUser) {
+
+      this.authService.LoginWithSocial(user).subscribe(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
+          this.router.navigate(['/']);
+        } else {
+          this.alertService.showWarningMessage(c.FriendlyMessage);
+        }
+      }, e => {
+        this.alertService.showErrorMessage();
+      });
   }
 }

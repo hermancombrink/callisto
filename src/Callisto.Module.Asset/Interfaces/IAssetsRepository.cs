@@ -1,4 +1,6 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
+using Callisto.SharedModels.Location.ViewModels;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +13,31 @@ namespace Callisto.Module.Assets.Interfaces
     public interface IAssetsRepository
     {
         /// <summary>
+        /// The BeginTransaction
+        /// </summary>
+        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
+        Task<IDbContextTransaction> BeginTransaction();
+
+        /// <summary>
         /// The AddAsset
         /// </summary>
         /// <param name="asset">The <see cref="Asset"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task AddAsset(Asset asset);
+
+        /// <summary>
+        /// The AddAssetLocation
+        /// </summary>
+        /// <param name="assetLocation">The <see cref="AssetLocation"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task AddAssetLocation(AssetLocation assetLocation);
+
+        /// <summary>
+        /// The GetAssetLocationByAssetId
+        /// </summary>
+        /// <param name="assetRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{AssetLocation}"/></returns>
+        Task<AssetLocation> GetAssetLocationByAssetId(long assetRefId);
 
         /// <summary>
         /// The GetAssetById
@@ -47,6 +69,21 @@ namespace Callisto.Module.Assets.Interfaces
         Task<IEnumerable<AssetTreeModel>> GetAssetTree(long companyRefId, long? refiId = null);
 
         /// <summary>
+        /// The GetAssetTreeAll
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{AssetTreeModel}}"/></returns>
+        Task<IEnumerable<AssetTreeModel>> GetAssetTreeAll(long companyRefId);
+
+        /// <summary>
+        /// The GetPotentialTreeParents
+        /// </summary>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{IEnumerable{AssetModel}}"/></returns>
+        Task<IEnumerable<AssetTreeModel>> GetPotentialTreeParents(long companyRefId, long refId);
+
+        /// <summary>
         /// The GetAssetChildren
         /// </summary>
         /// <param name="asset">The <see cref="Asset"/></param>
@@ -59,5 +96,12 @@ namespace Callisto.Module.Assets.Interfaces
         /// <param name="asset">The <see cref="Asset"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task RemoveAssetAsync(Asset asset);
+
+        /// <summary>
+        /// The GetBestAssetLocation
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{LocationViewModel}"/></returns>
+        Task<LocationViewModel> GetBestAssetLocation(long refId);
     }
 }

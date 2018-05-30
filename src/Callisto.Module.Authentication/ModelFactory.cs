@@ -25,8 +25,8 @@ namespace Callisto.Module.Authentication
             {
                 Email = model.Email,
                 UserName = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FirstName = string.Empty,
+                LastName = string.Empty,
                 CompanyRefId = companyRefId
             };
         }
@@ -41,8 +41,8 @@ namespace Callisto.Module.Authentication
             return new Company()
             {
                 Id = Guid.NewGuid(),
-                Description = model.CompanyName,
-                Name = model.CompanyName,
+                Description = string.Empty,
+                Name = string.Empty,
                 CreatedAt = DateTime.Now,
                 ModifiedAt = DateTime.Now
             };
@@ -127,6 +127,39 @@ namespace Callisto.Module.Authentication
                     ClockSkew = TimeSpan.Zero
                 },
                 SaveToken = true
+            };
+        }
+
+        /// <summary>
+        /// The UpdateNewUserDetails
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        public static void UpdateNewUserDetails(ApplicationUser user, Company company, NewAccountViewModel model)
+        {
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.JobRole = model.UserRole;
+
+            company.Name = model.CompanyName;
+            company.Website = model.CompanyWebsite;
+            company.Employees = model.CompanySize;
+        }
+
+        /// <summary>
+        /// The CreateRegistration
+        /// </summary>
+        /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
+        /// <returns>The <see cref="RegisterViewModel"/></returns>
+        public static RegisterViewModel CreateRegistration(SocialLoginViewModel model)
+        {
+            var pass = $"dkv0HaHBKPn1wvO1M6rg{Guid.NewGuid()}";
+            return new RegisterViewModel()
+            {
+                Email = model.Email,
+                Password = pass,
+                ConfirmPassword = pass
             };
         }
     }

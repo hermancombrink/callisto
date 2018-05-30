@@ -19,5 +19,15 @@ namespace Callisto.Module.Authentication.Repository.Models
         /// Gets or sets the Description
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Website
+        /// </summary>
+        public string Website { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Employees
+        /// </summary>
+        public string Employees { get; set; }
     }
 }

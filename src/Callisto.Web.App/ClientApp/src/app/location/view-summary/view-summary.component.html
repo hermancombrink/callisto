@@ -1,0 +1,36 @@
+<form class="m-t form-horizontal" role="form" (ngSubmit)="onSubmit()" #form="ngForm"> 
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <dx-form id="form" #dxForm [formData]="location" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
+        validationGroup="formData">
+
+        <dxi-item dataField="location.FormattedAddress">
+          <dxo-label text="Address"></dxo-label>
+          <div class="dx-field-item-content dx-field-item-content-location-right">
+            <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
+              <div class="dx-texteditor-container">
+                <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
+                  spellcheck="false" [value]="location.FormattedAddress">
+                <div class="dx-texteditor-buttons-container">
+                </div>
+              </div>
+            </div>
+          </div>
+        </dxi-item>
+
+        <dxi-item>
+          <app-location [searchInput]="searchInput" #locPanel></app-location>
+        </dxi-item>
+      </dx-form>
+
+    </div>
+    <div class="panel-footer text-right">
+        <button class="btn btn-outline btn-danger dim" type="button" (click)="removeLocation()">
+            <i class="fa fa-trash"></i>
+          </button>
+      <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid">
+        <i class="fa fa-save"></i>
+      </button>
+    </div>
+  </div>
+</form>

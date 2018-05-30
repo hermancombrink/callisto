@@ -23,8 +23,8 @@ namespace Callisto.SharedModels.Asset
         /// The GetAssetAsync
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>
-        /// <returns>The <see cref="Task{RequestResult{AssetViewModel}}"/></returns>
-        Task<RequestResult<AssetViewModel>> GetAssetAsync(Guid id);
+        /// <returns>The <see cref="Task{RequestResult{AssetInfoViewModel}}"/></returns>
+        Task<RequestResult<AssetInfoViewModel>> GetAssetAsync(Guid id);
 
         /// <summary>
         /// The GetAssetDetailsAsync
@@ -46,6 +46,19 @@ namespace Callisto.SharedModels.Asset
         /// <param name="id">The <see cref="Guid?"/></param>
         /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
         Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAsync(Guid? id = null);
+
+        /// <summary>
+        /// The GetAssetTreeAllAsync
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetAssetTreeAllAsync();
+
+        /// <summary>
+        /// The GetPotentialAssetParentsAsync
+        /// </summary>
+        /// <param name="Id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{AssetTreeViewModel}}}"/></returns>
+        Task<RequestResult<IEnumerable<AssetTreeViewModel>>> GetPotentialAssetParentsAsync(Guid Id);
 
         /// <summary>
         /// The UploadAssetPicAsync

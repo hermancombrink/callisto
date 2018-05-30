@@ -16,7 +16,11 @@ export class JwtInterceptor implements HttpInterceptor {
         // do stuff with response if you want
       }
     }, (err: any) => {
-
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 401) {
+          this.router.navigate(['/account/login']);
+        }
+      }
     });
   }
 }

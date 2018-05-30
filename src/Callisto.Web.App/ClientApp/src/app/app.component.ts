@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from './core/auth.service';
 import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
-import { ToastOptions, ToastData, ToastyService, ToastyConfig } from 'ng2-toasty';
 import { BsModalService } from 'ngx-bootstrap';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
 import { UserViewModel } from './core/models/userViewModel';
 import { RequestStatus } from './core/models/requestStatus';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import notify from 'devextreme/ui/notify';
+import { detectBody } from './app.helpers';
 
 @Component({
   selector: 'app-root',
@@ -23,17 +24,18 @@ export class AppComponent implements OnInit {
   profileLoaded = false;
   completedLoad = false;
 
-  constructor(private toastyService: ToastyService,
-    private toastyConfig: ToastyConfig,
+  constructor(
     private alertService: AlertService,
     private authService: AuthService,
     private router: Router,
-    private modalService: BsModalService) {
+    private modalService: BsModalService) { }
 
-    this.setToastSettings();
+  onResize() {
+    detectBody();
   }
 
   ngOnInit() {
+    detectBody();
     this.alertService.getDialogEvent().subscribe(alert => this.showDialog(alert));
     this.alertService.getMessageEvent().subscribe(message => this.showToast(message, false));
     this.alertService.getStickyMessageEvent().subscribe(message => this.showToast(message, true));
@@ -41,8 +43,9 @@ export class AppComponent implements OnInit {
     this.loadUserProfile();
 
     this.authService.loggedIn.subscribe(c => {
-      if (c.Status == RequestStatus.Success) {
+      if (c.Status === RequestStatus.Success) {
         this.loadUserProfile();
+        this.authService.currentUser.subscribe(x => this.user = x);
       }
     });
 
@@ -51,17 +54,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+
   loadUserProfile() {
 
     this.authService.GetUser().subscribe(c => {
-      if (c.Status == RequestStatus.Success) {
+      this.completedLoad = true;
+
+      if (c.Status === RequestStatus.Success) {
         this.user = c.Result;
         this.profileLoaded = true;
+        if (!this.user.ProfileCompleted) {
+          this.router.navigate(['/account/details']);
+        }
       } else {
         this.alertService.showWarningMessage(c.FriendlyMessage);
         this.signOut();
       }
-      this.completedLoad = true;
     }, err => {
       if (err instanceof HttpErrorResponse) {
         switch (err.status) {
@@ -92,54 +100,21 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/account/login']);
   }
 
-  setToastSettings() {
-    this.toastyConfig.theme = 'bootstrap';
-    this.toastyConfig.position = 'top-right';
-    this.toastyConfig.limit = 100;
-    this.toastyConfig.showClose = true;
-  }
-
   showToast(message: AlertMessage, isSticky: boolean) {
 
     if (message == null) {
-      for (const id of this.stickyToasties.slice(0)) {
-        this.toastyService.clear(id);
-      }
-
       return;
     }
 
-    const toastOptions: ToastOptions = {
-      title: message.summary,
-      msg: message.detail,
-      timeout: isSticky ? 0 : 4000
-    };
-
-
-    if (isSticky) {
-      toastOptions.onAdd = (toast: ToastData) => this.stickyToasties.push(toast.id);
-
-      toastOptions.onRemove = (toast: ToastData) => {
-        const index = this.stickyToasties.indexOf(toast.id, 0);
-
-        if (index > -1) {
-          this.stickyToasties.splice(index, 1);
-        }
-
-        toast.onAdd = null;
-        toast.onRemove = null;
-      };
-    }
-
-
+    let type = 'success';
     switch (message.severity) {
-      case MessageSeverity.default: this.toastyService.default(toastOptions); break;
-      case MessageSeverity.info: this.toastyService.info(toastOptions); break;
-      case MessageSeverity.success: this.toastyService.success(toastOptions); break;
-      case MessageSeverity.error: this.toastyService.error(toastOptions); break;
-      case MessageSeverity.warn: this.toastyService.warning(toastOptions); break;
-      case MessageSeverity.wait: this.toastyService.wait(toastOptions); break;
+      case MessageSeverity.success: type = 'success'; break;
+      case MessageSeverity.error: type = 'error'; break;
+      case MessageSeverity.warn: type = 'warning'; break;
+      default: type = 'success'; break;
     }
+
+    notify(message.detail || message.summary, type);
   }
 
   showDialog(dialog: AlertDialog) {

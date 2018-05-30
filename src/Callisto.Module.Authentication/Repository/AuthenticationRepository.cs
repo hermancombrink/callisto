@@ -4,6 +4,7 @@ using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,11 +49,6 @@ namespace Callisto.Module.Authentication.Repository
                 return RequestResult<long>.Failed("User already exists");
             }
 
-            if (Context.Companies.Any(c => c.Name == model.CompanyName))
-            {
-                return RequestResult<long>.Failed("Company already exists");
-            }
-
             var company = ModelFactory.CreateCompany(model);
             await Context.Companies.AddAsync(company);
             await Context.SaveChangesAsync();
@@ -73,6 +69,7 @@ namespace Callisto.Module.Authentication.Repository
             var qry = from user in Context.Users
                       join company in Context.Companies on user.CompanyRefId equals company.RefId
                       join subscription in Context.Subscriptions on company.RefId equals subscription.CompanyRefId
+                      where user.UserName.ToLower().Trim() == email.ToLower().Trim()
                       select new
                       {
                           user.FirstName,
@@ -100,6 +97,28 @@ namespace Callisto.Module.Authentication.Repository
                     SubscriptionId = lastSubsrition.SubscriptionId
                 });
             }
+        }
+
+        /// <summary>
+        /// The UpdateUser
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task UpdateUser(ApplicationUser user)
+        {
+            Context.Users.Attach(user);
+            await Context.SaveChangesAsync();
+        }
+
+        public async Task<ApplicationUser> GetUser(string userName)
+        {
+            return await Context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
+        }
+
+        public async Task UpdateCompany(Company company)
+        {
+            Context.Companies.Attach(company);
+            await Context.SaveChangesAsync();
         }
 
         /// <summary>

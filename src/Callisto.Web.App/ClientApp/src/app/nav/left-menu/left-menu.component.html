@@ -3,7 +3,7 @@
     <ul class="nav metismenu" id="side-menu">
       <li class="nav-header">
         <div class="profile-element" dropdown>
-          <img alt="image" class="img-circle logo_mini" src="app/assets/images/logo.png">
+          <img alt="image" class="img-circle logo_mini" src="/app/assets/images/logo.png">
           <a dropdownToggle>
             <span class="block m-t-xs">
               <strong class="font-bold">{{user.FirstName}} {{user.LastName}}</strong>
@@ -18,7 +18,7 @@
           </ul>
         </div>
         <div class="logo-element">
-          <img class="logo_mini" src="app/assets/images/logo.png" />
+          <img class="logo_mini" src="/app/assets/images/logo.png" />
         </div>
       </li>
       <li>
@@ -28,9 +28,15 @@
         </a>
       </li>
       <li [ngClass]="{active: activeRoute('asset')}">
-        <a [routerLink]="['/asset']">
+        <a [routerLink]="['/asset']" >
           <i class="fa fa-database"></i>
-          <span class="nav-label">Asset Register</span>
+          <span class="nav-label">Assets</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('location')}">
+        <a [routerLink]="['/location']">
+          <i class="fa fa-map"></i>
+          <span class="nav-label">Locations</span>
         </a>
       </li>
     </ul>
