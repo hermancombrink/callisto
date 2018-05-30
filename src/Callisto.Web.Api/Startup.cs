@@ -58,7 +58,8 @@ namespace Callisto.Web.Api
 
             services.AddCallistoAssets(dbConnectionString);
             services.AddCallistoLocations(dbConnectionString);
-            
+            services.AddCallistoStaff(dbConnectionString);
+
             services.AddCallistoSession();
 
             services.AddCors(options =>
