@@ -64,5 +64,11 @@ namespace Callisto.SharedModels.Auth
         /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> LoginWithSocialAsync(SocialLoginViewModel model);
+
+        /// <summary>
+        /// The GenerateRandomPassword
+        /// </summary>
+        /// <returns>The <see cref="string"/></returns>
+        string GenerateRandomPassword();
     }
 }

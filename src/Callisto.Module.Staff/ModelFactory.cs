@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Staff.Repository.Models;
+using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Staff.ViewModels;
 using System;
 
@@ -26,6 +27,16 @@ namespace Callisto.Module.Locations
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName
+            };
+        }
+
+        public static RegisterViewModel CreateStaffUser(AddStaffViewModel model, string randomPass)
+        {
+            return new RegisterViewModel()
+            {
+                Email = model.Email,
+                Password = randomPass,
+                ConfirmPassword = randomPass
             };
         }
     }

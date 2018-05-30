@@ -16,9 +16,14 @@ namespace Callisto.Module.Assets.Repository
         {
         }
 
+        /// <summary>
+        /// The OnModelCreating
+        /// </summary>
+        /// <param name="builder">The <see cref="ModelBuilder"/></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<AssetLocation>().HasKey(table => new {
+            builder.Entity<AssetLocation>().HasKey(table => new
+            {
                 table.AssetRefId,
                 table.LocationRefId
             });

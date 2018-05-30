@@ -7,5 +7,9 @@ namespace Callisto.SharedModels.Staff.ViewModels
     /// </summary>
     public class AddStaffViewModel : PersonBaseViewModel
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether CreateAccount
+        /// </summary>
+        public bool CreateAccount { get; set; }
     }
 }

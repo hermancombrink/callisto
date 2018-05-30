@@ -1,14 +1,13 @@
 ﻿using Callisto.Module.Staff;
+using Callisto.Module.Staff.Interfaces;
+using Callisto.Module.Staff.Repository;
 using Callisto.Module.Staff.Repository.Models;
-using Callisto.Provider.Person.Repository;
-using Callisto.Provider.Person;
-using Callisto.SharedModels.Person;
+using Callisto.Session.Provider.Startup;
 using Callisto.SharedModels.Staff;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using Callisto.Session.Provider.Startup;
 
 namespace Callisto.Module.Locations.Startup
 {
@@ -26,6 +25,8 @@ namespace Callisto.Module.Locations.Startup
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
             services.AddCallistPerson<StaffMember>(dbContextFactory);
+            services.AddDbContext<StaffDbContext>(dbContextFactory);
+            services.TryAddTransient<IStaffRepository, StaffRepository>();
             services.TryAddTransient<IStaffModule, StaffModule>();
 
             return services;

@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Locations;
+using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
 using Callisto.SharedModels.Person;
 using Callisto.SharedModels.Session;
@@ -19,10 +20,13 @@ namespace Callisto.Module.Staff
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonProvider{StaffMember}"/></param>
         public StaffModule(ICallistoSession session,
-            IPersonProvider<StaffMember> personProvider)
+            IPersonProvider<StaffMember> personProvider,
+            IStaffRepository staffRepo
+            )
         {
             PersonProvider = personProvider;
             Session = session;
+            StaffRepo = staffRepo;
         }
 
         /// <summary>
@@ -36,6 +40,11 @@ namespace Callisto.Module.Staff
         public ICallistoSession Session { get; }
 
         /// <summary>
+        /// Gets the StaffRepo
+        /// </summary>
+        public IStaffRepository StaffRepo { get; }
+
+        /// <summary>
         /// The AddStaffMember
         /// </summary>
         /// <param name="model">The <see cref="AddStaffViewModel"/></param>
@@ -43,8 +52,16 @@ namespace Callisto.Module.Staff
         public async Task AddStaffMember(AddStaffViewModel model)
         {
             var person = ModelFactory.CreateStaffMember(model, Session.CurrentCompanyRef);
+            using (var tran = await StaffRepo.BeginTransaction())
+            {
+                var createModel = ModelFactory.CreateStaffUser(model, Session.Authentication.GenerateRandomPassword());
 
-            await PersonProvider.AddPerson(person);
+                await Session.Authentication.RegisterUserAsync(createModel);
+
+                await PersonProvider.AddPerson(person);
+
+                tran.Commit();
+            }
         }
 
         /// <summary>
