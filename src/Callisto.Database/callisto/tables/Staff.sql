@@ -9,7 +9,8 @@
 	[Email] NVARCHAR(256) NULL, 
 	[CompanyRefId] BIGINT NOT NULL, 
     [ParentRefId] BIGINT NULL, 
-    [PictureUrl] NVARCHAR(512) NULL
+    [PictureUrl] NVARCHAR(512) NULL,
+	[UserId] NVARCHAR(450) NULL,
  CONSTRAINT [PK_Staff] PRIMARY KEY CLUSTERED 
 (
 	[RefId] ASC

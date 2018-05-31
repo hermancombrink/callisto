@@ -37,7 +37,6 @@ export class LeftMenuComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-   
   }
 
   Logout() {
@@ -48,7 +47,7 @@ export class LeftMenuComponent implements AfterViewInit, OnInit {
   }
 
   activeRoute(routename: string): boolean {
-      return this.router.url === (routename);
+    return this.router.url === (routename);
   }
 
 }

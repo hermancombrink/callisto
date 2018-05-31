@@ -11,5 +11,10 @@ namespace Callisto.SharedModels.Staff.ViewModels
         /// Gets or sets a value indicating whether CreateAccount
         /// </summary>
         public bool CreateAccount { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether SendLink
+        /// </summary>
+        public bool SendLink { get; set; }
     }
 }

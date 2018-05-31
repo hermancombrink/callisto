@@ -39,6 +39,12 @@
           <span class="nav-label">Locations</span>
         </a>
       </li>
+      <li [ngClass]="{active: activeRoute('team')}">
+        <a [routerLink]="['/team']">
+          <i class="fa fa-users"></i>
+          <span class="nav-label">Team</span>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>

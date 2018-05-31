@@ -17,6 +17,13 @@ namespace Callisto.SharedModels.Auth
         Task<RequestResult> RegisterUserAsync(RegisterViewModel model);
 
         /// <summary>
+        /// The RegisterUserWithCurrentCompanyAsync
+        /// </summary>
+        /// <param name="model">The <see cref="RegisterViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> RegisterUserWithCurrentCompanyAsync(RegisterViewModel model);
+
+        /// <summary>
         /// The LoginUserAsync
         /// </summary>
         /// <param name="model">The <see cref="LoginViewModel"/></param>
@@ -64,6 +71,13 @@ namespace Callisto.SharedModels.Auth
         /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> LoginWithSocialAsync(SocialLoginViewModel model);
+
+        /// <summary>
+        /// The GetUserId
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> GetUserId(string email);
 
         /// <summary>
         /// The GenerateRandomPassword

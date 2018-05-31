@@ -4,7 +4,6 @@ using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -110,11 +109,21 @@ namespace Callisto.Module.Authentication.Repository
             await Context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// The GetUser
+        /// </summary>
+        /// <param name="userName">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{ApplicationUser}"/></returns>
         public async Task<ApplicationUser> GetUser(string userName)
         {
             return await Context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
         }
 
+        /// <summary>
+        /// The UpdateCompany
+        /// </summary>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="Task"/></returns>
         public async Task UpdateCompany(Company company)
         {
             Context.Companies.Attach(company);

@@ -32,6 +32,7 @@ import {
   FacebookLoginProvider,
   LinkedinLoginProvider
 } from 'angular5-social-auth';
+import { StaffModule } from './staff/staff.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {
     LocationModule,
     AccountModule,
     AssetModule,
+    StaffModule,
     ErrorModule,
     CoreModule.forRoot(),
     AlertModule.forRoot(),

@@ -124,6 +124,40 @@ namespace Callisto.Module.Authentication
         }
 
         /// <summary>
+        /// The RegisterUserWithCurrentCompanyAsync
+        /// </summary>
+        /// <param name="model">The <see cref="RegisterViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> RegisterUserWithCurrentCompanyAsync(RegisterViewModel model)
+        {
+            Logger.LogDebug($"Attempting register for {model.Email}");
+
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
+
+            using (var tran = await AuthRepo.BeginTransaction())
+            {
+                var appUser = ModelFactory.CreateUser(model, Session.CurrentCompanyRef);
+                var user = await UserManager.CreateAsync(appUser, model.Password);
+                if (!user.Succeeded)
+                {
+                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                }
+
+                tran.Commit();
+            }
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
         /// The LoginWithSocialAsync
         /// </summary>
         /// <param name="model">The <see cref="SocialLoginViewModel"/></param>
@@ -233,6 +267,22 @@ namespace Callisto.Module.Authentication
         public async Task<RequestResult<UserViewModel>> GetUserByNameAsync(string email)
         {
             return await AuthRepo.GetUserByName(email);
+        }
+
+        /// <summary>
+        /// The GetUserId
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> GetUserId(string email)
+        {
+            var user = await AuthRepo.GetUser(email);
+            if (user == null)
+            {
+                return RequestResult.Failed($"User not found");
+            }
+
+            return RequestResult.Success(user.Id);
         }
 
         /// <summary>

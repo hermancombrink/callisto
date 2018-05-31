@@ -2,6 +2,7 @@
 using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedKernel.Enum;
 using Callisto.SharedModels.Person;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
@@ -59,10 +60,24 @@ namespace Callisto.Module.Staff
                 {
                     var createModel = ModelFactory.CreateStaffUser(model, Session.Authentication.GenerateRandomPassword());
 
-                    var result = await Session.Authentication.RegisterUserAsync(createModel);
+                    var result = await Session.Authentication.RegisterUserWithCurrentCompanyAsync(createModel);
+
                     if (!result.IsSuccess())
                     {
                         return result;
+                    }
+
+                    var user = await Session.Authentication.GetUserId(model.Email);
+                    if (user.Status != RequestStatus.Success)
+                    {
+                        throw new InvalidOperationException($"Failed to find user");
+                    }
+
+                    person.UserId = user.Result;
+
+                    if (model.SendLink)
+                    {
+                        //TODO: send email link for login here
                     }
                 }
 

@@ -44,27 +44,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     this.bsModalRef = this.modalService.show(CreateModalComponent);
   }
 
-  onMenuItemSelected(e) {
-    let id = e.node.node.id;
-    switch (e.selectedItem) {
-      case 'Add Child': {
-        this.addAsset(id, e.node.node.value);
-        break;
-      }
-      case 'Remove': {
-        this.removeAsset(id);
-        break;
-      }
-      case 'View Details': {
-        this.router.navigate(['/asset/details', id]);
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  }
-
   loadAssets() {
     this.assetService.GetAssetTreeAll().subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
