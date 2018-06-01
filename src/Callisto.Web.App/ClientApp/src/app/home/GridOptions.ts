@@ -1,4 +1,4 @@
-import { GridsterConfig, GridType, CompactType, DisplayGrid } from "angular-gridster2";
+import { GridsterConfig, GridType, CompactType, DisplayGrid } from 'angular-gridster2';
 
 export class GridOptions {
   static GridsterConfig: GridsterConfig = {
@@ -11,9 +11,9 @@ export class GridOptions {
     outerMarginBottom: null,
     outerMarginLeft: null,
     mobileBreakpoint: 640,
-    minCols: 1,
+    minCols: 6,
     maxCols: 100,
-    minRows: 1,
+    minRows: 5,
     maxRows: 100,
     maxItemCols: 100,
     minItemCols: 1,
@@ -23,8 +23,8 @@ export class GridOptions {
     minItemArea: 1,
     defaultItemCols: 1,
     defaultItemRows: 1,
-    fixedColWidth: 105,
-    fixedRowHeight: 105,
+    fixedColWidth: 160,
+    fixedRowHeight: 140,
     keepFixedHeightInMobile: false,
     keepFixedWidthInMobile: false,
     scrollSensitivity: 10,
@@ -40,7 +40,7 @@ export class GridOptions {
       enabled: true,
     },
     resizable: {
-      enabled: true,
+      enabled: false,
     },
     swap: false,
     pushItems: true,

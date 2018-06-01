@@ -3,6 +3,7 @@ using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Web.Api.Controllers
@@ -38,6 +39,16 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> CreateStaffMember([FromBody] AddStaffViewModel model)
         {
             return await CallistoSession.Staff.AddStaffMember(model);
+        }
+
+        /// <summary>
+        /// The GetStaffMember
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpGet]
+        public async Task<RequestResult<IEnumerable<StaffViewModel>>> GetStaffMember()
+        {
+            return await CallistoSession.Staff.GetStaffMembers();
         }
     }
 }

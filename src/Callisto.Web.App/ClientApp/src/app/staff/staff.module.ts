@@ -13,7 +13,7 @@ import { StaffService } from './staff.service';
 import {
   DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
   DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule,
-  DxTreeViewModule, DxDropDownBoxModule
+  DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule
 } from 'devextreme-angular';
 
 @NgModule({
@@ -31,7 +31,7 @@ import {
 
     DxTreeListModule, DxAutocompleteModule, DxSelectBoxModule, DxNumberBoxModule,
     DxCheckBoxModule, DxValidatorModule, DxTextBoxModule, DxFormModule,
-    DxTreeViewModule, DxDropDownBoxModule
+    DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule
   ],
   declarations: [ViewComponent, CreateModalComponent],
   providers: [StaffService],

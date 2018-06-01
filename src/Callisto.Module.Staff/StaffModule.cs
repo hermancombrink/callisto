@@ -8,6 +8,7 @@ using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
 using Callisto.SharedModels.Staff.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Staff
@@ -114,6 +115,23 @@ namespace Callisto.Module.Staff
         public Task<RequestResult> UpdateStaffMember()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The GetStaffMembers
+        /// </summary>
+        /// <returns>The <see cref="Task{RequestResult{IEnumerable{StaffViewModel}}}"/></returns>
+        public async Task<RequestResult<IEnumerable<StaffViewModel>>> GetStaffMembers()
+        {
+            var list = new List<StaffViewModel>();
+            var members = await PersonProvider.GetPeople(Session.CurrentCompanyRef);
+
+            foreach (var item in members)
+            {
+                list.Add(ModelFactory.CreateStaffMember(item));
+            }
+
+            return RequestResult<IEnumerable<StaffViewModel>>.Success(list);
         }
     }
 }

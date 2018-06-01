@@ -5,3 +5,12 @@ export class AddStaffViewModel {
     CreateAccount = true;
     SendLink = true;
 }
+
+
+export class StaffViewModel {
+    Email: string;
+    FirstName: string;
+    LastName: string;
+    ParentId?: string;
+    PictureUrl: string;
+}

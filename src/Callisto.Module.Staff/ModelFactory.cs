@@ -30,6 +30,12 @@ namespace Callisto.Module.Locations
             };
         }
 
+        /// <summary>
+        /// The CreateStaffUser
+        /// </summary>
+        /// <param name="model">The <see cref="AddStaffViewModel"/></param>
+        /// <param name="randomPass">The <see cref="string"/></param>
+        /// <returns>The <see cref="RegisterViewModel"/></returns>
         public static RegisterViewModel CreateStaffUser(AddStaffViewModel model, string randomPass)
         {
             return new RegisterViewModel()
@@ -37,6 +43,24 @@ namespace Callisto.Module.Locations
                 Email = model.Email,
                 Password = randomPass,
                 ConfirmPassword = randomPass
+            };
+        }
+
+        /// <summary>
+        /// The CreateStaffMembers
+        /// </summary>
+        /// <param name="model">The <see cref="StaffMember"/></param>
+        /// <returns>The <see cref="StaffViewModel"/></returns>
+        public static StaffViewModel CreateStaffMember(StaffMember model)
+        {
+            return new StaffViewModel()
+            {
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Id = model.Id,
+                ParentId = null,
+                PictureUrl = string.Empty
             };
         }
     }
