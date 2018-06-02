@@ -39,7 +39,7 @@ namespace Callisto.Core.Messaging
         /// <summary>
         /// Gets or sets the Factory
         /// </summary>
-        private ConnectionFactory Factory { get; set; }
+        public IConnectionFactory Factory { get; set; }
 
         /// <summary>
         /// Gets or sets the Config
@@ -87,8 +87,11 @@ namespace Callisto.Core.Messaging
         public MessageCoordinatorBuilder ConsumeFrom(Type type, string queueName, MessageExchangeConfig exchangeConfig = null)
         {
             exchangeConfig = exchangeConfig ?? TopologyConfig;
-            var config = exchangeConfig.Consumers.FirstOrDefault(c => c.QueueNameToConsume == queueName);
-            ConsumerConfig.Add(type, config);
+            if (exchangeConfig.Consumers != null)
+            {
+                var config = exchangeConfig.Consumers.FirstOrDefault(c => c.QueueNameToConsume == queueName);
+                ConsumerConfig.Add(type, config);
+            }
             return this;
         }
 
@@ -101,8 +104,11 @@ namespace Callisto.Core.Messaging
         public MessageCoordinatorBuilder PublishTo(Type type, string routingKey, MessageExchangeConfig exchangeConfig = null)
         {
             exchangeConfig = exchangeConfig ?? TopologyConfig;
-            var config = exchangeConfig.Publishers.FirstOrDefault(c => c.RoutingKey == routingKey);
-            PublishConfig.Add(type, config);
+            if (exchangeConfig.Publishers != null)
+            {
+                var config = exchangeConfig.Publishers.FirstOrDefault(c => c.RoutingKey == routingKey);
+                PublishConfig.Add(type, config);
+            }
             return this;
         }
 

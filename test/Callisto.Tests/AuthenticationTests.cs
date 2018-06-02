@@ -4,6 +4,7 @@ using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
@@ -178,11 +179,8 @@ namespace Callisto.Tests
             var signin = await ApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
             var r = signin.ToRequestResult();
 
-            var notification = ApiFixture.GetService<INotificationModule>();
-            notification.SubmitEmailNotification(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>()).Returns(c =>
-            {
-                return RequestResult.Success();
-            });
+            var messaging = ApiFixture.GetService<IMessageCoordinator>();
+        
             var client = ApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
@@ -192,7 +190,7 @@ namespace Callisto.Tests
             var response = reset.ToRequestResult();
             response.Status.Should().Be(RequestStatus.Success);
 
-            notification.Received(1).SubmitEmailNotification(Arg.Any<NotificationRequestModel>(), Arg.Any<NotificationType>());
+            messaging.Received(1).Publish<NotificationMessage>(Arg.Any<NotificationMessage>());
         }
 
         /// <summary>

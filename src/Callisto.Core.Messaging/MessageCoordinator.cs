@@ -31,11 +31,6 @@ namespace Callisto.Core.Messaging
             Connection = connection;
             Consumers = consumers;
             Publishers = publishers;
-
-            foreach (var type in publishers.Keys)
-            {
-                PublishingModels.Add(type, Connection.CreateModel());
-            }
         }
 
         /// <summary>
@@ -69,11 +64,6 @@ namespace Callisto.Core.Messaging
         private Dictionary<Type, IEnumerable<AsyncEventingBasicConsumer>> RunningConsumers { get; } = new Dictionary<Type, IEnumerable<AsyncEventingBasicConsumer>>();
 
         /// <summary>
-        /// Gets the PublishingModels
-        /// </summary>
-        private Dictionary<Type, IModel> PublishingModels { get; } = new Dictionary<Type, IModel>();
-
-        /// <summary>
         /// The Consume
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -92,9 +82,10 @@ namespace Callisto.Core.Messaging
         public void Publish<T>(T message)
         {
             string routingKey = Publishers.Single(x => x.Key == typeof(T)).Value.RoutingKey;
-            IModel model = PublishingModels.Single(x => x.Key == typeof(T)).Value;
-
-            model.BasicPublish(Config.ExchangeName, routingKey, body: DefaultEncoding.GetBytes(JsonConvert.SerializeObject(message)));
+            using (var model = Connection.CreateModel())
+            {
+                model.BasicPublish(Config.ExchangeName, routingKey, body: DefaultEncoding.GetBytes(JsonConvert.SerializeObject(message)));
+            }
         }
 
         /// <summary>

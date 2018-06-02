@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Callisto.Session.Provider;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -26,21 +27,7 @@ namespace Callisto.Web.Api
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                    .ConfigureAppConfiguration((builderContext, config) =>
-                    {
-                        string[] files = { "appsettings.json", "appmessaging.json" };
-
-                        IHostingEnvironment env = builderContext.HostingEnvironment;
-
-                        foreach (string file in files)
-                        {
-                            string fileName = file.Split('.')[0];
-                            config.AddJsonFile(file, optional: false, reloadOnChange: true)
-                                   .AddJsonFile($"{fileName}.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-                        }
-
-                        config.AddEnvironmentVariables();
-                    })
+                   .CreateCallistoConfiguration()
                    .UseStartup<Startup>()
                    .Build();
         }

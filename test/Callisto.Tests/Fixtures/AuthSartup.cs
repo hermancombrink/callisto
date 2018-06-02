@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Startup;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +49,7 @@ namespace Callisto.Tests.Startups
             services.AddCallistoSession();
 
             services.AddSingleton(c => Substitute.For<INotificationModule>());
+            services.AddSingleton(c => Substitute.For<IMessageCoordinator>());
 
             services.AddMvc();
         }
