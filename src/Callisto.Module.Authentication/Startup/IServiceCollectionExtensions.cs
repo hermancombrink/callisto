@@ -67,10 +67,6 @@ namespace Callisto.Module.Authentication.Startup
            });
 
             services.TryAddSingleton<IJwtFactory, JwtFactory>();
-
-            //TODO: inject health check back when fixed
-            //services.TryAddSingleton<HealthCheck, DbContextHealthCheck>();
-
             services.AddSingleton(c => PublishBinding.SetBinding<NotificationMessage>("CAL.Notification"));
 
             return services;
