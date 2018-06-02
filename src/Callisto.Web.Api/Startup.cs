@@ -1,4 +1,6 @@
-﻿using Callisto.Core.Metrics.Startup;
+﻿using Callisto.Core.Messaging.Options;
+using Callisto.Core.Messaging.Startup;
+using Callisto.Core.Metrics.Startup;
 using Callisto.Core.Storage.Options;
 using Callisto.Core.Storage.Startup;
 using Callisto.Module.Assets.Startup;
@@ -10,6 +12,7 @@ using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedKernel.Messaging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -60,6 +63,10 @@ namespace Callisto.Web.Api
             services.AddCallistoLocations(dbConnectionString);
             services.AddCallistoStaff(dbConnectionString);
 
+            services.AddCallistoMessaging(
+                services.ConfigureAndGet<MessageOptions>(Configuration, "rabbitConnection"),
+                services.ConfigureAndGet<MessageExchangeConfig>(Configuration, "rabbitTopology"));
+
             services.AddCallistoSession();
 
             services.AddCors(options =>
@@ -92,6 +99,8 @@ namespace Callisto.Web.Api
             loggerFactory.AddConsole();
 
             app.UseCallistoMonitoring();
+            app.UseCallistoMessaging();
+
             app.UseMiddleware<ServiceExceptionMiddleware>();
 
             app.UseCors("AllowAll");
@@ -99,6 +108,8 @@ namespace Callisto.Web.Api
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            
 
             app.UseMvc();
         }

@@ -106,6 +106,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Provider.Person", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{A2D8E6E7-4F6A-4A1C-A4F9-1096F7083EEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Core.Messaging", "src\Callisto.Core.Messaging\Callisto.Core.Messaging.csproj", "{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,10 @@ Global
 		{2CBC4D8E-FC22-4E2C-A2F0-34681D126960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CBC4D8E-FC22-4E2C-A2F0-34681D126960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CBC4D8E-FC22-4E2C-A2F0-34681D126960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,9 +216,10 @@ Global
 		{F9C19E94-E52D-480B-B812-EA417A3F8D34} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 		{73AFBA16-ADF6-49E0-8BDD-5AE12A8A1925} = {7B018937-BAF3-4CB3-A1B2-CDE63C59F7D2}
 		{2CBC4D8E-FC22-4E2C-A2F0-34681D126960} = {F9C19E94-E52D-480B-B812-EA417A3F8D34}
+		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05} = {999E5DE8-CBD6-4DC5-A977-DC2DFCC2780F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
+		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
 	EndGlobalSection
 EndGlobal

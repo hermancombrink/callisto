@@ -1,0 +1,44 @@
+﻿{
+  "rabbitConnection": {
+    "hostName": "localhost",
+    "userName": "guest",
+    "password": "guest",
+    "port": 5672,
+    "ssl": false,
+    "sslServer": null,
+    "appId": "Callisto.WebApi"
+  },
+  "rabbitTopology": {
+    "exchangeName": "CallistoExchange",
+    "type": "topic",
+    "consumers": [
+      {
+        //"workerCount": 0,
+        //"prefetchCountPerWorker": 0,
+        "queueNameToConsume": "CallistoNotification",
+        "channelNamePrefix": "CAL"
+        //"failureConfig": {
+        //  "deadLetterExchangeName": null,
+        //  "deadLetterQueueName": null,
+        //  "lostLetterExchangeName": null,
+        //  "lostLetterQueueName": null,
+        //  "retryExchangeName": null,
+        //  "retryQueuePrefix": null,
+        //  "retryLevels": [
+        //    {
+        //      "numberOfRetries": 0,
+        //      "retryInterval": "00:00:00"
+        //    }
+        //  ]
+        //}
+      }
+    ],
+    "publishers": [
+      {
+        "routingKey": "CAL.Notification",
+        "queueNameToPublish": "CallistoNotification"
+      }
+    ],
+    "exchanges": []
+  }
+}

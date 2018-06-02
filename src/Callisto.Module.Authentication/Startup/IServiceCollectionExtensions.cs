@@ -4,7 +4,9 @@ using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedKernel.Messaging;
 using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Notification.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +70,8 @@ namespace Callisto.Module.Authentication.Startup
 
             //TODO: inject health check back when fixed
             //services.TryAddSingleton<HealthCheck, DbContextHealthCheck>();
+
+            services.AddSingleton(c => PublishBinding.SetBinding<NotificationMessage>("CAL.Notification"));
 
             return services;
         }
