@@ -12,10 +12,12 @@ using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedKernel.Messaging;
+using Callisto.Worker.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 
@@ -66,10 +68,11 @@ namespace Callisto.Worker.Service
 
             services.AddCallistoWebSession();
 
-
             services.AddMvc()
                     .AddCallistoMetrics(services, Configuration)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+            services.AddSingleton<IHostedService, NotificationConsumer>();
         }
 
         /// <summary>

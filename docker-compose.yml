@@ -16,6 +16,11 @@ services:
       context: src/Callisto.Web.App/
       dockerfile: dockerfile
 
+  worker:
+    build:
+      context: src/Callisto.Worker.Service/
+      dockerfile: dockerfile
+
   nginx: 
     build: 
       context: docker/nginx/

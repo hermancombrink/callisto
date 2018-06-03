@@ -2,6 +2,7 @@
 using Callisto.SharedKernel.Messaging;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Session;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -136,31 +137,34 @@ namespace Callisto.Core.Messaging
                 var contents = JsonConvert.DeserializeObject<PublishContextMessage<T>>(DefaultEncoding.GetString(args.Body));
                 var consumeContext = new ConsumeContextMessage<T>(new CallistoConsumerSession<T>(ServiceProvider, contents), contents.Body);
 
-                IMessageResult result = await handler(consumeContext);
-
-                switch (result)
+                using (var scope = ServiceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    case RetryResult retry:
-                        {
-                            consumer.Model.SendForRetry(args, config);
-                            return;
-                        }
+                    IMessageResult result = await handler(consumeContext);
 
-                    case DeadLetterResult dead:
-                        {
-                            consumer.Model.SendToDeadLetter(args, config);
-                            return;
-                        }
+                    switch (result)
+                    {
+                        case RetryResult retry:
+                            {
+                                consumer.Model.SendForRetry(args, config);
+                                return;
+                            }
 
-                    case SuccessResult success:
-                    default:
-                        {
-                            consumer.Model.BasicAck(args.DeliveryTag, false);
-                            return;
-                        }
+                        case DeadLetterResult dead:
+                            {
+                                consumer.Model.SendToDeadLetter(args, config);
+                                return;
+                            }
+
+                        case SuccessResult success:
+                        default:
+                            {
+                                consumer.Model.BasicAck(args.DeliveryTag, false);
+                                return;
+                            }
+                    }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 consumer.Model.SendToDeadLetter(args, config);
             }

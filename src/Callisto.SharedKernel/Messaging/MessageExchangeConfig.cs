@@ -37,5 +37,10 @@ namespace Callisto.SharedKernel.Messaging
         /// Gets or sets the Exchanges
         /// </summary>
         public IEnumerable<MessageExchangeConfig> Exchanges { get; set; }
+
+        /// <summary>
+        /// Gets or sets the RoutingKey
+        /// </summary>
+        public string RoutingKey { get; set; }
     }
 }

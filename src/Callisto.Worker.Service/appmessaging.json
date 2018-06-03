@@ -11,13 +11,14 @@
   "rabbitTopology": {
     "exchangeName": "CallistoExchange",
     "type": "topic",
-    "consumers": [],
-    "publishers": [
+    "consumers": [
       {
-        "routingKey": "CAL.Notification",
-        "queueNameToPublish": "CallistoNotification"
+        "workerCount": 1,
+        "queueNameToConsume": "CallistoNotification",
+        "channelNamePrefix": "CAL"
       }
     ],
+    "publishers": [],
     "exchanges": []
   }
 }

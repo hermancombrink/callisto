@@ -8,9 +8,10 @@ Param
 )
 
 $proj = (
-	"Callisto.Web.Landing",
+	"Callisto.Web.App",
 	"Callisto.Web.Api", 
-	"Callisto.Web.App"
+	"Callisto.Web.Landing",
+	"Callisto.Worker.Service"
 )
 
 function getPublishDir($project, $framework = "netcoreapp2.0"){

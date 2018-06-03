@@ -154,6 +154,13 @@ namespace Callisto.Core.Messaging
                 foreach (var exchange in config.Exchanges)
                 {
                     SetupRabbitMQTopology(connection, exchange);
+
+                    using (IModel channel = connection.CreateModel())
+                    {
+                        channel.ExchangeBind(exchange.ExchangeName,
+                           config.ExchangeName,
+                           exchange.RoutingKey);
+                    }
                 }
             }
         }
