@@ -3,6 +3,8 @@ using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
+using Callisto.SharedModels.Notification.Enum;
+using Callisto.SharedModels.Notification.Models;
 using Callisto.SharedModels.Person;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
@@ -78,7 +80,9 @@ namespace Callisto.Module.Staff
 
                     if (model.SendLink)
                     {
-                        //TODO: send email link for login here
+                        var message = Session.Notification.CreateSimpleMessage(NotificationType.AccountInvite, person.Email);
+
+                        Session.MessageCoordinator.Publish(message, Session);
                     }
                 }
 

@@ -6,9 +6,7 @@ using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
-using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification.Enum;
-using Callisto.SharedModels.Notification.Models;
 using Callisto.SharedModels.Session;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -32,7 +30,6 @@ namespace Callisto.Module.Authentication
         /// <param name="userManager">The <see cref="UserManager{ApplicationUser}"/></param>
         public AuthenticationModule(
             ICallistoSession session,
-            IMessageCoordinator messageCoordinator,
             ILogger<AuthenticationModule> logger,
             IAuthenticationRepository authRepo,
             UserManager<ApplicationUser> userManager,
@@ -47,7 +44,6 @@ namespace Callisto.Module.Authentication
             SignInManager = signInManager;
             JwtFactory = jwtFactory;
             JwtOptions = jwtOptions?.Value ?? throw new ArgumentException(nameof(jwtOptions));
-            MessageCoordinator = messageCoordinator;
         }
 
         /// <summary>
@@ -79,11 +75,6 @@ namespace Callisto.Module.Authentication
         /// Gets the JwtOptions
         /// </summary>
         public JwtIssuerOptions JwtOptions { get; }
-
-        /// <summary>
-        /// Gets the MessageCoordinator
-        /// </summary>
-        public IMessageCoordinator MessageCoordinator { get; }
 
         /// <summary>
         /// Gets the AuthRepo
@@ -127,6 +118,10 @@ namespace Callisto.Module.Authentication
 
                 tran.Commit();
             }
+
+            var message = Session.Notification.CreateSimpleMessage(NotificationType.Registered, model.Email);
+
+            Session.MessageCoordinator.Publish(message, Session);
 
             return RequestResult.Success();
         }
@@ -257,17 +252,9 @@ namespace Callisto.Module.Authentication
             {
                 var token = await UserManager.GeneratePasswordResetTokenAsync(user);
 
-                MessageCoordinator.Publish(new NotificationMessage()
-                {
-                    Request = NotificationRequestModel.Email(email,
-                     "Your password has been reset",
-                     $"Reset token - [{token}]").AddToken("~token~", token),
-                    Type = NotificationType.ResetPassword
-                }, Session);
+                var message = Session.Notification.CreateSimpleMessage(NotificationType.ResetPassword, email, token.ToTokenDictionary("~token~"));
 
-                //var result = await Session.Notification.SubmitEmailNotification(NotificationRequestModel.Email(email,
-                //     "Your password has been reset",
-                //     $"Reset token - [{token}]").AddToken("~token~", token), NotificationType.ResetPassword);
+                Session.MessageCoordinator.Publish(message, Session);
 
                 return RequestResult.Success();
             }

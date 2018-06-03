@@ -1,6 +1,7 @@
 ﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Location;
+using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Staff;
 
@@ -11,6 +12,11 @@ namespace Callisto.SharedModels.Session
     /// </summary>
     public interface ICallistoSession
     {
+        /// <summary>
+        /// Defines the MessageCoordinator
+        /// </summary>
+        IMessageCoordinator MessageCoordinator { get; }
+
         /// <summary>
         /// Gets the Authentication
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Location;
+using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
@@ -47,6 +48,11 @@ namespace Callisto.Session.Provider
         /// Gets the ServiceProvider
         /// </summary>
         public IServiceProvider ServiceProvider { get; }
+
+        /// <summary>
+        /// Gets the MessageCoordinator
+        /// </summary>
+        public IMessageCoordinator MessageCoordinator => ServiceProvider.GetRequiredService<IMessageCoordinator>();
 
         /// <summary>
         /// Gets or sets the Authentication

@@ -218,5 +218,29 @@ namespace Callisto.SharedKernel.Extensions
             var body = response.Content.ReadAsStringAsync().Result;
             return body.FromJson<RequestResult<T>>();
         }
+
+        /// <summary>
+        /// The ToTokenDictionary
+        /// </summary>
+        /// <param name="content">The <see cref="string"/></param>
+        /// <param name="key">The <see cref="string"/></param>
+        /// <returns>The <see cref="Dictionary{string, string}"/></returns>
+        public static Dictionary<string, string> ToTokenDictionary(this string content, string key)
+        {
+            return new Dictionary<string, string>() {
+                { key, content}
+            };
+        }
+
+        /// <summary>
+        /// The ToTokenTuple
+        /// </summary>
+        /// <param name="content">The <see cref="string"/></param>
+        /// <param name="key">The <see cref="string"/></param>
+        /// <returns>The <see cref="(string key, string value)"/></returns>
+        public static (string key, string value) ToTokenTuple(this string content, string key)
+        {
+            return (key, content);
+        }
     }
 }
