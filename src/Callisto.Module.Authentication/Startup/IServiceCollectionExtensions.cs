@@ -1,6 +1,4 @@
-﻿using App.Metrics.Health;
-using Callisto.Module.Authentication.Health;
-using Callisto.Module.Authentication.Interfaces;
+﻿using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
@@ -10,7 +8,6 @@ using Callisto.SharedModels.Notification.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
