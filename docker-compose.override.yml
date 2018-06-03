@@ -12,6 +12,8 @@ services:
     image: hermancombrink/callisto-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - rabbit
     networks: 
       - default
 
@@ -26,6 +28,8 @@ services:
     image: hermancombrink/callisto-worker
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - rabbit
     networks: 
       - default
 

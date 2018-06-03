@@ -4,6 +4,7 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Callisto.Core.Messaging
 {
@@ -360,6 +361,38 @@ namespace Callisto.Core.Messaging
             }
 
             channel.SendToOtherExchange(eventArgs, consumerconfig.FailureConfig.RetryExchangeName, consumerconfig.QueueNameToConsume);
+        }
+
+        /// <summary>
+        /// Defines the RetryCount
+        /// </summary>
+        private static uint RetryCount = 0;
+
+        /// <summary>
+        /// The CreateResillientConnection
+        /// </summary>
+        /// <param name="factory">The <see cref="IConnectionFactory"/></param>
+        /// <returns>The <see cref="IConnection"/></returns>
+        public static IConnection CreateResillientConnection(this IConnectionFactory factory)
+        {
+            try
+            {
+                return factory.CreateConnection();
+            }
+            catch
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
+                RetryCount++;
+
+                if (RetryCount < 10)
+                {
+                    return CreateResillientConnection(factory);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }

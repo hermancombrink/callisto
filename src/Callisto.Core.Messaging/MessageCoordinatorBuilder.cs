@@ -62,7 +62,7 @@ namespace Callisto.Core.Messaging
         /// <returns>The <see cref="IMessageCoordinator"/></returns>
         public IMessageCoordinator Build(IServiceProvider serviceProvider)
         {
-            return new MessageCoordinator(TopologyConfig, Factory.CreateConnection(), ConsumerConfig, PublishConfig, serviceProvider);
+            return new MessageCoordinator(TopologyConfig, Factory.CreateResillientConnection(), ConsumerConfig, PublishConfig, serviceProvider);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Callisto.Core.Messaging
         public void Configure(MessageExchangeConfig exchangeConfig = null)
         {
             exchangeConfig = exchangeConfig ?? TopologyConfig;
-            using (var connection = Factory.CreateConnection())
+            using (var connection = Factory.CreateResillientConnection())
             {
                 connection.SetupRabbitMQTopology(TopologyConfig);
             }
