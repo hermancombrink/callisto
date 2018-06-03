@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Callisto.Core.Metrics.Startup;
+using Callisto.Session.Provider;
+using Callisto.SharedModels.Messaging;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace Callisto.Tests.Startups
 {
@@ -16,6 +23,30 @@ namespace Callisto.Tests.Startups
         {
             env.ApplicationName = "Callisto.Web.Api";
            
+        }
+
+        public override void ConfigureServices(IServiceCollection services)
+        {
+            base.ConfigureServices(services);
+
+            services.AddSingleton(c => Substitute.For<IMessageCoordinator>());
+        }
+
+        public override void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole();
+
+            app.UseCallistoMonitoring();
+
+            app.UseMiddleware<ServiceExceptionMiddleware>();
+
+            app.UseCors("AllowAll");
+            app.UseAuthentication();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseMvc();
         }
     }
 }
