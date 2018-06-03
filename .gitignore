@@ -23,6 +23,7 @@ bld/
 [Ll]og/
 **/wwwroot/lib
 **/node_modules
+**/*.Azure.json
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -53,5 +54,5 @@ UpgradeLog*.htm
 Output/
 /docker/sql/Callisto_Create.sql
 /test/Results
-/src/Callisto.Web.Api/appsettings.Azure.json
+
 /docker-compose.azure.yml
