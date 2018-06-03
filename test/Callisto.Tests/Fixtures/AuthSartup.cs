@@ -46,7 +46,7 @@ namespace Callisto.Tests.Startups
                }
               );
 
-            services.AddCallistoSession();
+            services.AddCallistoWebSession();
 
             services.AddSingleton(c => Substitute.For<INotificationModule>());
             services.AddSingleton(c => Substitute.For<IMessageCoordinator>());

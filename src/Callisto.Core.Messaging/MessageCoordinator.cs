@@ -1,6 +1,7 @@
-﻿using Callisto.SharedKernel.Messaging;
+﻿using Callisto.Session.Provider;
+using Callisto.SharedKernel.Messaging;
 using Callisto.SharedModels.Messaging;
-using Microsoft.Extensions.Logging;
+using Callisto.SharedModels.Session;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -25,12 +26,14 @@ namespace Callisto.Core.Messaging
         public MessageCoordinator(MessageExchangeConfig config,
             IConnection connection,
             Dictionary<Type, MessageConsumeConfig> consumers,
-            Dictionary<Type, MessagePublishConfig> publishers)
+            Dictionary<Type, MessagePublishConfig> publishers,
+            IServiceProvider serviceProvider)
         {
             Config = config;
             Connection = connection;
             Consumers = consumers;
             Publishers = publishers;
+            ServiceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -54,6 +57,11 @@ namespace Callisto.Core.Messaging
         public Dictionary<Type, MessagePublishConfig> Publishers { get; }
 
         /// <summary>
+        /// Gets the ServiceProvider
+        /// </summary>
+        public IServiceProvider ServiceProvider { get; }
+
+        /// <summary>
         /// Gets the DefaultEncoding
         /// </summary>
         public Encoding DefaultEncoding { get; } = Encoding.Default;
@@ -68,7 +76,7 @@ namespace Callisto.Core.Messaging
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="messageDelegate">The <see cref="Func{T, Task{IMessageResult}}"/></param>
-        public void Consume<T>(Func<T, Task<IMessageResult>> messageDelegate)
+        public void Consume<T>(Func<ConsumeContextMessage<T>, Task<IMessageResult>> messageDelegate)
         {
             MessageConsumeConfig config = Consumers.Single(x => x.Key == typeof(T)).Value;
             RunningConsumers.Add(typeof(T), Connection.StartConsumers(config, consumerConfig => consumerConfig.Received += (obj, args) => Consumer_Received(obj, args, messageDelegate)));
@@ -79,12 +87,21 @@ namespace Callisto.Core.Messaging
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="message">The <see cref="T"/></param>
-        public void Publish<T>(T message)
+        public void Publish<T>(T message, ICallistoSession session)
         {
+            var contextMessage = new PublishContextMessage<T>()
+            {
+                Body = message,
+                CurrentCompanyRef = session.CurrentCompanyRef,
+                EmailAddress = session.EmailAddress,
+                IsAuthenticated = session.IsAuthenticated,
+                UserName = session.UserName
+            };
+
             string routingKey = Publishers.Single(x => x.Key == typeof(T)).Value.RoutingKey;
             using (var model = Connection.CreateModel())
             {
-                model.BasicPublish(Config.ExchangeName, routingKey, body: DefaultEncoding.GetBytes(JsonConvert.SerializeObject(message)));
+                model.BasicPublish(Config.ExchangeName, routingKey, body: DefaultEncoding.GetBytes(JsonConvert.SerializeObject(contextMessage)));
             }
         }
 
@@ -109,15 +126,17 @@ namespace Callisto.Core.Messaging
         /// <param name="args">The <see cref="BasicDeliverEventArgs"/></param>
         /// <param name="handler">The <see cref="Func{T, Task{IMessageResult}}"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        private async Task Consumer_Received<T>(object obj, BasicDeliverEventArgs args, Func<T, Task<IMessageResult>> handler)
+        private async Task Consumer_Received<T>(object obj, BasicDeliverEventArgs args, Func<ConsumeContextMessage<T>, Task<IMessageResult>> handler)
         {
             AsyncEventingBasicConsumer consumer = (AsyncEventingBasicConsumer)obj;
             MessageConsumeConfig config = Consumers.Single(x => x.Key == typeof(T)).Value;
 
             try
             {
-                T contents = JsonConvert.DeserializeObject<T>(DefaultEncoding.GetString(args.Body));
-                IMessageResult result = await handler(contents);
+                var contents = JsonConvert.DeserializeObject<PublishContextMessage<T>>(DefaultEncoding.GetString(args.Body));
+                var consumeContext = new ConsumeContextMessage<T>(new CallistoConsumerSession<T>(ServiceProvider, contents), contents.Body);
+
+                IMessageResult result = await handler(consumeContext);
 
                 switch (result)
                 {

@@ -1,2 +1,2 @@
 # callisto
-Project to store alternative plant ERP solution
+Playground project for CMMS solution, and technology fun

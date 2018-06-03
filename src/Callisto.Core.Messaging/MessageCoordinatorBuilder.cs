@@ -60,9 +60,9 @@ namespace Callisto.Core.Messaging
         /// The Build
         /// </summary>
         /// <returns>The <see cref="IMessageCoordinator"/></returns>
-        public IMessageCoordinator Build()
+        public IMessageCoordinator Build(IServiceProvider serviceProvider)
         {
-            return new MessageCoordinator(TopologyConfig, Factory.CreateConnection(), ConsumerConfig, PublishConfig);
+            return new MessageCoordinator(TopologyConfig, Factory.CreateConnection(), ConsumerConfig, PublishConfig, serviceProvider);
         }
 
         /// <summary>

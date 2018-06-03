@@ -21,7 +21,7 @@ namespace Callisto.Core.Messaging.Startup
         {
             services.AddTransient<IMessageCoordinator>(c =>
             {
-                return MessageCoordinatorBuilder.Instance.Build();
+                return MessageCoordinatorBuilder.Instance.Build(c);
             });
         }
 

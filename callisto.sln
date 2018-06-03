@@ -114,6 +114,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kibana", "kibana", "{335425
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elascticsearch", "elascticsearch", "{ED6D02C1-32C1-49CD-BE01-F94FE852A571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Worker.Service", "src\Callisto.Worker.Service\Callisto.Worker.Service.csproj", "{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,10 @@ Global
 		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FCC10C7-967A-4A5D-87B2-9E2A31E64D05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,6 +233,7 @@ Global
 		{2F5A1995-89EF-444C-809C-7F6F754827C9} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{33542560-9078-4579-9EE7-29EA9DE72396} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{ED6D02C1-32C1-49CD-BE01-F94FE852A571} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
+		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}

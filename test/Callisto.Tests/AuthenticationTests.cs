@@ -8,6 +8,7 @@ using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
+using Callisto.SharedModels.Session;
 using Callisto.Tests.Fixtures;
 using FluentAssertions;
 using NSubstitute;
@@ -180,7 +181,7 @@ namespace Callisto.Tests
             var r = signin.ToRequestResult();
 
             var messaging = ApiFixture.GetService<IMessageCoordinator>();
-        
+
             var client = ApiFixture.Server.CreateClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", $"{r.Result}");
 
@@ -190,7 +191,7 @@ namespace Callisto.Tests
             var response = reset.ToRequestResult();
             response.Status.Should().Be(RequestStatus.Success);
 
-            messaging.Received(1).Publish<NotificationMessage>(Arg.Any<NotificationMessage>());
+            messaging.Received(1).Publish<NotificationMessage>(Arg.Any<NotificationMessage>(), Arg.Any<ICallistoSession>());
         }
 
         /// <summary>

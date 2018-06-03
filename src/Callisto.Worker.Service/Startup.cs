@@ -9,7 +9,6 @@ using Callisto.Module.Authentication.Startup;
 using Callisto.Module.Locations.Startup;
 using Callisto.Module.Notification.Options;
 using Callisto.Module.Notification.Startup;
-using Callisto.Session.Provider;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedKernel.Messaging;
@@ -19,10 +18,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-using System;
-using static Callisto.SharedKernel.Extensions.IServiceCollectionExtensions;
 
-namespace Callisto.Web.Api
+namespace Callisto.Worker.Service
 {
     /// <summary>
     /// Defines the <see cref="Startup" />
@@ -69,19 +66,6 @@ namespace Callisto.Web.Api
 
             services.AddCallistoWebSession();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll",
-                    builder =>
-                    {
-                        builder
-                        .SetPreflightMaxAge(TimeSpan.MaxValue)
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();
-                    });
-            });
 
             services.AddMvc()
                     .AddCallistoMetrics(services, Configuration)
@@ -101,13 +85,7 @@ namespace Callisto.Web.Api
             app.UseCallistoMonitoring();
             app.UseCallistoMessaging();
 
-            app.UseMiddleware<ServiceExceptionMiddleware>();
-
-            app.UseCors("AllowAll");
             app.UseAuthentication();
-
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
 
             app.UseMvc();
         }

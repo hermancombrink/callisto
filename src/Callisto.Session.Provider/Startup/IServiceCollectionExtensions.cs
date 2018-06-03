@@ -15,10 +15,21 @@ namespace Callisto.Session.Provider.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoSession(this IServiceCollection services)
+        public static IServiceCollection AddCallistoWebSession(this IServiceCollection services)
         {
-            services.TryAddTransient<ICallistoSession, CallistoSession>();
+            services.TryAddTransient<ICallistoSession, CallistoWebSession>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            return services;
+        }
+
+        /// <summary>
+        /// The AddCallistoWorkerSession
+        /// </summary>
+        /// <param name="services">The <see cref="IServiceCollection"/></param>
+        /// <returns>The <see cref="IServiceCollection"/></returns>
+        public static IServiceCollection AddCallistoWorkerSession(this IServiceCollection services)
+        {
+            services.TryAddTransient<ICallistoSession, CallistoWorkerSession>();
             return services;
         }
     }

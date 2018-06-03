@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel.Messaging;
+using Callisto.SharedModels.Session;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Callisto.SharedModels.Messaging
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="message">The <see cref="T"/></param>
-        void Publish<T>(T message);
+        void Publish<T>(T message, ICallistoSession session);
 
         /// <summary>
         /// The StopConsuming
@@ -27,6 +28,6 @@ namespace Callisto.SharedModels.Messaging
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="messageDelegate">The <see cref="Func{T, Task{IMessageResult}}"/></param>
-        void Consume<T>(Func<T, Task<IMessageResult>> messageDelegate);
+        void Consume<T>(Func<ConsumeContextMessage<T>, Task<IMessageResult>> messageDelegate);
     }
 }

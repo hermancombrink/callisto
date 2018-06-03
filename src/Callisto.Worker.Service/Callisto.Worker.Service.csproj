@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -34,15 +34,19 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
 
+
   <ItemGroup>
     <ProjectReference Include="..\Callisto.Core.Messaging\Callisto.Core.Messaging.csproj" />
     <ProjectReference Include="..\Callisto.Core.Metrics\Callisto.Core.Metrics.csproj" />
+    <ProjectReference Include="..\Callisto.Core.Storage\Callisto.Core.Storage.csproj" />
     <ProjectReference Include="..\Callisto.Module.Asset\Callisto.Module.Assets.csproj" />
     <ProjectReference Include="..\Callisto.Module.Authentication\Callisto.Module.Authentication.csproj" />
     <ProjectReference Include="..\Callisto.Module.Location\Callisto.Module.Locations.csproj" />
     <ProjectReference Include="..\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
     <ProjectReference Include="..\Callisto.Module.Staff\Callisto.Module.Staff.csproj" />
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />
+    <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
+    <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 
 </Project>

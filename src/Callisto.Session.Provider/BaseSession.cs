@@ -1,74 +1,52 @@
-﻿using Callisto.SharedKernel;
-using Callisto.SharedModels.Asset;
+﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 
 namespace Callisto.Session.Provider
 {
     /// <summary>
-    /// Defines the <see cref="CallistoSession" />
+    /// Defines the <see cref="BaseSession" />
     /// </summary>
-    public class CallistoSession : ICallistoSession
+    public abstract class BaseSession : ICallistoSession
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CallistoSession"/> class.
+        /// Initializes a new instance of the <see cref="BaseSession"/> class.
         /// </summary>
         /// <param name="serviceProvider">The <see cref="IServiceProvider"/></param>
-        public CallistoSession(IServiceProvider serviceProvider, IHttpContextAccessor httpContextAccessor)
+        public BaseSession(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
-            HttpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
         /// Gets a value indicating whether IsAuthenticated
         /// </summary>
-        public bool IsAuthenticated => HttpContextAccessor.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
+        public abstract bool IsAuthenticated { get; }
 
         /// <summary>
         /// Gets the UserName
         /// </summary>
-        public string UserName => HttpContextAccessor.HttpContext?.User?.Identity?.Name ?? string.Empty;
+        public abstract string UserName { get; }
 
         /// <summary>
         /// Gets the CurrentCompanyRef
         /// </summary>
-        public long CurrentCompanyRef
-        {
-            get
-            {
-                var claim = HttpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == CallistoJwtClaimTypes.Company);
-                if (claim != null)
-                {
-                    long.TryParse(claim.Value, out long companyRefId);
-                    return companyRefId;
-                }
-
-                return 0;
-            }
-        }
+        public abstract long CurrentCompanyRef { get; }
 
         /// <summary>
         /// Gets the EmailAddress
         /// </summary>
-        public string EmailAddress => HttpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Properties.Any(x => x.Value == CallistoJwtClaimTypes.Email))?.Value ?? string.Empty;
+        public abstract string EmailAddress { get; }
 
         /// <summary>
         /// Gets the ServiceProvider
         /// </summary>
         public IServiceProvider ServiceProvider { get; }
-
-        /// <summary>
-        /// Gets the HttpContextAccessor
-        /// </summary>
-        public IHttpContextAccessor HttpContextAccessor { get; }
 
         /// <summary>
         /// Gets or sets the Authentication
