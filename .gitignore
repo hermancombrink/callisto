@@ -33,6 +33,7 @@ bld/
 *.nupkg
 # The packages folder can be ignored because of Package Restore
 **/packages/*
+
 # except build/, which is used as an MSBuild target.
 !**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
@@ -54,5 +55,4 @@ UpgradeLog*.htm
 Output/
 /docker/sql/Callisto_Create.sql
 /test/Results
-
 /docker-compose.azure.yml
