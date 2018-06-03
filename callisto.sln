@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{732D33CA-BB05-41F7-8517-4D838AE1BA3C}"
 	ProjectSection(SolutionItems) = preProject
 		build\build.ps1 = build\build.ps1
+		build\deploy.ps1 = build\deploy.ps1
 		build\ngserve.ps1 = build\ngserve.ps1
 		build\run.ps1 = build\run.ps1
 		build\stop.ps1 = build\stop.ps1
@@ -114,7 +115,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kibana", "kibana", "{335425
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elascticsearch", "elascticsearch", "{ED6D02C1-32C1-49CD-BE01-F94FE852A571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Worker.Service", "src\Callisto.Worker.Service\Callisto.Worker.Service.csproj", "{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Worker.Service", "src\Callisto.Worker.Service\Callisto.Worker.Service.csproj", "{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{7C33DDD0-B455-42C1-B044-9999D1278B58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -234,6 +237,7 @@ Global
 		{33542560-9078-4579-9EE7-29EA9DE72396} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{ED6D02C1-32C1-49CD-BE01-F94FE852A571} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 		{DDD42620-6C6D-49FB-BB4C-4E2AD5E8699B} = {612F313E-93E1-47CE-B379-A48CCDA1CD1A}
+		{7C33DDD0-B455-42C1-B044-9999D1278B58} = {DB6DF6C1-8B4F-4724-A0F5-3596A8907DD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
