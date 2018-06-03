@@ -20,17 +20,31 @@
 
   <ItemGroup>
     <None Remove="appmessaging.Azure.json" />
+    <None Remove="appmessaging.json" />
     <None Remove="appmessaging.Production.json" />
+    <None Remove="appsettings.Azure.json" />
+    <None Remove="appsettings.json" />
+    <None Remove="appsettings.Production.json" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appmessaging.Azure.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appmessaging.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="appmessaging.Production.json">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Azure.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -66,22 +80,6 @@
     <ProjectReference Include="..\Callisto.Session.Provider\Callisto.Session.Provider.csproj" />
     <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
     <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Update="appmessaging.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.Azure.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="appsettings.Production.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
