@@ -58,3 +58,7 @@ Output/
 appmessaging.Azure.json
 appsettings.Azure.json
 appmessaging.Azure.json
+appmessaging.Production.json
+appsettings.Production.json
+appmessaging.Production.json
+appsettings.Production.json
