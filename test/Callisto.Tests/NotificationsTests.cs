@@ -5,6 +5,7 @@ using Callisto.Module.Notification.Options;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
+using Callisto.SharedModels.Session;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -29,7 +30,7 @@ namespace Callisto.Tests
         public async Task SubmitNotificationShouldSucceedWhenAllIsWell()
         {
             var sender = Substitute.For<IEmailSender>();
-            var module = new NotificationModule(Substitute.For<ILogger<NotificationModule>>(), sender);
+            var module = new NotificationModule(Substitute.For<ILogger<NotificationModule>>(), sender, Substitute.For<ICallistoSession>());
 
             var fixture = new Fixture();
 
@@ -49,7 +50,7 @@ namespace Callisto.Tests
         public async Task SubmitNotificationShouldBeCriticalWhenSenderFailed()
         {
             var sender = Substitute.For<IEmailSender>();
-            var module = new NotificationModule(Substitute.For<ILogger<NotificationModule>>(), sender);
+            var module = new NotificationModule(Substitute.For<ILogger<NotificationModule>>(), sender, Substitute.For<ICallistoSession>());
 
             var fixture = new Fixture();
 
