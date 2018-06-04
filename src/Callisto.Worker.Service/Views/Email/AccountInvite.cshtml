@@ -1,0 +1,27 @@
+﻿@using Callisto.Worker.Service
+@model Dictionary<string, string>
+@{
+    Layout = "_Layout";
+    var options = ViewBag.Options as TemplateOptions;
+}
+
+<tr>
+    <td class="content-block">
+        <h3>Welcome to Callisto</h3>
+    </td>
+</tr>
+<tr>
+    <td class="content-block">
+        Your account has been created. Almost done...
+    </td>
+</tr>
+<tr>
+    <td class="content-block">
+       You need to confirm your account before you can continue to use the service.
+    </td>
+</tr>
+<tr>
+    <td class="content-block aligncenter">
+        <a href="@options.LoginUrl" class="btn-primary">Confirm New Account</a>
+    </td>
+</tr>

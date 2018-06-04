@@ -50,6 +50,8 @@ namespace Callisto.Worker.Service
         {
             var dbConnectionString = Configuration.GetConnectionString("callisto");
 
+            services.Configure<TemplateOptions>(Configuration.GetSection("templateOptions"));
+
             services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
                 services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
@@ -63,16 +65,17 @@ namespace Callisto.Worker.Service
             services.AddCallistoStaff(dbConnectionString);
 
             services.AddCallistoMessaging(
-                services.ConfigureAndGet<MessageOptions>(Configuration, "rabbitConnection"),
+               services.ConfigureAndGet<MessageOptions>(Configuration, "rabbitConnection"),
                 services.ConfigureAndGet<MessageExchangeConfig>(Configuration, "rabbitTopology"));
 
-            services.AddCallistoWebSession();
+            services.AddCallistoWorkerSession();
 
             services.AddMvc()
                     .AddCallistoMetrics(services, Configuration)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddSingleton<IHostedService, NotificationConsumer>();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
         }
 
         /// <summary>
@@ -87,8 +90,6 @@ namespace Callisto.Worker.Service
 
             app.UseCallistoMonitoring();
             app.UseCallistoMessaging();
-
-            app.UseAuthentication();
 
             app.UseMvc();
         }

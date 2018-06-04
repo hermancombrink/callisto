@@ -1,0 +1,49 @@
+﻿@using Callisto.Worker.Service
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Actionable emails e.g. reset password</title>
+    @Html.Partial("_InternalCss")
+
+    @{
+        var options = ViewBag.Options as TemplateOptions;
+    }
+</head>
+<body>
+
+    <table class="body-wrap">
+        <tr>
+            <td></td>
+            <td class="container" width="600">
+                <div class="content">
+                    <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="content-wrap" style="text-align:center">
+                                <table cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <img class="img-responsive" src="http://callistobuild.westus2.cloudapp.azure.com/images/logo.png" />
+                                        </td>
+                                    </tr>
+                                    @RenderBody()
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="footer">
+                        <table width="100%">
+                            <tr>
+                                <td class="aligncenter content-block">Follow <a href="#">@@Callisto</a> on Twitter.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+</body>
+</html>

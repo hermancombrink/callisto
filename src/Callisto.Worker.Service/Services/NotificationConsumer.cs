@@ -22,14 +22,17 @@ namespace Callisto.Worker.Service.Services
         /// </summary>
         /// <param name="session">The <see cref="ICallistoSession"/></param>
         /// <param name="messageCoordinator">The <see cref="IMessageCoordinator"/></param>
-        public NotificationConsumer(ICallistoSession session,
+        public NotificationConsumer(
+           ICallistoSession session,
             IMessageCoordinator messageCoordinator,
             IMetrics metrics,
+            IViewRenderService viewService,
             ILogger<NotificationConsumer> logger)
         {
             Session = session;
             MessageCoordinator = messageCoordinator;
             Metrics = metrics;
+            ViewService = viewService;
             Logger = logger;
         }
 
@@ -49,6 +52,11 @@ namespace Callisto.Worker.Service.Services
         public IMetrics Metrics { get; set; }
 
         /// <summary>
+        /// Gets the ViewService
+        /// </summary>
+        public IViewRenderService ViewService { get; }
+
+        /// <summary>
         /// Gets the Logger
         /// </summary>
         public ILogger<NotificationConsumer> Logger { get; }
@@ -66,9 +74,11 @@ namespace Callisto.Worker.Service.Services
                 {
                     Metrics.Measure.Counter.Increment(MetricsRegistry.NotificiationCounter);
 
-                    Logger.LogInformation(msgContext.Body.Request.DefaultSubject);
+                    var content = await ViewService.RenderToStringAsync(msgContext.Body.Type.ToString(), msgContext.Body.Request.Tokens);
 
-                    return await Task.FromResult(new SuccessResult());
+                    Logger.LogInformation(content);
+
+                    return new SuccessResult();
                 });
             }
             catch (Exception ex)
