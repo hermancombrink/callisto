@@ -66,7 +66,7 @@ namespace Callisto.Worker.Service.Services
         /// </summary>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -74,9 +74,16 @@ namespace Callisto.Worker.Service.Services
                 {
                     Metrics.Measure.Counter.Increment(MetricsRegistry.NotificiationCounter);
 
-                    var content = await ViewService.RenderToStringAsync(msgContext.Body.Type.ToString(), msgContext.Body.Request.Tokens);
+                    var template = $"email/{msgContext.Body.Type}";
+                    var content = await ViewService.RenderToStringAsync(template, msgContext.Body.Request.Tokens);
 
-                    Logger.LogInformation(content);
+                    Logger.LogInformation($"Sending mail of type {msgContext.Body.Type}");
+
+                    msgContext.Body.Request.DefaultContent = content;
+
+                    await Session.Notification.SubmitEmailNotification(msgContext.Body.Request, msgContext.Body.Type);
+
+                    Logger.LogInformation($"Completed mail of type {msgContext.Body.Type}");
 
                     return new SuccessResult();
                 });
@@ -86,7 +93,7 @@ namespace Callisto.Worker.Service.Services
                 Logger.LogError($"Error occurred : {ex.Message}");
             }
 
-            await Task.Delay(Timeout.Infinite, cancellationToken);
+            return Task.CompletedTask;
         }
 
         /// <summary>

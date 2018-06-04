@@ -14,8 +14,22 @@
     "consumers": [
       {
         "workerCount": 1,
-        "queueNameToConsume": "CallistoNotification",
-        "channelNamePrefix": "CAL"
+        "queueNameToConsume": "Callisto.Notification",
+        "channelNamePrefix": "CAL",
+        "failureConfig": {
+          "deadLetterExchangeName": "CallistoDeadLetterExchange",
+          "deadLetterQueueName": "Callisto.DeadLetter",
+          "lostLetterExchangeName": "CallistoLostLetterExchange",
+          "lostLetterQueueName": "Callisto.LostLetter"
+          //"retryExchangeName": null,
+          //"retryQueuePrefix": null,
+          //"retryLevels": [
+          //  {
+          //    "numberOfRetries": 0,
+          //    "retryInterval": "00:00:00"
+          //  }
+          //]
+        }
       }
     ],
     "publishers": [],

@@ -12,6 +12,7 @@ using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedKernel.Messaging;
+using Callisto.SharedModels.Notification.Models;
 using Callisto.Worker.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,7 @@ namespace Callisto.Worker.Service
             var dbConnectionString = Configuration.GetConnectionString("callisto");
 
             services.Configure<TemplateOptions>(Configuration.GetSection("templateOptions"));
+            services.AddSingleton(ConsumeBinding.SetBinding<NotificationMessage>("Callisto.Notification"));
 
             services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
@@ -74,8 +76,8 @@ namespace Callisto.Worker.Service
                     .AddCallistoMetrics(services, Configuration)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-            services.AddSingleton<IHostedService, NotificationConsumer>();
-            services.AddScoped<IViewRenderService, ViewRenderService>();
+            services.AddTransient<IHostedService, NotificationConsumer>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
         }
 
         /// <summary>

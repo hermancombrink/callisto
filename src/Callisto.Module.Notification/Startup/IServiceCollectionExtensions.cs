@@ -23,8 +23,6 @@ namespace Callisto.Module.Notification.Startup
             services.AddTransient<IEmailSender, SimpleSendGridEmailSender>();
             services.AddSingleton<ISendGridMalFactory, SendGridMailFactory>();
             services.AddTransient<INotificationModule, NotificationModule>();
-
-            services.AddSingleton(ConsumeBinding.SetBinding<NotificationMessage>("CallistoNotification"));
         }
     }
 }

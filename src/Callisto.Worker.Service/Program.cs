@@ -28,6 +28,7 @@ namespace Callisto.Worker.Service
             return WebHost.CreateDefaultBuilder(args)
                    .CreateCallistoConfiguration()
                    .UseStartup<Startup>()
+                   .UseDefaultServiceProvider(options => options.ValidateScopes = false)
                    .Build();
         }
     }

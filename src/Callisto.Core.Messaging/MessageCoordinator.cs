@@ -164,8 +164,12 @@ namespace Callisto.Core.Messaging
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                args.BasicProperties.Headers = args.BasicProperties.Headers ?? new Dictionary<string, object>();
+
+                args.BasicProperties.Headers.TryAdd("last-error", ex.Message);
+
                 consumer.Model.SendToDeadLetter(args, config);
             }
         }

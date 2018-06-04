@@ -52,11 +52,10 @@ namespace Callisto.Module.Notification
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> SubmitEmailNotification(NotificationRequestModel model, NotificationType type = NotificationType.None)
         {
-            return await RequestResult.From(async () =>
-            {
-                Logger.LogDebug($"Sending email to {model.DefaultDestination}");
-                await EmailSender.SendEmailAsync(model, type);
-            });
+            Logger.LogDebug($"Sending email to {model.DefaultDestination}");
+            await EmailSender.SendEmailAsync(model, type);
+
+            return RequestResult.Success();
         }
 
         /// <summary>

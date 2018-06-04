@@ -15,7 +15,7 @@
     "publishers": [
       {
         "routingKey": "CAL.Notification",
-        "queueNameToPublish": "CallistoNotification"
+        "queueNameToPublish": "Callisto.Notification"
       }
     ],
     "exchanges": []
