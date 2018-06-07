@@ -41,12 +41,19 @@ foreach($testProject in $testProjects)
     $t = $testProject.Directory.Parent.FullName
 
 	Write-Host "testing $($testProject)..." -ForegroundColor Green
+	$proj = "$t\$($testProject.BaseName)\$testProject"
+	Write-Host  $proj
+	dotnet build $proj --configuration Debug
 
-    $dotnetArguments = "xunit" `
-	, "--fx-version $fxversion" `
-	, "-msbuildverbosity $verbosity" `
-    , "-xml `"$t\Results\$($testProject.BaseName).testresults`"" `
-    , "-configuration Debug" 
+	if ($LASTEXITCODE -gt 0)
+	{
+		exit $LASTEXITCODE
+	}
+
+    $dotnetArguments = "vstest" `
+    , "/ResultsDirectory:'$t\Results'" `
+	, "/logger:trx;LogFileName=$($testProject.BaseName).testresults" `
+	, "bin\Debug\netcoreapp2.1\$($testProject.BaseName).dll"
 
     Write-Host "with args $($dotnetArguments)..." -ForegroundColor Gray
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,6 +6,7 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Callisto.Tests</AssemblyName>
     <RootNamespace>Callisto.Tests</RootNamespace>
+    <RuntimeFrameworkVersion>2.1.0</RuntimeFrameworkVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="Codecov" Version="1.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
     <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="AutoFixture" Version="4.4.0" />
