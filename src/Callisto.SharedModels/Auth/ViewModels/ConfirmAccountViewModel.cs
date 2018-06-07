@@ -3,16 +3,21 @@
 namespace Callisto.SharedModels.Auth.ViewModels
 {
     /// <summary>
-    /// Defines the <see cref="RegisterViewModel" />
+    /// Defines the <see cref="ConfirmAccountViewModel" />
     /// </summary>
-    public class RegisterViewModel
+    public class ConfirmAccountViewModel
     {
         /// <summary>
         /// Gets or sets the Email
         /// </summary>
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Token
+        /// </summary>
+        [Required]
+        public string Token { get; set; }
 
         /// <summary>
         /// Gets or sets the Password
@@ -27,15 +32,5 @@ namespace Callisto.SharedModels.Auth.ViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Locked
-        /// </summary>
-        public bool Locked { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EmailConfirmed
-        /// </summary>
-        public bool EmailConfirmed { get; set; }
     }
 }

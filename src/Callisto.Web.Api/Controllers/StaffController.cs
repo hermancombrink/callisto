@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -49,6 +50,17 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<IEnumerable<StaffViewModel>>> GetStaffMember()
         {
             return await CallistoSession.Staff.GetStaffMembers();
+        }
+
+        /// <summary>
+        /// The UpdateNewProfile
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpPost("profile")]
+        public async Task<RequestResult> UpdateNewProfile([FromBody] NewAccountViewModel model)
+        {
+            return await CallistoSession.Staff.UpdateCurrentMember(model);
         }
     }
 }

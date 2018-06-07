@@ -76,7 +76,8 @@ namespace Callisto.Module.Authentication.Repository
                           user.Email,
                           CompanyName = company.Name,
                           SubscriptionId = subscription.Id,
-                          SubscriptionRefId = subscription.RefId
+                          SubscriptionRefId = subscription.RefId,
+                          UserType = user.UserType
                       };
 
             var lastSubsrition = await qry.OrderByDescending(c => c.SubscriptionRefId).FirstOrDefaultAsync();
@@ -93,7 +94,8 @@ namespace Callisto.Module.Authentication.Repository
                     Email = lastSubsrition.Email,
                     FirstName = lastSubsrition.FirstName,
                     LastName = lastSubsrition.LastName,
-                    SubscriptionId = lastSubsrition.SubscriptionId
+                    SubscriptionId = lastSubsrition.SubscriptionId,
+                    UserType = lastSubsrition.UserType
                 });
             }
         }
@@ -118,6 +120,7 @@ namespace Callisto.Module.Authentication.Repository
         {
             return await Context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
         }
+
 
         /// <summary>
         /// The UpdateCompany

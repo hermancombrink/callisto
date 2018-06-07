@@ -74,11 +74,12 @@ namespace Callisto.Worker.Service.Services
                 {
                     Metrics.Measure.Counter.Increment(MetricsRegistry.NotificiationCounter);
 
+                    Logger.LogInformation($"Sending mail of type {msgContext.Body.Type}");
+                    Logger.LogInformation($"With tokens {string.Join(",", msgContext.Body.Request.Tokens)}");
+
                     var template = $"email/{msgContext.Body.Type}";
                     var content = await ViewService.RenderToStringAsync(template, msgContext.Body.Request.Tokens);
-
-                    Logger.LogInformation($"Sending mail of type {msgContext.Body.Type}");
-
+               
                     msgContext.Body.Request.DefaultContent = content;
 
                     await Session.Notification.SubmitEmailNotification(msgContext.Body.Request, msgContext.Body.Type);

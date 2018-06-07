@@ -60,6 +60,21 @@ namespace Callisto.Provider.Person.Repository
         }
 
         /// <summary>
+        /// The GetPersonByUserId
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{T}"/></returns>
+        public async Task<T> GetPersonByUserId(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            return await Context.People.FirstOrDefaultAsync(c => c.UserId == userId);
+        }
+
+        /// <summary>
         /// The GetPerson
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>

@@ -20,6 +20,7 @@ import {
   LinkedinLoginProvider,
   SocialUser
 } from 'angular5-social-auth';
+import { ConfirmViewModel } from '../account/models/confirmViewModel';
 
 
 @Injectable()
@@ -116,6 +117,14 @@ export class AuthService {
     )
   }
 
+  ConfirmAccount(model: ConfirmViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/confirm'), model, this.httpOptions);
+  }
+
+  ResetAccount(model: ConfirmViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/reset'), model, this.httpOptions);
+  }
+
   GetUser(): Observable<RequestTypedResult<UserViewModel>> {
 
     return this.http.get<RequestTypedResult<UserViewModel>>(this.getUrl('auth/user'), this.httpOptions).pipe(
@@ -127,9 +136,7 @@ export class AuthService {
     )
   }
 
-  UpdateProfile(model: NewAccountViewModel): Observable<RequestResult> {
-    return this.http.post<RequestResult>(this.getUrl('auth/user'), model, this.httpOptions);
-  }
+
 
   private getUrl(endpoint: string): string {
     return `${this.apiUrl}${endpoint}`;

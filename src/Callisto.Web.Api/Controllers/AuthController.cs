@@ -68,7 +68,7 @@ namespace Callisto.Web.Api.Controllers
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         [Authorize]
         [HttpGet("reset")]
-        public async Task<RequestResult> ResetPassworod()
+        public async Task<RequestResult> ResetPassword()
         {
             return await CallistoSession.Authentication.ResetPasswordAsync(CallistoSession.UserName);
         }
@@ -95,17 +95,7 @@ namespace Callisto.Web.Api.Controllers
             return await CallistoSession.Authentication.GetUserByNameAsync(CallistoSession.UserName);
         }
 
-        /// <summary>
-        /// The UpdateNewProfile
-        /// </summary>
-        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
-        /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        [Authorize]
-        [HttpPost("user")]
-        public async Task<RequestResult> UpdateNewProfile([FromBody] NewAccountViewModel model)
-        {
-            return await CallistoSession.Authentication.UpdateNewProfileAsync(model);
-        }
+    
 
         /// <summary>
         /// The SignOut
@@ -116,6 +106,28 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult> SignOut()
         {
             return await CallistoSession.Authentication.SignOutAsync(CallistoSession.UserName);
+        }
+
+        /// <summary>
+        /// The ConfirmAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpPost("confirm")]
+        public async Task<RequestResult> ConfirmAccount([FromBody] ConfirmAccountViewModel model)
+        {
+            return await CallistoSession.Authentication.ConfirmAccount(model);
+        }
+
+        /// <summary>
+        /// The ResetAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpPost("reset")]
+        public async Task<RequestResult> ResetAccount([FromBody] ConfirmAccountViewModel model)
+        {
+            return await CallistoSession.Authentication.ResetAccount(model);
         }
     }
 }

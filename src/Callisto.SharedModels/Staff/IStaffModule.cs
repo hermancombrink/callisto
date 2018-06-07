@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Staff.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -34,5 +35,12 @@ namespace Callisto.SharedModels.Staff
         /// </summary>
         /// <returns>The <see cref="Task{RequestResult{IEnumerable{StaffViewModel}}}"/></returns>
         Task<RequestResult<IEnumerable<StaffViewModel>>> GetStaffMembers();
+
+        /// <summary>
+        /// The UpdateCurrentMember
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> UpdateCurrentMember(NewAccountViewModel model);
     }
 }

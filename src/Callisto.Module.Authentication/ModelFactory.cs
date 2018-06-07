@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,9 @@ namespace Callisto.Module.Authentication
                 UserName = model.Email,
                 FirstName = string.Empty,
                 LastName = string.Empty,
-                CompanyRefId = companyRefId
+                CompanyRefId = companyRefId,
+                LockoutEnabled = model.Locked,
+                EmailConfirmed = model.EmailConfirmed
             };
         }
 
@@ -142,9 +145,14 @@ namespace Callisto.Module.Authentication
             user.LastName = model.LastName;
             user.JobRole = model.UserRole;
 
-            company.Name = model.CompanyName;
-            company.Website = model.CompanyWebsite;
-            company.Employees = model.CompanySize;
+            if (model.CompanyDetails != null && model.CompanyDetails.Validate(out string _).isValid)
+            {
+                company.Name = model.CompanyDetails.CompanyName;
+                company.Website = model.CompanyDetails.CompanyWebsite;
+                company.Employees = model.CompanyDetails.CompanySize;
+            }
+
+
         }
 
         /// <summary>

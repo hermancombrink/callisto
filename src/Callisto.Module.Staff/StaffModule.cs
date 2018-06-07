@@ -3,8 +3,9 @@ using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
+using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Notification.Enum;
-using Callisto.SharedModels.Notification.Models;
 using Callisto.SharedModels.Person;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
@@ -80,7 +81,7 @@ namespace Callisto.Module.Staff
 
                     if (model.SendLink)
                     {
-                        var message = Session.Notification.CreateSimpleMessage(NotificationType.AccountInvite, person.Email);
+                        var message = Session.Notification.CreateSimpleMessage(NotificationType.AccountInvite, person.Email, result.Result.ToTokenDictionary("~token~"));
 
                         Session.MessageCoordinator.Publish(message, Session);
                     }
@@ -119,6 +120,49 @@ namespace Callisto.Module.Staff
         public Task<RequestResult> UpdateStaffMember()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The UpdateCurrentMember
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> UpdateCurrentMember(NewAccountViewModel model)
+        {
+            var user = await Session.Authentication.GetUserId(Session.EmailAddress);
+            if (user.Status != RequestStatus.Success)
+            {
+                throw new InvalidOperationException($"Failed to find user");
+            }
+
+            using (var tran = await StaffRepo.BeginTransaction())
+            {
+                var result = await Session.Authentication.UpdateNewProfileAsync(model);
+                if (result.Status == RequestStatus.Success)
+                {
+
+                    var member = await PersonProvider.GetPersonByUserId(user.Result);
+                    if (member == null)
+                    {
+                        member = ModelFactory.CreateStaffMember(model, Session.CurrentCompanyRef, Session.EmailAddress);
+
+                        await PersonProvider.AddPerson(member);
+                    }
+                    else
+                    {
+
+                        member.FirstName = model.FirstName;
+                        member.LastName = model.LastName;
+                        member.ModifiedAt = DateTime.Now;
+
+                        await PersonProvider.UpdatePerson(member);
+                    }
+
+                    tran.Commit();
+                }
+            }
+
+            return RequestResult.Success();
         }
 
         /// <summary>

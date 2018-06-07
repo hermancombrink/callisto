@@ -154,10 +154,14 @@ namespace Callisto.Module.Authentication
                     return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
-                tran.Commit();
-            }
+                appUser = await AuthRepo.GetUser(model.Email);
 
-            return RequestResult.Success();
+                var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
+
+                tran.Commit();
+
+                return RequestResult.Success(token);
+            }
         }
 
         /// <summary>
@@ -263,6 +267,93 @@ namespace Callisto.Module.Authentication
         }
 
         /// <summary>
+        /// The ConfirmAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> ConfirmAccount(ConfirmAccountViewModel model)
+        {
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
+
+            var user = await AuthRepo.GetUser(model.Email);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Failed to find user");
+            }
+
+            using (var tran = await AuthRepo.BeginTransaction())
+            {
+                var reset = await UserManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+                if (!reset.Succeeded)
+                {
+                    Logger.LogWarning($"Reset errors {string.Join(",", reset.Errors)}");
+                    return RequestResult.Failed(string.Join("<br/>", reset.Errors.Select(c => c.Description)));
+                }
+
+                var confirmToken = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+
+                var confirm = await UserManager.ConfirmEmailAsync(user, confirmToken);
+
+                var unclock = await UserManager.SetLockoutEnabledAsync(user, false);
+
+                if (!confirm.Succeeded || !unclock.Succeeded)
+                {
+                    Logger.LogWarning($"Confirmation errors {string.Join(",", confirm.Errors)}");
+                    Logger.LogWarning($"Unlock errors {string.Join(",", unclock.Errors)}");
+                    throw new InvalidOperationException($"Failed to validate account");
+                }
+
+                tran.Commit();
+            }
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The ResetAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        public async Task<RequestResult> ResetAccount(ConfirmAccountViewModel model)
+        {
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            if (!model.Validate(out string msg).isValid)
+            {
+                return RequestResult.Validation(msg);
+            }
+
+            var user = await AuthRepo.GetUser(model.Email);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException($"Failed to find user");
+            }
+
+            var reset = await UserManager.ResetPasswordAsync(user, model.Token, model.Password);
+            if (!reset.Succeeded)
+            {
+                Logger.LogWarning($"Reset errors {string.Join(",", reset.Errors)}");
+                return RequestResult.Failed(string.Join("<br/>", reset.Errors.Select(c => c.Description)));
+            }
+
+            return RequestResult.Success();
+        }
+
+        /// <summary>
         /// The GetUserByName
         /// </summary>
         /// <param name="email">The <see cref="string"/></param>
@@ -323,7 +414,7 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> UpdateNewProfileAsync(NewAccountViewModel model)
         {
-            var user = await this.AuthRepo.GetUser(this.Session.UserName);
+            var user = await AuthRepo.GetUser(Session.UserName);
             if (user == null)
             {
                 throw new InvalidOperationException($"Failed to find user");
@@ -337,15 +428,9 @@ namespace Callisto.Module.Authentication
 
             ModelFactory.UpdateNewUserDetails(user, company, model);
 
-            using (var tran = await AuthRepo.BeginTransaction())
-            {
-                await this.AuthRepo.UpdateUser(user);
+            await AuthRepo.UpdateUser(user);
 
-                await this.AuthRepo.UpdateCompany(company);
-
-                tran.Commit();
-            }
-
+            await AuthRepo.UpdateCompany(company);
 
             return RequestResult.Success();
         }

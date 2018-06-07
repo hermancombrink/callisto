@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../core/alert.service';
 import { AuthService } from '../../core/auth.service';
 import { Location } from '@angular/common';
-import { NewAccountViewModel } from '../../core/models/newAccountViewModel';
+import { NewAccountViewModel, NewCompanyViewModel } from '../../core/models/newAccountViewModel';
 import { RequestStatus } from '../../core/models/requestStatus';
-
+import { UserViewModel } from '../../core/models/userViewModel';
+import { StaffService } from '../staff.service';
 
 @Component({
   selector: 'app-details',
@@ -34,22 +35,27 @@ export class DetailsComponent implements OnInit {
     '5,001+'
   ];
 
+  showCompany = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService,
     private authService: AuthService,
+    private staffService: StaffService,
     public _location: Location
   ) {
-    this.model.UserRole = 'CEO';
-    this.model.CompanySize = '1 - 500';
+    this.model.UserRole = 'Other';
+    this.model.CompanyDetails.CompanySize = '1 - 500';
   }
 
   ngOnInit() {
     this.authService.currentUser.subscribe(c => {
+      this.showCompany = !c.CompanyProfileCompleted;
+
       this.model.FirstName = c.FirstName;
       this.model.LastName = c.LastName;
-      this.model.CompanyName = c.Company;
+
     });
   }
 
@@ -59,7 +65,7 @@ export class DetailsComponent implements OnInit {
       return;
     }
 
-    this.authService.UpdateProfile(this.model).subscribe(c => {
+    this.staffService.UpdateProfile(this.model).subscribe(c => {
       if (c.Status === RequestStatus.Success) {
         this.authService.GetUser().subscribe(x => {
           this.completed = true;

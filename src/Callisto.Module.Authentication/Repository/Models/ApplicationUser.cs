@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Callisto.SharedModels.Auth;
+using Microsoft.AspNetCore.Identity;
 
 namespace Callisto.Module.Authentication.Repository.Models
 {
@@ -26,5 +27,10 @@ namespace Callisto.Module.Authentication.Repository.Models
         /// Gets or sets the JobRole
         /// </summary>
         public string JobRole { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UserType
+        /// </summary>
+        public UserType UserType { get; set; }
     }
 }

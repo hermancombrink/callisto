@@ -10,10 +10,12 @@ import { RouterModule } from '@angular/router';
 import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload';
 import { StaffService } from './staff.service';
+import { DetailsComponent } from './details/details.component';
+
 import {
   DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
   DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule,
-  DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule
+  DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule, DxRadioGroupModule
 } from 'devextreme-angular';
 
 @NgModule({
@@ -31,9 +33,9 @@ import {
 
     DxTreeListModule, DxAutocompleteModule, DxSelectBoxModule, DxNumberBoxModule,
     DxCheckBoxModule, DxValidatorModule, DxTextBoxModule, DxFormModule,
-    DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule
+    DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule, DxRadioGroupModule
   ],
-  declarations: [ViewComponent, CreateModalComponent],
+  declarations: [ViewComponent, CreateModalComponent, DetailsComponent],
   providers: [StaffService],
   exports: [RouterModule],
   entryComponents: [

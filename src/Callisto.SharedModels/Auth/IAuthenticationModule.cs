@@ -80,6 +80,20 @@ namespace Callisto.SharedModels.Auth
         Task<RequestResult> GetUserId(string email);
 
         /// <summary>
+        /// The ResetAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> ResetAccount(ConfirmAccountViewModel model);
+
+        /// <summary>
+        /// The ConfirmAccount
+        /// </summary>
+        /// <param name="model">The <see cref="ConfirmAccountViewModel"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> ConfirmAccount(ConfirmAccountViewModel model);
+
+        /// <summary>
         /// The GenerateRandomPassword
         /// </summary>
         /// <returns>The <see cref="string"/></returns>

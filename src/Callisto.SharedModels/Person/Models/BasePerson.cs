@@ -8,6 +8,11 @@ namespace Callisto.SharedModels.Models
     public abstract class BasePerson : BaseEfModel
     {
         /// <summary>
+        /// Gets or sets the UserId
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the Email
         /// </summary>
         public string Email { get; set; }

@@ -10,9 +10,6 @@ namespace Callisto.Module.Staff.Repository.Models
     [Table("Staff", Schema = DbConstants.CallistoSchema)]
     public class StaffMember : BasePerson
     {
-        /// <summary>
-        /// Gets or sets the UserId
-        /// </summary>
-        public string UserId { get; set; }
+  
     }
 }

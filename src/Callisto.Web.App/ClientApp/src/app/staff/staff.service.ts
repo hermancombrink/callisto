@@ -5,6 +5,7 @@ import { CacheService } from '../core/cache.service';
 import { RequestResult, RequestTypedResult } from '../core/models/requestResult';
 import { AddStaffViewModel, StaffViewModel } from './models/staffViewModels';
 import { Observable } from 'rxjs/Observable';
+import { NewAccountViewModel } from '../core/models/newAccountViewModel';
 
 @Injectable()
 export class StaffService extends BaseService {
@@ -22,5 +23,9 @@ export class StaffService extends BaseService {
 
   GetStaffMembers(): Observable<RequestTypedResult<StaffViewModel[]>> {
     return this.http.get<RequestTypedResult<StaffViewModel[]>>(this.getUrl('staff'), this.httpOptions);
+  }
+
+  UpdateProfile(model: NewAccountViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('staff/profile'), model, this.httpOptions);
   }
 }

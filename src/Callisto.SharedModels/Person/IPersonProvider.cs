@@ -9,12 +9,12 @@ namespace Callisto.SharedModels.Person
     /// Defines the <see cref="IPersonProvider" />
     /// </summary>
     public interface IPersonProvider<T> where T : BasePerson
-    { 
+    {
         /// <summary>
-      /// The AddPerson
-      /// </summary>
-      /// <param name="person">The <see cref="T"/></param>
-      /// <returns>The <see cref="Task"/></returns>
+        /// The AddPerson
+        /// </summary>
+        /// <param name="person">The <see cref="T"/></param>
+        /// <returns>The <see cref="Task"/></returns>
         Task AddPerson(T person);
 
         /// <summary>
@@ -44,6 +44,13 @@ namespace Callisto.SharedModels.Person
         /// <param name="id">The <see cref="Guid"/></param>
         /// <returns>The <see cref="Task{T}"/></returns>
         Task<T> GetPerson(Guid id);
+
+        /// <summary>
+        /// The GetPersonByUserId
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{T}"/></returns>
+        Task<T> GetPersonByUserId(string userId);
 
         /// <summary>
         /// The GetPeople

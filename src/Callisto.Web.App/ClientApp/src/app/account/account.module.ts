@@ -13,7 +13,8 @@ import { LoginViewModel } from './models/loginViewModel';
 import { RegisterViewModel } from './models/registerViewModel';
 import { BaseComponent } from './base.component';
 import { DxValidatorModule, DxTextBoxModule, DxFormModule, DxRadioGroupModule } from 'devextreme-angular';
-import { DetailsComponent } from './details/details.component';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { DetailsComponent } from './details/details.component';
 
     DxValidatorModule, DxTextBoxModule, DxFormModule, DxRadioGroupModule
   ],
-  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent, DetailsComponent],
+  declarations: [LoginComponent, SignupComponent, ForgotpassComponent, EqualValidator, BaseComponent, ConfirmComponent, ResetComponent],
   exports: [RouterModule]
 })
 export class AccountModule { }

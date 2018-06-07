@@ -84,9 +84,8 @@ namespace Callisto.Worker.Service
         /// The Configure
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/></param>
-        /// <param name="env">The <see cref="IHostingEnvironment"/></param>
         /// <param name="loggerFactory">The <see cref="ILoggerFactory"/></param>
-        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public virtual void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
 

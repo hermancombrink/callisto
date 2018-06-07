@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <DebugType>full</DebugType>
     <IsPackable>false</IsPackable>
     <AssemblyName>Callisto.Tests</AssemblyName>
@@ -22,10 +22,10 @@
     <PackageReference Include="Codecov" Version="1.0.3" />
     <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
-    <PackageReference Include="AutoFixture" Version="4.2.1" />
-    <PackageReference Include="FluentAssertions" Version="5.3.0" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
+    <PackageReference Include="AutoFixture" Version="4.4.0" />
+    <PackageReference Include="FluentAssertions" Version="5.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="OpenCover" Version="4.6.519" />
     <PackageReference Include="OpenCoverToCoberturaConverter" Version="0.3.2" />
     <PackageReference Include="ReportGenerator" Version="3.1.2" />

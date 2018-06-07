@@ -17,11 +17,11 @@
 </tr>
 <tr>
     <td class="content-block">
-       You need to confirm your account before you can continue to use the service.
+        You need to confirm your account before you can continue to use the service.
     </td>
 </tr>
 <tr>
     <td class="content-block aligncenter">
-        <a href="@options.LoginUrl" class="btn-primary">Confirm New Account</a>
+        <a href="@options.Confirm/@Model.EncodedValue("~token~")" class="btn-primary">Confirm New Account</a>
     </td>
 </tr>

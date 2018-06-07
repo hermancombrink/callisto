@@ -23,6 +23,11 @@ namespace Callisto.SharedModels.Auth.ViewModels
         public string LastName { get; set; }
 
         /// <summary>
+        /// Gets or sets the UserType
+        /// </summary>
+        public UserType UserType { get; set; }
+
+        /// <summary>
         /// Gets or sets the Company
         /// </summary>
         public string Company { get; set; }
@@ -35,6 +40,11 @@ namespace Callisto.SharedModels.Auth.ViewModels
         /// <summary>
         /// Gets a value indicating whether ProfileCompleted
         /// </summary>
-        public bool ProfileCompleted => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(Company);
+        public bool ProfileCompleted => !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(LastName);
+
+        /// <summary>
+        /// Gets a value indicating whether CompanyProfileCompleted
+        /// </summary>
+        public bool CompanyProfileCompleted => !string.IsNullOrEmpty(Company);
     }
 }

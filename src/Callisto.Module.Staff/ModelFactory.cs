@@ -31,6 +31,27 @@ namespace Callisto.Module.Locations
         }
 
         /// <summary>
+        /// The CreateStaffMember
+        /// </summary>
+        /// <param name="model">The <see cref="NewAccountViewModel"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="StaffMember"/></returns>
+        public static StaffMember CreateStaffMember(NewAccountViewModel model, long companyRefId, string email)
+        {
+            return new StaffMember()
+            {
+                CompanyRefId = companyRefId,
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now,
+                Id = Guid.NewGuid(),
+                Email = email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
+        }
+
+        /// <summary>
         /// The CreateStaffUser
         /// </summary>
         /// <param name="model">The <see cref="AddStaffViewModel"/></param>
@@ -42,7 +63,8 @@ namespace Callisto.Module.Locations
             {
                 Email = model.Email,
                 Password = randomPass,
-                ConfirmPassword = randomPass
+                ConfirmPassword = randomPass,
+                Locked = true
             };
         }
 

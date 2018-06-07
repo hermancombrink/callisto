@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AlertMessage, DialogType, MessageSeverity, AlertDialog, AlertService } from './core/alert.service';
 import { BsModalService } from 'ngx-bootstrap';
 import { AlertDialogComponent } from './core/alert-dialog/alert-dialog.component';
-import { UserViewModel } from './core/models/userViewModel';
+import { UserViewModel, UserType } from './core/models/userViewModel';
 import { RequestStatus } from './core/models/requestStatus';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -64,7 +64,21 @@ export class AppComponent implements OnInit {
         this.user = c.Result;
         this.profileLoaded = true;
         if (!this.user.ProfileCompleted) {
-          this.router.navigate(['/account/details']);
+          switch (this.user.UserType) {
+            default:
+            case UserType.Member: {
+              this.router.navigate(['/team/my-details']);
+              break;
+            }
+            case UserType.Vendor: {
+              this.alertService.showWarningMessage('Vendor Not Implemented');
+              break;
+            }
+            case UserType.Customer: {
+              this.alertService.showWarningMessage('Customer Not Implemented');
+              break;
+            }
+          }
         }
       } else {
         this.alertService.showWarningMessage(c.FriendlyMessage);
@@ -97,7 +111,9 @@ export class AppComponent implements OnInit {
 
   signOut() {
     this.authService.ClearToken();
-    this.router.navigate(['/account/login']);
+    if (this.router.url.indexOf('/account/') < 0) {
+      this.router.navigate(['/account/login']);
+    }
   }
 
   showToast(message: AlertMessage, isSticky: boolean) {

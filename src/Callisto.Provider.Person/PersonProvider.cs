@@ -57,6 +57,16 @@ namespace Callisto.Provider.Person
         }
 
         /// <summary>
+        /// The GetPersonByUserId
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{T}"/></returns>
+        public async Task<T> GetPersonByUserId(string userId)
+        {
+            return await PersonRepo.GetPersonByUserId(userId);
+        }
+
+        /// <summary>
         /// The GetPerson
         /// </summary>
         /// <param name="id">The <see cref="Guid"/></param>
