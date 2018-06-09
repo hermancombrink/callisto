@@ -14,7 +14,7 @@ $proj = (
 	"Callisto.Worker.Service"
 )
 
-function getPublishDir($project, $framework = "netcoreapp2.0"){
+function getPublishDir($project, $framework = "netcoreapp2.1"){
 	return ".\src\$($project)\bin\Release\$framework";
 }
 
