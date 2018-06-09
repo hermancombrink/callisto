@@ -1,4 +1,4 @@
 FROM microsoft/aspnetcore
 WORKDIR /app
-COPY bin/Release/netcoreapp2.0/publish/  .
+COPY bin/Release/netcoreapp2.1/publish/  .
 ENTRYPOINT ["dotnet", "Callisto.Web.Api.dll"]
