@@ -108,7 +108,12 @@ namespace Callisto.Module.Staff
                 throw new InvalidOperationException($"Staff member not found");
             }
 
-            await PersonProvider.RemovePerson(staffMember);
+            using (var tran = await StaffRepo.BeginTransaction())
+            {
+                await Session.Authentication.RemoveAccount(staffMember.Email);
+
+                await PersonProvider.RemovePerson(staffMember);
+            }
 
             return RequestResult.Success();
         }

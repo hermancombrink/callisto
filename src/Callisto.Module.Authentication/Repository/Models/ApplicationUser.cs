@@ -32,5 +32,10 @@ namespace Callisto.Module.Authentication.Repository.Models
         /// Gets or sets the UserType
         /// </summary>
         public UserType UserType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether Deactivated
+        /// </summary>
+        public bool Deactivated { get; set; }
     }
 }

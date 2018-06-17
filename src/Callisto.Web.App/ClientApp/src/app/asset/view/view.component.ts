@@ -12,6 +12,8 @@ import { CacheService } from '../../core/cache.service';
 import { assetConstants } from '../models/constants';
 import { Observable } from 'rxjs/Observable';
 import { DxTreeListComponent } from 'devextreme-angular';
+import { EventEmitter } from 'events';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-view',
@@ -23,21 +25,22 @@ export class ViewComponent implements OnInit, OnDestroy {
   bsModalRef: BsModalRef;
   selectedId: string;
   assetData: any;
+  modalSub: ISubscription;
 
   constructor(
     private modalService: BsModalService,
     private assetService: AssetService,
     private alertService: AlertService,
     private router: Router
-  ) {
-    this.modalService.onHidden.subscribe(c => this.loadAssets());
-  }
+  ) { }
 
   ngOnInit() {
+    this.modalSub = this.modalService.onHidden.subscribe(c => this.loadAssets());
     this.loadAssets();
   }
 
   ngOnDestroy() {
+    this.modalSub.unsubscribe();
   }
 
   createAsset() {

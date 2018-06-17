@@ -28,4 +28,8 @@ export class StaffService extends BaseService {
   UpdateProfile(model: NewAccountViewModel): Observable<RequestResult> {
     return this.http.post<RequestResult>(this.getUrl('staff/profile'), model, this.httpOptions);
   }
+
+  RemoveStaffMember(id: string): Observable<RequestResult> {
+    return this.http.delete<RequestResult>(this.getUrl(`staff/${id}`), this.httpOptions);
+  }
 }

@@ -223,7 +223,7 @@ namespace Callisto.Module.Authentication
             }
 
             var user = await UserManager.FindByEmailAsync(model.Email);
-            if (user != null)
+            if (user != null && !user.Deactivated)
             {
                 //TODO: Move lockout to settings
                 //var signInResult = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
@@ -433,6 +433,20 @@ namespace Callisto.Module.Authentication
             await AuthRepo.UpdateCompany(company);
 
             return RequestResult.Success();
+        }
+
+        /// <summary>
+        /// The RemoveAccount
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveAccount(string email)
+        {
+            var user = await AuthRepo.GetUser(email);
+            if (user != null)
+            {
+                await AuthRepo.RemoveAccount(user);
+            }
         }
 
         /// <summary>

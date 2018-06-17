@@ -44,7 +44,7 @@ namespace Callisto.Provider.Person.Repository
         /// <returns>The <see cref="Task{IEnumerable{T}}"/></returns>
         public async Task<IEnumerable<T>> GetPeople(long companyRefId)
         {
-            var result = await Context.People.Where(c => c.CompanyRefId == companyRefId).ToListAsync();
+            var result = await Context.People.Where(c => c.CompanyRefId == companyRefId && !c.Deactivated).ToListAsync();
 
             return result as IEnumerable<T>;
         }
@@ -91,7 +91,7 @@ namespace Callisto.Provider.Person.Repository
         /// <returns>The <see cref="Task"/></returns>
         public async Task RemovePerson(T person)
         {
-            Context.People.Remove(person);
+            person.Deactivated = true;
             await Context.SaveChangesAsync();
         }
 

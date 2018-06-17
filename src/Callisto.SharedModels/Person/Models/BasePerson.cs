@@ -13,6 +13,11 @@ namespace Callisto.SharedModels.Models
         public string UserId { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Deactivated
+        /// </summary>
+        public bool Deactivated { get; set; }
+
+        /// <summary>
         /// Gets or sets the Email
         /// </summary>
         public string Email { get; set; }

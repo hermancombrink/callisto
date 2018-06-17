@@ -45,6 +45,18 @@
           <span class="nav-label">Team</span>
         </a>
       </li>
+      <li [ngClass]="{active: activeRoute('vendors')}">
+        <a [routerLink]="['/vendors']">
+          <i class="fa fa-truck"></i>
+          <span class="nav-label">Vendors</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('customers')}">
+        <a [routerLink]="['/customers']">
+          <i class="fa fa-briefcase"></i>
+          <span class="nav-label">Customers</span>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>

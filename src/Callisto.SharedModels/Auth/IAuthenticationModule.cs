@@ -94,6 +94,13 @@ namespace Callisto.SharedModels.Auth
         Task<RequestResult> ConfirmAccount(ConfirmAccountViewModel model);
 
         /// <summary>
+        /// The RemoveAccount
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task RemoveAccount(string email);
+
+        /// <summary>
         /// The GenerateRandomPassword
         /// </summary>
         /// <returns>The <see cref="string"/></returns>

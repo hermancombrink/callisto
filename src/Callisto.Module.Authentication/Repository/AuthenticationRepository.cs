@@ -69,6 +69,7 @@ namespace Callisto.Module.Authentication.Repository
                       join company in Context.Companies on user.CompanyRefId equals company.RefId
                       join subscription in Context.Subscriptions on company.RefId equals subscription.CompanyRefId
                       where user.UserName.ToLower().Trim() == email.ToLower().Trim()
+                      && !user.Deactivated
                       select new
                       {
                           user.FirstName,
@@ -121,7 +122,6 @@ namespace Callisto.Module.Authentication.Repository
             return await Context.Users.FirstOrDefaultAsync(c => c.UserName == userName);
         }
 
-
         /// <summary>
         /// The UpdateCompany
         /// </summary>
@@ -141,6 +141,19 @@ namespace Callisto.Module.Authentication.Repository
         public async Task<Company> GetCompany(long refId)
         {
             return await Context.Companies.FindAsync(refId);
+        }
+
+        /// <summary>
+        /// The RemoveAccount
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveAccount(ApplicationUser user)
+        {
+            user.Deactivated = true;
+            user.UserName = Crypto.GetStringSha256Hash(user.UserName, user.Id);
+            user.Email = Crypto.GetStringSha256Hash(user.Email, user.Id);
+            await Context.SaveChangesAsync();
         }
     }
 }

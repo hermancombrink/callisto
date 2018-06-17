@@ -42,6 +42,17 @@
             <dxi-column dataField="FirstName"></dxi-column>
             <dxi-column dataField="LastName"></dxi-column>
             <dxi-column dataField="Email"></dxi-column>
+            <dxi-column dataField="Id" cellTemplate="controlTemplate" 
+            caption="" 
+            [allowFiltering]="false" 
+            [allowSorting]="false" 
+            [allowSearch]="false">
+          </dxi-column>
+          <div *dxTemplate="let options of 'controlTemplate'">
+                <a class="btn btn-xs" (click)="handleRemove(options)" [ngClass]="options.data.Children ? 'btn-default' : 'btn-danger'">
+                    <i class="fa fa-trash"></i>
+                  </a>
+          </div>
             <dxo-summary>
               <dxi-total-item column="FirstName" summaryType="count">
               </dxi-total-item>

@@ -4,6 +4,7 @@ using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -50,6 +51,17 @@ namespace Callisto.Web.Api.Controllers
         public async Task<RequestResult<IEnumerable<StaffViewModel>>> GetStaffMember()
         {
             return await CallistoSession.Staff.GetStaffMembers();
+        }
+
+        /// <summary>
+        /// The RemoveStaffMember
+        /// </summary>
+        /// <param name="id">The <see cref="Guid"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        [HttpDelete("{id}")]
+        public async Task<RequestResult> RemoveStaffMember(Guid id)
+        {
+            return await CallistoSession.Staff.RemoveStaffMember(id);
         }
 
         /// <summary>

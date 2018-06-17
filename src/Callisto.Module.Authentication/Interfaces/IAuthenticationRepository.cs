@@ -38,10 +38,32 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <returns>The <see cref="Task{Company}"/></returns>
         Task<Company> GetCompany(long refId);
 
+        /// <summary>
+        /// The UpdateUser
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task"/></returns>
         Task UpdateUser(ApplicationUser user);
 
+        /// <summary>
+        /// The UpdateCompany
+        /// </summary>
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="Task"/></returns>
         Task UpdateCompany(Company company);
 
+        /// <summary>
+        /// The GetUser
+        /// </summary>
+        /// <param name="userName">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{ApplicationUser}"/></returns>
         Task<ApplicationUser> GetUser(string userName);
+
+        /// <summary>
+        /// The RemoveAccount
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task RemoveAccount(ApplicationUser user);
     }
 }
