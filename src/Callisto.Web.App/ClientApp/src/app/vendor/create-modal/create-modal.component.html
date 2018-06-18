@@ -1,0 +1,44 @@
+<form class="form-horizontal" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <i class="fa fa-user"></i>
+      Create Vendor</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true" [showValidationSummary]="true"
+      validationGroup="formData">
+      <dxi-item itemType="group" caption="Basic Details">
+        <dxi-item dataField="FirstName" [editorOptions]="{ placeholder : 'eg. John' }">
+          <dxi-validation-rule type="required" message="Name is required">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="LastName" [editorOptions]="{ placeholder : 'eg. Doe' }">
+        </dxi-item>
+        <dxi-item dataField="Email" [editorOptions]="{ placeholder : 'eg. john@doe.com' }">
+            <dxo-label text="Email / Account Name"></dxo-label>
+          <dxi-validation-rule type="required" message="Email is required">
+          </dxi-validation-rule>
+          <dxi-validation-rule type="email" message="Must be a valid email address">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item itemType="simple" dataField="SendLink" editorType="dxCheckBox" [editorOptions]="{ 
+          text: 'Send login link',
+          value: true
+      }">
+      </dxi-item>
+      </dxi-item>
+    </dx-form>
+
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default  dim " type="button" (click)="onCancel()">
+      <i class="fa fa-close"></i>
+    </button>
+    <button class="btn btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Create a new member.">
+      <i class="fa fa-save"></i>
+    </button>
+  </div>
+</form>

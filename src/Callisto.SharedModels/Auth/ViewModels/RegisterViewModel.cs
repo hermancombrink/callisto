@@ -37,5 +37,10 @@ namespace Callisto.SharedModels.Auth.ViewModels
         /// Gets or sets a value indicating whether EmailConfirmed
         /// </summary>
         public bool EmailConfirmed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UserType
+        /// </summary>
+        public UserType UserType { get; set; }
     }
 }

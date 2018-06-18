@@ -33,6 +33,8 @@ import {
   LinkedinLoginProvider
 } from 'angular5-social-auth';
 import { StaffModule } from './staff/staff.module';
+import { VendorModule } from './vendor/vendor.module';
+import { CustomerModule } from './customer/customer.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { StaffModule } from './staff/staff.module';
     AccountModule,
     AssetModule,
     StaffModule,
+    VendorModule,
+    CustomerModule,
     ErrorModule,
     CoreModule.forRoot(),
     AlertModule.forRoot(),

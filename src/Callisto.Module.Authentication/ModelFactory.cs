@@ -30,7 +30,8 @@ namespace Callisto.Module.Authentication
                 LastName = string.Empty,
                 CompanyRefId = companyRefId,
                 LockoutEnabled = model.Locked,
-                EmailConfirmed = model.EmailConfirmed
+                EmailConfirmed = model.EmailConfirmed,
+                UserType = model.UserType
             };
         }
 

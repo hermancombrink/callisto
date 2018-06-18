@@ -1,5 +1,4 @@
-﻿using Callisto.Module.Locations;
-using Callisto.Module.Staff.Interfaces;
+﻿using Callisto.Module.Staff.Interfaces;
 using Callisto.Module.Staff.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;

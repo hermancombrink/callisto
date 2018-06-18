@@ -62,6 +62,8 @@ namespace Callisto.Web.Api
             services.AddCallistoAssets(dbConnectionString);
             services.AddCallistoLocations(dbConnectionString);
             services.AddCallistoStaff(dbConnectionString);
+            services.AddCallistoCustomer(dbConnectionString);
+            services.AddCallistoVendor(dbConnectionString);
 
             services.AddCallistoMessaging(
                 services.ConfigureAndGet<MessageOptions>(Configuration, "rabbitConnection"),

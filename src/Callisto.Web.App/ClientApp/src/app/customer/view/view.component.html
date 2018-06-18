@@ -1,0 +1,64 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-10">
+    <h2>
+      <i class="fa fa-users"></i> Customers
+    </h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/']">home</a>
+      </li>
+      <li>
+        <a>customer</a>
+      </li>
+
+    </ol>
+  </div>
+  <div class="col-sm-2">
+    <div class="btn-header-group">
+      <button class="btn btn-outline btn-primary dim" type="button" (click)="createMember()" tooltip="Create a new asset.">
+        <i class="fa fa-plus-circle"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Customers
+        </div>
+        <div class="panel-body">
+          <dx-data-grid #grid id="gridContainer" [dataSource]="members" [allowColumnReordering]="true" [allowColumnResizing]="true"
+            [columnAutoWidth]="true">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+            <dxo-paging [pageSize]="50"></dxo-paging>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxo-export [enabled]="true" fileName="Members" [allowExportSelectedData]="true"></dxo-export>
+
+            <dxi-column dataField="FirstName"></dxi-column>
+            <dxi-column dataField="LastName"></dxi-column>
+            <dxi-column dataField="Email"></dxi-column>
+            <dxi-column dataField="Id" cellTemplate="controlTemplate" 
+            caption="" 
+            [allowFiltering]="false" 
+            [allowSorting]="false" 
+            [allowSearch]="false">
+          </dxi-column>
+          <div *dxTemplate="let options of 'controlTemplate'">
+                <a class="btn btn-xs" (click)="handleRemove(options)" [ngClass]="options.data.Children ? 'btn-default' : 'btn-danger'">
+                    <i class="fa fa-trash"></i>
+                  </a>
+          </div>
+            <dxo-summary>
+              <dxi-total-item column="FirstName" summaryType="count">
+              </dxi-total-item>
+            </dxo-summary>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>

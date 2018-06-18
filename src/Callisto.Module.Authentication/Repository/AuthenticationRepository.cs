@@ -153,6 +153,8 @@ namespace Callisto.Module.Authentication.Repository
             user.Deactivated = true;
             user.UserName = Crypto.GetStringSha256Hash(user.UserName, user.Id);
             user.Email = Crypto.GetStringSha256Hash(user.Email, user.Id);
+            user.NormalizedEmail = Crypto.GetStringSha256Hash(user.Email, user.Id);
+            user.NormalizedUserName = Crypto.GetStringSha256Hash(user.Email, user.Id);
             await Context.SaveChangesAsync();
         }
     }

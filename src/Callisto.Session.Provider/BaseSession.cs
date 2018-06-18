@@ -1,10 +1,12 @@
 ﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Staff;
+using Callisto.SharedModels.Vendor;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -122,6 +124,34 @@ namespace Callisto.Session.Provider
         {
             get { return _staff ?? (_staff = ServiceProvider.GetRequiredService<IStaffModule>()); }
             set { _staff = value; }
+        }
+
+        /// <summary>
+        /// Defines the _customer
+        /// </summary>
+        private ICustomerModule _customer;
+
+        /// <summary>
+        /// Gets or sets the Customer
+        /// </summary>
+        public ICustomerModule Customer
+        {
+            get { return _customer ?? (_customer = ServiceProvider.GetRequiredService<ICustomerModule>()); }
+            set { _customer = value; }
+        }
+
+        /// <summary>
+        /// Defines the _vendor
+        /// </summary>
+        private IVendorModule _vendor;
+
+        /// <summary>
+        /// Gets or sets the Vendor
+        /// </summary>
+        public IVendorModule Vendor
+        {
+            get { return _vendor ?? (_vendor = ServiceProvider.GetRequiredService<IVendorModule>()); }
+            set { _vendor = value; }
         }
     }
 }

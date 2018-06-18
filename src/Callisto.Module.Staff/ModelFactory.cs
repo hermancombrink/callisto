@@ -3,7 +3,7 @@ using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Staff.ViewModels;
 using System;
 
-namespace Callisto.Module.Locations
+namespace Callisto.Module.Staff
 {
     /// <summary>
     /// Defines the <see cref="ModelFactory" />

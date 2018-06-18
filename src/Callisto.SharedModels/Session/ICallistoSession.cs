@@ -1,9 +1,11 @@
 ﻿using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Auth;
+using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Staff;
+using Callisto.SharedModels.Vendor;
 
 namespace Callisto.SharedModels.Session
 {
@@ -41,6 +43,16 @@ namespace Callisto.SharedModels.Session
         /// Gets or sets the Staff
         /// </summary>
         IStaffModule Staff { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Vendor
+        /// </summary>
+        IVendorModule Vendor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Customer
+        /// </summary>
+        ICustomerModule Customer { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether IsAuthenticated
