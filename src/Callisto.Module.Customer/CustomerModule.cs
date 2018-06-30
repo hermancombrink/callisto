@@ -1,15 +1,14 @@
-﻿using Callisto.Module.Locations;
-using Callisto.Module.Customer.Interfaces;
+﻿using Callisto.Module.Customer.Interfaces;
 using Callisto.Module.Customer.Repository.Models;
+using Callisto.Provider.Person;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedModels.Auth.ViewModels;
-using Callisto.SharedModels.Notification.Enum;
-using Callisto.SharedModels.Person;
-using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Customer.ViewModels;
+using Callisto.SharedModels.Notification.Enum;
+using Callisto.SharedModels.Session;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,26 +18,19 @@ namespace Callisto.Module.Customer
     /// <summary>
     /// Defines the <see cref="CustomerModule" />
     /// </summary>
-    public class CustomerModule : ICustomerModule
+    public class CustomerModule : PersonModule<CustomerMember>, ICustomerModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomerModule"/> class.
         /// </summary>
-        /// <param name="personProvider">The <see cref="IPersonProvider{CustomerMember}"/></param>
+        /// <param name="personProvider">The <see cref="IPersonModule{CustomerMember}"/></param>
         public CustomerModule(ICallistoSession session,
-            IPersonProvider<CustomerMember> personProvider,
             ICustomerRepository customerRepo
-            )
+            ) : base(customerRepo)
         {
-            PersonProvider = personProvider;
             Session = session;
             CustomerRepo = customerRepo;
         }
-
-        /// <summary>
-        /// Gets the PersonProvider
-        /// </summary>
-        public IPersonProvider<CustomerMember> PersonProvider { get; }
 
         /// <summary>
         /// Gets the Session
@@ -87,7 +79,7 @@ namespace Callisto.Module.Customer
                     }
                 }
 
-                await PersonProvider.AddPerson(person);
+                await AddPerson(person);
 
                 tran.Commit();
             }
@@ -101,7 +93,7 @@ namespace Callisto.Module.Customer
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RemoveCustomerMember(Guid Id)
         {
-            var CustomerMember = await PersonProvider.GetPerson(Id);
+            var CustomerMember = await GetPerson(Id);
 
             if (CustomerMember == null)
             {
@@ -112,7 +104,7 @@ namespace Callisto.Module.Customer
             {
                 await Session.Authentication.RemoveAccount(CustomerMember.Email);
 
-                await PersonProvider.RemovePerson(CustomerMember);
+                await RemovePerson(CustomerMember);
             }
 
             return RequestResult.Success();
@@ -146,12 +138,12 @@ namespace Callisto.Module.Customer
                 if (result.Status == RequestStatus.Success)
                 {
 
-                    var member = await PersonProvider.GetPersonByUserId(user.Result);
+                    var member = await GetPersonByUserId(user.Result);
                     if (member == null)
                     {
                         member = ModelFactory.CreateCustomerMember(model, Session.CurrentCompanyRef, Session.EmailAddress);
 
-                        await PersonProvider.AddPerson(member);
+                        await AddPerson(member);
                     }
                     else
                     {
@@ -160,7 +152,7 @@ namespace Callisto.Module.Customer
                         member.LastName = model.LastName;
                         member.ModifiedAt = DateTime.Now;
 
-                        await PersonProvider.UpdatePerson(member);
+                        await UpdatePerson(member);
                     }
 
                     tran.Commit();
@@ -177,7 +169,7 @@ namespace Callisto.Module.Customer
         public async Task<RequestResult<IEnumerable<CustomerViewModel>>> GetCustomerMembers()
         {
             var list = new List<CustomerViewModel>();
-            var members = await PersonProvider.GetPeople(Session.CurrentCompanyRef);
+            var members = await GetPeople(Session.CurrentCompanyRef);
 
             foreach (var item in members)
             {

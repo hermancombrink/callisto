@@ -4,7 +4,7 @@ using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
-using Callisto.SharedModels.Staff;
+using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Vendor;
 
 namespace Callisto.SharedModels.Session
@@ -42,7 +42,7 @@ namespace Callisto.SharedModels.Session
         /// <summary>
         /// Gets or sets the Staff
         /// </summary>
-        IStaffModule Staff { get; set; }
+        IMemberModule Member { get; set; }
 
         /// <summary>
         /// Gets or sets the Vendor

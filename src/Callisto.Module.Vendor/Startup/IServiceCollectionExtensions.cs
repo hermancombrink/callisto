@@ -1,8 +1,6 @@
 ﻿using Callisto.Module.Vendor;
 using Callisto.Module.Vendor.Interfaces;
 using Callisto.Module.Vendor.Repository;
-using Callisto.Module.Vendor.Repository.Models;
-using Callisto.Session.Provider.Startup;
 using Callisto.SharedModels.Vendor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +22,6 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoVendor(this IServiceCollection services,
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
-            services.AddCallistPerson<VendorMember>(dbContextFactory);
             services.AddDbContext<VendorDbContext>(dbContextFactory);
             services.TryAddTransient<IVendorRepository, VendorRepository>();
             services.TryAddTransient<IVendorModule, VendorModule>();

@@ -1,9 +1,7 @@
-﻿using Callisto.Module.Staff;
-using Callisto.Module.Staff.Interfaces;
-using Callisto.Module.Staff.Repository;
-using Callisto.Module.Staff.Repository.Models;
-using Callisto.Session.Provider.Startup;
-using Callisto.SharedModels.Staff;
+﻿using Callisto.Module.Team;
+using Callisto.Module.Team.Interfaces;
+using Callisto.Module.Team.Repository;
+using Callisto.SharedModels.Member;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,13 +19,12 @@ namespace Callisto.Module.Locations.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoStaff(this IServiceCollection services,
+        public static IServiceCollection AddCallistoMember(this IServiceCollection services,
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
-            services.AddCallistPerson<StaffMember>(dbContextFactory);
-            services.AddDbContext<StaffDbContext>(dbContextFactory);
-            services.TryAddTransient<IStaffRepository, StaffRepository>();
-            services.TryAddTransient<IStaffModule, StaffModule>();
+            services.AddDbContext<TeamDbContext>(dbContextFactory);
+            services.TryAddTransient<ITeamRepository, TeamRepository>();
+            services.TryAddTransient<IMemberModule, MemberModule>();
 
             return services;
         }
@@ -38,10 +35,10 @@ namespace Callisto.Module.Locations.Startup
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <param name="connectionString">The <see cref="string"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoStaff(this IServiceCollection services,
+        public static IServiceCollection AddCallistoMember(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoStaff(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoMember(services, options => options.UseSqlServer(connectionString));
         }
     }
 }

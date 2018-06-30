@@ -1,8 +1,6 @@
 ﻿using Callisto.Module.Customer;
 using Callisto.Module.Customer.Interfaces;
 using Callisto.Module.Customer.Repository;
-using Callisto.Module.Customer.Repository.Models;
-using Callisto.Session.Provider.Startup;
 using Callisto.SharedModels.Customer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +22,6 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoCustomer(this IServiceCollection services,
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
-            services.AddCallistPerson<CustomerMember>(dbContextFactory);
             services.AddDbContext<CustomerDbContext>(dbContextFactory);
             services.TryAddTransient<ICustomerRepository, CustomerRepository>();
             services.TryAddTransient<ICustomerModule, CustomerModule>();

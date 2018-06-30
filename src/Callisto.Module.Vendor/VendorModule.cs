@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Locations;
 using Callisto.Module.Vendor.Interfaces;
 using Callisto.Module.Vendor.Repository.Models;
+using Callisto.Provider.Person;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
@@ -19,26 +20,19 @@ namespace Callisto.Module.Vendor
     /// <summary>
     /// Defines the <see cref="VendorModule" />
     /// </summary>
-    public class VendorModule : IVendorModule
+    public class VendorModule : PersonModule<VendorMember>, IVendorModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VendorModule"/> class.
         /// </summary>
-        /// <param name="personProvider">The <see cref="IPersonProvider{VendorMember}"/></param>
+        /// <param name="personProvider">The <see cref="IPersonModule{VendorMember}"/></param>
         public VendorModule(ICallistoSession session,
-            IPersonProvider<VendorMember> personProvider,
             IVendorRepository vendorRepo
-            )
+            ) : base(vendorRepo)
         {
-            PersonProvider = personProvider;
             Session = session;
             VendorRepo = vendorRepo;
         }
-
-        /// <summary>
-        /// Gets the PersonProvider
-        /// </summary>
-        public IPersonProvider<VendorMember> PersonProvider { get; }
 
         /// <summary>
         /// Gets the Session
@@ -87,7 +81,7 @@ namespace Callisto.Module.Vendor
                     }
                 }
 
-                await PersonProvider.AddPerson(person);
+                await AddPerson(person);
 
                 tran.Commit();
             }
@@ -101,7 +95,7 @@ namespace Callisto.Module.Vendor
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RemoveVendorMember(Guid Id)
         {
-            var VendorMember = await PersonProvider.GetPerson(Id);
+            var VendorMember = await GetPerson(Id);
 
             if (VendorMember == null)
             {
@@ -112,7 +106,7 @@ namespace Callisto.Module.Vendor
             {
                 await Session.Authentication.RemoveAccount(VendorMember.Email);
 
-                await PersonProvider.RemovePerson(VendorMember);
+                await RemovePerson(VendorMember);
             }
 
             return RequestResult.Success();
@@ -146,12 +140,12 @@ namespace Callisto.Module.Vendor
                 if (result.Status == RequestStatus.Success)
                 {
 
-                    var member = await PersonProvider.GetPersonByUserId(user.Result);
+                    var member = await GetPersonByUserId(user.Result);
                     if (member == null)
                     {
                         member = ModelFactory.CreateVendorMember(model, Session.CurrentCompanyRef, Session.EmailAddress);
 
-                        await PersonProvider.AddPerson(member);
+                        await AddPerson(member);
                     }
                     else
                     {
@@ -160,7 +154,7 @@ namespace Callisto.Module.Vendor
                         member.LastName = model.LastName;
                         member.ModifiedAt = DateTime.Now;
 
-                        await PersonProvider.UpdatePerson(member);
+                        await UpdatePerson(member);
                     }
 
                     tran.Commit();
@@ -177,7 +171,7 @@ namespace Callisto.Module.Vendor
         public async Task<RequestResult<IEnumerable<VendorViewModel>>> GetVendorMembers()
         {
             var list = new List<VendorViewModel>();
-            var members = await PersonProvider.GetPeople(Session.CurrentCompanyRef);
+            var members = await GetPeople(Session.CurrentCompanyRef);
 
             foreach (var item in members)
             {

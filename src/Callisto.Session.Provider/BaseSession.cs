@@ -5,7 +5,7 @@ using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
-using Callisto.SharedModels.Staff;
+using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Vendor;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -113,17 +113,17 @@ namespace Callisto.Session.Provider
         }
 
         /// <summary>
-        /// Defines the _staff
+        /// Defines the _member
         /// </summary>
-        private IStaffModule _staff;
+        private IMemberModule _member;
 
         /// <summary>
         /// Gets or sets the Staff
         /// </summary>
-        public IStaffModule Staff
+        public IMemberModule Member
         {
-            get { return _staff ?? (_staff = ServiceProvider.GetRequiredService<IStaffModule>()); }
-            set { _staff = value; }
+            get { return _member ?? (_member = ServiceProvider.GetRequiredService<IMemberModule>()); }
+            set { _member = value; }
         }
 
         /// <summary>

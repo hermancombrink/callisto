@@ -90,7 +90,7 @@
     <Build Include="callisto\procedures\usp_GetAssetTreeAll.sql" />
     <Build Include="callisto\procedures\usp_GetPotentialParents.sql" />
     <Build Include="callisto\functions\udf_GetAssetBestLocation.sql" />
-    <Build Include="callisto\tables\Staff.sql" />
+    <Build Include="callisto\tables\Team.sql" />
     <Build Include="callisto\tables\Vendor.sql" />
     <Build Include="callisto\tables\Customer.sql" />
   </ItemGroup>

@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Callisto.Provider.Person\Callisto.Provider.Person.csproj" />
+    <ProjectReference Include="..\Callisto.Base.Person\Callisto.Base.Person.csproj" />
+    <ProjectReference Include="..\Callisto.SharedKernel\Callisto.SharedKernel.csproj" />
     <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,9 @@
-﻿using Callisto.Module.Staff.Repository.Models;
+﻿using Callisto.Module.Team.Repository.Models;
 using Callisto.SharedModels.Auth.ViewModels;
-using Callisto.SharedModels.Staff.ViewModels;
+using Callisto.SharedModels.Member.ViewModels;
 using System;
 
-namespace Callisto.Module.Staff
+namespace Callisto.Module.Team
 {
     /// <summary>
     /// Defines the <see cref="ModelFactory" />
@@ -11,14 +11,14 @@ namespace Callisto.Module.Staff
     public static class ModelFactory
     {
         /// <summary>
-        /// The CreateStaffMember
+        /// The CreateTeamMember
         /// </summary>
-        /// <param name="model">The <see cref="AddStaffViewModel"/></param>
+        /// <param name="model">The <see cref="AddMemberViewModel"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
-        /// <returns>The <see cref="StaffMember"/></returns>
-        public static StaffMember CreateStaffMember(AddStaffViewModel model, long companyRefId)
+        /// <returns>The <see cref="TeamMember"/></returns>
+        public static TeamMember CreateTeamMember(AddMemberViewModel model, long companyRefId)
         {
-            return new StaffMember()
+            return new TeamMember()
             {
                 CompanyRefId = companyRefId,
                 CreatedAt = DateTime.Now,
@@ -31,15 +31,15 @@ namespace Callisto.Module.Staff
         }
 
         /// <summary>
-        /// The CreateStaffMember
+        /// The CreateTeamMember
         /// </summary>
         /// <param name="model">The <see cref="NewAccountViewModel"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <param name="email">The <see cref="string"/></param>
-        /// <returns>The <see cref="StaffMember"/></returns>
-        public static StaffMember CreateStaffMember(NewAccountViewModel model, long companyRefId, string email)
+        /// <returns>The <see cref="TeamMember"/></returns>
+        public static TeamMember CreateTeamMember(NewAccountViewModel model, long companyRefId, string email)
         {
-            return new StaffMember()
+            return new TeamMember()
             {
                 CompanyRefId = companyRefId,
                 CreatedAt = DateTime.Now,
@@ -52,12 +52,12 @@ namespace Callisto.Module.Staff
         }
 
         /// <summary>
-        /// The CreateStaffUser
+        /// The CreateTeamUser
         /// </summary>
-        /// <param name="model">The <see cref="AddStaffViewModel"/></param>
+        /// <param name="model">The <see cref="AddMemberViewModel"/></param>
         /// <param name="randomPass">The <see cref="string"/></param>
         /// <returns>The <see cref="RegisterViewModel"/></returns>
-        public static RegisterViewModel CreateStaffUser(AddStaffViewModel model, string randomPass)
+        public static RegisterViewModel CreateTeamUser(AddMemberViewModel model, string randomPass)
         {
             return new RegisterViewModel()
             {
@@ -69,13 +69,13 @@ namespace Callisto.Module.Staff
         }
 
         /// <summary>
-        /// The CreateStaffMembers
+        /// The CreateTeamMembers
         /// </summary>
-        /// <param name="model">The <see cref="StaffMember"/></param>
-        /// <returns>The <see cref="StaffViewModel"/></returns>
-        public static StaffViewModel CreateStaffMember(StaffMember model)
+        /// <param name="model">The <see cref="TeamMember"/></param>
+        /// <returns>The <see cref="MemberViewModel"/></returns>
+        public static MemberViewModel CreateTeamMember(TeamMember model)
         {
-            return new StaffViewModel()
+            return new MemberViewModel()
             {
                 Email = model.Email,
                 FirstName = model.FirstName,

@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Vendor.Repository.Models;
+﻿using Callisto.Base.Person.Repository;
+using Callisto.Module.Vendor.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Callisto.Module.Vendor.Repository
@@ -6,7 +7,7 @@ namespace Callisto.Module.Vendor.Repository
     /// <summary>
     /// Defines the <see cref="VendorDbContext" />
     /// </summary>
-    public class VendorDbContext : DbContext
+    public class VendorDbContext : PersonDbContext<VendorMember>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VendorDbContext"/> class.

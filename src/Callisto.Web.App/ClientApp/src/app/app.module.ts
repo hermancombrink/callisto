@@ -32,7 +32,7 @@ import {
   FacebookLoginProvider,
   LinkedinLoginProvider
 } from 'angular5-social-auth';
-import { StaffModule } from './staff/staff.module';
+import { TeamModule } from './team/team.module';
 import { VendorModule } from './vendor/vendor.module';
 import { CustomerModule } from './customer/customer.module';
 
@@ -54,7 +54,7 @@ import { CustomerModule } from './customer/customer.module';
     LocationModule,
     AccountModule,
     AssetModule,
-    StaffModule,
+    TeamModule,
     VendorModule,
     CustomerModule,
     ErrorModule,

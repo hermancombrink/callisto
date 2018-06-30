@@ -64,7 +64,7 @@ namespace Callisto.Worker.Service
 
             services.AddCallistoAssets(dbConnectionString);
             services.AddCallistoLocations(dbConnectionString);
-            services.AddCallistoStaff(dbConnectionString);
+            services.AddCallistoMember(dbConnectionString);
             services.AddCallistoCustomer(dbConnectionString);
             services.AddCallistoVendor(dbConnectionString);
 

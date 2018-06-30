@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Customer.Repository.Models;
+﻿using Callisto.Base.Person.Repository;
+using Callisto.Module.Customer.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Callisto.Module.Customer.Repository
@@ -6,7 +7,7 @@ namespace Callisto.Module.Customer.Repository
     /// <summary>
     /// Defines the <see cref="CustomerDbContext" />
     /// </summary>
-    public class CustomerDbContext : DbContext
+    public class CustomerDbContext : PersonDbContext<CustomerMember>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomerDbContext"/> class.
