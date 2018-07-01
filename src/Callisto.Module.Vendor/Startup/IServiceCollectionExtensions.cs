@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Vendor;
 using Callisto.Module.Vendor.Interfaces;
 using Callisto.Module.Vendor.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Vendor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoVendor(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoVendor(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoVendor(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

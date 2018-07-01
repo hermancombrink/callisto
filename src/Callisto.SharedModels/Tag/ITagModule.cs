@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Tag.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Callisto.SharedModels.Tag
     /// <summary>
     /// Defines the <see cref="ITagModule" />
     /// </summary>
-    public interface ITagModule
+    public interface ITagModule : IBaseModule
     {
         /// <summary>
         /// The UpsertCompanyTag

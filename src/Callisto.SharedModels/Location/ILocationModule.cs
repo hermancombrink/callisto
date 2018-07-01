@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Location.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Callisto.SharedModels.Location
     /// <summary>
     /// Defines the <see cref="ILocationModule" />
     /// </summary>
-    public interface ILocationModule
+    public interface ILocationModule : IBaseModule
     {
         /// <summary>
         /// The UpsertCompanyLocation

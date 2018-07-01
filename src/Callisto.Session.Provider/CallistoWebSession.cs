@@ -47,6 +47,15 @@ namespace Callisto.Session.Provider
             }
         }
 
+        public override string UserId
+        {
+            get
+            {
+                var claim = HttpContextAccessor.HttpContext?.User?.Claims?.FirstOrDefault(c => c.Type == CallistoJwtClaimTypes.Id);
+                return claim?.Value ?? string.Empty;
+            }
+        }
+
         /// <summary>
         /// Gets the EmailAddress
         /// </summary>

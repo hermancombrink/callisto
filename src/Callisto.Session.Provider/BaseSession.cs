@@ -2,10 +2,10 @@
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Location;
+using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Session;
-using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Vendor;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -45,6 +45,11 @@ namespace Callisto.Session.Provider
         /// Gets the EmailAddress
         /// </summary>
         public abstract string EmailAddress { get; }
+
+        /// <summary>
+        /// Gets the UserId
+        /// </summary>
+        public abstract string UserId { get; }
 
         /// <summary>
         /// Gets the ServiceProvider

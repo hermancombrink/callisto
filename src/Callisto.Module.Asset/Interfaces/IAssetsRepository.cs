@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Assets.Repository.Models;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Location.ViewModels;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -10,14 +11,8 @@ namespace Callisto.Module.Assets.Interfaces
     /// <summary>
     /// Defines the <see cref="IAssetsRepository" />
     /// </summary>
-    public interface IAssetsRepository
+    public interface IAssetsRepository : IBaseRepository
     {
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        Task<IDbContextTransaction> BeginTransaction();
-
         /// <summary>
         /// The AddAsset
         /// </summary>

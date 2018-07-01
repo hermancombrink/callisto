@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Assets.ViewModels;
+using Callisto.SharedModels.Base;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Callisto.SharedModels.Asset
     /// <summary>
     /// Defines the <see cref="IAssetsModule" />
     /// </summary>
-    public interface IAssetsModule
+    public interface IAssetsModule : IBaseModule
     {
         /// <summary>
         /// The AddAssetAsync

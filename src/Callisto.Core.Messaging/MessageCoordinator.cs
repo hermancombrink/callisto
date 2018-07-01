@@ -96,7 +96,8 @@ namespace Callisto.Core.Messaging
                 CurrentCompanyRef = session.CurrentCompanyRef,
                 EmailAddress = session.EmailAddress,
                 IsAuthenticated = session.IsAuthenticated,
-                UserName = session.UserName
+                UserName = session.UserName,
+                UserId = session.UserId
             };
 
             string routingKey = Publishers.Single(x => x.Key == typeof(T)).Value.RoutingKey;

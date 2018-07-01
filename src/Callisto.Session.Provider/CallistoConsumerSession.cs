@@ -18,6 +18,7 @@ namespace Callisto.Session.Provider
             UserName = message.UserName;
             CurrentCompanyRef = message.CurrentCompanyRef;
             EmailAddress = message.EmailAddress;
+            UserId = message.UserId;
         }
 
         /// <summary>
@@ -39,5 +40,10 @@ namespace Callisto.Session.Provider
         /// Gets the EmailAddress
         /// </summary>
         public override string EmailAddress { get; }
+
+        /// <summary>
+        /// Gets the UserId
+        /// </summary>
+        public override string UserId { get; }
     }
 }

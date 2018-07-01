@@ -52,7 +52,7 @@ namespace Callisto.Module.Vendor
         public async Task<RequestResult> AddVendorMember(AddVendorViewModel model)
         {
             var person = ModelFactory.CreateVendorMember(model, Session.CurrentCompanyRef);
-            using (var tran = await VendorRepo.BeginTransaction())
+            using (var tran =  VendorRepo.BeginTransaction())
             {
                 if (model.CreateAccount)
                 {
@@ -102,7 +102,7 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Vendor member not found");
             }
 
-            using (var tran = await VendorRepo.BeginTransaction())
+            using (var tran =  VendorRepo.BeginTransaction())
             {
                 //await Session.Authentication.RemoveAccount(VendorMember.Email);
 
@@ -134,7 +134,7 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran = await VendorRepo.BeginTransaction())
+            using (var tran =  VendorRepo.BeginTransaction())
             {
                 var result = await Session.Authentication.UpdateNewProfileAsync(model);
                 if (result.Status == RequestStatus.Success)

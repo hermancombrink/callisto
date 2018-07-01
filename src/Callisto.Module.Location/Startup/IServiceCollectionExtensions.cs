@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Locations.Interfaces;
 using Callisto.Module.Locations.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Location;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoLocations(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoLocations(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoLocations(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

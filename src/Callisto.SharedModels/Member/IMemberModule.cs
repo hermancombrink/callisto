@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Member.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Callisto.SharedModels.Member
     /// <summary>
     /// Defines the <see cref="IMemberModule" />
     /// </summary>
-    public interface IMemberModule
+    public interface IMemberModule : IBaseModule
     {
         /// <summary>
         /// The AddTeamMember
@@ -48,6 +49,6 @@ namespace Callisto.SharedModels.Member
         /// </summary>
         /// <param name="model">The <see cref="AddMemberViewModel"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        Task AddFounderMember(string email, string userId);
+        Task AddFounderMember(string email, string userId, long companyRefId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Notification.Email;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Notification.Email;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Notification.Enum;

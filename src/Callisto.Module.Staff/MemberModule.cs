@@ -51,46 +51,42 @@ namespace Callisto.Module.Team
         public async Task<RequestResult> AddTeamMember(AddMemberViewModel model)
         {
             var person = ModelFactory.CreateTeamMember(model, Session.CurrentCompanyRef);
-            using (var tran = await TeamRepo.BeginTransaction())
+
+            if (model.CreateAccount)
             {
-                if (model.CreateAccount)
+                var createModel = ModelFactory.CreateTeamUser(model, Session.Authentication.GenerateRandomPassword());
+
+                var result = await Session.Authentication.RegisterUserWithCurrentCompanyAsync(createModel);
+
+                if (!result.IsSuccess())
                 {
-                    var createModel = ModelFactory.CreateTeamUser(model, Session.Authentication.GenerateRandomPassword());
-
-                    var result = await Session.Authentication.RegisterUserWithCurrentCompanyAsync(createModel);
-
-                    if (!result.IsSuccess())
-                    {
-                        return result;
-                    }
-
-                    var user = await Session.Authentication.GetUserId(model.Email);
-                    if (user.Status != RequestStatus.Success)
-                    {
-                        throw new InvalidOperationException($"Failed to find user");
-                    }
-
-                    person.UserId = user.Result;
-
-                    if (model.SendLink)
-                    {
-                        var message = Session.Notification.CreateSimpleMessage(NotificationType.AccountInvite, person.Email, result.Result.ToTokenDictionary("~token~"));
-
-                        Session.MessageCoordinator.Publish(message, Session);
-                    }
+                    return result;
                 }
 
-                await AddPerson(person);
+                var user = await Session.Authentication.GetUserId(model.Email);
+                if (user.Status != RequestStatus.Success)
+                {
+                    throw new InvalidOperationException($"Failed to find user");
+                }
 
-                tran.Commit();
+                person.UserId = user.Result;
+
+                if (model.SendLink)
+                {
+                    var message = Session.Notification.CreateSimpleMessage(NotificationType.AccountInvite, person.Email, result.Result.ToTokenDictionary("~token~"));
+
+                    Session.MessageCoordinator.Publish(message, Session);
+                }
             }
+
+            await AddPerson(person);
 
             return RequestResult.Success();
         }
 
-        public async Task AddFounderMember(string email, string userId)
+        public async Task AddFounderMember(string email, string userId, long companyRefId)
         {
-            var person = ModelFactory.CreateTeamMember(email, Session.CurrentCompanyRef, userId);
+            var person = ModelFactory.CreateTeamMember(email, companyRefId, userId);
 
             person.IsFounder = true;
 
@@ -103,19 +99,21 @@ namespace Callisto.Module.Team
         /// <returns>The <see cref="Task"/></returns>
         public async Task<RequestResult> RemoveTeamMember(Guid Id)
         {
-            var TeamMember = await GetPerson(Id);
+            var teamMember = await GetPerson(Id);
 
-            if (TeamMember == null)
+            if (teamMember == null)
             {
                 throw new InvalidOperationException($"Team member not found");
             }
 
-            using (var tran = await TeamRepo.BeginTransaction())
+            if (teamMember.IsFounder)
             {
-                //await Session.Authentication.RemoveAccount(TeamMember.Email);
-
-                await RemovePerson(TeamMember);
+                return RequestResult.Validation($"Cannot remove the founding member of the team");
             }
+
+            //await Session.Authentication.RemoveAccount(TeamMember.Email);
+
+            await RemovePerson(teamMember);
 
             return RequestResult.Success();
         }
@@ -142,30 +140,24 @@ namespace Callisto.Module.Team
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran = await TeamRepo.BeginTransaction())
+            var result = await Session.Authentication.UpdateNewProfileAsync(model);
+            if (result.Status == RequestStatus.Success)
             {
-                var result = await Session.Authentication.UpdateNewProfileAsync(model);
-                if (result.Status == RequestStatus.Success)
+                var member = await GetPersonByUserId(user.Result);
+                if (member == null)
+                {
+                    member = ModelFactory.CreateTeamMember(model, Session.CurrentCompanyRef, Session.EmailAddress);
+
+                    await AddPerson(member);
+                }
+                else
                 {
 
-                    var member = await GetPersonByUserId(user.Result);
-                    if (member == null)
-                    {
-                        member = ModelFactory.CreateTeamMember(model, Session.CurrentCompanyRef, Session.EmailAddress);
+                    member.FirstName = model.FirstName;
+                    member.LastName = model.LastName;
+                    member.ModifiedAt = DateTime.Now;
 
-                        await AddPerson(member);
-                    }
-                    else
-                    {
-
-                        member.FirstName = model.FirstName;
-                        member.LastName = model.LastName;
-                        member.ModifiedAt = DateTime.Now;
-
-                        await UpdatePerson(member);
-                    }
-
-                    tran.Commit();
+                    await UpdatePerson(member);
                 }
             }
 

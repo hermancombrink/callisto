@@ -6,7 +6,7 @@
     [CreatedAt] DATETIME NULL DEFAULT GETDATE(), 
     [ModifiedAt] DATETIME NULL DEFAULT GETDATE(), 
     [CompanyRefId] BIGINT NULL,
-	[UserId] [nvarchar](450) NOT NULL,
+	[UserId] [nvarchar](450) NULL,
     [JobRole] NVARCHAR(50) NULL, 
 	[UserType] INT NOT NULL DEFAULT(0), 
     [Deactivated] BIT NOT NULL DEFAULT 0, 

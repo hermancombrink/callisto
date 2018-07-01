@@ -2,9 +2,9 @@
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Customer;
 using Callisto.SharedModels.Location;
+using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
-using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Vendor;
 
 namespace Callisto.SharedModels.Session
@@ -73,5 +73,10 @@ namespace Callisto.SharedModels.Session
         /// Gets the EmailAddress
         /// </summary>
         string EmailAddress { get; }
+
+        /// <summary>
+        /// Gets the UserId
+        /// </summary>
+        string UserId { get; }
     }
 }

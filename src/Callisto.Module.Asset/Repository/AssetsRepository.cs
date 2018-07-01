@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Assets.Interfaces;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
 using Callisto.SharedModels.Location.ViewModels;
 using EntityFrameworkCore.RawSQLExtensions.Extensions;
@@ -15,13 +16,13 @@ namespace Callisto.Module.Assets.Repository
     /// <summary>
     /// Defines the <see cref="AssetsRepository" />
     /// </summary>
-    public class AssetsRepository : IAssetsRepository
+    public class AssetsRepository : BaseRepository, IAssetsRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetsRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public AssetsRepository(AssetDbContext context)
+        public AssetsRepository(AssetDbContext context) : base(context)
         {
             Context = context;
         }
@@ -30,15 +31,6 @@ namespace Callisto.Module.Assets.Repository
         /// Gets the Context
         /// </summary>
         private AssetDbContext Context { get; }
-
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        public async Task<IDbContextTransaction> BeginTransaction()
-        {
-            return await Context.Database.BeginTransactionAsync();
-        }
 
         /// <summary>
         /// The AddTask

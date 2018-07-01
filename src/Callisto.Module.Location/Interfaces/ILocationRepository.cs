@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Locations.Repository.Models;
+using Callisto.SharedModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Callisto.Module.Locations.Interfaces
     /// <summary>
     /// Defines the <see cref="ILocationRepository" />
     /// </summary>
-    public interface ILocationRepository
+    public interface ILocationRepository : IBaseRepository
     {
         /// <summary>
         /// The AddLocation

@@ -1,6 +1,7 @@
 ﻿using Callisto.Core.Storage;
 using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Asset;
 using Callisto.SharedModels.Storage;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ namespace Callisto.Module.Assets.Startup
         public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoAssets(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoAssets(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedKernel;
 using Callisto.SharedKernel.Messaging;
 using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Notification.Models;
@@ -82,7 +83,7 @@ namespace Callisto.Module.Authentication.Startup
             JwtIssuerOptions issuerOptions,
             string connectionString)
         {
-            return AddCallistoAuthentication(services, authOptions, issuerOptions, options => options.UseSqlServer(connectionString));
+            return AddCallistoAuthentication(services, authOptions, issuerOptions, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

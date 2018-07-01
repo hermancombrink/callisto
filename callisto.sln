@@ -131,13 +131,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fixtures", "fixtures", "{A6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Test.Fixtures", "test\Callisto.Test.Fixtures\Callisto.Test.Fixtures.csproj", "{3D2ACEB7-9721-4E56-BC20-FC916EE51A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Assets.Tests", "test\Callisto.Assets.Tests\Callisto.Assets.Tests.csproj", "{7280410F-1055-4328-A0D7-4B85EB8DA508}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Assets.Tests", "test\Callisto.Assets.Tests\Callisto.Assets.Tests.csproj", "{7280410F-1055-4328-A0D7-4B85EB8DA508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Locations.Tests", "test\Callisto.Locations.Tests\Callisto.Locations.Tests.csproj", "{14157B81-07A4-411E-8550-DEDF18026931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Locations.Tests", "test\Callisto.Locations.Tests\Callisto.Locations.Tests.csproj", "{14157B81-07A4-411E-8550-DEDF18026931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Notifications.Tests", "test\Callisto.Notifications.Tests\Callisto.Notifications.Tests.csproj", "{4243F140-66ED-43E9-8D68-11926F9CC03B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Notifications.Tests", "test\Callisto.Notifications.Tests\Callisto.Notifications.Tests.csproj", "{4243F140-66ED-43E9-8D68-11926F9CC03B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Storage.Tests", "test\Callisto.Storage.Tests\Callisto.Storage.Tests.csproj", "{8619BF5C-8382-4135-80D2-7C2494638F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Callisto.Storage.Tests", "test\Callisto.Storage.Tests\Callisto.Storage.Tests.csproj", "{8619BF5C-8382-4135-80D2-7C2494638F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callisto.Base.Module", "src\Callisto.Base.Module\Callisto.Base.Module.csproj", "{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -255,6 +257,10 @@ Global
 		{8619BF5C-8382-4135-80D2-7C2494638F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8619BF5C-8382-4135-80D2-7C2494638F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8619BF5C-8382-4135-80D2-7C2494638F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -304,9 +310,10 @@ Global
 		{14157B81-07A4-411E-8550-DEDF18026931} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 		{4243F140-66ED-43E9-8D68-11926F9CC03B} = {7F1E2E52-F101-4E51-B707-B833323895ED}
 		{8619BF5C-8382-4135-80D2-7C2494638F4A} = {7F1E2E52-F101-4E51-B707-B833323895ED}
+		{F70C2B4C-F65E-47FF-BCD8-9642E5D7883D} = {F9C19E94-E52D-480B-B812-EA417A3F8D34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 		SolutionGuid = {7D72B95D-21CC-4741-84CA-F849B7155ECE}
+		LessCompiler = f9e8745a-99f4-4453-b568-995bc3806139
 	EndGlobalSection
 EndGlobal

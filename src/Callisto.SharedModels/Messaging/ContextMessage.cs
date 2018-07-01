@@ -29,6 +29,11 @@ namespace Callisto.SharedModels.Messaging
         public string EmailAddress { get; set; }
 
         /// <summary>
+        /// Gets or sets the UserId
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// Gets or sets the Body
         /// </summary>
         public T Body { get; set; }

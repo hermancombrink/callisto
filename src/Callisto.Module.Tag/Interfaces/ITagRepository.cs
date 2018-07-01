@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Tag.Repository.Models;
+using Callisto.SharedModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Callisto.Module.Tags.Interfaces
     /// <summary>
     /// Defines the <see cref="ITagRepository" />
     /// </summary>
-    public interface ITagRepository
+    public interface ITagRepository : IBaseRepository
     {
         /// <summary>
         /// The AddTag

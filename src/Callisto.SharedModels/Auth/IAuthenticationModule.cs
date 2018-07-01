@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Base;
 using System.Threading.Tasks;
 
 namespace Callisto.SharedModels.Auth
@@ -7,7 +8,7 @@ namespace Callisto.SharedModels.Auth
     /// <summary>
     /// Defines the <see cref="IAuthenticationModule" />
     /// </summary>
-    public interface IAuthenticationModule
+    public interface IAuthenticationModule : IBaseModule
     {
         /// <summary>
         /// The RegisterUserAsync

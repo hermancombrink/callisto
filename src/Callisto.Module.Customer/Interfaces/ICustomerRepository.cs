@@ -10,10 +10,5 @@ namespace Callisto.Module.Customer.Interfaces
     /// </summary>
     public interface ICustomerRepository : IPersonRepository<CustomerMember>
     {
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        Task<IDbContextTransaction> BeginTransaction();
     }
 }

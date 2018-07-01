@@ -10,10 +10,5 @@ namespace Callisto.Module.Team.Interfaces
     /// </summary>
     public interface ITeamRepository : IPersonRepository<TeamMember>
     {
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        Task<IDbContextTransaction> BeginTransaction();
     }
 }

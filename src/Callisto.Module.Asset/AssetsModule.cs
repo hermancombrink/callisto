@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Assets.Interfaces;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedKernel.Enum;
@@ -18,7 +19,7 @@ namespace Callisto.Module.Assets
     /// <summary>
     /// Defines the <see cref="AssetModule" />
     /// </summary>
-    public class AssetsModule : IAssetsModule
+    public class AssetsModule : BaseModule, IAssetsModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetsModule"/> class.
@@ -30,7 +31,7 @@ namespace Callisto.Module.Assets
                ICallistoSession session,
             ILogger<AssetsModule> logger,
             IAssetsRepository assetRepo,
-            IStorage storage)
+            IStorage storage) : base(assetRepo)
         {
             Session = session;
             Logger = logger;
@@ -148,7 +149,7 @@ namespace Callisto.Module.Assets
                 throw new InvalidOperationException($"Unable to find asset");
             }
 
-            using (var tran = await AssetRepo.BeginTransaction())
+            using (var tran = AssetRepo.BeginTransaction())
             {
                 var parent = await GetAssetParentAsync(model.ParentId);
 

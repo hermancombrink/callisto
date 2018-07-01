@@ -34,5 +34,10 @@ namespace Callisto.Session.Provider
         /// Gets the EmailAddress
         /// </summary>
         public override string EmailAddress => "n/a";
+
+        /// <summary>
+        /// Gets the UserId
+        /// </summary>
+        public override string UserId => string.Empty;
     }
 }

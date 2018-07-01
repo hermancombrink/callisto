@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Tags.Interfaces;
 using Callisto.Module.Tags.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Tag;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace Callisto.Module.Tags.Startup
         public static IServiceCollection AddCallistoTags(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoTags(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoTags(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

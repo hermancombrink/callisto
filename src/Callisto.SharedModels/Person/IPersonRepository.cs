@@ -1,4 +1,5 @@
-﻿using Callisto.SharedModels.Models;
+﻿using Callisto.SharedModels.Base;
+using Callisto.SharedModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace Callisto.SharedModels.Person
     /// <summary>
     /// Defines the <see cref="IPersonRepository" />
     /// </summary>
-    public interface IPersonRepository<T> where T : BasePerson
+    public interface IPersonRepository<T> : IBaseRepository where T : BasePerson
     {
         /// <summary>
         /// The AddPerson

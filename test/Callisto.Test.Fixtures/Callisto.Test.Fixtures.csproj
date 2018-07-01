@@ -21,16 +21,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Codecov" Version="1.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
-    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="Codecov" Version="1.0.4" />
+    <PackageReference Include="Moq" Version="4.8.3" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="AutoFixture" Version="4.4.0" />
-    <PackageReference Include="FluentAssertions" Version="5.3.2" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.0" />
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.2" />
     <PackageReference Include="OpenCover" Version="4.6.519" />
-    <PackageReference Include="OpenCoverToCoberturaConverter" Version="0.3.2" />
+    <PackageReference Include="OpenCoverToCoberturaConverter" Version="0.3.3" />
     <PackageReference Include="ReportGenerator" Version="3.1.2" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />

@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Vendor.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Callisto.SharedModels.Vendor
     /// <summary>
     /// Defines the <see cref="IVendorModule" />
     /// </summary>
-    public interface IVendorModule
+    public interface IVendorModule : IBaseModule
     {
         /// <summary>
         /// The AddVendorMember

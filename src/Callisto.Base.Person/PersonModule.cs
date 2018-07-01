@@ -1,4 +1,5 @@
-﻿using Callisto.SharedModels.Models;
+﻿using Callisto.Base.Module;
+using Callisto.SharedModels.Models;
 using Callisto.SharedModels.Person;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ namespace Callisto.Provider.Person
     /// Defines the <see cref="PersonModule{T}" />
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class PersonModule<T> : IPersonModule<T> where T : BasePerson
+    public abstract class PersonModule<T> : BaseModule, IPersonModule<T> where T : BasePerson
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonModule{T}"/> class.
         /// </summary>
         /// <param name="personRepo">The <see cref="IPersonRepository{T}"/></param>
-        public PersonModule(IPersonRepository<T> personRepo)
+        public PersonModule(IPersonRepository<T> personRepo) : base(personRepo)
         {
             PersonRepo = personRepo;
         }

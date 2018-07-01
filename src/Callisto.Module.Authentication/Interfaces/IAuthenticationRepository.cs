@@ -1,7 +1,7 @@
 ﻿using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
-using Microsoft.EntityFrameworkCore.Storage;
+using Callisto.SharedModels.Base;
 using System.Threading.Tasks;
 
 namespace Callisto.Module.Authentication.Interfaces
@@ -9,7 +9,7 @@ namespace Callisto.Module.Authentication.Interfaces
     /// <summary>
     /// Defines the <see cref="IAuthenticationRepository" />
     /// </summary>
-    public interface IAuthenticationRepository
+    public interface IAuthenticationRepository : IBaseRepository
     {
         /// <summary>
         /// The CreateCompany
@@ -38,12 +38,6 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="email">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{RequestResult{UserViewModel}}"/></returns>
         Task<RequestResult<UserViewModel>> GetUserByName(string email);
-
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        Task<IDbContextTransaction> BeginTransaction();
 
         /// <summary>
         /// The GetCompany
@@ -79,5 +73,20 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="user">The <see cref="ApplicationUser"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task RemoveAccount(ApplicationUser user);
+
+        /// <summary>
+        /// The GetSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{Subscription}"/></returns>
+        Task<Subscription> GetSubscription(string userId, long companyRefId);
+
+        /// <summary>
+        /// The UpdateSubscription
+        /// </summary>
+        /// <param name="subscriptions">The <see cref="Subscription"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task UpdateSubscription(Subscription subscriptions);
     }
 }

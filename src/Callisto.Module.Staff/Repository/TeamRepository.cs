@@ -27,14 +27,5 @@ namespace Callisto.Module.Team.Repository
         /// Gets the Context
         /// </summary>
         public TeamDbContext Context { get; }
-
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        public async Task<IDbContextTransaction> BeginTransaction()
-        {
-            return await Context.Database.BeginTransactionAsync();
-        }
     }
 }

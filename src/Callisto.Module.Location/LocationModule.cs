@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Locations.Interfaces;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Locations.Interfaces;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Location;
 using Callisto.SharedModels.Location.ViewModels;
@@ -13,7 +14,7 @@ namespace Callisto.Module.Locations
     /// <summary>
     /// Defines the <see cref="LocationModule" />
     /// </summary>
-    public class LocationModule : ILocationModule
+    public class LocationModule : BaseModule, ILocationModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LocationModule"/> class.
@@ -24,7 +25,7 @@ namespace Callisto.Module.Locations
         public LocationModule(
             ICallistoSession session,
             ILogger<LocationModule> logger,
-            ILocationRepository locationRepo)
+            ILocationRepository locationRepo) : base(locationRepo)
         {
             Session = session;
             Logger = logger;

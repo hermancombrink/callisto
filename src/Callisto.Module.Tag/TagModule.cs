@@ -7,13 +7,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Callisto.Base.Module;
 
 namespace Callisto.Module.Tags
 {
     /// <summary>
     /// Defines the <see cref="TagModule" />
     /// </summary>
-    public class TagModule : ITagModule
+    public class TagModule : BaseModule, ITagModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TagModule"/> class.
@@ -24,7 +25,7 @@ namespace Callisto.Module.Tags
         public TagModule(
             ICallistoSession session,
             ILogger<TagModule> logger,
-            ITagRepository tagRepo)
+            ITagRepository tagRepo) : base(tagRepo)
         {
             Session = session;
             Logger = logger;

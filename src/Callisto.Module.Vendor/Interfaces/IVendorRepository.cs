@@ -10,10 +10,6 @@ namespace Callisto.Module.Vendor.Interfaces
     /// </summary>
     public interface IVendorRepository : IPersonRepository<VendorMember>
     {
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        Task<IDbContextTransaction> BeginTransaction();
+
     }
 }

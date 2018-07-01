@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Customer;
 using Callisto.Module.Customer.Interfaces;
 using Callisto.Module.Customer.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Customer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoCustomer(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoCustomer(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoCustomer(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Customer.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Callisto.SharedModels.Customer
     /// <summary>
     /// Defines the <see cref="ICustomerModule" />
     /// </summary>
-    public interface ICustomerModule
+    public interface ICustomerModule : IBaseModule
     {
         /// <summary>
         /// The AddCustomerMember

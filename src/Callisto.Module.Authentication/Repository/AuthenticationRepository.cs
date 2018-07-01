@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Authentication.Interfaces;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
@@ -12,13 +13,13 @@ namespace Callisto.Module.Authentication.Repository
     /// <summary>
     /// Defines the <see cref="AuthenticationRepository" />
     /// </summary>
-    public class AuthenticationRepository : IAuthenticationRepository
+    public class AuthenticationRepository : BaseRepository, IAuthenticationRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationRepository"/> class.
         /// </summary>
         /// <param name="contextFactory">The <see cref="Func{ApplicationDbContext}"/></param>
-        public AuthenticationRepository(ApplicationDbContext context)
+        public AuthenticationRepository(ApplicationDbContext context) : base(context)
         {
             Context = context;
         }
@@ -27,15 +28,6 @@ namespace Callisto.Module.Authentication.Repository
         /// Gets the Context
         /// </summary>
         private ApplicationDbContext Context { get; }
-
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="Task{IDbContextTransaction}"/></returns>
-        public async Task<IDbContextTransaction> BeginTransaction()
-        {
-            return await Context.Database.BeginTransactionAsync();
-        }
 
         /// <summary>
         /// The CreateCompany
@@ -161,6 +153,12 @@ namespace Callisto.Module.Authentication.Repository
             await Context.SaveChangesAsync();
         }
 
+        public async Task UpdateSubscription(Subscription subscriptions)
+        {
+            Context.Subscriptions.Attach(subscriptions);
+            await Context.SaveChangesAsync();
+        }
+
         /// <summary>
         /// The GetCompany
         /// </summary>
@@ -169,6 +167,17 @@ namespace Callisto.Module.Authentication.Repository
         public async Task<Company> GetCompany(long refId)
         {
             return await Context.Companies.FindAsync(refId);
+        }
+
+        /// <summary>
+        /// The GetSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{Subscription}"/></returns>
+        public async Task<Subscription> GetSubscription(string userId, long companyRefId)
+        {
+            return await Context.Subscriptions.FirstOrDefaultAsync(c => c.UserId == userId && c.CompanyRefId == companyRefId);
         }
 
         /// <summary>

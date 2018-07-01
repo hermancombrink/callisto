@@ -1,4 +1,5 @@
 ﻿using Callisto.SharedKernel;
+using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Notification.Enum;
 using Callisto.SharedModels.Notification.Models;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Callisto.SharedModels.Notification
     /// <summary>
     /// Defines the <see cref="INotificationModule" />
     /// </summary>
-    public interface INotificationModule
+    public interface INotificationModule 
     {
         /// <summary>
         /// The SubmitNotificationRequest

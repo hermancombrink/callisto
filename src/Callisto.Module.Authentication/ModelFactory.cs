@@ -145,10 +145,12 @@ namespace Callisto.Module.Authentication
         /// <param name="user">The <see cref="ApplicationUser"/></param>
         /// <param name="company">The <see cref="Company"/></param>
         /// <param name="model">The <see cref="NewAccountViewModel"/></param>
-        public static void UpdateNewUserDetails(ApplicationUser user, Company company, NewAccountViewModel model)
+        public static void UpdateNewUserDetails(ApplicationUser user, Company company, Subscription subscription, NewAccountViewModel model)
         {
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
+
+            subscription.JobRole = model.UserRole;
 
             if (model.CompanyDetails != null && model.CompanyDetails.Validate(out string _).isValid)
             {

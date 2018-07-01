@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Team;
 using Callisto.Module.Team.Interfaces;
 using Callisto.Module.Team.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Member;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace Callisto.Module.Locations.Startup
         public static IServiceCollection AddCallistoMember(this IServiceCollection services,
         string connectionString)
         {
-            return AddCallistoMember(services, options => options.UseSqlServer(connectionString));
+            return AddCallistoMember(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

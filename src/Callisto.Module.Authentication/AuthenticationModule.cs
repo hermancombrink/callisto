@@ -1,4 +1,5 @@
-﻿using Callisto.Module.Authentication.Interfaces;
+﻿using Callisto.Base.Module;
+using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
@@ -21,7 +22,7 @@ namespace Callisto.Module.Authentication
     /// <summary>
     /// Defines the <see cref="AuthenticationModule" />
     /// </summary>
-    public class AuthenticationModule : IAuthenticationModule
+    public class AuthenticationModule : BaseModule, IAuthenticationModule
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationModule"/> class.
@@ -35,7 +36,7 @@ namespace Callisto.Module.Authentication
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IJwtFactory jwtFactory,
-            IOptions<JwtIssuerOptions> jwtOptions)
+            IOptions<JwtIssuerOptions> jwtOptions) : base(authRepo)
         {
             Session = session;
             Logger = logger;
@@ -108,7 +109,7 @@ namespace Callisto.Module.Authentication
                 return RequestResult<(string userId, long companyRefId)>.Validation($"User already exists");
             }
 
-            using (var tran = await AuthRepo.BeginTransaction())
+            using (var tran = AuthRepo.BeginTransaction())
             {
                 await AuthRepo.CreateCompany(company);
 
@@ -121,7 +122,12 @@ namespace Callisto.Module.Authentication
                 var subscription = ModelFactory.CreateSubscription(company.RefId, appUser);
                 await AuthRepo.CreateSubscription(subscription);
 
-                await Session.Member.AddFounderMember(appUser.Email, appUser.Id);
+                Session.Member.JoinTransaction(tran);
+
+                await Session.Member.AddFounderMember(appUser.Email, appUser.Id, company.RefId);
+
+                ModelFactory.SetSuccessLogin(appUser, company.RefId);
+                await AuthRepo.UpdateUser(appUser);
 
                 tran.Commit();
             }
@@ -129,9 +135,6 @@ namespace Callisto.Module.Authentication
             var message = Session.Notification.CreateSimpleMessage(NotificationType.Registered, model.Email);
 
             Session.MessageCoordinator.Publish(message, Session);
-
-            ModelFactory.SetSuccessLogin(appUser, company.RefId);
-            await AuthRepo.UpdateUser(appUser);
 
             return RequestResult<(string userId, long companyRefId)>.Success((appUser.Id, company.RefId));
         }
@@ -155,7 +158,7 @@ namespace Callisto.Module.Authentication
                 return RequestResult.Validation(msg);
             }
 
-            using (var tran = await AuthRepo.BeginTransaction())
+            using (var tran = AuthRepo.BeginTransaction())
             {
                 var appUser = ModelFactory.CreateUser(model);
                 var user = await UserManager.CreateAsync(appUser, model.Password);
@@ -194,7 +197,7 @@ namespace Callisto.Module.Authentication
                     throw new InvalidOperationException($"Failed to register user with social name");
                 }
 
-                appUser = await AuthRepo.GetUser(appUser.Email);
+                appUser = await AuthRepo.GetUser(model.Email);
             }
 
             var logins = await UserManager.GetLoginsAsync(appUser);
@@ -319,7 +322,7 @@ namespace Callisto.Module.Authentication
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran = await AuthRepo.BeginTransaction())
+            using (var tran = AuthRepo.BeginTransaction())
             {
                 var reset = await UserManager.ResetPasswordAsync(user, model.Token, model.Password);
 
@@ -455,11 +458,24 @@ namespace Callisto.Module.Authentication
                 throw new InvalidOperationException($"Failed to find company");
             }
 
-            ModelFactory.UpdateNewUserDetails(user, company, model);
+            var subscription = await this.AuthRepo.GetSubscription(this.Session.UserId, this.Session.CurrentCompanyRef);
+            if (subscription == null)
+            {
+                throw new InvalidOperationException($"Failed to find subscription");
+            }
 
-            await AuthRepo.UpdateUser(user);
+            ModelFactory.UpdateNewUserDetails(user, company, subscription, model);
 
-            await AuthRepo.UpdateCompany(company);
+            using (var tran = AuthRepo.BeginTransaction())
+            {
+                await AuthRepo.UpdateUser(user);
+
+                await AuthRepo.UpdateCompany(company);
+
+                await AuthRepo.UpdateSubscription(subscription);
+
+                tran.Commit();
+            }
 
             return RequestResult.Success();
         }
