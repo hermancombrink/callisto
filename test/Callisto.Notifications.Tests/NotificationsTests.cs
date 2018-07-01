@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.Notifications.Tests
 {
     /// <summary>
     /// Defines the <see cref="NotificationsTests" />

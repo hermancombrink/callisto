@@ -5,7 +5,7 @@ namespace Callisto.SharedModels.Models
     /// <summary>
     /// Defines the <see cref="Person" />
     /// </summary>
-    public abstract class BasePerson : BaseEfModel
+    public abstract class BasePerson : BaseEfTagModel
     {
         /// <summary>
         /// Gets or sets the UserId

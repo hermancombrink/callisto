@@ -8,7 +8,7 @@ namespace Callisto.Module.Assets.Repository.Models
     /// Defines the <see cref="Asset" />
     /// </summary>
     [Table("Assets", Schema = DbConstants.CallistoSchema)]
-    public class Asset : BaseEfModel
+    public class Asset : BaseEfTagModel
     {
         /// <summary>
         /// Gets or sets the AssetNumber

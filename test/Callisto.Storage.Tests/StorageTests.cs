@@ -1,6 +1,5 @@
 ﻿using Callisto.Core.Storage;
 using Callisto.Core.Storage.Options;
-using Callisto.Tests.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -12,7 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.Storage.Tests
 {
     /// <summary>
     /// Defines the <see cref="StorageTests" />

@@ -11,7 +11,7 @@ using NSubstitute;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.Locations.Tests
 {
     /// <summary>
     /// Defines the <see cref="LocationTests" />

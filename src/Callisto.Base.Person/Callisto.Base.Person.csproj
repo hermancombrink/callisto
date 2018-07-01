@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Callisto.SharedModels\Callisto.SharedModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Startup\" />
-  </ItemGroup>
-
 </Project>

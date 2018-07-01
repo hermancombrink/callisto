@@ -10,7 +10,7 @@ namespace Callisto.Provider.Person
     /// Defines the <see cref="PersonModule{T}" />
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class PersonModule<T>: IPersonModule<T> where T : BasePerson
+    public abstract class PersonModule<T> : IPersonModule<T> where T : BasePerson
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonModule{T}"/> class.

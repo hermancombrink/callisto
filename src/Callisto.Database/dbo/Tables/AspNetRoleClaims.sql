@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[AspNetRoleClaims](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TS] TIMESTAMP NOT NULL, 
 	[ClaimType] [nvarchar](max) NULL,
 	[ClaimValue] [nvarchar](max) NULL,
 	[RoleId] [nvarchar](450) NOT NULL,

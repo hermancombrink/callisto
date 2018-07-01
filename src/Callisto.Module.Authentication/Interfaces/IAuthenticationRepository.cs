@@ -12,11 +12,25 @@ namespace Callisto.Module.Authentication.Interfaces
     public interface IAuthenticationRepository
     {
         /// <summary>
-        /// The RegisterNewAccountAsync
+        /// The CreateCompany
         /// </summary>
-        /// <param name="model">The <see cref="RegisterViewModel"/></param>
-        /// <returns>The <see cref="Task{RequestResult{long}}"/></returns>
-        Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model);
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task CreateCompany(Company company);
+
+        /// <summary>
+        /// The CreateSubscription
+        /// </summary>
+        /// <param name="subscription">The <see cref="Subscription"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task CreateSubscription(Subscription subscription);
+
+        /// <summary>
+        /// The UserExists
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{bool}"/></returns>
+        Task<bool> UserExists(string email);
 
         /// <summary>
         /// The GetUserByName

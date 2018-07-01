@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +21,7 @@ namespace Callisto.Module.Authentication
         /// <param name="model">The <see cref="RegisterViewModel"/></param>
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <returns>The <see cref="ApplicationUser"/></returns>
-        public static ApplicationUser CreateUser(RegisterViewModel model, long companyRefId)
+        public static ApplicationUser CreateUser(RegisterViewModel model)
         {
             return new ApplicationUser()
             {
@@ -28,19 +29,16 @@ namespace Callisto.Module.Authentication
                 UserName = model.Email,
                 FirstName = string.Empty,
                 LastName = string.Empty,
-                CompanyRefId = companyRefId,
                 LockoutEnabled = model.Locked,
                 EmailConfirmed = model.EmailConfirmed,
-                UserType = model.UserType
             };
         }
 
         /// <summary>
         /// The CreateCompany
         /// </summary>
-        /// <param name="model">The <see cref="RegisterViewModel"/></param>
         /// <returns>The <see cref="Company"/></returns>
-        public static Company CreateCompany(RegisterViewModel model)
+        public static Company CreateCompany()
         {
             return new Company()
             {
@@ -48,7 +46,9 @@ namespace Callisto.Module.Authentication
                 Description = string.Empty,
                 Name = string.Empty,
                 CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now
+                ModifiedAt = DateTime.Now,
+                Employees = string.Empty,
+                Website = string.Empty
             };
         }
 
@@ -72,14 +72,19 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="company">The <see cref="Company"/></param>
         /// <returns>The <see cref="Subscription"/></returns>
-        public static Subscription CreateSubscription(Company company)
+        public static Subscription CreateSubscription(long companyRefId, ApplicationUser user, UserType type = UserType.Member)
         {
             return new Subscription()
             {
                 Id = Guid.NewGuid(),
-                CompanyRefId = company.RefId,
+                CompanyRefId = companyRefId,
                 CreatedAt = DateTime.Now,
-                ModifiedAt = DateTime.Now
+                ModifiedAt = DateTime.Now,
+                LastLogin = DateTime.Now,
+                UserId = user.Id,
+                UserType = type,
+                Deactivated = false,
+                JobRole = string.Empty,
             };
         }
 
@@ -144,7 +149,6 @@ namespace Callisto.Module.Authentication
         {
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            user.JobRole = model.UserRole;
 
             if (model.CompanyDetails != null && model.CompanyDetails.Validate(out string _).isValid)
             {
@@ -152,8 +156,6 @@ namespace Callisto.Module.Authentication
                 company.Website = model.CompanyDetails.CompanyWebsite;
                 company.Employees = model.CompanyDetails.CompanySize;
             }
-
-
         }
 
         /// <summary>
@@ -169,6 +171,17 @@ namespace Callisto.Module.Authentication
                 Password = randomPass,
                 ConfirmPassword = randomPass
             };
+        }
+
+        public static void SetSuccessLogin(ApplicationUser user, long companyRefId)
+        {
+            user.LastCompanyLogin = companyRefId;
+            user.AccessFailedCount = 0;
+        }
+
+        public static void SetFailedLogin(ApplicationUser user, long companyRefId)
+        {
+            user.AccessFailedCount += 1;
         }
     }
 }

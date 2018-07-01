@@ -102,7 +102,7 @@ namespace Callisto.Module.Customer
 
             using (var tran = await CustomerRepo.BeginTransaction())
             {
-                await Session.Authentication.RemoveAccount(CustomerMember.Email);
+                //await Session.Authentication.RemoveAccount(CustomerMember.Email);
 
                 await RemovePerson(CustomerMember);
             }

@@ -1,4 +1,5 @@
 ﻿using Callisto.Module.Authentication.Repository.Models;
+using Callisto.SharedModels.Auth.ViewModels;
 
 namespace Callisto.Module.Authentication.Interfaces
 {
@@ -13,6 +14,6 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="userName">The <see cref="string"/></param>
         /// <param name="Id">The <see cref="string"/></param>df
         /// <returns>The <see cref="Task{string}"/></returns>
-        string GetToken(ApplicationUser user);
+        string GetToken(UserViewModel user);
     }
 }

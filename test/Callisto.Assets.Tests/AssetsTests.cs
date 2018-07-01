@@ -24,7 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.Assets.Tests
 {
     /// <summary>
     /// Defines the <see cref="AssetsTests" />

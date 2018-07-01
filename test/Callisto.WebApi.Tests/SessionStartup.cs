@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace Callisto.Tests.Startups
+namespace Callisto.WebApi.Tests
 {
     /// <summary>
     /// Defines the <see cref="TestStartup" />

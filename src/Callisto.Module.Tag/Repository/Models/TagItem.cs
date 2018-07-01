@@ -7,7 +7,7 @@ namespace Callisto.Module.Tag.Repository.Models
     /// <summary>
     /// Defines the <see cref="Location" />
     /// </summary>
-    [Table("Tags", Schema = DbConstants.CallistoSchema)]
+    [Table("TagIndexes", Schema = DbConstants.CallistoSchema)]
     public class TagItem : BaseEfModel
     {
         /// <summary>

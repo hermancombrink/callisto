@@ -58,7 +58,8 @@ namespace Callisto.Web.Api.Controllers
         [HttpPost("signup")]
         public async Task<RequestResult> SignUpAsync([FromBody] RegisterViewModel model)
         {
-            return await CallistoSession.Authentication.RegisterUserAsync(model);
+            var result =  await CallistoSession.Authentication.RegisterUserAsync(model);
+            return result.AsResult;
         }
 
         /// <summary>

@@ -38,24 +38,35 @@ namespace Callisto.Module.Authentication.Repository
         }
 
         /// <summary>
-        /// The CanRegisterNewCompany
+        /// The CreateCompany
         /// </summary>
-        /// <returns>The <see cref="Task{bool}"/></returns>
-        public async Task<RequestResult<long>> RegisterNewAccountAsync(RegisterViewModel model)
+        /// <param name="company">The <see cref="Company"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task CreateCompany(Company company)
         {
-            if (Context.Users.Any(c => c.UserName == model.Email || c.Email == model.Email))
-            {
-                return RequestResult<long>.Failed("User already exists");
-            }
-
-            var company = ModelFactory.CreateCompany(model);
             await Context.Companies.AddAsync(company);
             await Context.SaveChangesAsync();
-            var subscription = ModelFactory.CreateSubscription(company);
+        }
+
+        /// <summary>
+        /// The CreateSubscription
+        /// </summary>
+        /// <param name="subscription">The <see cref="Subscription"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task CreateSubscription(Subscription subscription)
+        {
             await Context.Subscriptions.AddAsync(subscription);
             await Context.SaveChangesAsync();
+        }
 
-            return RequestResult<long>.Success(company.RefId);
+        /// <summary>
+        /// The UserExists
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{bool}"/></returns>
+        public async Task<bool> UserExists(string email)
+        {
+            return await Context.Users.AnyAsync(c => c.Email.Trim().ToLower() == email.Trim().ToLower());
         }
 
         /// <summary>
@@ -66,22 +77,33 @@ namespace Callisto.Module.Authentication.Repository
         public async Task<RequestResult<UserViewModel>> GetUserByName(string email)
         {
             var qry = from user in Context.Users
-                      join company in Context.Companies on user.CompanyRefId equals company.RefId
-                      join subscription in Context.Subscriptions on company.RefId equals subscription.CompanyRefId
+                      join subscription in Context.Subscriptions on user.Id equals subscription.UserId
+                      join company in Context.Companies on subscription.CompanyRefId equals company.RefId
                       where user.UserName.ToLower().Trim() == email.ToLower().Trim()
-                      && !user.Deactivated
+                      && !subscription.Deactivated
                       select new
                       {
+                          UserId = user.Id,
                           user.FirstName,
                           user.LastName,
                           user.Email,
+                          user.UserName,
                           CompanyName = company.Name,
                           SubscriptionId = subscription.Id,
                           SubscriptionRefId = subscription.RefId,
-                          UserType = user.UserType
+                          UserType = subscription.UserType,
+                          LastAccess = user.LastCompanyLogin,
+                          CompanyRefId = company.RefId,
+                          Role = subscription.JobRole,
+                          EmailVerified = user.EmailConfirmed
                       };
 
-            var lastSubsrition = await qry.OrderByDescending(c => c.SubscriptionRefId).FirstOrDefaultAsync();
+            var lastSubsrition = await qry.FirstOrDefaultAsync(c => c.LastAccess == c.CompanyRefId);
+
+            if (lastSubsrition == null)
+            {
+                lastSubsrition = await qry.OrderByDescending(c => c.SubscriptionRefId).FirstOrDefaultAsync();
+            }
 
             if (lastSubsrition == null)
             {
@@ -96,7 +118,13 @@ namespace Callisto.Module.Authentication.Repository
                     FirstName = lastSubsrition.FirstName,
                     LastName = lastSubsrition.LastName,
                     SubscriptionId = lastSubsrition.SubscriptionId,
-                    UserType = lastSubsrition.UserType
+                    UserType = lastSubsrition.UserType,
+                    CompanyRefId = lastSubsrition.CompanyRefId,
+                    SubscriptionRefId = lastSubsrition.SubscriptionRefId,
+                    Id = lastSubsrition.UserId,
+                    UserName = lastSubsrition.UserName,
+                    EmailVerified = lastSubsrition.EmailVerified,
+                    JobRole = lastSubsrition.Role
                 });
             }
         }
@@ -150,7 +178,6 @@ namespace Callisto.Module.Authentication.Repository
         /// <returns>The <see cref="Task"/></returns>
         public async Task RemoveAccount(ApplicationUser user)
         {
-            user.Deactivated = true;
             user.UserName = Crypto.GetStringSha256Hash(user.UserName, user.Id);
             user.Email = Crypto.GetStringSha256Hash(user.Email, user.Id);
             user.NormalizedEmail = Crypto.GetStringSha256Hash(user.Email, user.Id);

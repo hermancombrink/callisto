@@ -86,7 +86,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="model">The <see cref="RegisterViewModel"/></param>
         /// <returns>The <see cref="Task"/></returns>
-        public async Task<RequestResult> RegisterUserAsync(RegisterViewModel model)
+        public async Task<RequestResult<(string userId, long companyRefId)>> RegisterUserAsync(RegisterViewModel model)
         {
             Logger.LogDebug($"Attempting register for {model.Email}");
 
@@ -97,24 +97,31 @@ namespace Callisto.Module.Authentication
 
             if (!model.Validate(out string msg).isValid)
             {
-                return RequestResult.Validation(msg);
+                return RequestResult<(string userId, long companyRefId)>.Validation(msg);
+            }
+
+            var company = ModelFactory.CreateCompany();
+            var appUser = ModelFactory.CreateUser(model);
+
+            if (await AuthRepo.UserExists(model.Email))
+            {
+                return RequestResult<(string userId, long companyRefId)>.Validation($"User already exists");
             }
 
             using (var tran = await AuthRepo.BeginTransaction())
             {
-                var companyResult = await AuthRepo.RegisterNewAccountAsync(model);
-                if (!companyResult.IsSuccess())
-                {
-                    Logger.LogError($"Failed to regiter componay - {companyResult.SystemMessage}");
-                    return companyResult.AsResult;
-                }
+                await AuthRepo.CreateCompany(company);
 
-                var appUser = ModelFactory.CreateUser(model, companyResult.Result);
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
-                    return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
+                    return RequestResult<(string userId, long companyRefId)>.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
+
+                var subscription = ModelFactory.CreateSubscription(company.RefId, appUser);
+                await AuthRepo.CreateSubscription(subscription);
+
+                await Session.Member.AddFounderMember(appUser.Email, appUser.Id);
 
                 tran.Commit();
             }
@@ -123,7 +130,10 @@ namespace Callisto.Module.Authentication
 
             Session.MessageCoordinator.Publish(message, Session);
 
-            return RequestResult.Success();
+            ModelFactory.SetSuccessLogin(appUser, company.RefId);
+            await AuthRepo.UpdateUser(appUser);
+
+            return RequestResult<(string userId, long companyRefId)>.Success((appUser.Id, company.RefId));
         }
 
         /// <summary>
@@ -147,14 +157,17 @@ namespace Callisto.Module.Authentication
 
             using (var tran = await AuthRepo.BeginTransaction())
             {
-                var appUser = ModelFactory.CreateUser(model, Session.CurrentCompanyRef);
+                var appUser = ModelFactory.CreateUser(model);
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
                     return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
-                appUser = await AuthRepo.GetUser(model.Email);
+                var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, appUser);
+                await AuthRepo.CreateSubscription(subscription);
+
+                appUser = await AuthRepo.GetUser(appUser.Email);
 
                 var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
 
@@ -171,9 +184,9 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> LoginWithSocialAsync(SocialLoginViewModel model)
         {
-            var user = await AuthRepo.GetUser(model.Email);
+            var appUser = await AuthRepo.GetUser(model.Email);
 
-            if (user == null)
+            if (appUser == null)
             {
                 var registerResult = await RegisterUserAsync(ModelFactory.CreateRegistration(model, GenerateRandomPassword()));
                 if (registerResult.Status != RequestStatus.Success)
@@ -181,14 +194,14 @@ namespace Callisto.Module.Authentication
                     throw new InvalidOperationException($"Failed to register user with social name");
                 }
 
-                user = await AuthRepo.GetUser(model.Email);
+                appUser = await AuthRepo.GetUser(appUser.Email);
             }
 
-            var logins = await UserManager.GetLoginsAsync(user);
+            var logins = await UserManager.GetLoginsAsync(appUser);
             var currentLogin = logins.FirstOrDefault(c => c.ProviderKey == model.Provider);
             if (currentLogin == null)
             {
-                var createResult = await UserManager.AddLoginAsync(user, new UserLoginInfo(model.Provider, model.Token, model.Name));
+                var createResult = await UserManager.AddLoginAsync(appUser, new UserLoginInfo(model.Provider, model.Token, model.Name));
                 if (!createResult.Succeeded)
                 {
                     throw new InvalidOperationException($"Failed to add login for user");
@@ -198,7 +211,14 @@ namespace Callisto.Module.Authentication
             var result = await SignInManager.ExternalLoginSignInAsync(model.Provider, model.Token, false);
             if (result.Succeeded)
             {
-                var token = JwtFactory.GetToken(user);
+                var userDetails = await AuthRepo.GetUserByName(appUser.Email);
+                if (!userDetails.IsSuccess())
+                {
+                    throw new InvalidOperationException($"Failed to find user profile");
+                }
+
+                var token = JwtFactory.GetToken(userDetails.Result);
+
                 return RequestResult.Success(token);
             }
 
@@ -223,14 +243,24 @@ namespace Callisto.Module.Authentication
             }
 
             var user = await UserManager.FindByEmailAsync(model.Email);
-            if (user != null && !user.Deactivated)
+            if (user != null)
             {
                 //TODO: Move lockout to settings
                 //var signInResult = await SignInManager.CheckPasswordSignInAsync(user, model.Password, false);
                 var result = await SignInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    var token = JwtFactory.GetToken(user);
+                    var userDetails = await AuthRepo.GetUserByName(user.Email);
+                    if (!userDetails.IsSuccess())
+                    {
+                        throw new InvalidOperationException($"Failed to find user profile");
+                    }
+
+                    var token = JwtFactory.GetToken(userDetails.Result);
+
+                    ModelFactory.SetSuccessLogin(user, userDetails.Result.CompanyRefId);
+                    await AuthRepo.UpdateUser(user);
+
                     return RequestResult.Success(token);
                 }
             }
@@ -245,7 +275,6 @@ namespace Callisto.Module.Authentication
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         public async Task<RequestResult> ResetPasswordAsync(string email)
         {
-
             if (string.IsNullOrEmpty(email))
             {
                 return RequestResult.Failed($"Email cannot be empty");

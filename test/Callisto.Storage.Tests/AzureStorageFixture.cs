@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Callisto.Tests.Fixtures
+namespace Callisto.Storage.Tests
 {
     /// <summary>
     /// Defines the <see cref="AzureStorageFixture" />

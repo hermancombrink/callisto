@@ -14,7 +14,7 @@ namespace Callisto.SharedModels.Auth
         /// </summary>
         /// <param name="model">The <see cref="RegisterViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
-        Task<RequestResult> RegisterUserAsync(RegisterViewModel model);
+        Task<RequestResult<(string userId, long companyRefId)>> RegisterUserAsync(RegisterViewModel model);
 
         /// <summary>
         /// The RegisterUserWithCurrentCompanyAsync

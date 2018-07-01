@@ -1,7 +1,6 @@
 ﻿using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Member.ViewModels;
-using Callisto.SharedModels.Person;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -43,5 +42,12 @@ namespace Callisto.SharedModels.Member
         /// <param name="model">The <see cref="NewAccountViewModel"/></param>
         /// <returns>The <see cref="Task{RequestResult}"/></returns>
         Task<RequestResult> UpdateCurrentMember(NewAccountViewModel model);
+
+        /// <summary>
+        /// The AddFounderMember
+        /// </summary>
+        /// <param name="model">The <see cref="AddMemberViewModel"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task AddFounderMember(string email, string userId);
     }
 }

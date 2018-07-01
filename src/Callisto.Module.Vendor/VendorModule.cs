@@ -104,7 +104,7 @@ namespace Callisto.Module.Vendor
 
             using (var tran = await VendorRepo.BeginTransaction())
             {
-                await Session.Authentication.RemoveAccount(VendorMember.Email);
+                //await Session.Authentication.RemoveAccount(VendorMember.Email);
 
                 await RemovePerson(VendorMember);
             }

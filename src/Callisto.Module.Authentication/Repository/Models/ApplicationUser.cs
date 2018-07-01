@@ -1,5 +1,4 @@
-﻿using Callisto.SharedModels.Auth;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Callisto.Module.Authentication.Repository.Models
 {
@@ -19,23 +18,8 @@ namespace Callisto.Module.Authentication.Repository.Models
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the CompanyName
+        /// Gets or sets the LastCompanyLogin
         /// </summary>
-        public long? CompanyRefId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the JobRole
-        /// </summary>
-        public string JobRole { get; set; }
-
-        /// <summary>
-        /// Gets or sets the UserType
-        /// </summary>
-        public UserType UserType { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Deactivated
-        /// </summary>
-        public bool Deactivated { get; set; }
+        public long? LastCompanyLogin { get; set; }
     }
 }

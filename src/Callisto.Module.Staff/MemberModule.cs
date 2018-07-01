@@ -88,6 +88,15 @@ namespace Callisto.Module.Team
             return RequestResult.Success();
         }
 
+        public async Task AddFounderMember(string email, string userId)
+        {
+            var person = ModelFactory.CreateTeamMember(email, Session.CurrentCompanyRef, userId);
+
+            person.IsFounder = true;
+
+            await AddPerson(person);
+        }
+
         /// <summary>
         /// The RemoveTeamMember
         /// </summary>
@@ -103,7 +112,7 @@ namespace Callisto.Module.Team
 
             using (var tran = await TeamRepo.BeginTransaction())
             {
-                await Session.Authentication.RemoveAccount(TeamMember.Email);
+                //await Session.Authentication.RemoveAccount(TeamMember.Email);
 
                 await RemovePerson(TeamMember);
             }

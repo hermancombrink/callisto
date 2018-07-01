@@ -1,6 +1,7 @@
 ﻿using App.Metrics.Health;
 using Callisto.SharedKernel.Enum;
 using Callisto.SharedKernel.Extensions;
+using Callisto.Tests;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -8,18 +9,18 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.WebApi.Tests
 {
     /// <summary>
-    /// Defines the <see cref="ApiTests" />
+    /// Defines the <see cref="ApiStartupTests" />
     /// </summary>
-    public class ApiTests : IClassFixture<SessionApiFixture>
+    public class ApiStartupTests : IClassFixture<SessionApiFixture<SessionStartup>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApiTests"/> class.
+        /// Initializes a new instance of the <see cref="ApiStartupTests"/> class.
         /// </summary>
         /// <param name="webApiFixture">The <see cref="WebApiFixture"/></param>
-        public ApiTests(SessionApiFixture webApiFixture)
+        public ApiStartupTests(SessionApiFixture<SessionStartup> webApiFixture)
         {
             ApiFixture = webApiFixture;
         }
@@ -27,7 +28,7 @@ namespace Callisto.Tests
         /// <summary>
         /// Gets the WebApiFixture
         /// </summary>
-        public SessionApiFixture ApiFixture { get; }
+        public SessionApiFixture<SessionStartup> ApiFixture { get; }
 
         /// <summary>
         /// The ApiShouldStartUpWhenAllIsWell

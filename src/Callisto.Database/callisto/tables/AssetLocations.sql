@@ -2,6 +2,7 @@
 	[AssetRefId] [bigint] NOT NULL,
 	[LocationRefId] [bigint] NOT NULL,
 	[Id] [uniqueidentifier] NOT NULL,
+	[TS] TIMESTAMP NOT NULL, 
 	[CreatedAt] [datetime] NULL,
 	[ModifiedAt] [datetime] NULL,
  CONSTRAINT [PK_AssetLocations_1] PRIMARY KEY CLUSTERED 

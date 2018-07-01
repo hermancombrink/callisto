@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Startup;
 using Callisto.Session.Provider.Startup;
 using Callisto.SharedKernel.Extensions;
+using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace Callisto.Tests.Startups
+namespace Callisto.Authentication.Tests
 {
     /// <summary>
     /// Defines the <see cref="TestStartup" />
@@ -50,6 +51,7 @@ namespace Callisto.Tests.Startups
 
             services.AddSingleton(c => Substitute.For<INotificationModule>());
             services.AddSingleton(c => Substitute.For<IMessageCoordinator>());
+            services.AddSingleton(c => Substitute.For<IMemberModule>());
 
             services.AddMvc();
         }

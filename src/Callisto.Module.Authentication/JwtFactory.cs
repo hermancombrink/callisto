@@ -2,6 +2,7 @@
 using Callisto.Module.Authentication.Options;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth.ViewModels;
 using IdentityModel;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -43,20 +44,17 @@ namespace Callisto.Module.Authentication
         /// <param name="userName">The <see cref="string"/></param>
         /// <param name="id">The <see cref="string"/></param>
         /// <returns>The <see cref="Claim[]"/></returns>
-        private Claim[] GetCalims(ApplicationUser user)
+        private Claim[] GetCalims(UserViewModel user)
         {
             var claims = new[]
             {
                 new Claim(CallistoJwtClaimTypes.Name, user.UserName),
                 new Claim(CallistoJwtClaimTypes.Id, user.Id),
                 new Claim(CallistoJwtClaimTypes.Company, $"{user.CompanyRefId}"),
-                new Claim(CallistoJwtClaimTypes.Email, $"{user.Email}")
+                new Claim(CallistoJwtClaimTypes.Subscription, $"{user.SubscriptionRefId}"),
+                new Claim(CallistoJwtClaimTypes.Email, $"{user.Email}"),
+                new Claim(CallistoJwtClaimTypes.EmailVerified, $"{user.EmailVerified}")
             };
-
-            //if (user.EmailConfirmed)
-            //{
-            //    claims.Add(new Claim(CallistoJwtClaimTypes.EmailVerified, $"{user.EmailConfirmed}"));
-            //}
 
             return claims;
         }
@@ -67,7 +65,7 @@ namespace Callisto.Module.Authentication
         /// <param name="userName">The <see cref="string"/></param>
         /// <param name="Id">The <see cref="string"/></param>
         /// <returns>The <see cref="Task{string}"/></returns>
-        public string GetToken(ApplicationUser user)
+        public string GetToken(UserViewModel user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

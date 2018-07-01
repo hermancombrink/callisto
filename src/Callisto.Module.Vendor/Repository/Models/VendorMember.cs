@@ -7,7 +7,7 @@ namespace Callisto.Module.Vendor.Repository.Models
     /// <summary>
     /// Defines the <see cref="VendorMember" />
     /// </summary>
-    [Table("Vendor", Schema = DbConstants.CallistoSchema)]
+    [Table("Vendors", Schema = DbConstants.CallistoSchema)]
     public class VendorMember : BasePerson
     {
   

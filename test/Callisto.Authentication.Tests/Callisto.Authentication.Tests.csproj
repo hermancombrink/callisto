@@ -4,8 +4,6 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <DebugType>full</DebugType>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Callisto.Tests</AssemblyName>
-    <RootNamespace>Callisto.Tests</RootNamespace>
     <RuntimeFrameworkVersion>2.1.0</RuntimeFrameworkVersion>
   </PropertyGroup>
 
@@ -40,13 +38,12 @@
     <ProjectReference Include="..\..\src\Callisto.Core.Messaging\Callisto.Core.Messaging.csproj" />
     <ProjectReference Include="..\..\src\Callisto.Core.Storage\Callisto.Core.Storage.csproj" />
     <ProjectReference Include="..\..\src\Callisto.Module.Notification\Callisto.Module.Notification.csproj" />
+    <ProjectReference Include="..\..\src\Callisto.SharedModels\Callisto.SharedModels.csproj" />
     <ProjectReference Include="..\..\src\Callisto.Web.Api\Callisto.Web.Api.csproj" />
+    <ProjectReference Include="..\Callisto.Test.Fixtures\Callisto.Test.Fixtures.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appmessaging.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -55,5 +52,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
 
 </Project>

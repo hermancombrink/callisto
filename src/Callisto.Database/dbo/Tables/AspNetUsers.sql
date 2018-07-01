@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[AspNetUsers](
 	[Id] [nvarchar](450) NOT NULL,
+	[TS] TIMESTAMP NOT NULL, 
 	[AccessFailedCount] [int] NOT NULL,
 	[ConcurrencyStamp] [nvarchar](max) NULL,
 	[Email] [nvarchar](256) NULL,
@@ -16,10 +17,7 @@
 	[UserName] [nvarchar](256) NULL,
     [FirstName] NVARCHAR(256) NULL, 
     [LastName] NVARCHAR(256) NULL, 
-    [CompanyRefId] BIGINT NULL, 
-    [JobRole] NVARCHAR(50) NULL, 
-	[UserType] INT NOT NULL DEFAULT(0), 
-    [Deactivated] BIT NOT NULL DEFAULT 0, 
+    [LastCompanyLogin] BIGINT NULL, 
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

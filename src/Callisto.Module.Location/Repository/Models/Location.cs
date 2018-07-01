@@ -8,7 +8,7 @@ namespace Callisto.Module.Locations.Repository.Models
     /// Defines the <see cref="Location" />
     /// </summary>
     [Table("Locations", Schema = DbConstants.CallistoSchema)]
-    public class Location : BaseEfModel
+    public class Location : BaseEfTagModel
     {
         /// <summary>
         /// Gets or sets the CompanyRefId

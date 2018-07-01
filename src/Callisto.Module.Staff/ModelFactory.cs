@@ -30,6 +30,22 @@ namespace Callisto.Module.Team
             };
         }
 
+
+        /// <returns>The <see cref="TeamMember"/></returns>
+        public static TeamMember CreateTeamMember(string email, long companyRefId, string userId)
+        {
+            return new TeamMember()
+            {
+                CompanyRefId = companyRefId,
+                CreatedAt = DateTime.Now,
+                ModifiedAt = DateTime.Now,
+                Id = Guid.NewGuid(),
+                Email = email,
+                UserId = userId
+            };
+        }
+
+
         /// <summary>
         /// The CreateTeamMember
         /// </summary>

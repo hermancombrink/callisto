@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [callisto].[Locations](
 	[RefId] [bigint] IDENTITY(1,1) NOT NULL,
     [Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(), 
+    [TS] TIMESTAMP NOT NULL, 
     [CreatedAt] DATETIME NULL DEFAULT GETDATE(), 
     [ModifiedAt] DATETIME NULL DEFAULT GETDATE(), 
 	[CompanyRefId] BIGINT NOT NULL, 
@@ -19,6 +20,7 @@
 	[GooglePlaceId] [nvarchar](100) NULL,
 	[GoogleURL] [nvarchar](2056) NULL,
 
+    [Tags] NVARCHAR(1024) NULL, 
     CONSTRAINT [PK_Locations] PRIMARY KEY CLUSTERED 
 (
 	[RefId] ASC

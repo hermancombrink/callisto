@@ -1,7 +1,6 @@
 ﻿using Callisto.Module.Authentication.Repository;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedModels.Session;
-using Callisto.Tests.Startups;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +13,7 @@ namespace Callisto.Tests.Fixtures
     /// <summary>
     /// Defines the <see cref="AuthApiFixture" />
     /// </summary>
-    public class AuthApiFixture
+    public class AuthApiFixture<T> where T : class
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthApiFixture"/> class.
@@ -22,7 +21,7 @@ namespace Callisto.Tests.Fixtures
         public AuthApiFixture()
         {
             var host = WebHost.CreateDefaultBuilder()
-                      .UseStartup<AuthSartup>();
+                      .UseStartup<T>();
 
             Server = new TestServer(host);
             
@@ -64,9 +63,9 @@ namespace Callisto.Tests.Fixtures
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>The <see cref="T"/></returns>
-        public T GetService<T>()
+        public TX GetService<TX>()
         {
-            return (T)Server.Host.Services.GetService(typeof(T));
+            return (TX)Server.Host.Services.GetService(typeof(TX));
         }
 
         /// <summary>

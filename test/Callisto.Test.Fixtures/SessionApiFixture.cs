@@ -1,6 +1,5 @@
 ﻿using Callisto.Session.Provider;
 using Callisto.SharedModels.Session;
-using Callisto.Tests.Startups;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -12,7 +11,7 @@ namespace Callisto.Tests
     /// <summary>
     /// Defines the <see cref="WebApiFixture" />
     /// </summary>
-    public class SessionApiFixture
+    public class SessionApiFixture<T> where T : class
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WebApiFixture"/> class.
@@ -21,7 +20,7 @@ namespace Callisto.Tests
         {
             var host = WebHost.CreateDefaultBuilder()
                       .CreateCallistoConfiguration()
-                      .UseStartup<SessionStartup>();
+                       .UseStartup<T>();
 
             Server = new TestServer(host);
             Client = Server.CreateClient();

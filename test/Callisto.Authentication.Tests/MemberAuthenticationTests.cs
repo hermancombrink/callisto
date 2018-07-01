@@ -16,12 +16,12 @@ using System.Net;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Callisto.Tests
+namespace Callisto.Authentication.Tests
 {
     /// <summary>
     /// Defines the <see cref="AuthenticationTests" />
     /// </summary>
-    public class AuthenticationTests : IClassFixture<AuthApiFixture>
+    public class MemberAuthenticationTests : IClassFixture<AuthApiFixture<AuthSartup>>
     {
         /// <summary>
         /// Defines the Fixture
@@ -32,7 +32,7 @@ namespace Callisto.Tests
         /// Initializes a new instance of the <see cref="AuthenticationTests"/> class.
         /// </summary>
         /// <param name="ApiFixture">The <see cref="ApiFixture"/></param>
-        public AuthenticationTests(AuthApiFixture apiFixture)
+        public MemberAuthenticationTests(AuthApiFixture<AuthSartup> apiFixture)
         {
             ApiFixture = apiFixture;
         }
@@ -40,7 +40,7 @@ namespace Callisto.Tests
         /// <summary>
         /// Gets the ApiFixture
         /// </summary>
-        public AuthApiFixture ApiFixture { get; }
+        public AuthApiFixture<AuthSartup> ApiFixture { get; }
 
         /// <summary>
         /// The WebApiLoginShouldFailWithInvalidCredentials
@@ -151,7 +151,7 @@ namespace Callisto.Tests
             requestResult.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var response = requestResult.ToRequestResult();
-            response.Status.Should().Be(RequestStatus.Failed);
+            response.Status.Should().Be(RequestStatus.Warning);
         }
 
         /// <summary>
@@ -161,20 +161,19 @@ namespace Callisto.Tests
         [Fact]
         public async Task ResetPasswordShouldReturnTokenWhenAllIsWell()
         {
-            var user = new ApplicationUser()
+            var userModel = new RegisterViewModel()
             {
                 Email = "reset@test.com",
-                UserName = "reset@test.com",
-                FirstName = "test",
-                LastName = "test",
+                Password = ApiFixture.Session.Authentication.GenerateRandomPassword()
             };
+            userModel.ConfirmPassword = userModel.Password;
 
-            var create = await ApiFixture.UserManager.CreateAsync(user, "Password!2");
+           await ApiFixture.Session.Authentication.RegisterUserAsync(userModel);
 
             var login = new LoginViewModel()
             {
-                Email = "reset@test.com",
-                Password = "Password!2"
+                Email = userModel.Email,
+                Password = userModel.Password
             };
 
             var signin = await ApiFixture.Client.PostAsync("/auth/login", login.ToJson().ToContent());
@@ -191,7 +190,7 @@ namespace Callisto.Tests
             var response = reset.ToRequestResult();
             response.Status.Should().Be(RequestStatus.Success);
 
-            messaging.Received(1).Publish<NotificationMessage>(Arg.Any<NotificationMessage>(), Arg.Any<ICallistoSession>());
+            messaging.Received(2).Publish<NotificationMessage>(Arg.Any<NotificationMessage>(), Arg.Any<ICallistoSession>());
         }
 
         /// <summary>

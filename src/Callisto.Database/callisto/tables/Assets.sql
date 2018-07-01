@@ -2,6 +2,7 @@
 (
 	[RefId] [bigint] IDENTITY(1,1) NOT NULL,
     [Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(), 
+    [TS] TIMESTAMP NOT NULL, 
     [CreatedAt] DATETIME NULL DEFAULT GETDATE(), 
     [ModifiedAt] DATETIME NULL DEFAULT GETDATE(), 
 	[AssetNumber] NVARCHAR(256) NULL, 
@@ -13,7 +14,8 @@
  CONSTRAINT [PK_Assets] PRIMARY KEY CLUSTERED 
 (
 	[RefId] ASC
-)) 
+), 
+    [Tags] NVARCHAR(1024) NULL) 
 GO
 
 ALTER TABLE [callisto].[Assets] ADD  CONSTRAINT [FK_Assets_Companies] FOREIGN KEY([CompanyRefId])
