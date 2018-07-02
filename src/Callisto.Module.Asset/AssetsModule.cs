@@ -165,7 +165,7 @@ namespace Callisto.Module.Assets
 
                 await AssetRepo.AddAssetLocation(ModelFactory.CreateAssetLocation(asset, locationResult.Result));
 
-                tran.Commit();
+                AssetRepo.CommitTransaction();
             }
 
             return RequestResult.Success();

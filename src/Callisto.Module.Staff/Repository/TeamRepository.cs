@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Team.Interfaces;
 using Callisto.Module.Team.Repository.Models;
 using Callisto.Provider.Person.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Person;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -17,8 +18,7 @@ namespace Callisto.Module.Team.Repository
         /// Initializes a new instance of the <see cref="TeamRepository"/> class.
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonRepository{TeamMember}"/></param>
-        public TeamRepository(TeamDbContext context)
-            : base(context)
+        public TeamRepository(TeamDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

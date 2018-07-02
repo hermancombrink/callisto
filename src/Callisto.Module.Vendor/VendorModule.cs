@@ -52,23 +52,37 @@ namespace Callisto.Module.Vendor
         public async Task<RequestResult> AddVendorMember(AddVendorViewModel model)
         {
             var person = ModelFactory.CreateVendorMember(model, Session.CurrentCompanyRef);
-            using (var tran =  VendorRepo.BeginTransaction())
+            using (var tran = VendorRepo.BeginTransaction())
             {
                 if (model.CreateAccount)
                 {
                     var createModel = ModelFactory.CreateVendorUser(model, Session.Authentication.GenerateRandomPassword());
 
-                    var result = await Session.Authentication.RegisterUserWithCurrentCompanyAsync(createModel);
-
-                    if (!result.IsSuccess())
-                    {
-                        return result;
-                    }
-
                     var user = await Session.Authentication.GetUserId(model.Email);
-                    if (user.Status != RequestStatus.Success)
+                    RequestResult result = RequestResult.Success();
+                    if (!user.IsSuccess())
                     {
-                        throw new InvalidOperationException($"Failed to find user");
+                        result = await Session.Authentication.RegisterUserWithCurrentCompanyAsync(createModel);
+
+                        if (!result.IsSuccess())
+                        {
+                            return result;
+                        }
+
+                        user = await Session.Authentication.GetUserId(model.Email);
+                        if (!user.IsSuccess())
+                        {
+                            throw new InvalidOperationException($"Failed to find user");
+                        }
+                    }
+                    else
+                    {
+                        result = await Session.Authentication.CreateSubscription(user.Result, SharedModels.Auth.UserType.Vendor);
+
+                        if (!result.IsSuccess())
+                        {
+                            return result;
+                        }
                     }
 
                     person.UserId = user.Result;
@@ -83,7 +97,7 @@ namespace Callisto.Module.Vendor
 
                 await AddPerson(person);
 
-                tran.Commit();
+                VendorRepo.CommitTransaction();
             }
 
             return RequestResult.Success();
@@ -102,9 +116,9 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Vendor member not found");
             }
 
-            using (var tran =  VendorRepo.BeginTransaction())
+            using (var tran = VendorRepo.BeginTransaction())
             {
-                //await Session.Authentication.RemoveAccount(VendorMember.Email);
+                await Session.Authentication.RemoveSubscription(VendorMember.Email);
 
                 await RemovePerson(VendorMember);
             }
@@ -134,7 +148,7 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran =  VendorRepo.BeginTransaction())
+            using (var tran = VendorRepo.BeginTransaction())
             {
                 var result = await Session.Authentication.UpdateNewProfileAsync(model);
                 if (result.Status == RequestStatus.Success)
@@ -149,7 +163,6 @@ namespace Callisto.Module.Vendor
                     }
                     else
                     {
-
                         member.FirstName = model.FirstName;
                         member.LastName = model.LastName;
                         member.ModifiedAt = DateTime.Now;
@@ -157,7 +170,7 @@ namespace Callisto.Module.Vendor
                         await UpdatePerson(member);
                     }
 
-                    tran.Commit();
+                    VendorRepo.CommitTransaction();
                 }
             }
 

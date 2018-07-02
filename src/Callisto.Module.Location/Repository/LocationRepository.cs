@@ -1,6 +1,7 @@
 ﻿using Callisto.Base.Module;
 using Callisto.Module.Locations.Interfaces;
 using Callisto.Module.Locations.Repository.Models;
+using Callisto.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Callisto.Module.Locations.Repository
         /// Initializes a new instance of the <see cref="LocationRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public LocationRepository(LocationDbContext context) : base(context)
+        public LocationRepository(LocationDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

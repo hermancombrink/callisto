@@ -72,7 +72,7 @@ namespace Callisto.Module.Authentication
         /// </summary>
         /// <param name="company">The <see cref="Company"/></param>
         /// <returns>The <see cref="Subscription"/></returns>
-        public static Subscription CreateSubscription(long companyRefId, ApplicationUser user, UserType type = UserType.Member)
+        public static Subscription CreateSubscription(long companyRefId, string userId, UserType type = UserType.Member)
         {
             return new Subscription()
             {
@@ -81,7 +81,7 @@ namespace Callisto.Module.Authentication
                 CreatedAt = DateTime.Now,
                 ModifiedAt = DateTime.Now,
                 LastLogin = DateTime.Now,
-                UserId = user.Id,
+                UserId = userId,
                 UserType = type,
                 Deactivated = false,
                 JobRole = string.Empty,

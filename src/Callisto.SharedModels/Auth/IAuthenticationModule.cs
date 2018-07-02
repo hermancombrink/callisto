@@ -106,5 +106,20 @@ namespace Callisto.SharedModels.Auth
         /// </summary>
         /// <returns>The <see cref="string"/></returns>
         string GenerateRandomPassword();
+
+        /// <summary>
+        /// The RemoveSubscription
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task RemoveSubscription(string email);
+
+        /// <summary>
+        /// The CreateSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="type">The <see cref="UserType"/></param>
+        /// <returns>The <see cref="Task{RequestResult}"/></returns>
+        Task<RequestResult> CreateSubscription(string userId, UserType type);
     }
 }

@@ -11,6 +11,7 @@ using Callisto.Module.Notification.Options;
 using Callisto.Module.Notification.Startup;
 using Callisto.Session.Provider;
 using Callisto.Session.Provider.Startup;
+using Callisto.SharedKernel;
 using Callisto.SharedKernel.Extensions;
 using Callisto.SharedKernel.Messaging;
 using Microsoft.AspNetCore.Builder;
@@ -50,6 +51,8 @@ namespace Callisto.Web.Api
         public virtual void ConfigureServices(IServiceCollection services)
         {
             var dbConnectionString = Configuration.GetConnectionString("callisto");
+
+            services.AddSingleton<IDbTransactionFactory, DbTransactionFactory>();
 
             services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),

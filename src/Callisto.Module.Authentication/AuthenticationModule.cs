@@ -119,17 +119,15 @@ namespace Callisto.Module.Authentication
                     return RequestResult<(string userId, long companyRefId)>.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
-                var subscription = ModelFactory.CreateSubscription(company.RefId, appUser);
+                var subscription = ModelFactory.CreateSubscription(company.RefId, appUser.Id);
                 await AuthRepo.CreateSubscription(subscription);
-
-                Session.Member.JoinTransaction(tran);
 
                 await Session.Member.AddFounderMember(appUser.Email, appUser.Id, company.RefId);
 
                 ModelFactory.SetSuccessLogin(appUser, company.RefId);
                 await AuthRepo.UpdateUser(appUser);
 
-                tran.Commit();
+                AuthRepo.CommitTransaction();
             }
 
             var message = Session.Notification.CreateSimpleMessage(NotificationType.Registered, model.Email);
@@ -167,14 +165,14 @@ namespace Callisto.Module.Authentication
                     return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
-                var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, appUser);
+                var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, appUser.Id);
                 await AuthRepo.CreateSubscription(subscription);
 
                 appUser = await AuthRepo.GetUser(appUser.Email);
 
                 var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
 
-                tran.Commit();
+                AuthRepo.CommitTransaction();
 
                 return RequestResult.Success(token);
             }
@@ -345,7 +343,7 @@ namespace Callisto.Module.Authentication
                     throw new InvalidOperationException($"Failed to validate account");
                 }
 
-                tran.Commit();
+                AuthRepo.CommitTransaction();
             }
 
             return RequestResult.Success();
@@ -474,7 +472,7 @@ namespace Callisto.Module.Authentication
 
                 await AuthRepo.UpdateSubscription(subscription);
 
-                tran.Commit();
+                AuthRepo.CommitTransaction();
             }
 
             return RequestResult.Success();
@@ -492,6 +490,38 @@ namespace Callisto.Module.Authentication
             {
                 await AuthRepo.RemoveAccount(user);
             }
+        }
+
+        /// <summary>
+        /// The RemoveSubscription
+        /// </summary>
+        /// <param name="email">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveSubscription(string email)
+        {
+            var user = await AuthRepo.GetUser(email);
+            if (user != null)
+            {
+                await AuthRepo.RemoveSubscription(user, Session.CurrentCompanyRef);
+            }
+        }
+
+        /// <summary>
+        /// The AddSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="type">The <see cref="UserType"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task<RequestResult> CreateSubscription(string userId, UserType type)
+        {
+            var appUser = await AuthRepo.GetUserById(userId);
+
+            var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
+
+            var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, userId, type);
+            await AuthRepo.CreateSubscription(subscription);
+
+            return RequestResult.Success(token);
         }
 
         /// <summary>

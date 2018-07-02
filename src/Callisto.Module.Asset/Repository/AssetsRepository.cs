@@ -1,6 +1,7 @@
 ﻿using Callisto.Base.Module;
 using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Location.ViewModels;
 using EntityFrameworkCore.RawSQLExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace Callisto.Module.Assets.Repository
         /// Initializes a new instance of the <see cref="AssetsRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public AssetsRepository(AssetDbContext context) : base(context)
+        public AssetsRepository(AssetDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

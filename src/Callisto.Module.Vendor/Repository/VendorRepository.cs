@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Vendor.Interfaces;
 using Callisto.Module.Vendor.Repository.Models;
 using Callisto.Provider.Person.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Person;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Callisto.Module.Vendor.Repository
         /// Initializes a new instance of the <see cref="VendorRepository"/> class.
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonRepository{VendorMember}"/></param>
-        public VendorRepository(VendorDbContext context) : base(context)
+        public VendorRepository(VendorDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

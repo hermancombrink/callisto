@@ -4,7 +4,6 @@ using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ namespace Callisto.Module.Authentication.Repository
         /// Initializes a new instance of the <see cref="AuthenticationRepository"/> class.
         /// </summary>
         /// <param name="contextFactory">The <see cref="Func{ApplicationDbContext}"/></param>
-        public AuthenticationRepository(ApplicationDbContext context) : base(context)
+        public AuthenticationRepository(ApplicationDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }
@@ -143,6 +142,16 @@ namespace Callisto.Module.Authentication.Repository
         }
 
         /// <summary>
+        /// The GetUserByID
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{ApplicationUser}"/></returns>
+        public async Task<ApplicationUser> GetUserById(string userId)
+        {
+            return await Context.Users.FirstOrDefaultAsync(c => c.Id == userId);
+        }
+
+        /// <summary>
         /// The UpdateCompany
         /// </summary>
         /// <param name="company">The <see cref="Company"/></param>
@@ -153,6 +162,11 @@ namespace Callisto.Module.Authentication.Repository
             await Context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// The UpdateSubscription
+        /// </summary>
+        /// <param name="subscriptions">The <see cref="Subscription"/></param>
+        /// <returns>The <see cref="Task"/></returns>
         public async Task UpdateSubscription(Subscription subscriptions)
         {
             Context.Subscriptions.Attach(subscriptions);
@@ -191,6 +205,22 @@ namespace Callisto.Module.Authentication.Repository
             user.Email = Crypto.GetStringSha256Hash(user.Email, user.Id);
             user.NormalizedEmail = Crypto.GetStringSha256Hash(user.Email, user.Id);
             user.NormalizedUserName = Crypto.GetStringSha256Hash(user.Email, user.Id);
+            await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// The RemoveSubscription
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task RemoveSubscription(ApplicationUser user, long companyRefId)
+        {
+            var subscription = await GetSubscription(user.Id, companyRefId);
+            if (subscription != null)
+            {
+                Context.Subscriptions.Remove(subscription);
+            }
             await Context.SaveChangesAsync();
         }
     }

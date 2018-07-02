@@ -1,5 +1,6 @@
 ﻿using Callisto.Base.Module;
 using Callisto.Base.Person.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Base;
 using Callisto.SharedModels.Models;
 using Callisto.SharedModels.Person;
@@ -20,7 +21,7 @@ namespace Callisto.Provider.Person.Repository
         /// Initializes a new instance of the <see cref="PersonRepository{T}"/> class.
         /// </summary>
         /// <param name="context">The <see cref="PersonDbContext"/></param>
-        public PersonRepository(PersonDbContext<T> context) : base(context)
+        public PersonRepository(PersonDbContext<T> context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

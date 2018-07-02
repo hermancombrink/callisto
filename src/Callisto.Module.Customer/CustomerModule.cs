@@ -50,7 +50,7 @@ namespace Callisto.Module.Customer
         public async Task<RequestResult> AddCustomerMember(AddCustomerViewModel model)
         {
             var person = ModelFactory.CreateCustomerMember(model, Session.CurrentCompanyRef);
-            using (var tran =  CustomerRepo.BeginTransaction())
+            using (var tran = CustomerRepo.BeginTransaction())
             {
                 if (model.CreateAccount)
                 {
@@ -81,7 +81,7 @@ namespace Callisto.Module.Customer
 
                 await AddPerson(person);
 
-                tran.Commit();
+                CustomerRepo.CommitTransaction();
             }
 
             return RequestResult.Success();
@@ -100,7 +100,7 @@ namespace Callisto.Module.Customer
                 throw new InvalidOperationException($"Customer member not found");
             }
 
-            using (var tran =  CustomerRepo.BeginTransaction())
+            using (var tran = CustomerRepo.BeginTransaction())
             {
                 //await Session.Authentication.RemoveAccount(CustomerMember.Email);
 
@@ -132,7 +132,7 @@ namespace Callisto.Module.Customer
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran =  CustomerRepo.BeginTransaction())
+            using (var tran = CustomerRepo.BeginTransaction())
             {
                 var result = await Session.Authentication.UpdateNewProfileAsync(model);
                 if (result.Status == RequestStatus.Success)
@@ -155,7 +155,7 @@ namespace Callisto.Module.Customer
                         await UpdatePerson(member);
                     }
 
-                    tran.Commit();
+                    CustomerRepo.CommitTransaction();
                 }
             }
 

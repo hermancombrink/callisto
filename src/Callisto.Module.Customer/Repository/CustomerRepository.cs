@@ -1,6 +1,7 @@
 ﻿using Callisto.Module.Customer.Interfaces;
 using Callisto.Module.Customer.Repository.Models;
 using Callisto.Provider.Person.Repository;
+using Callisto.SharedKernel;
 using Callisto.SharedModels.Person;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Callisto.Module.Customer.Repository
         /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonRepository{CustomerMember}"/></param>
-        public CustomerRepository(CustomerDbContext context) :base(context)
+        public CustomerRepository(CustomerDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

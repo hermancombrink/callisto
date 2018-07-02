@@ -1,6 +1,4 @@
 ﻿using Callisto.SharedModels.Base;
-using Microsoft.EntityFrameworkCore.Storage;
-using System.Data.Common;
 
 namespace Callisto.Base.Module
 {
@@ -22,14 +20,5 @@ namespace Callisto.Base.Module
         /// Gets the Repository
         /// </summary>
         private IBaseRepository Repository { get; }
-
-        /// <summary>
-        /// The JoinTransaction
-        /// </summary>
-        /// <param name="transaction">The <see cref="DbTransaction"/></param>
-        public void JoinTransaction(IDbContextTransaction transaction)
-        {
-            Repository.JoinTransaction(transaction);
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Callisto.Base.Module;
 using Callisto.Module.Tag.Repository.Models;
 using Callisto.Module.Tags.Interfaces;
+using Callisto.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Callisto.Module.Tags.Repository
         /// Initializes a new instance of the <see cref="TagRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public TagRepository(TagDbContext context) : base(context)
+        public TagRepository(TagDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
         {
             Context = context;
         }

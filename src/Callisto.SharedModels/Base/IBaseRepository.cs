@@ -8,15 +8,19 @@ namespace Callisto.SharedModels.Base
     public interface IBaseRepository
     {
         /// <summary>
-        /// The JoinTransaction
-        /// </summary>
-        /// <param name="transaction">The <see cref="IDbContextTransaction"/></param>
-        void JoinTransaction(IDbContextTransaction transaction);
-
-        /// <summary>
         /// The BeginTransaction
         /// </summary>
         /// <returns>The <see cref="IDbContextTransaction"/></returns>
         IDbContextTransaction BeginTransaction();
+
+        /// <summary>
+        /// The CommitTransaction
+        /// </summary>
+        void CommitTransaction();
+
+        /// <summary>
+        /// The RollbackTransaction
+        /// </summary>
+        void RollbackTransaction();
     }
 }

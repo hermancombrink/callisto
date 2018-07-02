@@ -68,6 +68,13 @@ namespace Callisto.Module.Authentication.Interfaces
         Task<ApplicationUser> GetUser(string userName);
 
         /// <summary>
+        /// The GetUserById
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <returns>The <see cref="Task{ApplicationUser}"/></returns>
+        Task<ApplicationUser> GetUserById(string userId);
+
+        /// <summary>
         /// The RemoveAccount
         /// </summary>
         /// <param name="user">The <see cref="ApplicationUser"/></param>
@@ -88,5 +95,13 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="subscriptions">The <see cref="Subscription"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task UpdateSubscription(Subscription subscriptions);
+
+        /// <summary>
+        /// The RemoveSubscription
+        /// </summary>
+        /// <param name="user">The <see cref="ApplicationUser"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task RemoveSubscription(ApplicationUser user, long companyRefId);
     }
 }
