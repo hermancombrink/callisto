@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Callisto.Module.Assets
 {
@@ -149,7 +150,7 @@ namespace Callisto.Module.Assets
                 throw new InvalidOperationException($"Unable to find asset");
             }
 
-            using (var tran = AssetRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 var parent = await GetAssetParentAsync(model.ParentId);
 
@@ -165,7 +166,7 @@ namespace Callisto.Module.Assets
 
                 await AssetRepo.AddAssetLocation(ModelFactory.CreateAssetLocation(asset, locationResult.Result));
 
-                AssetRepo.CommitTransaction();
+                tran.Complete();
             }
 
             return RequestResult.Success();

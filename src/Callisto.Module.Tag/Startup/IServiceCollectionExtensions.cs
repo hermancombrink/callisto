@@ -23,8 +23,8 @@ namespace Callisto.Module.Tags.Startup
         Action<DbContextOptionsBuilder> dbContextFactory)
         {
             services.AddDbContext<TagDbContext>(dbContextFactory);
-            services.TryAddTransient<ITagRepository, TagRepository>();
-            services.TryAddTransient<ITagModule, TagModule>();
+            services.TryAddScoped<ITagRepository, TagRepository>();
+            services.TryAddScoped<ITagModule, TagModule>();
 
 
             return services;

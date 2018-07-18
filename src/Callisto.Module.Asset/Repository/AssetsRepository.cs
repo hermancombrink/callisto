@@ -1,11 +1,9 @@
 ﻿using Callisto.Base.Module;
 using Callisto.Module.Assets.Interfaces;
 using Callisto.Module.Assets.Repository.Models;
-using Callisto.SharedKernel;
 using Callisto.SharedModels.Location.ViewModels;
 using EntityFrameworkCore.RawSQLExtensions.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,21 +15,15 @@ namespace Callisto.Module.Assets.Repository
     /// <summary>
     /// Defines the <see cref="AssetsRepository" />
     /// </summary>
-    public class AssetsRepository : BaseRepository, IAssetsRepository
+    public class AssetsRepository : BaseRepository<AssetDbContext>, IAssetsRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetsRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public AssetsRepository(AssetDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public AssetsRepository(AssetDbContext context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        private AssetDbContext Context { get; }
 
         /// <summary>
         /// The AddTask
@@ -169,6 +161,11 @@ namespace Callisto.Module.Assets.Repository
                  new SqlParameter("@RefId", refId)).ToListAsync();
         }
 
+        /// <summary>
+        /// The GetBestAssetLocation
+        /// </summary>
+        /// <param name="refId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task{LocationViewModel}"/></returns>
         public async Task<LocationViewModel> GetBestAssetLocation(long refId)
         {
             return await Context.Database.SqlQuery<LocationViewModel>("select * from callisto.udf_GetAssetBestLocation(@RefId)",

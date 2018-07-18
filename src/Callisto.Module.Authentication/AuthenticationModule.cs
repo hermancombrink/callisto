@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Callisto.Module.Authentication
 {
@@ -109,7 +110,7 @@ namespace Callisto.Module.Authentication
                 return RequestResult<(string userId, long companyRefId)>.Validation($"User already exists");
             }
 
-            using (var tran = AuthRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 await AuthRepo.CreateCompany(company);
 
@@ -127,7 +128,7 @@ namespace Callisto.Module.Authentication
                 ModelFactory.SetSuccessLogin(appUser, company.RefId);
                 await AuthRepo.UpdateUser(appUser);
 
-                AuthRepo.CommitTransaction();
+                tran.Complete();
             }
 
             var message = Session.Notification.CreateSimpleMessage(NotificationType.Registered, model.Email);
@@ -156,23 +157,24 @@ namespace Callisto.Module.Authentication
                 return RequestResult.Validation(msg);
             }
 
-            using (var tran = AuthRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 var appUser = ModelFactory.CreateUser(model);
+                
                 var user = await UserManager.CreateAsync(appUser, model.Password);
                 if (!user.Succeeded)
                 {
                     return RequestResult.Failed(string.Join("<br/>", user.Errors.Select(c => c.Description)));
                 }
 
-                var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, appUser.Id);
+                var subscription = ModelFactory.CreateSubscription(Session.CurrentCompanyRef, appUser.Id, model.UserType);
                 await AuthRepo.CreateSubscription(subscription);
 
                 appUser = await AuthRepo.GetUser(appUser.Email);
 
                 var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
 
-                AuthRepo.CommitTransaction();
+                tran.Complete();
 
                 return RequestResult.Success(token);
             }
@@ -320,7 +322,7 @@ namespace Callisto.Module.Authentication
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran = AuthRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 var reset = await UserManager.ResetPasswordAsync(user, model.Token, model.Password);
 
@@ -343,7 +345,7 @@ namespace Callisto.Module.Authentication
                     throw new InvalidOperationException($"Failed to validate account");
                 }
 
-                AuthRepo.CommitTransaction();
+                tran.Complete();
             }
 
             return RequestResult.Success();
@@ -464,7 +466,7 @@ namespace Callisto.Module.Authentication
 
             ModelFactory.UpdateNewUserDetails(user, company, subscription, model);
 
-            using (var tran = AuthRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 await AuthRepo.UpdateUser(user);
 
@@ -472,7 +474,7 @@ namespace Callisto.Module.Authentication
 
                 await AuthRepo.UpdateSubscription(subscription);
 
-                AuthRepo.CommitTransaction();
+                tran.Complete();
             }
 
             return RequestResult.Success();
@@ -515,6 +517,11 @@ namespace Callisto.Module.Authentication
         public async Task<RequestResult> CreateSubscription(string userId, UserType type)
         {
             var appUser = await AuthRepo.GetUserById(userId);
+
+            if (await AuthRepo.HasSubscription(userId, type, Session.CurrentCompanyRef))
+            {
+                return RequestResult.Failed("Subscription already exists");
+            }
 
             var token = await UserManager.GeneratePasswordResetTokenAsync(appUser);
 

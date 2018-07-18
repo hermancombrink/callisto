@@ -14,6 +14,7 @@ using Callisto.SharedModels.Vendor.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Callisto.Module.Vendor
 {
@@ -52,7 +53,7 @@ namespace Callisto.Module.Vendor
         public async Task<RequestResult> AddVendorMember(AddVendorViewModel model)
         {
             var person = ModelFactory.CreateVendorMember(model, Session.CurrentCompanyRef);
-            using (var tran = VendorRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 if (model.CreateAccount)
                 {
@@ -97,7 +98,7 @@ namespace Callisto.Module.Vendor
 
                 await AddPerson(person);
 
-                VendorRepo.CommitTransaction();
+                tran.Complete();
             }
 
             return RequestResult.Success();
@@ -116,11 +117,13 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Vendor member not found");
             }
 
-            using (var tran = VendorRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 await Session.Authentication.RemoveSubscription(VendorMember.Email);
 
                 await RemovePerson(VendorMember);
+
+                tran.Complete();
             }
 
             return RequestResult.Success();
@@ -148,7 +151,7 @@ namespace Callisto.Module.Vendor
                 throw new InvalidOperationException($"Failed to find user");
             }
 
-            using (var tran = VendorRepo.BeginTransaction())
+            using (var tran = Session.GetSessionTransaction())
             {
                 var result = await Session.Authentication.UpdateNewProfileAsync(model);
                 if (result.Status == RequestStatus.Success)
@@ -170,7 +173,7 @@ namespace Callisto.Module.Vendor
                         await UpdatePerson(member);
                     }
 
-                    VendorRepo.CommitTransaction();
+                    tran.Complete();
                 }
             }
 

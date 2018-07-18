@@ -13,21 +13,15 @@ namespace Callisto.Module.Locations.Repository
     /// <summary>
     /// Defines the <see cref="LocationRepository" />
     /// </summary>
-    public class LocationRepository : BaseRepository, ILocationRepository
+    public class LocationRepository : BaseRepository<LocationDbContext>, ILocationRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LocationRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public LocationRepository(LocationDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public LocationRepository(LocationDbContext context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        private LocationDbContext Context { get; }
 
         /// <summary>
         /// The AddLocation

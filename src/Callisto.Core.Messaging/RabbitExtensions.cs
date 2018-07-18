@@ -111,58 +111,66 @@ namespace Callisto.Core.Messaging
                 throw new ArgumentNullException(nameof(config));
             }
 
-            using (IModel channel = connection.CreateModel())
+            try
             {
-                channel.ExchangeDeclare(config.ExchangeName,
-                    type: config.Type,
-                    durable: true,
-                    autoDelete: false);
-
-                if (config.Consumers != null)
+                using (IModel channel = connection.CreateModel())
                 {
-                    foreach (var consumer in config.Consumers)
-                    {
-                        channel.QueueDeclare(consumer.QueueNameToConsume,
-                            durable: true,
-                            exclusive: false,
-                            autoDelete: false);
+                    channel.ExchangeDeclare(config.ExchangeName,
+                        type: config.Type,
+                        durable: true,
+                        autoDelete: false);
 
-                        if (consumer.FailureConfig != null)
+                    if (config.Consumers != null)
+                    {
+                        foreach (var consumer in config.Consumers)
                         {
-                            channel.SetupRetryQueueTopology(consumer.FailureConfig);
+                            channel.QueueDeclare(consumer.QueueNameToConsume,
+                                durable: true,
+                                exclusive: false,
+                                autoDelete: false);
+
+                            if (consumer.FailureConfig != null)
+                            {
+                                channel.SetupRetryQueueTopology(consumer.FailureConfig);
+                            }
+                        }
+                    }
+
+                    if (config.Publishers != null)
+                    {
+                        foreach (var publisher in config.Publishers.Where(c => !string.IsNullOrEmpty(c.QueueNameToPublish)).ToList())
+                        {
+                            channel.QueueDeclare(publisher.QueueNameToPublish,
+                                 durable: true,
+                                 exclusive: false,
+                                 autoDelete: false);
+
+                            channel.QueueBind(publisher.QueueNameToPublish,
+                                config.ExchangeName,
+                                publisher.RoutingKey);
                         }
                     }
                 }
 
-                if (config.Publishers != null)
+                if (config.Exchanges != null)
                 {
-                    foreach (var publisher in config.Publishers.Where(c => !string.IsNullOrEmpty(c.QueueNameToPublish)).ToList())
+                    foreach (var exchange in config.Exchanges)
                     {
-                        channel.QueueDeclare(publisher.QueueNameToPublish,
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false);
+                        SetupRabbitMQTopology(connection, exchange);
 
-                        channel.QueueBind(publisher.QueueNameToPublish,
-                            config.ExchangeName,
-                            publisher.RoutingKey);
+                        using (IModel channel = connection.CreateModel())
+                        {
+                            channel.ExchangeBind(exchange.ExchangeName,
+                               config.ExchangeName,
+                               exchange.RoutingKey);
+                        }
                     }
                 }
+
             }
-
-            if (config.Exchanges != null)
+            catch (Exception ex)
             {
-                foreach (var exchange in config.Exchanges)
-                {
-                    SetupRabbitMQTopology(connection, exchange);
-
-                    using (IModel channel = connection.CreateModel())
-                    {
-                        channel.ExchangeBind(exchange.ExchangeName,
-                           config.ExchangeName,
-                           exchange.RoutingKey);
-                    }
-                }
+                throw new SystemException($"Failed to setup rabbit infrastructure", ex);
             }
         }
 

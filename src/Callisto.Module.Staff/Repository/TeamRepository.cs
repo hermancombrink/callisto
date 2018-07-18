@@ -18,14 +18,9 @@ namespace Callisto.Module.Team.Repository
         /// Initializes a new instance of the <see cref="TeamRepository"/> class.
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonRepository{TeamMember}"/></param>
-        public TeamRepository(TeamDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public TeamRepository(TeamDbContext context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        public TeamDbContext Context { get; }
+  
     }
 }

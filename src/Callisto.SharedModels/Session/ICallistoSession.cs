@@ -6,6 +6,7 @@ using Callisto.SharedModels.Member;
 using Callisto.SharedModels.Messaging;
 using Callisto.SharedModels.Notification;
 using Callisto.SharedModels.Vendor;
+using System.Transactions;
 
 namespace Callisto.SharedModels.Session
 {
@@ -53,6 +54,12 @@ namespace Callisto.SharedModels.Session
         /// Gets or sets the Customer
         /// </summary>
         ICustomerModule Customer { get; set; }
+
+        /// <summary>
+        /// The GetSessionTransaction
+        /// </summary>
+        /// <returns>The <see cref="TransactionScope"/></returns>
+        TransactionScope GetSessionTransaction();
 
         /// <summary>
         /// Gets a value indicating whether IsAuthenticated

@@ -13,21 +13,16 @@ namespace Callisto.Module.Tags.Repository
     /// <summary>
     /// Defines the <see cref="TagRepository" />
     /// </summary>
-    public class TagRepository : BaseRepository, ITagRepository
+    public class TagRepository : BaseRepository<TagDbContext>, ITagRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TagRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="AssetDbContext"/></param>
-        public TagRepository(TagDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public TagRepository(TagDbContext context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        private TagDbContext Context { get; }
+    
 
         /// <summary>
         /// The AddTag

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Callisto.Module.Assets.Startup
 {
@@ -22,27 +24,18 @@ namespace Callisto.Module.Assets.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
-        Action<DbContextOptionsBuilder> dbContextFactory)
+        public static IServiceCollection AddCallistoAssets(this IServiceCollection services)
         {
-            services.AddDbContext<AssetDbContext>(dbContextFactory);
-            services.TryAddTransient<IAssetsRepository, AssetsRepository>();
-            services.TryAddTransient<IAssetsModule, AssetsModule>();
+            services.AddDbContext<AssetDbContext>((service, options) =>
+            {
+                var connection = service.GetRequiredService<IDbConnection>();
+                options.UseSqlServer(connection as DbConnection);
+            });
+            services.TryAddScoped<IAssetsRepository, AssetsRepository>();
+            services.TryAddScoped<IAssetsModule, AssetsModule>();
 
 
             return services;
-        }
-
-        /// <summary>
-        /// The AddCallistoAssets
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoAssets(this IServiceCollection services,
-        string connectionString)
-        {
-            return AddCallistoAssets(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

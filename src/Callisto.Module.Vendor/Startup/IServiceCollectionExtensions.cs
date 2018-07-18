@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Callisto.Module.Locations.Startup
 {
@@ -20,26 +22,18 @@ namespace Callisto.Module.Locations.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoVendor(this IServiceCollection services,
-        Action<DbContextOptionsBuilder> dbContextFactory)
+        public static IServiceCollection AddCallistoVendor(this IServiceCollection services)
         {
-            services.AddDbContext<VendorDbContext>(dbContextFactory);
-            services.TryAddTransient<IVendorRepository, VendorRepository>();
-            services.TryAddTransient<IVendorModule, VendorModule>();
+            services.AddDbContext<VendorDbContext>((service, options) =>
+            {
+                var connection = service.GetRequiredService<IDbConnection>();
+                options.UseSqlServer(connection as DbConnection);
+            });
+
+            services.TryAddScoped<IVendorRepository, VendorRepository>();
+            services.TryAddScoped<IVendorModule, VendorModule>();
 
             return services;
-        }
-
-        /// <summary>
-        /// The AddCallistoAssets
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoVendor(this IServiceCollection services,
-        string connectionString)
-        {
-            return AddCallistoVendor(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

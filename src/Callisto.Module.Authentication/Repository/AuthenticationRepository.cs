@@ -2,8 +2,10 @@
 using Callisto.Module.Authentication.Interfaces;
 using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,21 +14,29 @@ namespace Callisto.Module.Authentication.Repository
     /// <summary>
     /// Defines the <see cref="AuthenticationRepository" />
     /// </summary>
-    public class AuthenticationRepository : BaseRepository, IAuthenticationRepository
+    public class AuthenticationRepository : BaseRepository<ApplicationDbContext>, IAuthenticationRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationRepository"/> class.
         /// </summary>
         /// <param name="contextFactory">The <see cref="Func{ApplicationDbContext}"/></param>
-        public AuthenticationRepository(ApplicationDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public AuthenticationRepository(ApplicationDbContext context,
+            DbContextOptions<ApplicationDbContext> options,
+            IDbConnection connection) : base(context)
         {
-            Context = context;
+            Options = options;
+            Connection = connection;
         }
 
         /// <summary>
-        /// Gets the Context
+        /// Gets the Options
         /// </summary>
-        private ApplicationDbContext Context { get; }
+        public DbContextOptions<ApplicationDbContext> Options { get; }
+
+        /// <summary>
+        /// Gets the Connection
+        /// </summary>
+        public IDbConnection Connection { get; }
 
         /// <summary>
         /// The CreateCompany
@@ -48,6 +58,18 @@ namespace Callisto.Module.Authentication.Repository
         {
             await Context.Subscriptions.AddAsync(subscription);
             await Context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// The HasSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="type">The <see cref="UserType"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        public async Task<bool> HasSubscription(string userId, UserType type, long companyRefId)
+        {
+            return await Context.Subscriptions.AnyAsync(c => c.UserId == userId && c.UserType == type && c.CompanyRefId == companyRefId);
         }
 
         /// <summary>

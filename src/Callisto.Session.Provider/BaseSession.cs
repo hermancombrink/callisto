@@ -9,6 +9,7 @@ using Callisto.SharedModels.Session;
 using Callisto.SharedModels.Vendor;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Transactions;
 
 namespace Callisto.Session.Provider
 {
@@ -157,6 +158,15 @@ namespace Callisto.Session.Provider
         {
             get { return _vendor ?? (_vendor = ServiceProvider.GetRequiredService<IVendorModule>()); }
             set { _vendor = value; }
+        }
+
+        /// <summary>
+        /// The GetSessionTransaction
+        /// </summary>
+        /// <returns>The <see cref="TransactionScope"/></returns>
+        public TransactionScope GetSessionTransaction()
+        {
+            return new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
         }
     }
 }

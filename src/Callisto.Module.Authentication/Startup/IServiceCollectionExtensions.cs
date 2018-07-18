@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Data;
+using System.Data.Common;
 using System.Text;
 
 namespace Callisto.Module.Authentication.Startup
@@ -32,17 +34,20 @@ namespace Callisto.Module.Authentication.Startup
         /// <returns>The <see cref="IServiceCollection"/></returns>
         public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
             AuthOptions authOptions,
-            JwtIssuerOptions issuerOptions,
-            Action<DbContextOptionsBuilder> dbContextFactory)
+            JwtIssuerOptions issuerOptions)
         {
-            services.AddDbContext<ApplicationDbContext>(dbContextFactory);
+            services.AddDbContext<ApplicationDbContext>((service, options) =>
+            {
+                var connection = service.GetRequiredService<IDbConnection>();
+                options.UseSqlServer(connection as DbConnection);
+            });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options => ModelFactory.CreateIdentityOptions(authOptions))
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.TryAddTransient<IAuthenticationModule, AuthenticationModule>();
-            services.TryAddTransient<IAuthenticationRepository, AuthenticationRepository>();
+            services.TryAddScoped<IAuthenticationModule, AuthenticationModule>();
+            services.TryAddScoped<IAuthenticationRepository, AuthenticationRepository>();
 
             services.AddAuthentication(c =>
             {
@@ -68,22 +73,6 @@ namespace Callisto.Module.Authentication.Startup
             services.AddSingleton(c => PublishBinding.SetBinding<NotificationMessage>("CAL.Notification"));
 
             return services;
-        }
-
-        /// <summary>
-        /// The UseCallistoAuthentication
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="authOptions">The <see cref="AuthOptions"/></param>
-        /// <param name="issuerOptions">The <see cref="JwtIssuerOptions"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoAuthentication(this IServiceCollection services,
-            AuthOptions authOptions,
-            JwtIssuerOptions issuerOptions,
-            string connectionString)
-        {
-            return AddCallistoAuthentication(services, authOptions, issuerOptions, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

@@ -173,7 +173,6 @@ namespace Callisto.Assets.Tests
             session.Location.Returns(c => location);
             var viewModel = fixture.Create<AssetDetailViewModel>();
             repo.GetAssetById(Arg.Any<Guid>()).Returns(fixture.Create<Asset>());
-            repo.BeginTransaction().Returns(c => Substitute.For<IDbContextTransaction>());
 
             var assetModule = new AssetsModule(session, Substitute.For<ILogger<AssetsModule>>(), repo, Storage);
             var model = fixture.Create<AssetViewModel>();
@@ -195,7 +194,6 @@ namespace Callisto.Assets.Tests
             session.Location.Returns(c => location);
             var viewModel = fixture.Create<AssetDetailViewModel>();
             repo.GetAssetById(Arg.Any<Guid>()).Returns(fixture.Create<Asset>());
-            repo.BeginTransaction().Returns(c => Substitute.For<IDbContextTransaction>());
 
             var assetModule = new AssetsModule(session, Substitute.For<ILogger<AssetsModule>>(), repo, Storage);
             var model = fixture.Create<AssetViewModel>();

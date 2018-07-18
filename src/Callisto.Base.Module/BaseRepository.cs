@@ -1,126 +1,44 @@
-﻿using Callisto.SharedKernel;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Transactions;
 
 namespace Callisto.Base.Module
 {
     /// <summary>
     /// Defines the <see cref="BaseRepository" />
     /// </summary>
-    public abstract class BaseRepository
+    public abstract class BaseRepository<T> where T : DbContext
     {
+        /// <summary>
+        /// Defines the _context
+        /// </summary>
+        private T _context;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseRepository"/> class.
         /// </summary>
         /// <param name="context">The <see cref="DbContext"/></param>
-        public BaseRepository(DbContext context, IDbTransactionFactory transactionFactory)
+        public BaseRepository(T context)
         {
-            Context = context;
-            TransactionFactory = transactionFactory;
+            _context = context;
         }
 
         /// <summary>
         /// Gets the Context
         /// </summary>
-        private DbContext Context { get; }
-
-        /// <summary>
-        /// Gets the TransactionFactory
-        /// </summary>
-        public IDbTransactionFactory TransactionFactory { get; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether CreatedTransactions
-        /// </summary>
-        private bool CreatedTransaction { get; set; }
-
-        /// <summary>
-        /// The BeginTransaction
-        /// </summary>
-        /// <returns>The <see cref="DbTransaction"/></returns>
-        public IDbContextTransaction BeginTransaction()
+        public T Context
         {
-            var connection = Context.Database.GetDbConnection().ConnectionString;
-            var transaction = TransactionFactory.GetTransaction(connection);
-            if (transaction != null)
+            get
             {
-                CreatedTransaction = false;
-                Context.Database.UseTransaction(transaction.GetDbTransaction()); //rather join existing transaction than creating new one... 
-                //allows for cross module transactions to be used without the knowledge of higher or lower order transactions in code.
-                return new FakeTransaction(); //There is already another transaction in progress, avoid returning is incase of disposable using block
-            }
-            else
-            {
-                CreatedTransaction = true;
-                transaction = Context.Database.BeginTransaction();
-                TransactionFactory.AddTransaction(connection, transaction);
-                return transaction;
-            }
-        }
-
-        /// <summary>
-        /// The CommitTransaction
-        /// </summary>
-        public void CommitTransaction()
-        {
-            if (CreatedTransaction) //only allow party that created the transaction to commit it
-            {
-                var connection = Context.Database.GetDbConnection().ConnectionString;
-                var transaction = TransactionFactory.GetTransaction(connection);
-                if (transaction != null)
+                //if the transaction is still active and we have not joined it... implicitly join the transaction.
+                if (Transaction.Current != null && Transaction.Current.TransactionInformation.Status == TransactionStatus.Active 
+                    && _context.Database.CurrentTransaction == null
+                    && _context.Database.GetEnlistedTransaction() == null)
                 {
-                    transaction.Commit();
-                    TransactionFactory.RemoveTransaction(connection);
+                    _context.Database.OpenConnection();
+                    _context.Database.EnlistTransaction(Transaction.Current);
                 }
-                CreatedTransaction = false;
-            }
-        }
 
-        /// <summary>
-        /// The RollbackTransaction
-        /// </summary>
-        public void RollbackTransaction()
-        {
-            var connection = Context.Database.GetDbConnection().ConnectionString;
-            var transaction = TransactionFactory.GetTransaction(connection);
-            if (transaction != null)  //any party can rollback the transaction... rather cause exception than unintended code behavior here
-            {
-                transaction.Rollback();
-                TransactionFactory.RemoveTransaction(connection);
-            }
-            CreatedTransaction = false;
-        }
-
-        /// <summary>
-        /// Defines the <see cref="FakeTransaction" />
-        /// </summary>
-        private class FakeTransaction : IDbContextTransaction
-        {
-            /// <summary>
-            /// Gets the TransactionId
-            /// </summary>
-            public Guid TransactionId => Guid.Empty;
-
-            /// <summary>
-            /// The Commit
-            /// </summary>
-            public void Commit()
-            {
-            }
-
-            /// <summary>
-            /// The Dispose
-            /// </summary>
-            public void Dispose()
-            {
-            }
-
-            /// <summary>
-            /// The Rollback
-            /// </summary>
-            public void Rollback()
-            {
+                return _context;
             }
         }
     }

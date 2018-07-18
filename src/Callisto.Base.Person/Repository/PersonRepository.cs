@@ -15,21 +15,15 @@ namespace Callisto.Provider.Person.Repository
     /// <summary>
     /// Defines the <see cref="PersonRepository" />
     /// </summary>
-    public abstract class PersonRepository<T> : BaseRepository, IPersonRepository<T> where T : BasePerson
+    public abstract class PersonRepository<T> : BaseRepository<PersonDbContext<T>>, IPersonRepository<T> where T : BasePerson
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PersonRepository{T}"/> class.
         /// </summary>
         /// <param name="context">The <see cref="PersonDbContext"/></param>
-        public PersonRepository(PersonDbContext<T> context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public PersonRepository(PersonDbContext<T> context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        private PersonDbContext<T> Context { get; }
 
         /// <summary>
         /// The AddPerson

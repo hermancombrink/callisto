@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace Callisto.Core.Messaging.Startup
 {
@@ -57,7 +58,10 @@ namespace Callisto.Core.Messaging.Startup
                 }
             }
 
-            builder.Configure();
+            Task.Run(() =>
+            {
+                builder.Configure();
+            });
         }
     }
 }

@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Callisto.Module.Locations.Startup
 {
@@ -20,26 +22,17 @@ namespace Callisto.Module.Locations.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoMember(this IServiceCollection services,
-        Action<DbContextOptionsBuilder> dbContextFactory)
+        public static IServiceCollection AddCallistoMember(this IServiceCollection services)
         {
-            services.AddDbContext<TeamDbContext>(dbContextFactory);
-            services.TryAddTransient<ITeamRepository, TeamRepository>();
-            services.TryAddTransient<IMemberModule, MemberModule>();
+            services.AddDbContext<TeamDbContext>((service, options) =>
+            {
+                var connection = service.GetRequiredService<IDbConnection>();
+                options.UseSqlServer(connection as DbConnection);
+            });
+            services.TryAddScoped<ITeamRepository, TeamRepository>();
+            services.TryAddScoped<IMemberModule, MemberModule>();
 
             return services;
-        }
-
-        /// <summary>
-        /// The AddCallistoAssets
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoMember(this IServiceCollection services,
-        string connectionString)
-        {
-            return AddCallistoMember(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

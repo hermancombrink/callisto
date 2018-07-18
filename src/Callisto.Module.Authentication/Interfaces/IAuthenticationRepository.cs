@@ -1,5 +1,6 @@
 ﻿using Callisto.Module.Authentication.Repository.Models;
 using Callisto.SharedKernel;
+using Callisto.SharedModels.Auth;
 using Callisto.SharedModels.Auth.ViewModels;
 using Callisto.SharedModels.Base;
 using System.Threading.Tasks;
@@ -103,5 +104,14 @@ namespace Callisto.Module.Authentication.Interfaces
         /// <param name="companyRefId">The <see cref="long"/></param>
         /// <returns>The <see cref="Task"/></returns>
         Task RemoveSubscription(ApplicationUser user, long companyRefId);
+
+        /// <summary>
+        /// The HasSubscription
+        /// </summary>
+        /// <param name="userId">The <see cref="string"/></param>
+        /// <param name="type">The <see cref="UserType"/></param>
+        /// <param name="companyRefId">The <see cref="long"/></param>
+        /// <returns>The <see cref="Task"/></returns>
+        Task<bool> HasSubscription(string userId, UserType type, long companyRefId);
     }
 }

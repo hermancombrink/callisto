@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Callisto.Module.Locations.Startup
 {
@@ -20,26 +22,18 @@ namespace Callisto.Module.Locations.Startup
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoCustomer(this IServiceCollection services,
-        Action<DbContextOptionsBuilder> dbContextFactory)
+        public static IServiceCollection AddCallistoCustomer(this IServiceCollection services)
         {
-            services.AddDbContext<CustomerDbContext>(dbContextFactory);
-            services.TryAddTransient<ICustomerRepository, CustomerRepository>();
-            services.TryAddTransient<ICustomerModule, CustomerModule>();
+            services.AddDbContext<CustomerDbContext>((service, options) =>
+            {
+                var connection = service.GetRequiredService<IDbConnection>();
+                options.UseSqlServer(connection as DbConnection);
+            });
+
+            services.TryAddScoped<ICustomerRepository, CustomerRepository>();
+            services.TryAddScoped<ICustomerModule, CustomerModule>();
 
             return services;
-        }
-
-        /// <summary>
-        /// The AddCallistoAssets
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/></param>
-        /// <param name="connectionString">The <see cref="string"/></param>
-        /// <returns>The <see cref="IServiceCollection"/></returns>
-        public static IServiceCollection AddCallistoCustomer(this IServiceCollection services,
-        string connectionString)
-        {
-            return AddCallistoCustomer(services, options => options.UseSqlServer(DbConnectionFactory.GetSQLConnection(connectionString)));
         }
     }
 }

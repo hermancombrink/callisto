@@ -17,14 +17,8 @@ namespace Callisto.Module.Customer.Repository
         /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
         /// </summary>
         /// <param name="personProvider">The <see cref="IPersonRepository{CustomerMember}"/></param>
-        public CustomerRepository(CustomerDbContext context, IDbTransactionFactory transactionFactory) : base(context, transactionFactory)
+        public CustomerRepository(CustomerDbContext context) : base(context)
         {
-            Context = context;
         }
-
-        /// <summary>
-        /// Gets the Context
-        /// </summary>
-        public CustomerDbContext Context { get; }
     }
 }
