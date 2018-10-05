@@ -33,6 +33,36 @@
           <span class="nav-label">Assets</span>
         </a>
       </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-exclamation-circle"></i>
+            <span class="nav-label">Work Orders</span>
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-clock-o"></i>
+            <span class="nav-label">Preventative Maintanace</span>
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-archive"></i>
+            <span class="nav-label">Warehouse</span>
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-flag-checkered"></i>
+            <span class="nav-label">Inspections</span>
+          </a>
+      </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-certificate"></i>
+            <span class="nav-label">Compliance Training</span>
+          </a>
+      </li>
       <li [ngClass]="{active: activeRoute('location')}">
         <a [routerLink]="['/location']">
           <i class="fa fa-map"></i>
@@ -56,6 +86,12 @@
           <i class="fa fa-briefcase"></i>
           <span class="nav-label">Customers</span>
         </a>
+      </li>
+      <li>
+          <a [routerLink]="['/']">
+            <i class="fa fa-wrench"></i>
+            <span class="nav-label">Contractors</span>
+          </a>
       </li>
     </ul>
   </div>
