@@ -1,0 +1,62 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <li class="nav-header">
+        <div class="profile-element" dropdown>
+          <img alt="image" class="img-circle logo_mini" src="/assets/images/logo.png">
+          <a dropdownToggle>
+            <span class="block m-t-xs">
+              <strong class="font-bold">{{user.FirstName}} {{user.LastName}}</strong>
+            </span>
+            <span class="text-muted text-xs block">{{user.Email}} </span>
+            <span class="text-muted text-xs block">{{user.Company}} <b class="caret"></b></span>
+          </a>
+          <ul class="animated fadeInRight dropdown-menu" *dropdownMenu>
+            <li><a [routerLink]="['/account/profile']">Profile</a></li>
+            <li class="divider"></li>
+            <li><a (click)="Logout()">Logout</a></li>
+          </ul>
+        </div>
+        <div class="logo-element">
+          <img class="logo_mini" src="  /assets/images/logo.png" />
+        </div>
+      </li>
+      <li>
+        <a [routerLink]="['/']">
+          <i class="fa fa-dashboard"></i>
+          <span class="nav-label">Dashboard</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('asset')}">
+        <a [routerLink]="['/asset']" >
+          <i class="fa fa-database"></i>
+          <span class="nav-label">Assets</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('location')}">
+        <a [routerLink]="['/location']">
+          <i class="fa fa-map"></i>
+          <span class="nav-label">Locations</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('team')}">
+        <a [routerLink]="['/team']">
+          <i class="fa fa-users"></i>
+          <span class="nav-label">Team</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('vendor')}">
+        <a [routerLink]="['/vendor']">
+          <i class="fa fa-truck"></i>
+          <span class="nav-label">Vendors</span>
+        </a>
+      </li>
+      <li [ngClass]="{active: activeRoute('customer')}">
+        <a [routerLink]="['/customer']">
+          <i class="fa fa-briefcase"></i>
+          <span class="nav-label">Customers</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

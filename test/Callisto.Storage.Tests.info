@@ -1,0 +1,1480 @@
+SF:D:\Development\dotnet\callisto\src\Callisto.Core.Storage\AzureBlobStorage.cs
+FN:30,Callisto.Core.Storage.Options.StorageOptions Callisto.Core.Storage.AzureBlobStorage::get_Options()
+FNDA:0,Callisto.Core.Storage.Options.StorageOptions Callisto.Core.Storage.AzureBlobStorage::get_Options()
+DA:31,0
+FN:35,Microsoft.Extensions.Logging.ILogger`1<Callisto.Core.Storage.AzureBlobStorage> Callisto.Core.Storage.AzureBlobStorage::get_Logger()
+FNDA:0,Microsoft.Extensions.Logging.ILogger`1<Callisto.Core.Storage.AzureBlobStorage> Callisto.Core.Storage.AzureBlobStorage::get_Logger()
+DA:36,0
+FN:40,Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient Callisto.Core.Storage.AzureBlobStorage::get_BlobClient()
+FNDA:0,Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient Callisto.Core.Storage.AzureBlobStorage::get_BlobClient()
+DA:41,0
+FN:47,Microsoft.WindowsAzure.Storage.CloudStorageAccount Callisto.Core.Storage.AzureBlobStorage::GetStorageAccount()
+FNDA:0,Microsoft.WindowsAzure.Storage.CloudStorageAccount Callisto.Core.Storage.AzureBlobStorage::GetStorageAccount()
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:58,0
+DA:59,0
+BRDA:49,24,0,0
+BRDA:49,24,1,0
+BRDA:58,78,0,0
+BRDA:58,78,1,0
+FN:21,System.Void Callisto.Core.Storage.AzureBlobStorage::.ctor(Microsoft.Extensions.Options.IOptions`1<Callisto.Core.Storage.Options.StorageOptions>,Microsoft.Extensions.Logging.ILogger`1<Callisto.Core.Storage.AzureBlobStorage>)
+FNDA:0,System.Void Callisto.Core.Storage.AzureBlobStorage::.ctor(Microsoft.Extensions.Options.IOptions`1<Callisto.Core.Storage.Options.StorageOptions>,Microsoft.Extensions.Logging.ILogger`1<Callisto.Core.Storage.AzureBlobStorage>)
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+FN:66,System.Void Callisto.Core.Storage.AzureBlobStorage/<GetBlobContainer>d__10::MoveNext()
+FNDA:0,System.Void Callisto.Core.Storage.AzureBlobStorage/<GetBlobContainer>d__10::MoveNext()
+DA:67,0
+DA:68,0
+DA:69,0
+DA:71,0
+DA:73,0
+DA:75,0
+DA:77,0
+DA:78,0
+BRDA:67,14,0,0
+BRDA:69,78,0,0
+BRDA:69,78,1,0
+BRDA:75,210,0,0
+BRDA:67,14,1,0
+BRDA:75,210,1,0
+FN:85,System.Void Callisto.Core.Storage.AzureBlobStorage/<GetFileAsync>d__11::MoveNext()
+FNDA:0,System.Void Callisto.Core.Storage.AzureBlobStorage/<GetFileAsync>d__11::MoveNext()
+DA:86,0
+DA:87,0
+DA:88,0
+DA:89,0
+DA:90,0
+BRDA:87,45,0,0
+BRDA:87,45,1,0
+FN:98,System.Void Callisto.Core.Storage.AzureBlobStorage/<DeleteAsync>d__12::MoveNext()
+FNDA:0,System.Void Callisto.Core.Storage.AzureBlobStorage/<DeleteAsync>d__12::MoveNext()
+DA:99,0
+DA:100,0
+DA:101,0
+DA:102,0
+DA:103,0
+BRDA:99,14,0,0
+BRDA:100,56,0,0
+BRDA:100,56,1,0
+BRDA:102,205,0,0
+BRDA:99,14,1,0
+BRDA:102,205,1,0
+FN:111,System.Void Callisto.Core.Storage.AzureBlobStorage/<SaveFile>d__13::MoveNext()
+FNDA:0,System.Void Callisto.Core.Storage.AzureBlobStorage/<SaveFile>d__13::MoveNext()
+DA:112,0
+DA:113,0
+DA:115,0
+DA:117,0
+DA:118,0
+DA:120,0
+DA:121,0
+BRDA:112,14,0,0
+BRDA:113,56,0,0
+BRDA:113,56,1,0
+BRDA:117,220,0,0
+BRDA:112,14,1,0
+BRDA:117,220,1,0
+LF:43
+LH:0
+BRF:24
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.Core.Storage\Startup\IServiceCollectionExtensions.cs
+FN:17,System.Void Callisto.Core.Storage.Startup.IServiceCollectionExtensions::AddCallistoStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Callisto.Core.Storage.Options.StorageOptions)
+FNDA:0,System.Void Callisto.Core.Storage.Startup.IServiceCollectionExtensions::AddCallistoStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Callisto.Core.Storage.Options.StorageOptions)
+DA:18,0
+DA:19,0
+DA:20,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.Core.Storage\Options\StorageOptions.cs
+FN:10,System.String Callisto.Core.Storage.Options.StorageOptions::get_ConnectionString()
+FNDA:0,System.String Callisto.Core.Storage.Options.StorageOptions::get_ConnectionString()
+DA:11,0
+FN:15,System.String Callisto.Core.Storage.Options.StorageOptions::get_Images()
+FNDA:0,System.String Callisto.Core.Storage.Options.StorageOptions::get_Images()
+DA:16,0
+FN:20,System.String Callisto.Core.Storage.Options.StorageOptions::get_ScaledImages()
+FNDA:0,System.String Callisto.Core.Storage.Options.StorageOptions::get_ScaledImages()
+DA:21,0
+FN:25,System.Boolean Callisto.Core.Storage.Options.StorageOptions::get_UseScaling()
+FNDA:0,System.Boolean Callisto.Core.Storage.Options.StorageOptions::get_UseScaling()
+DA:26,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Crypto.cs
+FN:15,System.String Callisto.SharedKernel.Crypto::GetStringSha256Hash(System.String,System.String)
+FNDA:0,System.String Callisto.SharedKernel.Crypto::GetStringSha256Hash(System.String,System.String)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+BRDA:17,9,0,0
+BRDA:17,9,1,0
+LF:9
+LH:0
+BRF:2
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\DbConnectionFactory.cs
+FN:23,System.Data.Common.DbConnection Callisto.SharedKernel.DbConnectionFactory::GetSQLConnection(System.String)
+FNDA:0,System.Data.Common.DbConnection Callisto.SharedKernel.DbConnectionFactory::GetSQLConnection(System.String)
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:30,0
+DA:31,0
+BRDA:25,41,0,0
+BRDA:25,41,1,0
+FN:15,System.Void Callisto.SharedKernel.DbConnectionFactory::.cctor()
+FNDA:0,System.Void Callisto.SharedKernel.DbConnectionFactory::.cctor()
+DA:16,0
+LF:8
+LH:0
+BRF:2
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\DbTransactionFactory.cs
+FN:24,System.Void Callisto.SharedKernel.DbTransactionFactory::AddTransaction(System.String,Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction)
+FNDA:0,System.Void Callisto.SharedKernel.DbTransactionFactory::AddTransaction(System.String,Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction)
+DA:25,0
+DA:26,0
+DA:27,0
+FN:33,System.Void Callisto.SharedKernel.DbTransactionFactory::RemoveTransaction(System.String)
+FNDA:0,System.Void Callisto.SharedKernel.DbTransactionFactory::RemoveTransaction(System.String)
+DA:34,0
+DA:35,0
+DA:36,0
+FN:43,Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction Callisto.SharedKernel.DbTransactionFactory::GetTransaction(System.String)
+FNDA:0,Microsoft.EntityFrameworkCore.Storage.IDbContextTransaction Callisto.SharedKernel.DbTransactionFactory::GetTransaction(System.String)
+DA:44,0
+DA:45,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+DA:54,0
+DA:56,0
+DA:57,0
+DA:58,0
+DA:60,0
+BRDA:49,23,0,0
+BRDA:49,23,1,0
+FN:16,System.Void Callisto.SharedKernel.DbTransactionFactory::.ctor()
+FNDA:0,System.Void Callisto.SharedKernel.DbTransactionFactory::.ctor()
+DA:17,0
+LF:19
+LH:0
+BRF:2
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\RequestResult.cs
+FN:69,System.String Callisto.SharedKernel.RequestResult::get_Result()
+FNDA:0,System.String Callisto.SharedKernel.RequestResult::get_Result()
+DA:70,0
+FN:79,Callisto.SharedKernel.Enum.RequestStatus Callisto.SharedKernel.RequestResult::get_Status()
+FNDA:0,Callisto.SharedKernel.Enum.RequestStatus Callisto.SharedKernel.RequestResult::get_Status()
+DA:80,0
+FN:86,System.String Callisto.SharedKernel.RequestResult::get_FriendlyMessage()
+FNDA:0,System.String Callisto.SharedKernel.RequestResult::get_FriendlyMessage()
+DA:87,0
+BRDA:87,12,0,0
+BRDA:87,12,1,0
+FN:87,System.Void Callisto.SharedKernel.RequestResult::set_FriendlyMessage(System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::set_FriendlyMessage(System.String)
+DA:88,0
+FN:94,System.String Callisto.SharedKernel.RequestResult::get_SystemMessage()
+FNDA:0,System.String Callisto.SharedKernel.RequestResult::get_SystemMessage()
+DA:95,0
+FN:101,System.Boolean Callisto.SharedKernel.RequestResult::IsSuccess()
+FNDA:0,System.Boolean Callisto.SharedKernel.RequestResult::IsSuccess()
+DA:102,0
+DA:103,0
+DA:104,0
+FN:109,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Success(System.String)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Success(System.String)
+DA:110,0
+FN:117,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Failed(System.String,System.String)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Failed(System.String,System.String)
+DA:118,0
+DA:119,0
+DA:120,0
+FN:129,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Critical(System.Exception,System.String,System.String)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Critical(System.Exception,System.String,System.String)
+DA:130,0
+DA:131,0
+DA:132,0
+DA:133,0
+DA:134,0
+DA:136,0
+DA:137,0
+BRDA:131,9,0,0
+BRDA:131,9,1,0
+FN:144,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Validation(System.String,System.String)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::Validation(System.String,System.String)
+DA:145,0
+DA:146,0
+DA:147,0
+FN:154,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::From(System.Action)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult::From(System.Action)
+DA:155,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:161,0
+DA:162,0
+DA:163,0
+DA:165,0
+FN:20,System.Void Callisto.SharedKernel.RequestResult::.ctor()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::.ctor()
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+FN:31,System.Void Callisto.SharedKernel.RequestResult::.ctor(System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::.ctor(System.String)
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+FN:45,System.Void Callisto.SharedKernel.RequestResult::.ctor(Callisto.SharedKernel.Enum.RequestStatus,System.String,System.String,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::.ctor(Callisto.SharedKernel.Enum.RequestStatus,System.String,System.String,System.String)
+DA:46,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:52,0
+FN:58,System.Void Callisto.SharedKernel.RequestResult::.ctor(System.Exception,System.String,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::.ctor(System.Exception,System.String,System.String)
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+BRDA:64,44,0,0
+BRDA:64,44,1,0
+FN:15,System.Void Callisto.SharedKernel.RequestResult::.cctor()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult::.cctor()
+DA:16,0
+FN:172,System.Void Callisto.SharedKernel.RequestResult/<From>d__27::MoveNext()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult/<From>d__27::MoveNext()
+DA:173,0
+DA:175,0
+DA:176,0
+DA:177,0
+DA:179,0
+DA:180,0
+DA:181,0
+DA:183,0
+BRDA:173,17,0,0
+BRDA:176,48,0,0
+BRDA:173,17,1,0
+BRDA:176,48,1,0
+FN:190,System.Void Callisto.SharedKernel.RequestResult/<From>d__28::MoveNext()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult/<From>d__28::MoveNext()
+DA:191,0
+DA:193,0
+DA:194,0
+DA:196,0
+DA:197,0
+DA:198,0
+DA:200,0
+BRDA:191,17,0,0
+BRDA:194,48,0,0
+BRDA:191,17,1,0
+BRDA:194,48,1,0
+FN:265,Callisto.SharedKernel.Enum.RequestStatus Callisto.SharedKernel.RequestResult`1::get_Status()
+FNDA:0,Callisto.SharedKernel.Enum.RequestStatus Callisto.SharedKernel.RequestResult`1::get_Status()
+DA:266,0
+FN:272,System.String Callisto.SharedKernel.RequestResult`1::get_FriendlyMessage()
+FNDA:0,System.String Callisto.SharedKernel.RequestResult`1::get_FriendlyMessage()
+DA:273,0
+BRDA:273,12,0,0
+BRDA:273,12,1,0
+FN:273,System.Void Callisto.SharedKernel.RequestResult`1::set_FriendlyMessage(System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1::set_FriendlyMessage(System.String)
+DA:274,0
+FN:280,System.String Callisto.SharedKernel.RequestResult`1::get_SystemMessage()
+FNDA:0,System.String Callisto.SharedKernel.RequestResult`1::get_SystemMessage()
+DA:281,0
+FN:285,T Callisto.SharedKernel.RequestResult`1::get_Result()
+FNDA:0,T Callisto.SharedKernel.RequestResult`1::get_Result()
+DA:286,0
+FN:295,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult`1::get_AsResult()
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.RequestResult`1::get_AsResult()
+DA:296,0
+DA:297,0
+DA:298,0
+FN:305,System.Boolean Callisto.SharedKernel.RequestResult`1::IsSuccess()
+FNDA:0,System.Boolean Callisto.SharedKernel.RequestResult`1::IsSuccess()
+DA:306,0
+DA:307,0
+DA:308,0
+FN:313,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Success(T)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Success(T)
+DA:314,0
+FN:321,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Failed(System.String,T)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Failed(System.String,T)
+DA:322,0
+DA:323,0
+DA:324,0
+FN:333,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Critical(System.Exception,System.String,T)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Critical(System.Exception,System.String,T)
+DA:334,0
+DA:335,0
+DA:336,0
+DA:337,0
+DA:338,0
+DA:340,0
+DA:341,0
+BRDA:335,9,0,0
+BRDA:335,9,1,0
+FN:349,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Validation(System.String,T)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::Validation(System.String,T)
+DA:350,0
+DA:351,0
+DA:352,0
+FN:359,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::From(System.Func`1<T>)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.RequestResult`1::From(System.Func`1<T>)
+DA:360,0
+DA:362,0
+DA:363,0
+DA:364,0
+DA:366,0
+DA:367,0
+DA:368,0
+DA:370,0
+FN:211,System.Void Callisto.SharedKernel.RequestResult`1::.ctor()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1::.ctor()
+DA:212,0
+DA:213,0
+DA:214,0
+DA:215,0
+DA:216,0
+DA:217,0
+DA:218,0
+FN:222,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(T)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(T)
+DA:223,0
+DA:224,0
+DA:225,0
+DA:226,0
+DA:227,0
+DA:228,0
+DA:229,0
+FN:236,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(Callisto.SharedKernel.Enum.RequestStatus,T,System.String,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(Callisto.SharedKernel.Enum.RequestStatus,T,System.String,System.String)
+DA:237,0
+DA:238,0
+DA:239,0
+DA:240,0
+DA:241,0
+DA:242,0
+DA:243,0
+FN:249,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(System.Exception,T,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1::.ctor(System.Exception,T,System.String)
+DA:250,0
+DA:251,0
+DA:252,0
+DA:253,0
+DA:254,0
+DA:255,0
+DA:256,0
+BRDA:255,44,0,0
+BRDA:255,44,1,0
+FN:377,System.Void Callisto.SharedKernel.RequestResult`1/<From>d__28::MoveNext()
+FNDA:0,System.Void Callisto.SharedKernel.RequestResult`1/<From>d__28::MoveNext()
+DA:378,0
+DA:380,0
+DA:381,0
+DA:382,0
+DA:384,0
+DA:385,0
+DA:386,0
+DA:388,0
+BRDA:378,17,0,0
+BRDA:381,48,0,0
+BRDA:378,17,1,0
+BRDA:381,48,1,0
+LF:143
+LH:0
+BRF:24
+BRH:0
+FNF:35
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Models\BaseEfModel.cs
+FN:14,System.Int64 Callisto.SharedKernel.Models.BaseEfModel::get_RefId()
+FNDA:0,System.Int64 Callisto.SharedKernel.Models.BaseEfModel::get_RefId()
+DA:15,0
+FN:19,System.Guid Callisto.SharedKernel.Models.BaseEfModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedKernel.Models.BaseEfModel::get_Id()
+DA:20,0
+FN:24,System.DateTime Callisto.SharedKernel.Models.BaseEfModel::get_CreatedAt()
+FNDA:0,System.DateTime Callisto.SharedKernel.Models.BaseEfModel::get_CreatedAt()
+DA:25,0
+FN:29,System.DateTime Callisto.SharedKernel.Models.BaseEfModel::get_ModifiedAt()
+FNDA:0,System.DateTime Callisto.SharedKernel.Models.BaseEfModel::get_ModifiedAt()
+DA:30,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Models\BaseEfTagModel.cs
+FN:10,System.String Callisto.SharedKernel.Models.BaseEfTagModel::get_Tags()
+FNDA:0,System.String Callisto.SharedKernel.Models.BaseEfTagModel::get_Tags()
+DA:11,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\ConsumeBinding.cs
+FN:30,System.Type Callisto.SharedKernel.Messaging.ConsumeBinding::get_Type()
+FNDA:0,System.Type Callisto.SharedKernel.Messaging.ConsumeBinding::get_Type()
+DA:31,0
+FN:35,System.String Callisto.SharedKernel.Messaging.ConsumeBinding::get_QueueName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.ConsumeBinding::get_QueueName()
+DA:36,0
+FN:44,Callisto.SharedKernel.Messaging.ConsumeBinding Callisto.SharedKernel.Messaging.ConsumeBinding::SetBinding(System.String)
+FNDA:0,Callisto.SharedKernel.Messaging.ConsumeBinding Callisto.SharedKernel.Messaging.ConsumeBinding::SetBinding(System.String)
+DA:45,0
+DA:46,0
+DA:47,0
+FN:12,System.Void Callisto.SharedKernel.Messaging.ConsumeBinding::.ctor()
+FNDA:0,System.Void Callisto.SharedKernel.Messaging.ConsumeBinding::.ctor()
+DA:13,0
+DA:14,0
+DA:15,0
+FN:21,System.Void Callisto.SharedKernel.Messaging.ConsumeBinding::.ctor(System.Type,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.Messaging.ConsumeBinding::.ctor(System.Type,System.String)
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+LF:13
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\MessageConsumeConfig.cs
+FN:10,System.Int32 Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_WorkerCount()
+FNDA:0,System.Int32 Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_WorkerCount()
+DA:11,0
+FN:15,System.UInt16 Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_PrefetchCountPerWorker()
+FNDA:0,System.UInt16 Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_PrefetchCountPerWorker()
+DA:16,0
+FN:20,System.String Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_QueueNameToConsume()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_QueueNameToConsume()
+DA:21,0
+FN:25,System.String Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_ChannelNamePrefix()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_ChannelNamePrefix()
+DA:26,0
+FN:30,Callisto.SharedKernel.Messaging.MessageFailureConfig Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_FailureConfig()
+FNDA:0,Callisto.SharedKernel.Messaging.MessageFailureConfig Callisto.SharedKernel.Messaging.MessageConsumeConfig::get_FailureConfig()
+DA:31,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\MessageExchangeConfig.cs
+FN:12,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_ExchangeName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_ExchangeName()
+DA:13,0
+FN:23,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Type()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Type()
+DA:24,0
+FN:28,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessageConsumeConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Consumers()
+FNDA:0,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessageConsumeConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Consumers()
+DA:29,0
+FN:33,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessagePublishConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Publishers()
+FNDA:0,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessagePublishConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Publishers()
+DA:34,0
+FN:38,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessageExchangeConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Exchanges()
+FNDA:0,System.Collections.Generic.IEnumerable`1<Callisto.SharedKernel.Messaging.MessageExchangeConfig> Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_Exchanges()
+DA:39,0
+FN:43,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_RoutingKey()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageExchangeConfig::get_RoutingKey()
+DA:44,0
+LF:6
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\MessageFailureConfig.cs
+FN:12,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_DeadLetterExchangeName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_DeadLetterExchangeName()
+DA:13,0
+FN:17,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_DeadLetterQueueName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_DeadLetterQueueName()
+DA:18,0
+FN:22,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_LostLetterExchangeName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_LostLetterExchangeName()
+DA:23,0
+FN:27,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_LostLetterQueueName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_LostLetterQueueName()
+DA:28,0
+FN:32,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryExchangeName()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryExchangeName()
+DA:33,0
+FN:37,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryQueuePrefix()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryQueuePrefix()
+DA:38,0
+FN:42,System.Collections.Generic.IReadOnlyCollection`1<Callisto.SharedKernel.Messaging.MessageRetryConfig> Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryLevels()
+FNDA:0,System.Collections.Generic.IReadOnlyCollection`1<Callisto.SharedKernel.Messaging.MessageRetryConfig> Callisto.SharedKernel.Messaging.MessageFailureConfig::get_RetryLevels()
+DA:43,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\MessagePublishConfig.cs
+FN:10,System.String Callisto.SharedKernel.Messaging.MessagePublishConfig::get_RoutingKey()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessagePublishConfig::get_RoutingKey()
+DA:11,0
+FN:15,System.String Callisto.SharedKernel.Messaging.MessagePublishConfig::get_QueueNameToPublish()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.MessagePublishConfig::get_QueueNameToPublish()
+DA:16,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\MessageRetryConfig.cs
+FN:12,System.Int32 Callisto.SharedKernel.Messaging.MessageRetryConfig::get_NumberOfRetries()
+FNDA:0,System.Int32 Callisto.SharedKernel.Messaging.MessageRetryConfig::get_NumberOfRetries()
+DA:13,0
+FN:17,System.TimeSpan Callisto.SharedKernel.Messaging.MessageRetryConfig::get_RetryInterval()
+FNDA:0,System.TimeSpan Callisto.SharedKernel.Messaging.MessageRetryConfig::get_RetryInterval()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Messaging\PublishBinding.cs
+FN:30,System.Type Callisto.SharedKernel.Messaging.PublishBinding::get_Type()
+FNDA:0,System.Type Callisto.SharedKernel.Messaging.PublishBinding::get_Type()
+DA:31,0
+FN:35,System.String Callisto.SharedKernel.Messaging.PublishBinding::get_RoutingKey()
+FNDA:0,System.String Callisto.SharedKernel.Messaging.PublishBinding::get_RoutingKey()
+DA:36,0
+FN:44,Callisto.SharedKernel.Messaging.PublishBinding Callisto.SharedKernel.Messaging.PublishBinding::SetBinding(System.String)
+FNDA:0,Callisto.SharedKernel.Messaging.PublishBinding Callisto.SharedKernel.Messaging.PublishBinding::SetBinding(System.String)
+DA:45,0
+DA:46,0
+DA:47,0
+FN:12,System.Void Callisto.SharedKernel.Messaging.PublishBinding::.ctor()
+FNDA:0,System.Void Callisto.SharedKernel.Messaging.PublishBinding::.ctor()
+DA:13,0
+DA:14,0
+DA:15,0
+FN:21,System.Void Callisto.SharedKernel.Messaging.PublishBinding::.ctor(System.Type,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.Messaging.PublishBinding::.ctor(System.Type,System.String)
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+LF:13
+LH:0
+BRF:0
+BRH:0
+FNF:5
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Extensions\ILoggerExtensions.cs
+FN:10,System.Void Callisto.SharedKernel.Extensions.ILoggerExtensions::LogAndThrowError(Microsoft.Extensions.Logging.ILogger,System.String)
+FNDA:0,System.Void Callisto.SharedKernel.Extensions.ILoggerExtensions::LogAndThrowError(Microsoft.Extensions.Logging.ILogger,System.String)
+DA:11,0
+DA:12,0
+DA:13,0
+DA:14,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Extensions\IServiceCollectionExtensions.cs
+FN:20,T Callisto.SharedKernel.Extensions.IServiceCollectionExtensions::ConfigureAndGet(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.String)
+FNDA:0,T Callisto.SharedKernel.Extensions.IServiceCollectionExtensions::ConfigureAndGet(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.String)
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:26,0
+DA:27,0
+DA:28,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\Extensions\ObjectExtensions.cs
+FN:27,System.ValueTuple`2<System.Boolean,System.Collections.Generic.IEnumerable`1<System.ComponentModel.DataAnnotations.ValidationResult>> Callisto.SharedKernel.Extensions.ObjectExtensions::Validate(T)
+FNDA:0,System.ValueTuple`2<System.Boolean,System.Collections.Generic.IEnumerable`1<System.ComponentModel.DataAnnotations.ValidationResult>> Callisto.SharedKernel.Extensions.ObjectExtensions::Validate(T)
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:33,0
+DA:34,0
+FN:43,System.ValueTuple`2<System.Boolean,System.Collections.Generic.IEnumerable`1<System.ComponentModel.DataAnnotations.ValidationResult>> Callisto.SharedKernel.Extensions.ObjectExtensions::Validate(T,System.String&)
+FNDA:0,System.ValueTuple`2<System.Boolean,System.Collections.Generic.IEnumerable`1<System.ComponentModel.DataAnnotations.ValidationResult>> Callisto.SharedKernel.Extensions.ObjectExtensions::Validate(T,System.String&)
+DA:44,0
+DA:45,0
+DA:46,0
+DA:48,0
+DA:49,0
+DA:50,0
+DA:51,0
+BRDA:49,44,0,0
+BRDA:49,44,1,0
+BRDA:49,56,0,0
+BRDA:49,56,1,0
+FN:63,System.String Callisto.SharedKernel.Extensions.ObjectExtensions::ToJson(T,System.Boolean,Callisto.SharedKernel.Enum.JsonContractResolver,System.Boolean,System.Nullable`1<Newtonsoft.Json.Formatting>)
+FNDA:0,System.String Callisto.SharedKernel.Extensions.ObjectExtensions::ToJson(T,System.Boolean,Callisto.SharedKernel.Enum.JsonContractResolver,System.Boolean,System.Nullable`1<Newtonsoft.Json.Formatting>)
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:77,0
+DA:78,0
+DA:79,0
+DA:82,0
+DA:83,0
+DA:84,0
+DA:88,0
+DA:89,0
+DA:90,0
+DA:91,0
+DA:92,0
+DA:93,0
+DA:94,0
+DA:95,0
+DA:97,0
+DA:98,0
+BRDA:66,11,0,0
+BRDA:66,11,1,0
+BRDA:69,41,1,0
+BRDA:69,41,2,0
+BRDA:69,41,3,0
+BRDA:69,41,0,0
+BRDA:88,110,0,0
+BRDA:88,110,1,0
+BRDA:94,137,0,0
+BRDA:94,137,1,0
+FN:110,T Callisto.SharedKernel.Extensions.ObjectExtensions::FromJson(System.String,System.Boolean,Callisto.SharedKernel.Enum.JsonContractResolver,System.Boolean,System.Nullable`1<Newtonsoft.Json.Formatting>)
+FNDA:0,T Callisto.SharedKernel.Extensions.ObjectExtensions::FromJson(System.String,System.Boolean,Callisto.SharedKernel.Enum.JsonContractResolver,System.Boolean,System.Nullable`1<Newtonsoft.Json.Formatting>)
+DA:111,0
+DA:112,0
+DA:113,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:119,0
+DA:120,0
+DA:121,0
+DA:124,0
+DA:125,0
+DA:126,0
+DA:129,0
+DA:130,0
+DA:131,0
+DA:135,0
+DA:136,0
+DA:137,0
+DA:138,0
+DA:139,0
+DA:140,0
+DA:141,0
+DA:142,0
+BRDA:113,11,0,0
+BRDA:113,11,1,0
+BRDA:116,41,1,0
+BRDA:116,41,2,0
+BRDA:116,41,3,0
+BRDA:116,41,0,0
+BRDA:135,110,0,0
+BRDA:135,110,1,0
+FN:149,System.Void Callisto.SharedKernel.Extensions.ObjectExtensions::CopyProperties(System.Object,System.Object)
+FNDA:0,System.Void Callisto.SharedKernel.Extensions.ObjectExtensions::CopyProperties(System.Object,System.Object)
+DA:150,0
+DA:152,0
+DA:153,0
+DA:155,0
+DA:156,0
+DA:157,0
+DA:158,0
+DA:159,0
+DA:160,0
+DA:161,0
+DA:162,0
+DA:163,0
+DA:164,0
+DA:165,0
+DA:166,0
+DA:167,0
+DA:168,0
+DA:169,0
+DA:170,0
+DA:172,0
+DA:174,0
+DA:175,0
+DA:176,0
+DA:179,0
+DA:180,0
+DA:181,0
+DA:182,0
+DA:183,0
+DA:184,0
+DA:186,0
+DA:187,0
+DA:188,0
+BRDA:152,2,0,0
+BRDA:152,2,1,0
+BRDA:152,13,1,0
+BRDA:157,441,1,0
+BRDA:159,84,0,0
+BRDA:159,84,1,0
+BRDA:159,407,1,0
+BRDA:161,163,1,0
+BRDA:163,188,1,0
+BRDA:165,212,1,0
+BRDA:167,244,0,0
+BRDA:167,244,1,0
+BRDA:167,271,1,0
+BRDA:169,297,1,0
+BRDA:174,340,0,0
+BRDA:174,360,0,0
+BRDA:174,340,1,0
+BRDA:174,360,1,0
+BRDA:174,374,1,0
+BRDA:161,163,0,0
+BRDA:163,188,0,0
+BRDA:165,212,0,0
+BRDA:167,271,0,0
+BRDA:169,297,0,0
+BRDA:174,374,0,0
+BRDA:159,407,0,0
+BRDA:152,13,0,0
+BRDA:157,441,0,0
+FN:195,System.Net.Http.StringContent Callisto.SharedKernel.Extensions.ObjectExtensions::ToContent(System.String)
+FNDA:0,System.Net.Http.StringContent Callisto.SharedKernel.Extensions.ObjectExtensions::ToContent(System.String)
+DA:196,0
+DA:197,0
+DA:198,0
+FN:205,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.Extensions.ObjectExtensions::ToRequestResult(System.Net.Http.HttpResponseMessage)
+FNDA:0,Callisto.SharedKernel.RequestResult Callisto.SharedKernel.Extensions.ObjectExtensions::ToRequestResult(System.Net.Http.HttpResponseMessage)
+DA:206,0
+DA:207,0
+DA:208,0
+DA:209,0
+FN:216,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.Extensions.ObjectExtensions::ToRequestResult(System.Net.Http.HttpResponseMessage)
+FNDA:0,Callisto.SharedKernel.RequestResult`1<T> Callisto.SharedKernel.Extensions.ObjectExtensions::ToRequestResult(System.Net.Http.HttpResponseMessage)
+DA:217,0
+DA:218,0
+DA:219,0
+DA:220,0
+FN:228,System.Collections.Generic.Dictionary`2<System.String,System.String> Callisto.SharedKernel.Extensions.ObjectExtensions::ToTokenDictionary(System.String,System.String)
+FNDA:0,System.Collections.Generic.Dictionary`2<System.String,System.String> Callisto.SharedKernel.Extensions.ObjectExtensions::ToTokenDictionary(System.String,System.String)
+DA:229,0
+DA:230,0
+DA:231,0
+DA:232,0
+DA:233,0
+FN:241,System.ValueTuple`2<System.String,System.String> Callisto.SharedKernel.Extensions.ObjectExtensions::ToTokenTuple(System.String,System.String)
+FNDA:0,System.ValueTuple`2<System.String,System.String> Callisto.SharedKernel.Extensions.ObjectExtensions::ToTokenTuple(System.String,System.String)
+DA:242,0
+DA:243,0
+DA:244,0
+LF:112
+LH:0
+BRF:50
+BRH:0
+FNF:10
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\ContractResolvers\LowercaseContractResolver.cs
+FN:16,System.String Callisto.SharedKernel.ContractResolvers.LowercaseContractResolver::ResolvePropertyName(System.String)
+FNDA:0,System.String Callisto.SharedKernel.ContractResolvers.LowercaseContractResolver::ResolvePropertyName(System.String)
+DA:17,0
+DA:18,0
+DA:19,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedKernel\ContractResolvers\SnakeCasePropertyNamesContractResolver.cs
+FN:15,System.String Callisto.SharedKernel.ContractResolvers.SnakeCasePropertyNamesContractResolver::ResolvePropertyName(System.String)
+FNDA:0,System.String Callisto.SharedKernel.ContractResolvers.SnakeCasePropertyNamesContractResolver::ResolvePropertyName(System.String)
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+LF:5
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Vendor\ViewModels\AddVendorViewModel.cs
+FN:12,System.Boolean Callisto.SharedModels.Vendor.ViewModels.AddVendorViewModel::get_CreateAccount()
+FNDA:0,System.Boolean Callisto.SharedModels.Vendor.ViewModels.AddVendorViewModel::get_CreateAccount()
+DA:13,0
+FN:17,System.Boolean Callisto.SharedModels.Vendor.ViewModels.AddVendorViewModel::get_SendLink()
+FNDA:0,System.Boolean Callisto.SharedModels.Vendor.ViewModels.AddVendorViewModel::get_SendLink()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Vendor\ViewModels\VendorViewModel.cs
+FN:13,System.Guid Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_Id()
+DA:14,0
+FN:18,System.Nullable`1<System.Guid> Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_ParentId()
+FNDA:0,System.Nullable`1<System.Guid> Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_ParentId()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_PictureUrl()
+FNDA:0,System.String Callisto.SharedModels.Vendor.ViewModels.VendorViewModel::get_PictureUrl()
+DA:24,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Tag\ViewModels\TagViewModel.cs
+FN:12,System.Guid Callisto.SharedModels.Tag.ViewModels.TagViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Tag.ViewModels.TagViewModel::get_Id()
+DA:13,0
+FN:17,System.String Callisto.SharedModels.Tag.ViewModels.TagViewModel::get_Name()
+FNDA:0,System.String Callisto.SharedModels.Tag.ViewModels.TagViewModel::get_Name()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Person\Models\BasePerson.cs
+FN:12,System.String Callisto.SharedModels.Models.BasePerson::get_UserId()
+FNDA:0,System.String Callisto.SharedModels.Models.BasePerson::get_UserId()
+DA:13,0
+FN:17,System.Boolean Callisto.SharedModels.Models.BasePerson::get_Deactivated()
+FNDA:0,System.Boolean Callisto.SharedModels.Models.BasePerson::get_Deactivated()
+DA:18,0
+FN:22,System.String Callisto.SharedModels.Models.BasePerson::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Models.BasePerson::get_Email()
+DA:23,0
+FN:27,System.String Callisto.SharedModels.Models.BasePerson::get_FirstName()
+FNDA:0,System.String Callisto.SharedModels.Models.BasePerson::get_FirstName()
+DA:28,0
+FN:32,System.String Callisto.SharedModels.Models.BasePerson::get_LastName()
+FNDA:0,System.String Callisto.SharedModels.Models.BasePerson::get_LastName()
+DA:33,0
+FN:37,System.Int64 Callisto.SharedModels.Models.BasePerson::get_CompanyRefId()
+FNDA:0,System.Int64 Callisto.SharedModels.Models.BasePerson::get_CompanyRefId()
+DA:38,0
+LF:6
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Person\ViewModel\PersonBaseViewModel.cs
+FN:10,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_Email()
+DA:11,0
+FN:15,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_FirstName()
+FNDA:0,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_FirstName()
+DA:16,0
+FN:20,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_LastName()
+FNDA:0,System.String Callisto.SharedModels.Person.ViewModel.PersonBaseViewModel::get_LastName()
+DA:21,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Notification\Models\NotificationMessage.cs
+FN:12,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationMessage::get_Request()
+FNDA:0,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationMessage::get_Request()
+DA:13,0
+FN:17,Callisto.SharedModels.Notification.Enum.NotificationType Callisto.SharedModels.Notification.Models.NotificationMessage::get_Type()
+FNDA:0,Callisto.SharedModels.Notification.Enum.NotificationType Callisto.SharedModels.Notification.Models.NotificationMessage::get_Type()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Notification\Models\NotificationRequestModel.cs
+FN:13,Callisto.SharedModels.Notification.Enum.NotificationType Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_Type()
+FNDA:0,Callisto.SharedModels.Notification.Enum.NotificationType Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_Type()
+DA:14,0
+FN:18,Callisto.SharedModels.Notification.Enum.TransportType Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_PreferredTransportType()
+FNDA:0,Callisto.SharedModels.Notification.Enum.TransportType Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_PreferredTransportType()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_RequestedBy()
+FNDA:0,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_RequestedBy()
+DA:24,0
+FN:28,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultContent()
+FNDA:0,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultContent()
+DA:29,0
+FN:33,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultDestination()
+FNDA:0,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultDestination()
+DA:34,0
+FN:38,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultSubject()
+FNDA:0,System.String Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_DefaultSubject()
+DA:39,0
+FN:43,System.Collections.Generic.Dictionary`2<System.String,System.String> Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_Tokens()
+FNDA:0,System.Collections.Generic.Dictionary`2<System.String,System.String> Callisto.SharedModels.Notification.Models.NotificationRequestModel::get_Tokens()
+DA:44,0
+FN:52,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationRequestModel::AddToken(System.String,System.String)
+FNDA:0,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationRequestModel::AddToken(System.String,System.String)
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+FN:65,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationRequestModel::Email(System.String,System.String,System.String)
+FNDA:0,Callisto.SharedModels.Notification.Models.NotificationRequestModel Callisto.SharedModels.Notification.Models.NotificationRequestModel::Email(System.String,System.String,System.String)
+DA:66,0
+DA:67,0
+DA:68,0
+DA:69,0
+DA:70,0
+DA:71,0
+DA:72,0
+DA:73,0
+LF:19
+LH:0
+BRF:0
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Messaging\ContextMessage.cs
+FN:13,System.Boolean Callisto.SharedModels.Messaging.PublishContextMessage`1::get_IsAuthenticated()
+FNDA:0,System.Boolean Callisto.SharedModels.Messaging.PublishContextMessage`1::get_IsAuthenticated()
+DA:14,0
+FN:18,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_UserName()
+FNDA:0,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_UserName()
+DA:19,0
+FN:23,System.Int64 Callisto.SharedModels.Messaging.PublishContextMessage`1::get_CurrentCompanyRef()
+FNDA:0,System.Int64 Callisto.SharedModels.Messaging.PublishContextMessage`1::get_CurrentCompanyRef()
+DA:24,0
+FN:28,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_EmailAddress()
+FNDA:0,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_EmailAddress()
+DA:29,0
+FN:33,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_UserId()
+FNDA:0,System.String Callisto.SharedModels.Messaging.PublishContextMessage`1::get_UserId()
+DA:34,0
+FN:38,T Callisto.SharedModels.Messaging.PublishContextMessage`1::get_Body()
+FNDA:0,T Callisto.SharedModels.Messaging.PublishContextMessage`1::get_Body()
+DA:39,0
+FN:59,Callisto.SharedModels.Session.ICallistoSession Callisto.SharedModels.Messaging.ConsumeContextMessage`1::get_Session()
+FNDA:0,Callisto.SharedModels.Session.ICallistoSession Callisto.SharedModels.Messaging.ConsumeContextMessage`1::get_Session()
+DA:60,0
+FN:64,T Callisto.SharedModels.Messaging.ConsumeContextMessage`1::get_Body()
+FNDA:0,T Callisto.SharedModels.Messaging.ConsumeContextMessage`1::get_Body()
+DA:65,0
+FN:50,System.Void Callisto.SharedModels.Messaging.ConsumeContextMessage`1::.ctor(Callisto.SharedModels.Session.ICallistoSession,T)
+FNDA:0,System.Void Callisto.SharedModels.Messaging.ConsumeContextMessage`1::.ctor(Callisto.SharedModels.Session.ICallistoSession,T)
+DA:51,0
+DA:52,0
+DA:53,0
+DA:54,0
+DA:55,0
+LF:13
+LH:0
+BRF:0
+BRH:0
+FNF:9
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Member\ViewModels\AddMemberViewModel.cs
+FN:12,System.Boolean Callisto.SharedModels.Member.ViewModels.AddMemberViewModel::get_CreateAccount()
+FNDA:0,System.Boolean Callisto.SharedModels.Member.ViewModels.AddMemberViewModel::get_CreateAccount()
+DA:13,0
+FN:17,System.Boolean Callisto.SharedModels.Member.ViewModels.AddMemberViewModel::get_SendLink()
+FNDA:0,System.Boolean Callisto.SharedModels.Member.ViewModels.AddMemberViewModel::get_SendLink()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Member\ViewModels\MemberViewModel.cs
+FN:13,System.Guid Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_Id()
+DA:14,0
+FN:18,System.Nullable`1<System.Guid> Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_ParentId()
+FNDA:0,System.Nullable`1<System.Guid> Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_ParentId()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_PictureUrl()
+FNDA:0,System.String Callisto.SharedModels.Member.ViewModels.MemberViewModel::get_PictureUrl()
+DA:24,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Location\ViewModels\LocationViewModel.cs
+FN:12,System.Guid Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Id()
+DA:13,0
+FN:17,System.Nullable`1<System.Decimal> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Latitude()
+FNDA:0,System.Nullable`1<System.Decimal> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Latitude()
+DA:18,0
+FN:22,System.Nullable`1<System.Decimal> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Longitude()
+FNDA:0,System.Nullable`1<System.Decimal> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Longitude()
+DA:23,0
+FN:27,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_FormattedAddress()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_FormattedAddress()
+DA:28,0
+FN:32,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Route()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Route()
+DA:33,0
+FN:37,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Vicinity()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Vicinity()
+DA:38,0
+FN:42,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_City()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_City()
+DA:43,0
+FN:47,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_State()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_State()
+DA:48,0
+FN:52,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Country()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_Country()
+DA:53,0
+FN:57,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_PostCode()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_PostCode()
+DA:58,0
+FN:62,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_CountryCode()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_CountryCode()
+DA:63,0
+FN:67,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_StateCode()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_StateCode()
+DA:68,0
+FN:72,System.Nullable`1<System.Int32> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_UTCOffsetMinutes()
+FNDA:0,System.Nullable`1<System.Int32> Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_UTCOffsetMinutes()
+DA:73,0
+FN:77,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_GooglePlaceId()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_GooglePlaceId()
+DA:78,0
+FN:82,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_GoogleURL()
+FNDA:0,System.String Callisto.SharedModels.Location.ViewModels.LocationViewModel::get_GoogleURL()
+DA:83,0
+LF:15
+LH:0
+BRF:0
+BRH:0
+FNF:15
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Customer\ViewModels\AddCustomerViewModel.cs
+FN:12,System.Boolean Callisto.SharedModels.Customer.ViewModels.AddCustomerViewModel::get_CreateAccount()
+FNDA:0,System.Boolean Callisto.SharedModels.Customer.ViewModels.AddCustomerViewModel::get_CreateAccount()
+DA:13,0
+FN:17,System.Boolean Callisto.SharedModels.Customer.ViewModels.AddCustomerViewModel::get_SendLink()
+FNDA:0,System.Boolean Callisto.SharedModels.Customer.ViewModels.AddCustomerViewModel::get_SendLink()
+DA:18,0
+LF:2
+LH:0
+BRF:0
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Customer\ViewModels\CustomerViewModel.cs
+FN:13,System.Guid Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_Id()
+DA:14,0
+FN:18,System.Nullable`1<System.Guid> Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_ParentId()
+FNDA:0,System.Nullable`1<System.Guid> Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_ParentId()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_PictureUrl()
+FNDA:0,System.String Callisto.SharedModels.Customer.ViewModels.CustomerViewModel::get_PictureUrl()
+DA:24,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\CompanyViewModel.cs
+FN:12,System.Guid Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Id()
+DA:13,0
+FN:18,System.String Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Name()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Name()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Description()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.CompanyViewModel::get_Description()
+DA:24,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\ConfirmAccountViewModel.cs
+FN:13,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Email()
+DA:14,0
+FN:19,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Token()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Token()
+DA:20,0
+FN:26,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Password()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_Password()
+DA:27,0
+FN:33,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_ConfirmPassword()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ConfirmAccountViewModel::get_ConfirmPassword()
+DA:34,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\LoginViewModel.cs
+FN:14,System.String Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_Email()
+DA:15,0
+FN:21,System.String Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_Password()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_Password()
+DA:22,0
+FN:27,System.Boolean Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_RememberMe()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.LoginViewModel::get_RememberMe()
+DA:28,0
+LF:3
+LH:0
+BRF:0
+BRH:0
+FNF:3
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\NewAccountViewModel.cs
+FN:13,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_FirstName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_FirstName()
+DA:14,0
+FN:19,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_LastName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_LastName()
+DA:20,0
+FN:24,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_UserRole()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_UserRole()
+DA:25,0
+FN:29,Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_CompanyDetails()
+FNDA:0,Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel Callisto.SharedModels.Auth.ViewModels.NewAccountViewModel::get_CompanyDetails()
+DA:30,0
+FN:41,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanyName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanyName()
+DA:42,0
+FN:46,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanyWebsite()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanyWebsite()
+DA:47,0
+FN:51,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanySize()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.NewCompanyViewModel::get_CompanySize()
+DA:52,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\RegisterViewModel.cs
+FN:14,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Email()
+DA:15,0
+FN:21,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Password()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Password()
+DA:22,0
+FN:28,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_ConfirmPassword()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_ConfirmPassword()
+DA:29,0
+FN:33,System.Boolean Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Locked()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_Locked()
+DA:34,0
+FN:38,System.Boolean Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_EmailConfirmed()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_EmailConfirmed()
+DA:39,0
+FN:43,Callisto.SharedModels.Auth.UserType Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_UserType()
+FNDA:0,Callisto.SharedModels.Auth.UserType Callisto.SharedModels.Auth.ViewModels.RegisterViewModel::get_UserType()
+DA:44,0
+LF:6
+LH:0
+BRF:0
+BRH:0
+FNF:6
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\ResetPasswordViewModel.cs
+FN:14,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Email()
+DA:15,0
+FN:22,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Password()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Password()
+DA:23,0
+FN:30,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_ConfirmPassword()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_ConfirmPassword()
+DA:31,0
+FN:35,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Code()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.ResetPasswordViewModel::get_Code()
+DA:36,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\SocialLoginViewModel.cs
+FN:10,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Email()
+DA:11,0
+FN:15,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Id()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Id()
+DA:16,0
+FN:20,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_IdToken()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_IdToken()
+DA:21,0
+FN:25,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Image()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Image()
+DA:26,0
+FN:30,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Name()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Name()
+DA:31,0
+FN:35,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Provider()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Provider()
+DA:36,0
+FN:40,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Token()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.SocialLoginViewModel::get_Token()
+DA:41,0
+LF:7
+LH:0
+BRF:0
+BRH:0
+FNF:7
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Auth\ViewModels\UserViewModel.cs
+FN:14,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Id()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Id()
+DA:15,0
+FN:20,System.Int64 Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_CompanyRefId()
+FNDA:0,System.Int64 Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_CompanyRefId()
+DA:21,0
+FN:26,System.Int64 Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_SubscriptionRefId()
+FNDA:0,System.Int64 Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_SubscriptionRefId()
+DA:27,0
+FN:32,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_UserName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_UserName()
+DA:33,0
+FN:37,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Email()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Email()
+DA:38,0
+FN:42,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_FirstName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_FirstName()
+DA:43,0
+FN:47,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_LastName()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_LastName()
+DA:48,0
+FN:52,Callisto.SharedModels.Auth.UserType Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_UserType()
+FNDA:0,Callisto.SharedModels.Auth.UserType Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_UserType()
+DA:53,0
+FN:57,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Company()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_Company()
+DA:58,0
+FN:62,System.Guid Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_SubscriptionId()
+FNDA:0,System.Guid Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_SubscriptionId()
+DA:63,0
+FN:67,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_ProfileCompleted()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_ProfileCompleted()
+DA:68,0
+BRDA:68,11,0,0
+BRDA:68,11,1,0
+FN:72,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_CompanyProfileCompleted()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_CompanyProfileCompleted()
+DA:73,0
+FN:77,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_EmailVerified()
+FNDA:0,System.Boolean Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_EmailVerified()
+DA:78,0
+FN:82,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_JobRole()
+FNDA:0,System.String Callisto.SharedModels.Auth.ViewModels.UserViewModel::get_JobRole()
+DA:83,0
+LF:14
+LH:0
+BRF:2
+BRH:0
+FNF:14
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Assets\ViewModels\AssetAddViewModel.cs
+FN:12,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_AssetNumber()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_AssetNumber()
+DA:13,0
+FN:17,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_Name()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_Name()
+DA:18,0
+FN:22,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_Description()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_Description()
+DA:23,0
+FN:27,System.Guid Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_ParentId()
+FNDA:0,System.Guid Callisto.SharedModels.Assets.ViewModels.AssetAddViewModel::get_ParentId()
+DA:28,0
+LF:4
+LH:0
+BRF:0
+BRH:0
+FNF:4
+FNH:0
+end_of_record
+SF:D:\Development\dotnet\callisto\src\Callisto.SharedModels\Assets\ViewModels\AssetViewModel.cs
+FN:13,System.Guid Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Id()
+FNDA:0,System.Guid Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Id()
+DA:14,0
+FN:18,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_AssetNumber()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_AssetNumber()
+DA:19,0
+FN:23,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Name()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Name()
+DA:24,0
+FN:28,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Description()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetViewModel::get_Description()
+DA:29,0
+FN:39,System.Boolean Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_HasLocation()
+FNDA:0,System.Boolean Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_HasLocation()
+DA:40,0
+FN:44,System.Nullable`1<System.Decimal> Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_Latitude()
+FNDA:0,System.Nullable`1<System.Decimal> Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_Latitude()
+DA:45,0
+FN:49,System.Nullable`1<System.Decimal> Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_Longitude()
+FNDA:0,System.Nullable`1<System.Decimal> Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_Longitude()
+DA:50,0
+FN:54,System.String Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_FormattedAddress()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_FormattedAddress()
+DA:55,0
+FN:59,System.String Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_PictureUrl()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetInfoViewModel::get_PictureUrl()
+DA:60,0
+FN:70,System.Nullable`1<System.Guid> Callisto.SharedModels.Assets.ViewModels.AssetTreeViewModel::get_ParentId()
+FNDA:0,System.Nullable`1<System.Guid> Callisto.SharedModels.Assets.ViewModels.AssetTreeViewModel::get_ParentId()
+DA:71,0
+FN:75,System.Int32 Callisto.SharedModels.Assets.ViewModels.AssetTreeViewModel::get_Children()
+FNDA:0,System.Int32 Callisto.SharedModels.Assets.ViewModels.AssetTreeViewModel::get_Children()
+DA:76,0
+FN:86,System.Nullable`1<System.Guid> Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_ParentId()
+FNDA:0,System.Nullable`1<System.Guid> Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_ParentId()
+DA:87,0
+FN:91,System.String Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_PictureUrl()
+FNDA:0,System.String Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_PictureUrl()
+DA:92,0
+FN:96,Callisto.SharedModels.Location.ViewModels.LocationViewModel Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_Location()
+FNDA:0,Callisto.SharedModels.Location.ViewModels.LocationViewModel Callisto.SharedModels.Assets.ViewModels.AssetDetailViewModel::get_Location()
+DA:97,0
+LF:14
+LH:0
+BRF:0
+BRH:0
+FNF:14
+FNH:0
+end_of_record

@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <DebugType>full</DebugType>
+    <DebugType>Portable</DebugType>
     <IsPackable>false</IsPackable>
     <AssemblyName>Callisto.Tests</AssemblyName>
     <RootNamespace>Callisto.Tests</RootNamespace>

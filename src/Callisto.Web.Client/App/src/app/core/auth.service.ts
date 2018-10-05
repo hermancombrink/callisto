@@ -1,0 +1,155 @@
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs-compat';
+import { RegisterViewModel } from '../account/models/registerViewModel';
+import { RequestResult, RequestTypedResult } from './models/requestResult';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RequestStatus } from './models/requestStatus';
+import { tap, catchError } from 'rxjs/operators';
+import { LoginViewModel } from '../account/models/loginViewModel';
+import { UserViewModel } from './models/userViewModel';
+import { CacheService } from './cache.service';
+/* import {
+  AuthService as SocialAuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  LinkedinLoginProvider,
+  SocialUser
+} from 'angular5-social-auth'; */
+import { ConfirmViewModel } from '../account/models/confirmViewModel';
+import { ProfileViewModel } from '../account/models/profileViewModel';
+
+
+@Injectable()
+export class AuthService {
+
+  apiUrl = environment.apiUrl;
+  successResponse = new RequestResult();
+  loggedIn = new Subject<RequestResult>();
+  loggedOut = new Subject<RequestResult>();
+  currentUser: Subject<UserViewModel>;
+
+  constructor(
+    private http: HttpClient,
+    private readonly cache: CacheService
+    /*,
+  private socialAuth: SocialAuthService*/) {
+    this.currentUser = new Subject<UserViewModel>();
+  }
+
+  IsAuthenticated() {
+    return !!localStorage.getItem('auth_token');
+  }
+
+  ClearToken() {
+    localStorage.removeItem('auth_token');
+  }
+
+  get httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+      })
+    };
+  }
+
+  get authToken() {
+    return `Bearer ${localStorage.getItem('auth_token')}`;
+  }
+
+  Register(model: RegisterViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/signup'), model, this.httpOptions);
+  }
+
+  Login(model: LoginViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('login'), model, this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
+          localStorage.setItem('auth_token', c.Result);
+        }
+
+        this.loggedIn.next(c);
+      }));
+  }
+
+  /* LoginWithSocial(model: SocialUser): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/social'), model, this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
+          localStorage.setItem('auth_token', c.Result);
+        }
+
+        this.loggedIn.next(c);
+      }));
+  }*/
+
+  /*LoginWithGoogle(): Promise<SocialUser> {
+    return this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  LoginWithFacebook(): Promise<SocialUser> {
+    return this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  LoginWithLinkedIn(): Promise<SocialUser> {
+    return this.socialAuth.signIn(LinkedinLoginProvider.PROVIDER_ID);
+  } */
+
+  Forget(email: string): Observable<RequestResult> {
+    return this.http.get<RequestResult>(this.getUrl(`auth/forgot?email=${email}`), this.httpOptions);
+  }
+
+  SignOut(): Observable<RequestResult> {
+    return this.http.get<RequestResult>(this.getUrl('auth/signout'), this.httpOptions).pipe(
+      tap(c => {
+        if (c.Status === RequestStatus.Success) {
+          this.cache.clear();
+          this.ClearToken();
+        }
+
+        this.loggedOut.next(c);
+      })
+    );
+  }
+
+  ConfirmAccount(model: ConfirmViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/confirm'), model, this.httpOptions);
+  }
+
+  ResetAccount(model: ConfirmViewModel): Observable<RequestResult> {
+    return this.http.post<RequestResult>(this.getUrl('auth/reset'), model, this.httpOptions);
+  }
+
+  GetUser(): Observable<RequestTypedResult<UserViewModel>> {
+    return this.http.get<RequestTypedResult<UserViewModel>>(this.getUrl('auth/user'), this.httpOptions).pipe(
+      tap(c => {
+
+        if (!this.IsAuthenticated())   {
+          c.Status = RequestStatus.Failed;
+          c.FriendlyMessage = "No user token found";
+        }
+
+        if (c.Status === RequestStatus.Success) {
+          this.currentUser.next(c.Result);
+        }
+      }),
+      catchError((error: any): Observable<RequestTypedResult<UserViewModel>> => {
+        this.ClearToken();
+        error.status = 500;
+        return Observable.throw(error);
+      })
+    );
+  }
+
+  UpdateProfile(model: ProfileViewModel): Observable<RequestResult> {
+    return this.http.put<RequestResult>(this.getUrl('auth/profile'), model, this.httpOptions);
+  }
+
+  private getUrl(endpoint: string): string {
+    return `${this.apiUrl}${endpoint}`;
+  }
+}

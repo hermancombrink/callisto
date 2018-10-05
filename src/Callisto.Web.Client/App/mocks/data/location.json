@@ -1,0 +1,38 @@
+{
+    "location": [ 
+        {
+        "City" : "Hamilton",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "123 Test, Hamilton",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "1",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Te Rapa",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Waikato"
+    },
+    {
+        "City" : "Auckland",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "234 Test, Auckland",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "2",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Huntly",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Auckland"
+    }
+    ]
+}

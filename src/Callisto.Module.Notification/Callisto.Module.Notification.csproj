@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <DebugType>full</DebugType>
+    <DebugType>Portable</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
+    <DebugType>Portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 

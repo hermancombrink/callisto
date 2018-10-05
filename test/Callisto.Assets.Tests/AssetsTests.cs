@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using Xunit;
 
 namespace Callisto.Assets.Tests
@@ -81,7 +82,7 @@ namespace Callisto.Assets.Tests
             result.Status.Should().Be(RequestStatus.Success);
             repo.Received(1).GetAssetById(Arg.Any<Guid>());
         }
-
+    
         /// <summary>
         /// The AddAssetShouldUseParentWithIdSpecifiedAndNotFound
         /// </summary>
@@ -169,6 +170,7 @@ namespace Callisto.Assets.Tests
             var repo = Substitute.For<IAssetsRepository>();
             var location = Substitute.For<ILocationModule>();
             var session = Substitute.For<ICallistoSession>();
+            session.GetSessionTransaction().Returns(c => new TransactionScope());
             location.UpsertLocation(Arg.Any<LocationViewModel>()).Returns(c => RequestResult<long>.Success(1));
             session.Location.Returns(c => location);
             var viewModel = fixture.Create<AssetDetailViewModel>();

@@ -1,0 +1,25 @@
+{
+ "team": [
+   {
+    "Email" : "john@mock.com",
+    "FirstName" : "John",
+    "LastName" : "Doe",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "tom@mock.com",
+    "FirstName" : "Tom",
+    "LastName" : "Saywer",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "dick@mock.com",
+    "FirstName" : "Dick",
+    "LastName" : "Tracy",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   }
+ ]
+}

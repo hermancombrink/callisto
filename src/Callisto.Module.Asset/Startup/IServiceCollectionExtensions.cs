@@ -34,7 +34,6 @@ namespace Callisto.Module.Assets.Startup
             services.TryAddScoped<IAssetsRepository, AssetsRepository>();
             services.TryAddScoped<IAssetsModule, AssetsModule>();
 
-
             return services;
         }
     }

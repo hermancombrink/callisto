@@ -1,0 +1,454 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>
+      <i class="fa fa-address-card-o"></i> {{model.Name}}</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="['/']">home</a>
+      </li>
+      <li>
+        <a [routerLink]="['/asset']">assets</a>
+      </li>
+      <li class="active">
+        <strong>edit</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+    <div class="btn-header-group">
+      <button class="btn btn-outline btn-default dim" type="button" (click)="_location.back()" tooltip="Back.">
+        <i class="fa fa-angle-double-left"></i>
+      </button>
+      <button class="btn btn-outline btn-info dim" type="button"  tooltip="Watch.">
+          <i class="fa fa-eye"></i>
+        </button>
+      <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
+        <i class="fa fa-save"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInUp">
+  <form class="m-t form-horizontal" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{model.Name}}
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-2">
+            <span>Life Expectation Track</span>
+              <dx-linear-gauge
+              id="c6"
+              [value]="5">
+              <dxo-value-indicator
+                  type="triangleMarker"
+                  color="#f05b41">
+              </dxo-value-indicator>
+              <dxo-scale
+                  [startValue]="0"
+                  [endValue]="100"
+                  [tickInterval]="20">
+              </dxo-scale>
+            </dx-linear-gauge>
+           </div>
+           <div class="col-sm-2">
+              <span>Inspection Track</span>
+                <dx-linear-gauge
+                id="c6"
+                [value]="85">
+                <dxo-value-indicator
+                    type="triangleMarker"
+                    color="#f05b41">
+                </dxo-value-indicator>
+                <dxo-scale
+                    [startValue]="0"
+                    [endValue]="100"
+                    [tickInterval]="20">
+                </dxo-scale>
+              </dx-linear-gauge>
+              </div>
+             <div class="col-sm-2">
+                <span>Depreciation Track</span>
+                  <dx-linear-gauge
+                  id="c6"
+                  [value]="55">
+                  <dxo-value-indicator
+                      type="triangleMarker"
+                      color="#f05b41">
+                  </dxo-value-indicator>
+                  <dxo-scale
+                      [startValue]="0"
+                      [endValue]="100"
+                      [tickInterval]="20">
+                  </dxo-scale>
+                </dx-linear-gauge>
+          </div>
+          <div class="col-sm-6">
+              <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-4 text-center">
+                    <img class="picture" [src]="model.PictureUrl" *ngIf="!!model.PictureUrl">
+                    <img class="picture" src="/app/assets/images/no-image.jpg" *ngIf="!model.PictureUrl">
+                  </div>
+                  <div class=" col-sm-4">
+                    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader"
+                      class="well my-drop-zone">
+                      Upload new display picture
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <dx-form id="form" #dxForm 
+        [formData]="model" 
+        [readOnly]="false" 
+        [showColonAfterLabel]="true" 
+        [showValidationSummary]="true"
+        validationGroup="formData"
+        [colCount]="3">
+          <dxi-item itemType="group"caption="Asset Details">
+            <dxi-item dataField="AssetNumber" [editorOptions]="{ placeholder : 'eg. 001' }">
+               <dxo-label text="Asset #"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="Name" [editorOptions]="{ placeholder : 'eg. Truck' }">
+              <dxi-validation-rule type="required" message="Name is required">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="Description" [editorOptions]="{ placeholder : 'eg. This is my favourite toy' }">
+            </dxi-item>
+            <dxi-item dataField="AssetNumber">
+                <dxo-label text="Model #"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="AssetNumber" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: manager,
+              displayExpr: 'Name',
+              valueExpr: 'Key'
+             }">
+              <dxo-label text="Reading Type"></dxo-label>
+            </dxi-item>  
+            <dxi-item dataField="AssetNumber" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: manager,
+              displayExpr: 'Name',
+              valueExpr: 'Key'
+             }">
+              <dxo-label text="Status"></dxo-label>
+            </dxi-item>
+            <dxi-item>
+                <dxo-label text="Parent"></dxo-label>
+                <dx-drop-down-box 
+                placeholder="Assign parent asset..." 
+                [(value)]="model.ParentId" 
+                [showClearButton]="true" 
+                displayExpr="Name" 
+                valueExpr="Id" 
+                [dataSource]="parentTree"
+                (onValueChanged)="syncTreeViewSelection($event)">
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-tree-view 
+                    [dataSource]="parentTree" 
+                    dataStructure="plain" 
+                    keyExpr="Id" 
+                    parentIdExpr="ParentId" 
+                    selectionMode="single"
+                    displayExpr="Name" 
+                    [selectByClick]="true"
+                    (onContentReady)="$event.component.selectItem(model.ParentId)"
+                    (onItemSelectionChanged)="treeView_itemSelectionChanged($event)">
+                    </dx-tree-view>
+                  </div>
+                </dx-drop-down-box>
+            </dxi-item>
+            <dxi-item dataField="Criticality" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
+            items : 
+              [
+              'Low', 
+              'Normal', 
+              'Urgent', 
+              'High'
+              ]}">
+                <dxo-label text="Criticality"></dxo-label>
+             </dxi-item>
+            <dxi-item dataField="AssetNumber" editorType="dxCheckBox">
+               <dxo-label text="Active"></dxo-label>
+            </dxi-item>
+          </dxi-item>
+          <dxi-item itemType="group"caption="Extended Details">
+              <dxi-item dataField="SerialNumber">
+                  <dxo-label text="Serial #"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="BarcodeNumer">
+                  <dxo-label text="Barcode #"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="FinAssetNumber">
+                  <dxo-label text="Finance Asset #"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: manager,
+                displayExpr: 'Name',
+                valueExpr: 'Key'
+               }">
+                <dxo-label text="Manufacturer"></dxo-label>
+              </dxi-item>  
+              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: manager,
+                displayExpr: 'Name',
+                valueExpr: 'Key'
+               }">
+                <dxo-label text="Department"></dxo-label>
+              </dxi-item>  
+              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: manager,
+                displayExpr: 'Name',
+                valueExpr: 'Key'
+               }">
+                <dxo-label text="Customer"></dxo-label>
+              </dxi-item>  
+              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: manager,
+                displayExpr: 'Name',
+                valueExpr: 'Key'
+               }">
+                <dxo-label text="Contractor"></dxo-label>
+              </dxi-item>  
+    
+          </dxi-item>
+          <dxi-item itemType="group"caption="Dimensions">
+              <dxi-item dataField="Height"  editorType="dxNumberBox">
+                  <dxo-label text="Height"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="Width"  editorType="dxNumberBox">
+                  <dxo-label text="Width"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="Depth"  editorType="dxNumberBox">
+                  <dxo-label text="Depth"></dxo-label>
+              </dxi-item>
+              <dxi-item dataField="Weight"  editorType="dxNumberBox">
+                  <dxo-label text="Weight"></dxo-label>
+              </dxi-item>
+          </dxi-item>      
+        </dx-form>
+        <hr />
+        <tabset #staticTabs>
+          <tab heading="Notes">
+              <dx-data-grid id="gridContainer"
+                [dataSource]="model"  
+                [remoteOperations]="true"
+                [wordWrapEnabled]="true"
+                [showBorders]="true">
+
+                <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+                <dxo-paging [pageSize]="100"></dxo-paging>
+                <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+                <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+                <dxi-column dataField="NoteHeading" caption="Heading" width="150"></dxi-column>
+                <dxi-column dataField="NoteBody" caption="Note"></dxi-column>
+                <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+              <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+            </dx-data-grid>
+            <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+          </tab>
+          <tab heading="Location">
+              <dx-form id="form" #dxFormLocation 
+              [formData]="model" 
+              [readOnly]="false" 
+              [showColonAfterLabel]="true" 
+              [showValidationSummary]="true"
+              validationGroup="formData"
+              >
+              <dxi-item itemType="group" caption="Location Information">
+                  <dxi-item dataField="Location?.FormattedAddress">
+                    <dxo-label text="Address"></dxo-label>
+                    <div class="dx-field-item-content dx-field-item-content-location-right">
+                      <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
+                        <div class="dx-texteditor-container">
+                          <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
+                            spellcheck="false" [value]="model.Location?.FormattedAddress">
+                          <div class="dx-texteditor-buttons-container">
+                            <button type="button" class="btn btn-xs" (click)="showMap()" [ngClass]="mapVisible ? 'btn-default': 'btn-primary'">
+                              <i class="fa fa-map"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </dxi-item>
+                  <dxi-item>
+                    <div class="col-sm-offset-1 col-sm-10">
+                      <div class="form-group" [hidden]="!mapVisible">
+                        <app-location [searchInput]="searchInput" #location></app-location>
+                      </div>
+                    </div>
+                  </dxi-item>
+                </dxi-item>
+            </dx-form>
+          </tab>
+          <tab heading="Documentation">
+            <dx-data-grid id="gridContainer"
+              [dataSource]="model"  
+              [remoteOperations]="true"
+              [wordWrapEnabled]="true"
+              [showBorders]="true">
+
+              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+              <dxo-paging [pageSize]="100"></dxo-paging>
+              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+              <dxi-column dataField="FileName" caption="File Name" width="150"></dxi-column>
+              <dxi-column dataField="DocumentName" caption="Description"></dxi-column>
+              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+          </dx-data-grid>
+
+          <dx-file-uploader #docUploader
+            uploadUrl="https://js.devexpress.com/Content/Services/upload.aspx"
+            [multiple]="false"
+            accept="*"
+            uploadMode="instantly"></dx-file-uploader>
+          </tab>
+          <tab heading="Financial">
+              <dx-form id="form" #dxFinanceForm 
+              [formData]="model" 
+              [readOnly]="false" 
+              [showColonAfterLabel]="true" 
+              [showValidationSummary]="true"
+              validationGroup="formData"
+              [colCount]="3">
+                <dxi-item itemType="group"caption="Financial Details">
+                  <dxi-item dataField="PurchaseDate" editorType="dxDateBox">
+                     <dxo-label text="Purchase Date"></dxo-label>
+                  </dxi-item>
+                  <dxi-item dataField="PurchaseCost" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                      <dxo-label text="Purchase Cost"></dxo-label>
+                   </dxi-item>
+                  <dxi-item dataField="OrderNumber">
+                      <dxo-label text="Order Number"></dxo-label>
+                   </dxi-item>
+                   <dxi-item dataField="Supplier">
+                      <dxo-label text="Supplier"></dxo-label>
+                   </dxi-item>
+                   <dxi-item dataField="DateReceived" editorType="dxDateBox">
+                      <dxo-label text="Received Date"></dxo-label>
+                   </dxi-item>
+                </dxi-item>
+                <dxi-item itemType="group"caption="Life Time Details">
+                    <dxi-item dataField="ExpectedLifeHours" editorType="dxNumberBox">
+                        <dxo-label text="Expected Life (Years)"></dxo-label>
+                     </dxi-item>
+                     <dxi-item dataField="ExpectedLifeYears" editorType="dxNumberBox">
+                        <dxo-label text="Expected Life (Hours)"></dxo-label>
+                     </dxi-item>
+                     <dxi-item dataField="SalvageValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                        <dxo-label text="Salvage Value"></dxo-label>
+                     </dxi-item>
+                     <dxi-item dataField="DepreciationValue" editorType="dxNumberBox">
+                        <dxo-label text="Depreciation Value"></dxo-label>
+                     </dxi-item>
+                     <dxi-item dataField="CurrentValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                        <dxo-label text="Current Value"></dxo-label>
+                     </dxi-item>
+                     <dxi-item dataField="DepreciationType" editorType="dxSelectBox">
+                        <dxo-label text="Depreciation Type"></dxo-label>
+                     </dxi-item>
+                  </dxi-item>
+                  <dxi-item itemType="group"caption="Value Details">
+                       <dxi-item dataField="MarketValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                          <dxo-label text="Market Value"></dxo-label>
+                       </dxi-item>
+                       <dxi-item dataField="ReplacementValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                          <dxo-label text="Replacement Value"></dxo-label>
+                       </dxi-item>
+                       <dxi-item dataField="ChangeOverValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+                          <dxo-label text="Change Over Value"></dxo-label>
+                       </dxi-item>
+                       <dxi-item dataField="LastEvaluationDate" editorType="dxDateBox">
+                          <dxo-label text="Last Evaluation Date"></dxo-label>
+                       </dxi-item>
+                       <dxi-item dataField="NextEvaluationDate" editorType="dxDateBox">
+                          <dxo-label text="Next Evaluation Date"></dxo-label>
+                       </dxi-item>
+                    </dxi-item>
+              </dx-form>
+          </tab>
+          <tab heading="Tasks">
+              <dx-data-grid id="gridContainer"
+              [dataSource]="model"  
+              [remoteOperations]="true"
+              [wordWrapEnabled]="true"
+              [showBorders]="true">
+
+              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+              <dxo-paging [pageSize]="100"></dxo-paging>
+              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+              <dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
+              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+          </dx-data-grid>
+
+          </tab>
+          <tab heading="Inspection">
+              <dx-form id="form" #dxInspectionForm 
+              [formData]="model" 
+              [readOnly]="false" 
+              [showColonAfterLabel]="true" 
+              [showValidationSummary]="true"
+              validationGroup="formData">
+              <dxi-item itemType="group"caption="Inspection Details">
+                  <dxi-item dataField="CertificateNumber" >
+                     <dxo-label text="Certificate #"></dxo-label>
+                  </dxi-item>
+                  <dxi-item dataField="CompletedBy" >
+                      <dxo-label text="Completed By"></dxo-label>
+                   </dxi-item>
+                   <dxi-item dataField="CompletedComment" >
+                      <dxo-label text="Completed Comment"></dxo-label>
+                   </dxi-item>
+                  <dxi-item dataField="LastInspectionDate" editorType="dxDateBox">
+                     <dxo-label text="Last Inspection Date"></dxo-label>
+                  </dxi-item>
+                  <dxi-item dataField="NextInspectionDate" editorType="dxDateBox">
+                     <dxo-label text="Next Inspection Date"></dxo-label>
+                  </dxi-item>
+               </dxi-item>
+            </dx-form>
+          </tab>
+          <tab heading="Audit">
+              <dx-data-grid id="gridContainer"
+              [dataSource]="model"  
+              [remoteOperations]="true"
+              [wordWrapEnabled]="true"
+              [showBorders]="true">
+
+              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+              <dxo-paging [pageSize]="100"></dxo-paging>
+              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+              <dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
+              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+          </dx-data-grid>
+
+          </tab>
+        </tabset>
+      </div>
+      <div class="panel-footer text-right">
+        <button class="btn btn-outline btn-default dim" type="button" (click)="_location.back()">
+          <i class="fa fa-angle-double-left"></i>
+        </button>
+        <button class="btn btn-outline btn-danger dim" type="button" (click)="removeAsset()">
+          <i class="fa fa-trash"></i>
+        </button>
+        <button class="btn btn-outline btn-primary dim" type="submit" [disabled]="!form.form.valid">
+          <i class="fa fa-save"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

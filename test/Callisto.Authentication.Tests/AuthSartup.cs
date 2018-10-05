@@ -39,12 +39,7 @@ namespace Callisto.Authentication.Tests
         {
             services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
-                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-               dbFactory =>
-               {
-                   dbFactory.UseInMemoryDatabase("InMemoryDatabase");
-                   dbFactory.ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-               }
+                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings")
               );
 
             services.AddCallistoWebSession();

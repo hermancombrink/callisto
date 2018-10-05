@@ -1,0 +1,60 @@
+{
+    "lookuproles": [
+        {
+            "Key" : 1,
+            "Name": "Developer", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Technician", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Manager", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Director", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupmanager": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "John Doe", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Jack Black", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Jane Fonda", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Barry White", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+}

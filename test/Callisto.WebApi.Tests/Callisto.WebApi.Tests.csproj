@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <DebugType>full</DebugType>
+    <DebugType>Portable</DebugType>
     <IsPackable>false</IsPackable>
     <RuntimeFrameworkVersion>2.1.0</RuntimeFrameworkVersion>
   </PropertyGroup>
@@ -20,6 +20,10 @@
 
   <ItemGroup>
     <PackageReference Include="Codecov" Version="1.0.4" />
+    <PackageReference Include="coverlet.msbuild" Version="2.2.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Moq" Version="4.8.3" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="AutoFixture" Version="4.4.0" />

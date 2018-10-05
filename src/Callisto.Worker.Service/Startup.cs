@@ -1,4 +1,6 @@
-﻿using Callisto.Core.Messaging.Options;
+﻿using System.Data;
+using System.Data.SqlClient;
+using Callisto.Core.Messaging.Options;
 using Callisto.Core.Messaging.Startup;
 using Callisto.Core.Metrics.Startup;
 using Callisto.Core.Storage.Options;
@@ -49,24 +51,23 @@ namespace Callisto.Worker.Service
         /// <param name="services">The <see cref="IServiceCollection"/></param>
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            var dbConnectionString = Configuration.GetConnectionString("callisto");
+            services.AddScoped<IDbConnection>(c => new SqlConnection(Configuration.GetConnectionString("callisto")));
 
             services.Configure<TemplateOptions>(Configuration.GetSection("templateOptions"));
             services.AddSingleton(ConsumeBinding.SetBinding<NotificationMessage>("Callisto.Notification"));
 
             services.AddCallistoAuthentication(
                 services.ConfigureAndGet<AuthOptions>(Configuration, "authSettings"),
-                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"),
-                dbConnectionString);
+                services.ConfigureAndGet<JwtIssuerOptions>(Configuration, "jwtSettings"));
 
             services.AddCallistoStorage(services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
             services.AddCallistoNotification(services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 
-            services.AddCallistoAssets(dbConnectionString);
-            services.AddCallistoLocations(dbConnectionString);
-            services.AddCallistoMember(dbConnectionString);
-            services.AddCallistoCustomer(dbConnectionString);
-            services.AddCallistoVendor(dbConnectionString);
+            services.AddCallistoAssets();
+            services.AddCallistoLocations();
+            services.AddCallistoMember();
+            services.AddCallistoCustomer();
+            services.AddCallistoVendor();
 
             services.AddCallistoMessaging(
                services.ConfigureAndGet<MessageOptions>(Configuration, "rabbitConnection"),

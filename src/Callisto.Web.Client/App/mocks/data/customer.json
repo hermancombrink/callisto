@@ -1,0 +1,25 @@
+{
+    "customer": [
+      {
+       "Email" : "customer1@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer2@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer3@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   }

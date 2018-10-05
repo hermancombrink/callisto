@@ -1,0 +1,14 @@
+{
+    "/auth/user" : "/user",
+    "/auth/signout": "/signout",
+    "/auth/profile" : "/profile",
+    
+    "/asset/tree/all": "/assets",
+    "/asset/tree/parents/:id": "/assets/:id",
+    "/asset/create": "/assets",
+    "/asset/:id": "/assets/:id",
+    "/asset/details/:id": "/assets/:id",
+
+    "/lookup/roles" : "/lookuproles",
+    "/lookup/manager" : "/lookupmanager"
+}

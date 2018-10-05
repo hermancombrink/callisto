@@ -1,0 +1,95 @@
+{
+    "assets": [
+        { 
+            "Id" : 0,
+            "AssetNumber": "ABC123",
+            "Name": "Mock1",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 1,
+            "AssetNumber": "ABC124",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 2,
+            "AssetNumber": "ABC125",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 3,
+            "AssetNumber": "ABC123",
+            "Name": "Mock3",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 4,
+            "AssetNumber": "ABC123",
+            "Name": "Mock4",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 5,
+            "AssetNumber": "ABC123",
+            "Name": "Mock5",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 6,
+            "AssetNumber": "ABC123",
+            "Name": "Mock6",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        }
+    ]
+}

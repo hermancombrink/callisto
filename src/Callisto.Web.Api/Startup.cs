@@ -54,8 +54,6 @@ namespace Callisto.Web.Api
         {
             services.AddScoped<IDbConnection>(c => new SqlConnection(Configuration.GetConnectionString("callisto")));
 
-      
-
             services.AddCallistoStorage(services.ConfigureAndGet<StorageOptions>(Configuration, "storage"));
             services.AddCallistoNotification(services.ConfigureAndGet<MailOptions>(Configuration, "mail"));
 

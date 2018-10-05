@@ -1,0 +1,25 @@
+{
+    "vendor": [
+      {
+       "Email" : "vendor1@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor2@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor3@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   }
