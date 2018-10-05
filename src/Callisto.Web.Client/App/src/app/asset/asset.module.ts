@@ -15,7 +15,7 @@ import { LocationModule } from '../location/location.module';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import {
   DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
-  DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule, DxLinearGaugeModule,
+  DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule, DxLinearGaugeModule, DxCircularGaugeModule,
   DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule, DxFileUploaderModule, DxDateBoxModule
 } from 'devextreme-angular';
 
@@ -36,7 +36,7 @@ import {
     RouterModule.forChild(AssetRoutes),
 
     DxTreeListModule, DxAutocompleteModule, DxSelectBoxModule, DxNumberBoxModule,
-    DxCheckBoxModule, DxValidatorModule, DxTextBoxModule, DxFormModule, DxLinearGaugeModule,
+    DxCheckBoxModule, DxValidatorModule, DxTextBoxModule, DxFormModule, DxLinearGaugeModule, DxCircularGaugeModule,
     DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule, DxFileUploaderModule, DxDateBoxModule
   ],
   declarations: [

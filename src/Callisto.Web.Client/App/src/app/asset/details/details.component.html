@@ -36,11 +36,42 @@
       </div>
       <div class="panel-body">
         <div class="row">
+            <div class="col-sm-1">
+                <span class="alert alert-info" tooltip="Outstanding Work Orders.">0</span> 
+            </div>
+            <div class="col-sm-2">
+                <dx-linear-gauge
+                id="c6"
+                [value]="39">
+                <dxo-title text="Next Maintanance Track">
+                    <dxo-font [size]="12"></dxo-font>
+                </dxo-title>
+                <dxo-range-container>
+                    <dxi-range [startValue]="75" [endValue]="90" color="#E6E200"></dxi-range>
+                    <dxi-range [startValue]="90" [endValue]="100" color="#92000A"></dxi-range>
+                </dxo-range-container>
+                <dxo-value-indicator
+                    type="triangleMarker"
+                    color="#f05b41">
+                </dxo-value-indicator>
+                <dxo-scale
+                    [startValue]="0"
+                    [endValue]="100"
+                    [tickInterval]="20">
+                </dxo-scale>
+              </dx-linear-gauge>
+           </div>
           <div class="col-sm-2">
-            <span>Life Expectation Track</span>
               <dx-linear-gauge
               id="c6"
               [value]="5">
+              <dxo-title text="Life Expectation Track">
+                  <dxo-font [size]="12"></dxo-font>
+              </dxo-title>
+              <dxo-range-container>
+                  <dxi-range [startValue]="75" [endValue]="90" color="#E6E200"></dxi-range>
+                  <dxi-range [startValue]="90" [endValue]="100" color="#92000A"></dxi-range>
+              </dxo-range-container>
               <dxo-value-indicator
                   type="triangleMarker"
                   color="#f05b41">
@@ -53,10 +84,16 @@
             </dx-linear-gauge>
            </div>
            <div class="col-sm-2">
-              <span>Inspection Track</span>
                 <dx-linear-gauge
                 id="c6"
                 [value]="85">
+                <dxo-title text="Inspection Track">
+                    <dxo-font [size]="12"></dxo-font>
+                </dxo-title>
+                <dxo-range-container>
+                    <dxi-range [startValue]="75" [endValue]="90" color="#E6E200"></dxi-range>
+                    <dxi-range [startValue]="90" [endValue]="100" color="#92000A"></dxi-range>
+                </dxo-range-container>
                 <dxo-value-indicator
                     type="triangleMarker"
                     color="#f05b41">
@@ -69,10 +106,16 @@
               </dx-linear-gauge>
               </div>
              <div class="col-sm-2">
-                <span>Depreciation Track</span>
                   <dx-linear-gauge
                   id="c6"
                   [value]="55">
+                  <dxo-title text="Depreciation Track">
+                      <dxo-font [size]="12"></dxo-font>
+                  </dxo-title>
+                  <dxo-range-container>
+                      <dxi-range [startValue]="75" [endValue]="90" color="#E6E200"></dxi-range>
+                      <dxi-range [startValue]="90" [endValue]="100" color="#92000A"></dxi-range>
+                  </dxo-range-container>
                   <dxo-value-indicator
                       type="triangleMarker"
                       color="#f05b41">
@@ -84,7 +127,7 @@
                   </dxo-scale>
                 </dx-linear-gauge>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-3">
               <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-4 text-center">
                     <img class="picture" [src]="model.PictureUrl" *ngIf="!!model.PictureUrl">
@@ -230,85 +273,61 @@
         </dx-form>
         <hr />
         <tabset #staticTabs>
-          <tab heading="Notes">
-              <dx-data-grid id="gridContainer"
-                [dataSource]="model"  
-                [remoteOperations]="true"
-                [wordWrapEnabled]="true"
-                [showBorders]="true">
-
-                <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
-                <dxo-paging [pageSize]="100"></dxo-paging>
-                <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
-
-                <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
-                <dxi-column dataField="NoteHeading" caption="Heading" width="150"></dxi-column>
-                <dxi-column dataField="NoteBody" caption="Note"></dxi-column>
-                <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
-              <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
-            </dx-data-grid>
-            <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
-                <i class="fa fa-plus"></i>
-              </button>
-          </tab>
-          <tab heading="Location">
-              <dx-form id="form" #dxFormLocation 
-              [formData]="model" 
-              [readOnly]="false" 
-              [showColonAfterLabel]="true" 
-              [showValidationSummary]="true"
-              validationGroup="formData"
-              >
-              <dxi-item itemType="group" caption="Location Information">
-                  <dxi-item dataField="Location?.FormattedAddress">
-                    <dxo-label text="Address"></dxo-label>
-                    <div class="dx-field-item-content dx-field-item-content-location-right">
-                      <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
-                        <div class="dx-texteditor-container">
-                          <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
-                            spellcheck="false" [value]="model.Location?.FormattedAddress">
-                          <div class="dx-texteditor-buttons-container">
-                            <button type="button" class="btn btn-xs" (click)="showMap()" [ngClass]="mapVisible ? 'btn-default': 'btn-primary'">
-                              <i class="fa fa-map"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </dxi-item>
-                  <dxi-item>
-                    <div class="col-sm-offset-1 col-sm-10">
-                      <div class="form-group" [hidden]="!mapVisible">
-                        <app-location [searchInput]="searchInput" #location></app-location>
-                      </div>
-                    </div>
-                  </dxi-item>
-                </dxi-item>
-            </dx-form>
-          </tab>
-          <tab heading="Documentation">
-            <dx-data-grid id="gridContainer"
-              [dataSource]="model"  
-              [remoteOperations]="true"
-              [wordWrapEnabled]="true"
-              [showBorders]="true">
-
-              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
-              <dxo-paging [pageSize]="100"></dxo-paging>
-              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
-
-              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
-              <dxi-column dataField="FileName" caption="File Name" width="150"></dxi-column>
-              <dxi-column dataField="DocumentName" caption="Description"></dxi-column>
-              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
-            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
-          </dx-data-grid>
-
-          <dx-file-uploader #docUploader
-            uploadUrl="https://js.devexpress.com/Content/Services/upload.aspx"
-            [multiple]="false"
-            accept="*"
-            uploadMode="instantly"></dx-file-uploader>
+            <tab heading="Work Orders">
+                <dx-data-grid id="gridContainer"
+                  [dataSource]="model"  
+                  [remoteOperations]="true"
+                  [wordWrapEnabled]="true"
+                  [showBorders]="true">
+                  <dxo-selection
+                  mode="multiple"
+                  [deferred]="true"
+                  ></dxo-selection>
+                  <dxo-filter-row
+                  [visible]="true"
+                  ></dxo-filter-row>
+                  <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+                  <dxo-paging [pageSize]="100"></dxo-paging>
+                  <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+                  <dxi-column dataField="Completed" caption="Completed"></dxi-column>
+                  <dxi-column dataField="WorkOrderNumber" caption="WO #" ></dxi-column>
+                  <dxi-column dataField="WorkOrderDescription" caption="Description"></dxi-column>
+                  <dxi-column dataField="DateKey" caption="Request Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+                  <dxi-column dataField="DateKey" caption="Approval Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+                  <dxi-column dataField="DateKey" caption="Due Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+                <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+              </dx-data-grid>
+              <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
+            </tab>
+            <tab heading="Preventative Maintance">
+                <dx-data-grid id="gridContainer"
+                  [dataSource]="model"  
+                  [remoteOperations]="true"
+                  [wordWrapEnabled]="true"
+                  [showBorders]="true">
+                  <dxo-selection
+                  mode="multiple"
+                  [deferred]="true"
+                  ></dxo-selection>
+                  <dxo-filter-row
+                  [visible]="true"
+                  ></dxo-filter-row>
+                  <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+                  <dxo-paging [pageSize]="100"></dxo-paging>
+                  <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+                  <dxi-column dataField="Completed" caption="Completed"></dxi-column>
+                  <dxi-column dataField="ScheduleNumber" caption="Schedule #"></dxi-column>
+                  <dxi-column dataField="ScheduleDescription" caption="Description"></dxi-column>
+                  <dxi-column dataField="ScheduleFrequency" caption="Frequency"></dxi-column>
+                  <dxi-column dataField="DateKey" caption="Creation Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+                  <dxi-column dataField="DateKey" caption="Next Due Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+                <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+              </dx-data-grid>
+              <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+                  <i class="fa fa-plus"></i>
+                </button>
           </tab>
           <tab heading="Financial">
               <dx-form id="form" #dxFinanceForm 
@@ -374,23 +393,85 @@
                     </dxi-item>
               </dx-form>
           </tab>
-          <tab heading="Tasks">
+          <tab heading="Documentation">
               <dx-data-grid id="gridContainer"
-              [dataSource]="model"  
-              [remoteOperations]="true"
-              [wordWrapEnabled]="true"
-              [showBorders]="true">
+                [dataSource]="model"  
+                [remoteOperations]="true"
+                [wordWrapEnabled]="true"
+                [showBorders]="true">
+  
+                <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+                <dxo-paging [pageSize]="100"></dxo-paging>
+                <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+  
+                <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+                <dxi-column dataField="FileName" caption="File Name" width="150"></dxi-column>
+                <dxi-column dataField="DocumentName" caption="Description"></dxi-column>
+                <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+              <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+            </dx-data-grid>
+  
+            <dx-file-uploader #docUploader
+              uploadUrl="https://js.devexpress.com/Content/Services/upload.aspx"
+              [multiple]="false"
+              accept="*"
+              uploadMode="instantly"></dx-file-uploader>
+            </tab>
+          <tab heading="Notes">
+              <dx-data-grid id="gridContainer"
+                [dataSource]="model"  
+                [remoteOperations]="true"
+                [wordWrapEnabled]="true"
+                [showBorders]="true">
 
-              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
-              <dxo-paging [pageSize]="100"></dxo-paging>
-              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+                <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+                <dxo-paging [pageSize]="100"></dxo-paging>
+                <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
 
-              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
-              <dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
-              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
-            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
-          </dx-data-grid>
-
+                <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+                <dxi-column dataField="NoteHeading" caption="Heading" width="150"></dxi-column>
+                <dxi-column dataField="NoteBody" caption="Note"></dxi-column>
+                <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+              <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+            </dx-data-grid>
+            <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+                <i class="fa fa-plus"></i>
+              </button>
+          </tab>
+          <tab heading="Location">
+              <dx-form id="form" #dxFormLocation 
+              [formData]="model" 
+              [readOnly]="false" 
+              [showColonAfterLabel]="true" 
+              [showValidationSummary]="true"
+              validationGroup="formData"
+              >
+              <dxi-item itemType="group" caption="Location Information">
+                  <dxi-item dataField="Location?.FormattedAddress">
+                    <dxo-label text="Address"></dxo-label>
+                    <div class="dx-field-item-content dx-field-item-content-location-right">
+                      <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
+                        <div class="dx-texteditor-container">
+                          <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
+                            spellcheck="false" [value]="model.Location?.FormattedAddress">
+                          <div class="dx-texteditor-buttons-container">
+                            <button type="button" class="btn btn-xs" (click)="showMap()" [ngClass]="mapVisible ? 'btn-default': 'btn-primary'">
+                              <i class="fa fa-map"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </dxi-item>
+                  <dxi-item>
+                    <div class="col-sm-offset-1 col-sm-10">
+                      <div class="form-group" [hidden]="!mapVisible">
+                        <app-location [searchInput]="searchInput" #location></app-location>
+                      </div>
+                    </div>
+                  </dxi-item>
+                </dxi-item>
+            </dx-form>
           </tab>
           <tab heading="Inspection">
               <dx-form id="form" #dxInspectionForm 
@@ -417,6 +498,22 @@
                   </dxi-item>
                </dxi-item>
             </dx-form>
+
+            <dx-data-grid id="gridContainer"
+            [dataSource]="model"  
+            [remoteOperations]="true"
+            [wordWrapEnabled]="true"
+            [showBorders]="true">
+
+            <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+            <dxo-paging [pageSize]="100"></dxo-paging>
+            <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+            <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+            <dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
+            <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+           <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+            </dx-data-grid>
           </tab>
           <tab heading="Audit">
               <dx-data-grid id="gridContainer"
