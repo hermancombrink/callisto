@@ -297,7 +297,7 @@
                   <dxi-column dataField="DateKey" caption="Due Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
                 <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
               </dx-data-grid>
-              <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+              <button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button" (click)="createWorker()">
                   <i class="fa fa-plus"></i>
                 </button>
             </tab>

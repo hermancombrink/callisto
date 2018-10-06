@@ -11,6 +11,9 @@ import { AuthService } from '../../core/auth.service';
 import { RequestResult } from '../../core/models/requestResult';
 import { LocationComponent } from '../../location/location.component';
 import { DxFormComponent, DxTreeViewComponent } from 'devextreme-angular';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { ISubscription } from 'rxjs/Subscription';
+import { CreateWorkorderComponent } from '../../modals/create-workorder/create-workorder.component';
 
 @Component({
   selector: 'app-details',
@@ -32,13 +35,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
   mapVisible = false;
   parentTree: AssetTreeViewModel[];
 
+  bsModalRef: BsModalRef;
+  modalSub: ISubscription;
+
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private assetService: AssetService,
     private alertService: AlertService,
     private authService: AuthService,
-    public _location: Location
+    public _location: Location,
+    private modalService: BsModalService,
   ) {
   }
 
@@ -144,5 +150,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   treeView_itemSelectionChanged(e) {
     this.model.ParentId = e.component.getSelectedNodesKeys();
+  }
+
+  createWorker() {
+    const initialState = { assetId : this.model.Id, assetName : this.model.Name };
+    this.bsModalRef = this.modalService.show(CreateWorkorderComponent, { initialState });
   }
 }

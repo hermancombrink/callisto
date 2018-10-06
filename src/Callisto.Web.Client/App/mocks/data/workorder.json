@@ -1,0 +1,33 @@
+{
+    "workorder": [
+        {
+            "Id": "1",
+            "AssetId": "1",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt"
+        },
+        {
+            "Id": "2",
+            "AssetId": "3",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt"
+        },
+        {
+            "Id": "3",
+            "AssetId": "4",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt"
+        }
+        ,
+        {
+            "Id": "4",
+            "AssetId": "5",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt"
+        }
+    ]    
+}

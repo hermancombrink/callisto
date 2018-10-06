@@ -9,6 +9,8 @@
     "/asset/:id": "/assets/:id",
     "/asset/details/:id": "/assets/:id",
 
+    "/workorder/create": "/workorder",
+
     "/lookup/roles" : "/lookuproles",
     "/lookup/manager" : "/lookupmanager"
 }

@@ -6,7 +6,8 @@ import { RouterModule, Router } from '@angular/router';
 import {
   AlertModule,
   TypeaheadModule,
-  TooltipModule
+  TooltipModule,
+  ModalModule
 } from 'ngx-bootstrap';
 import { GridsterModule } from 'angular-gridster2';
 import { AppComponent } from './app.component';
@@ -58,6 +59,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     VendorModule,
     CustomerModule,
     ErrorModule,
+    ModalModule,
     CoreModule.forRoot(),
     AlertModule.forRoot(),
     RouterModule.forRoot(AppRoutes)

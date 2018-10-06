@@ -12,6 +12,7 @@ import { DetailsComponent } from './details/details.component';
 import { TreeModule } from 'ng2-tree';
 import { FileUploadModule } from 'ng2-file-upload'
 import { LocationModule } from '../location/location.module';
+import { ModalsModule } from '../modals/modals.module';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import {
   DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
@@ -26,6 +27,7 @@ import {
     FormsModule,
     CoreModule,
     AlertModule,
+    ModalsModule,
 
     TypeaheadModule,
     TooltipModule,

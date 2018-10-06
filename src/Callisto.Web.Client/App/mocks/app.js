@@ -8,6 +8,7 @@ const router = jsonServer.router(path.join("mocks", "data.json"))
 var jsonConcat = require('json-concat');
 
 
+
 server.use(jsonServer.bodyParser)
 
 server.use(middleware);
@@ -52,22 +53,20 @@ server.use(function (req, res, next) {
   next()
 });
 
+
+
 var routes = JSON.parse(fs.readFileSync(path.join("mocks", "routes.json")));
 server.use(jsonServer.rewriter(routes));
+
+router.db._.id = "Id";
+server.use(router);
+server.use(pause(2000));
 
 jsonConcat({
     src: "mocks/data",
     dest: "mocks/data.json",
-}, function(json){
-    console.log(json);
-});
-
-router.db._.id = "Id";
-server.use(router);
-server.use(pause(1000));
-
-server.listen(3000, () => {
-
-
-    console.log("mock server is running");
+}, function(){
+    server.listen(3000, () => {
+        console.log("mock server is running");
+    });
 });

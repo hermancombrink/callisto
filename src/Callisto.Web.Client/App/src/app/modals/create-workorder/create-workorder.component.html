@@ -2,46 +2,38 @@
   <div class="modal-header">
     <h4 class="modal-title pull-left">
     <i class="fa fa-database"></i>
-    Create Asset</h4>
+    Create Work Order</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-
-    <div class="well well-sm" *ngIf="parentId">
-      <span>{{parentName}}</span>
-    </div>
+    <h2>{{ assetName }}</h2>
     <dx-form 
     id="form" 
     #dxForm 
-    [formData]="model" 
     [readOnly]="false" 
     [showColonAfterLabel]="true" 
     [showValidationSummary]="true"
       validationGroup="formData">
-      <dxi-item itemType="group" caption="Basic Details">
-          <dxi-item dataField="AssetNumber">
-              <dxo-label text="Asset #"></dxo-label>
-            </dxi-item>
-        <dxi-item dataField="Name">
-          <dxi-validation-rule type="required" message="Name is required">
-          </dxi-validation-rule>
+      <dxi-item itemType="group" caption="Work Details">
+        <dxi-item dataField="Description" editorType="dxTextArea" [editorOptions]="{ height: 90 }">
+            <dxi-validation-rule type="required" message="Description is required">
+              </dxi-validation-rule>
         </dxi-item>
-        <dxi-item dataField="Description">
+        <dxi-item dataField="Instructions" editorType="dxTextArea" [editorOptions]="{ height: 90 }">
         </dxi-item>
-        <dxi-item dataField="Tag">
-            <dxo-label text="Tag"></dxo-label>
-          </dxi-item>
+        <dxi-item dataField="SafetyNotes" editorType="dxTextArea" [editorOptions]="{ height: 90 }">
+        </dxi-item>
       </dxi-item>
     </dx-form>  
-    
+
   </div>
   <div class="modal-footer">
     <button class="btn btn-default  dim " type="button" (click)="onCancel()">
       <i class="fa fa-close"></i>
     </button>
-    <button class="btn btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Create a new asset.">
+    <button class="btn btn-primary dim" type="submit" [disabled]="!form.form.valid" tooltip="Create a new work order.">
       <i class="fa fa-save"></i>
     </button>
   </div>

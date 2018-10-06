@@ -23,9 +23,9 @@ import { ISubscription } from 'rxjs/Subscription';
 export class ViewComponent implements OnInit, OnDestroy {
 
   bsModalRef: BsModalRef;
+  modalSub: ISubscription;
   selectedId: string;
   assetData: any;
-  modalSub: ISubscription;
 
   constructor(
     private modalService: BsModalService,
