@@ -1,0 +1,26 @@
+<dx-data-grid id="gridContainer"
+
+[remoteOperations]="true"
+[wordWrapEnabled]="true"
+[showBorders]="true">
+<dxo-selection
+mode="multiple"
+[deferred]="true"
+></dxo-selection>
+<dxo-filter-row
+[visible]="true"
+></dxo-filter-row>
+<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+<dxo-paging [pageSize]="100"></dxo-paging>
+<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+<dxi-column dataField="Active" caption="Active"></dxi-column>
+<dxi-column dataField="ScheduleNumber" caption="Schedule #"></dxi-column>
+<dxi-column dataField="ScheduleDescription" caption="Description"></dxi-column>
+<dxi-column dataField="ScheduleFrequency" caption="Frequency"></dxi-column>
+<dxi-column dataField="DateKey" caption="Creation Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxi-column dataField="DateKey" caption="Next Due Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+</dx-data-grid>
+<button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+<i class="fa fa-plus"></i>
+</button>

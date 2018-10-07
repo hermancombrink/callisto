@@ -11,9 +11,12 @@ import { AuthService } from '../../core/auth.service';
 import { RequestResult } from '../../core/models/requestResult';
 import { LocationComponent } from '../../location/location.component';
 import { DxFormComponent, DxTreeViewComponent } from 'devextreme-angular';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService, TabsetComponent } from 'ngx-bootstrap';
 import { ISubscription } from 'rxjs/Subscription';
-import { CreateWorkorderComponent } from '../../modals/create-workorder/create-workorder.component';
+import { ListWorkOrderComponent } from '../list-workorder/list-workorder.component';
+import { ListMainScheduleComponent } from '../list-main-schedule/list-main-schedule.component';
+import { FinanceComponent } from '../finance/finance.component';
+import { InspectionComponent } from '../inspection/inspection.component';
 
 @Component({
   selector: 'app-details',
@@ -28,6 +31,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild('location') locationPanel: LocationComponent;
   @ViewChild('dxForm') dxForm: DxFormComponent;
+  @ViewChild('staticTabs') tabs: TabsetComponent;
+
+  @ViewChild('workOrders') tabWorkOrders: ListWorkOrderComponent;
+  @ViewChild('scheduleMain') tabScheduleMain: ListMainScheduleComponent;
+  @ViewChild('finance') tabFinance: FinanceComponent;
+  @ViewChild('inspection') tabInspection: InspectionComponent;
+
   @ViewChild(DxTreeViewComponent) treeView;
 
   uploader: FileUploader;
@@ -54,10 +64,16 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.setupAsset();
       this.setUploader();
     });
+
+    this.modalSub = this.modalService.onHidden.subscribe(c => {
+      this.tabs.tabs[0].active = true; // reset work orders to active tab
+    });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.modalSub.unsubscribe();
+
   }
 
   onSubmit() {
@@ -152,8 +168,29 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.model.ParentId = e.component.getSelectedNodesKeys();
   }
 
-  createWorker() {
-    const initialState = { assetId : this.model.Id, assetName : this.model.Name };
-    this.bsModalRef = this.modalService.show(CreateWorkorderComponent, { initialState });
+  onTabChange(tab: string){
+    switch (tab)
+    {
+      case 'work' :
+      {
+        this.tabWorkOrders.refresh();
+        break;
+      }
+      case 'schedule' :
+      {
+        this.tabScheduleMain.refresh();
+        break;
+      }
+      case 'finance' :
+      {
+        this.tabFinance.refresh();
+        break;
+      }
+      case 'inspection' :
+      {
+        this.tabInspection.refresh();
+        break;
+      }
+    };
   }
 }

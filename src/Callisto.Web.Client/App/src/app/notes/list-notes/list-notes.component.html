@@ -1,0 +1,18 @@
+<dx-data-grid id="gridContainer"
+[remoteOperations]="true"
+[wordWrapEnabled]="true"
+[showBorders]="true">
+
+<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+<dxo-paging [pageSize]="100"></dxo-paging>
+<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+<dxi-column dataField="UserName" caption="User Name"></dxi-column>
+<dxi-column dataField="NoteHeading" caption="Heading"></dxi-column>
+<dxi-column dataField="NoteBody" caption="Note"></dxi-column>
+<dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+</dx-data-grid>
+<button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+<i class="fa fa-plus"></i>
+</button>

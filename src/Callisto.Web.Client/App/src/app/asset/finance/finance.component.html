@@ -1,0 +1,65 @@
+<dx-form id="form" #dxFinanceForm 
+[formData]="model" 
+[readOnly]="false" 
+[showColonAfterLabel]="true" 
+[showValidationSummary]="true"
+validationGroup="formData"
+[colCount]="3">
+<dxo-filter-row
+[visible]="true"
+></dxo-filter-row>
+  <dxi-item itemType="group"caption="Financial Details">
+    <dxi-item dataField="PurchaseDate" editorType="dxDateBox">
+       <dxo-label text="Purchase Date"></dxo-label>
+    </dxi-item>
+    <dxi-item dataField="PurchaseCost" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+        <dxo-label text="Purchase Cost"></dxo-label>
+     </dxi-item>
+    <dxi-item dataField="OrderNumber">
+        <dxo-label text="Order Number"></dxo-label>
+     </dxi-item>
+     <dxi-item dataField="Supplier">
+        <dxo-label text="Supplier"></dxo-label>
+     </dxi-item>
+     <dxi-item dataField="ReceivedDate" editorType="dxDateBox">
+        <dxo-label text="Received Date"></dxo-label>
+     </dxi-item>
+  </dxi-item>
+  <dxi-item itemType="group"caption="Life Time Details">
+      <dxi-item dataField="ExpectedLifeHours" editorType="dxNumberBox">
+          <dxo-label text="Expected Life (Years)"></dxo-label>
+       </dxi-item>
+       <dxi-item dataField="ExpectedLifeYears" editorType="dxNumberBox">
+          <dxo-label text="Expected Life (Hours)"></dxo-label>
+       </dxi-item>
+       <dxi-item dataField="SalvageValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+          <dxo-label text="Salvage Value"></dxo-label>
+       </dxi-item>
+       <dxi-item dataField="DepreciationValue" editorType="dxNumberBox">
+          <dxo-label text="Depreciation Value"></dxo-label>
+       </dxi-item>
+       <dxi-item dataField="CurrentValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+          <dxo-label text="Current Value"></dxo-label>
+       </dxi-item>
+       <dxi-item dataField="DepreciationType" editorType="dxSelectBox">
+          <dxo-label text="Depreciation Type"></dxo-label>
+       </dxi-item>
+    </dxi-item>
+    <dxi-item itemType="group"caption="Value Details">
+         <dxi-item dataField="MarketValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+            <dxo-label text="Market Value"></dxo-label>
+         </dxi-item>
+         <dxi-item dataField="ReplacementValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+            <dxo-label text="Replacement Value"></dxo-label>
+         </dxi-item>
+         <dxi-item dataField="ChangeOverValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
+            <dxo-label text="Change Over Value"></dxo-label>
+         </dxi-item>
+         <dxi-item dataField="LastEvaluationDate" editorType="dxDateBox">
+            <dxo-label text="Last Evaluation Date"></dxo-label>
+         </dxi-item>
+         <dxi-item dataField="NextEvaluationDate" editorType="dxDateBox">
+            <dxo-label text="Next Evaluation Date"></dxo-label>
+         </dxi-item>
+      </dxi-item>
+</dx-form>

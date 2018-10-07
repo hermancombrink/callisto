@@ -5,21 +5,36 @@
             "AssetId": "1",
             "Description": "This is a simple work order",
             "Instructions": "Fix this to completed this order",
-            "SafetyNotes": "Dont get hurt"
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
         },
         {
             "Id": "2",
             "AssetId": "3",
             "Description": "This is a simple work order",
             "Instructions": "Fix this to completed this order",
-            "SafetyNotes": "Dont get hurt"
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
         },
         {
             "Id": "3",
             "AssetId": "4",
             "Description": "This is a simple work order",
             "Instructions": "Fix this to completed this order",
-            "SafetyNotes": "Dont get hurt"
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
         }
         ,
         {
@@ -27,7 +42,38 @@
             "AssetId": "5",
             "Description": "This is a simple work order",
             "Instructions": "Fix this to completed this order",
-            "SafetyNotes": "Dont get hurt"
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
         }
-    ]    
+    ],
+    "workorderasset": [
+        {
+            "Id": "3",
+            "AssetId": "4",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": true,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        },
+        {
+            "Id": "4",
+            "AssetId": "5",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        }
+    ]
 }

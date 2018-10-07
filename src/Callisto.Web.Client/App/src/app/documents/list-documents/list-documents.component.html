@@ -1,0 +1,21 @@
+<dx-data-grid id="gridContainer"
+[remoteOperations]="true"
+[wordWrapEnabled]="true"
+[showBorders]="true">
+
+<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+<dxo-paging [pageSize]="100"></dxo-paging>
+<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+<dxi-column dataField="UserName" caption="User Name"></dxi-column>
+<dxi-column dataField="FileName" caption="File Name"></dxi-column>
+<dxi-column dataField="DocumentName" caption="Description"></dxi-column>
+<dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+</dx-data-grid>
+
+<dx-file-uploader #docUploader
+uploadUrl="https://js.devexpress.com/Content/Services/upload.aspx"
+[multiple]="false"
+accept="*"
+uploadMode="instantly"></dx-file-uploader>

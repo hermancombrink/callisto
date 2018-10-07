@@ -1,0 +1,22 @@
+<dx-data-grid id="gridContainer"
+[dataSource]="workOrders"  
+[remoteOperations]="true"
+[wordWrapEnabled]="true"
+[showBorders]="true">
+<dxo-filter-row
+[visible]="true"
+></dxo-filter-row>
+<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+<dxo-paging [pageSize]="100"></dxo-paging>
+<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+<dxi-column dataField="Completed" caption="Completed"></dxi-column>
+<dxi-column dataField="WorkOrderNumber" caption="WO #" ></dxi-column>
+<dxi-column dataField="Description" caption="Description"></dxi-column>
+<dxi-column dataField="RequestDate" caption="Request Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxi-column dataField="ApprovalDate" caption="Approval Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxi-column dataField="DueDate" caption="Due Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+</dx-data-grid>
+<button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button" (click)="createWorker()">
+<i class="fa fa-plus"></i>
+</button>

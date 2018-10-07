@@ -1,24 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CoreModule } from '../core/core.module';
-import { AlertModule, TypeaheadModule, ModalModule, TooltipModule, TabsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
-import { AssetRoutes } from './routes';
-import { ViewComponent } from './view/view.component';
-import { AssetService } from './asset.service';
-import { CreateModalComponent } from './create-modal/create-modal.component';
-import { DetailsComponent } from './details/details.component';
-import { TreeModule } from 'ng2-tree';
-import { FileUploadModule } from 'ng2-file-upload'
-import { LocationModule } from '../location/location.module';
-import { ModalsModule } from '../modals/modals.module';
-import { ViewSummaryComponent } from './view-summary/view-summary.component';
+
+import { AlertModule, TypeaheadModule, ModalModule, TooltipModule, TabsModule } from 'ngx-bootstrap';
 import {
   DxTreeListModule, DxAutocompleteModule, DxTextBoxModule, DxValidatorModule,
   DxCheckBoxModule, DxSelectBoxModule, DxNumberBoxModule, DxFormModule, DxLinearGaugeModule, DxCircularGaugeModule,
   DxTreeViewModule, DxDropDownBoxModule, DxDataGridModule, DxFileUploaderModule, DxDateBoxModule
 } from 'devextreme-angular';
+
+import { CoreModule } from '../core/core.module';
+import { AssetRoutes } from './routes';
+import { AssetService } from './asset.service';
+
+import { TreeModule } from 'ng2-tree';
+import { FileUploadModule } from 'ng2-file-upload'
+import { LocationModule } from '../location/location.module';
+import { ModalsModule } from '../modals/modals.module';
+
+import { ViewComponent } from './view/view.component';
+import { ViewSummaryComponent } from './view-summary/view-summary.component';
+import { ListWorkOrderComponent } from './list-workorder/list-workorder.component';
+import { ListMainScheduleComponent } from './list-main-schedule/list-main-schedule.component';
+import { CreateModalComponent } from './create-modal/create-modal.component';
+import { DetailsComponent } from './details/details.component';
+import { FinanceComponent } from './finance/finance.component';
+import { InspectionComponent } from './inspection/inspection.component';
+import { TrackGaugesComponent } from './track-gauges/track-gauges.component';
+import { DocumentsModule } from '../documents/documents.module';
+import { NotesModule } from '../notes/notes.module';
+
 
 @NgModule({
   imports: [
@@ -28,6 +40,8 @@ import {
     CoreModule,
     AlertModule,
     ModalsModule,
+    DocumentsModule,
+    NotesModule,
 
     TypeaheadModule,
     TooltipModule,
@@ -45,7 +59,12 @@ import {
     ViewComponent,
     CreateModalComponent,
     DetailsComponent,
-    ViewSummaryComponent
+    ViewSummaryComponent,
+    ListWorkOrderComponent,
+    ListMainScheduleComponent,
+    FinanceComponent,
+    InspectionComponent,
+    TrackGaugesComponent
   ],
   providers: [AssetService],
   exports: [RouterModule],

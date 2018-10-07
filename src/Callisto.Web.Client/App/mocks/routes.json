@@ -10,6 +10,7 @@
     "/asset/details/:id": "/assets/:id",
 
     "/workorder/create": "/workorder",
+    "/workorder/asset/:assetId": "/workorderasset",
 
     "/lookup/roles" : "/lookuproles",
     "/lookup/manager" : "/lookupmanager"

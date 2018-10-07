@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { DxFormComponent } from 'devextreme-angular';
-import { NewWorkOrderViewModel } from '../../workorder/models/newWorkOrderViewModel';
+import { BaseWorkOrderViewModel } from '../../workorder/models/WorkOrderViewModel';
 import { WorkerorderService } from '../../workorder/workerorder.service';
 import { RequestStatus } from '../../core/models/requestStatus';
 import { AlertService } from '../../core/alert.service';
@@ -16,7 +16,7 @@ export class CreateWorkorderComponent implements OnInit {
   assetId: string;
   assetName: string;
   @ViewChild('dxForm') dxForm: DxFormComponent;
-  model: NewWorkOrderViewModel = new NewWorkOrderViewModel();
+  model: BaseWorkOrderViewModel = new BaseWorkOrderViewModel();
 
   constructor(
     public bsModalRef: BsModalRef,

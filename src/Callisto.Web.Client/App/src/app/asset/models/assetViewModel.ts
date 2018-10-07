@@ -26,3 +26,30 @@ export class AssetDetailViewModel extends AssetViewModel {
   public Location: LocationViewModel;
   public ParentId: string;
 }
+
+export class AssetFinanceViewModel  {
+ public PurchaseDate: Date;
+ public OrderCost: number;
+ public PurchaseOrder: string;
+ public Supplier: string;
+ public ReceivedDate: Date;
+ public ExpectedLifeYears: number;
+ public ExpectedLifeHours: number;
+ public SalvageValue: number;
+ public DepreciationValue: number;
+ public CurrentValue: number;
+ public DepreciationType: number;
+ public MarketValue: number;
+ public ReplacementValue: number;
+ public ChangeOverValue: number;
+ public LastEvaluationDate: Date;
+ public NextEvaluationDate: Date;
+}
+
+export class AssetInspectionViewModel {
+public CertificateNumber: string;
+public CompletedBy: string;
+public Comment: string;
+public LastInspectionDate: Date;
+public NextInspectionDate: Date;
+}
