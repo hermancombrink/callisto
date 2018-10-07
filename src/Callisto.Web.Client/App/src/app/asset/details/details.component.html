@@ -263,7 +263,10 @@
               </ng-template>
             <app-inspection #inspection [assetId]="id" [assetName]="model.Name"></app-inspection>
           </tab>
-          <tab heading="Audit">
+          <tab>
+              <ng-template tabHeading>
+                  <i class="fa fa-history"></i> Audit
+              </ng-template>
               <dx-data-grid id="gridContainer"
               [dataSource]="model"  
               [remoteOperations]="true"
