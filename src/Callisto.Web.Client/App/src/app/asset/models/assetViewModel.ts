@@ -25,6 +25,15 @@ export class AssetDetailViewModel extends AssetViewModel {
   public PictureUrl: string;
   public Location: LocationViewModel;
   public ParentId: string;
+
+  public ReadingId: number;
+  public StatusId: number;
+  public CriticalId: number;
+
+  public ContractorId: number;
+  public CustomerId: number;
+  public DepartmentId: number;
+  public ManufacturerId: number;
 }
 
 export class AssetFinanceViewModel  {

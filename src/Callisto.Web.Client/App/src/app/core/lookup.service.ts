@@ -37,6 +37,22 @@ export class LookupService {
     return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/manager'), this.httpOptions);
   }
 
+  GetReadingTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/readingtype'), this.httpOptions);
+  }
+
+  GetStatusTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/statustype'), this.httpOptions);
+  }
+
+  GetCriticalTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/criticaltype'), this.httpOptions);
+  }
+
+  GetManufacturers(): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('dblookup/manufacturer'), this.httpOptions);
+  }
+
   private getUrl(endpoint: string): string {
     return `${this.apiUrl}${endpoint}`;
   }

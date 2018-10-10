@@ -54,7 +54,7 @@
         {
             "Id": "3",
             "AssetId": "4",
-            "Description": "This is a simple work order",
+            "Description": "This is a simple work order updated",
             "Instructions": "Fix this to completed this order",
             "SafetyNotes": "Dont get hurt",
             "Completed": true,

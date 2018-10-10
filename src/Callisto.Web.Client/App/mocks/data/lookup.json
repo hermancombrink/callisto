@@ -56,5 +56,101 @@
             "ParentKey": "",
             "Description": ""
         }
+    ],
+    "lookupreadingtype": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Amps", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Cycles", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "DEBT", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Flow", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 5,
+            "Name": "Hours", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupstatustype": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Decom", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Mothball", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Scrapped", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Sold", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupcriticaltype": [
+        {
+            "Key" : 0,
+            "Name": "Low", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Medium", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "High", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Urgent", 
+            "ParentKey": "",
+            "Description": ""
+        }
     ]
 }

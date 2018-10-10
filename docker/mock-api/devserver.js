@@ -4,14 +4,20 @@ const pause = require('connect-pause');
 const server = jsonServer.create();
 const middleware = jsonServer.defaults();
 const path = require('path');
-const router = jsonServer.router(path.join("mocks", "data.json"))
 var jsonConcat = require('json-concat');
 
+jsonConcat({
+    src: "mocks/data",
+    dest: "mocks/data.json",
+}, function(){
 
+});
 
 server.use(jsonServer.bodyParser)
 
 server.use(middleware);
+
+const router = jsonServer.router(path.join("mocks", "data.json"))
 
 router.render = (req, res) => {
     res.jsonp({
@@ -62,11 +68,7 @@ router.db._.id = "Id";
 server.use(router);
 server.use(pause(2000));
 
-jsonConcat({
-    src: "mocks/data",
-    dest: "mocks/data.json",
-}, function(){
-    server.listen(3000, () => {
-        console.log("mock server is running");
-    });
+server.listen(3000, () => {
+    console.log("mock server is running");
 });
+

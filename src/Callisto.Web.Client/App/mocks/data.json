@@ -1,4 +1,211 @@
 {
+    "customer": [
+      {
+       "Email" : "customer1@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer2@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer3@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   ,
+    "dblookupmanufacturer": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Johnnies Den", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Milo Mouse", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Paco Pup", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+
+,
+    "lookuproles": [
+        {
+            "Key" : 1,
+            "Name": "Developer", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Technician", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Manager", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Director", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupmanager": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "John Doe", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Jack Black", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Jane Fonda", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Barry White", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupreadingtype": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Amps", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Cycles", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "DEBT", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Flow", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 5,
+            "Name": "Hours", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupstatustype": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Decom", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Mothball", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Scrapped", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Sold", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupcriticaltype": [
+        {
+            "Key" : 0,
+            "Name": "Low", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Medium", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "High", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Urgent", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+,
     "signup": {
         "Email":"",
         "Password":"",
@@ -24,78 +231,6 @@
         "UserRole": ""
     }
 ,
- "team": [
-   {
-    "Email" : "john@mock.com",
-    "FirstName" : "John",
-    "LastName" : "Doe",
-    "ParentId" : "",
-    "PictureUrl" : ""
-   },
-   {
-    "Email" : "tom@mock.com",
-    "FirstName" : "Tom",
-    "LastName" : "Saywer",
-    "ParentId" : "",
-    "PictureUrl" : ""
-   },
-   {
-    "Email" : "dick@mock.com",
-    "FirstName" : "Dick",
-    "LastName" : "Tracy",
-    "ParentId" : "",
-    "PictureUrl" : ""
-   }
- ]
-,
-    "customer": [
-      {
-       "Email" : "customer1@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "One",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer2@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Two",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer3@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Three",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      }
-    ]
-   ,
-    "vendor": [
-      {
-       "Email" : "vendor1@mock.com",
-       "FirstName" : "Vendor",
-       "LastName" : "One",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "vendor2@mock.com",
-       "FirstName" : "Vendor",
-       "LastName" : "Two",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "vendor3@mock.com",
-       "FirstName" : "Vendor",
-       "LastName" : "Three",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      }
-    ]
-   ,
     "assets": [
         { 
             "Id" : 0,
@@ -227,65 +362,6 @@
     }
     ]
 ,
-    "lookuproles": [
-        {
-            "Key" : 1,
-            "Name": "Developer", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 2,
-            "Name": "Technician", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 3,
-            "Name": "Manager", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 4,
-            "Name": "Director", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ],
-    "lookupmanager": [
-        {
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 1,
-            "Name": "John Doe", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 2,
-            "Name": "Jack Black", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 3,
-            "Name": "Jane Fonda", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Key" : 4,
-            "Name": "Barry White", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ]
-,
     "workorder": [
         {
             "Id": "1",
@@ -341,7 +417,7 @@
         {
             "Id": "3",
             "AssetId": "4",
-            "Description": "This is a simple work order",
+            "Description": "This is a simple work order updated",
             "Instructions": "Fix this to completed this order",
             "SafetyNotes": "Dont get hurt",
             "Completed": true,
@@ -363,4 +439,52 @@
             "DueDate": "2018-01-10"
         }
     ]
+,
+    "vendor": [
+      {
+       "Email" : "vendor1@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor2@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor3@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   ,
+ "team": [
+   {
+    "Email" : "john@mock.com",
+    "FirstName" : "John",
+    "LastName" : "Doe",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "tom@mock.com",
+    "FirstName" : "Tom",
+    "LastName" : "Saywer",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "dick@mock.com",
+    "FirstName" : "Dick",
+    "LastName" : "Tracy",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   }
+ ]
 }

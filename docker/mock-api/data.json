@@ -1,0 +1,366 @@
+{
+    "signup": {
+        "Email":"",
+        "Password":"",
+        "RememberMe":0
+    },
+    "signout": {
+    }, 
+    "user":{
+        "Email": "mock@test.com",
+        "UserType": 0,
+        "FirstName": "Mock",
+        "LastName": "User",
+        "Company": "Mocking App",
+        "SubscriptionId": "12345",
+        "UserRole": "",
+        "ProfileCompleted": true,
+        "Accepted": true
+    },
+    "profile": {
+        "id": 0,
+        "FirstName" : "",
+        "LastName": "",
+        "UserRole": ""
+    }
+,
+    "customer": [
+      {
+       "Email" : "customer1@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer2@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer3@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   ,
+    "vendor": [
+      {
+       "Email" : "vendor1@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor2@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "vendor3@mock.com",
+       "FirstName" : "Vendor",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   ,
+ "team": [
+   {
+    "Email" : "john@mock.com",
+    "FirstName" : "John",
+    "LastName" : "Doe",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "tom@mock.com",
+    "FirstName" : "Tom",
+    "LastName" : "Saywer",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   },
+   {
+    "Email" : "dick@mock.com",
+    "FirstName" : "Dick",
+    "LastName" : "Tracy",
+    "ParentId" : "",
+    "PictureUrl" : ""
+   }
+ ]
+,
+    "location": [ 
+        {
+        "City" : "Hamilton",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "123 Test, Hamilton",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "1",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Te Rapa",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Waikato"
+    },
+    {
+        "City" : "Auckland",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "234 Test, Auckland",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "2",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Huntly",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Auckland"
+    }
+    ]
+,
+    "lookuproles": [
+        {
+            "Key" : 1,
+            "Name": "Developer", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Technician", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Manager", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Director", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupmanager": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "John Doe", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Jack Black", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Jane Fonda", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 4,
+            "Name": "Barry White", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+,
+    "workorder": [
+        {
+            "Id": "1",
+            "AssetId": "1",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        },
+        {
+            "Id": "2",
+            "AssetId": "3",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        },
+        {
+            "Id": "3",
+            "AssetId": "4",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        }
+        ,
+        {
+            "Id": "4",
+            "AssetId": "5",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        }
+    ],
+    "workorderasset": [
+        {
+            "Id": "3",
+            "AssetId": "4",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": true,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        },
+        {
+            "Id": "4",
+            "AssetId": "5",
+            "Description": "This is a simple work order",
+            "Instructions": "Fix this to completed this order",
+            "SafetyNotes": "Dont get hurt",
+            "Completed": false,
+            "WorkOrderNumber": "ABCD",
+            "RequestDate": "2018-01-01",
+            "ApprovalDate": "2018-01-03",
+            "DueDate": "2018-01-10"
+        }
+    ]
+,
+    "assets": [
+        { 
+            "Id" : 0,
+            "AssetNumber": "ABC123",
+            "Name": "Mock1",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 1,
+            "AssetNumber": "ABC124",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 2,
+            "AssetNumber": "ABC125",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 3,
+            "AssetNumber": "ABC123",
+            "Name": "Mock3",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 4,
+            "AssetNumber": "ABC123",
+            "Name": "Mock4",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 5,
+            "AssetNumber": "ABC123",
+            "Name": "Mock5",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 6,
+            "AssetNumber": "ABC123",
+            "Name": "Mock6",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        }
+    ]
+}

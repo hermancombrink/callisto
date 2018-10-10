@@ -17,6 +17,8 @@ import { ListWorkOrderComponent } from '../list-workorder/list-workorder.compone
 import { ListMainScheduleComponent } from '../list-main-schedule/list-main-schedule.component';
 import { FinanceComponent } from '../finance/finance.component';
 import { InspectionComponent } from '../inspection/inspection.component';
+import { LookupViewModel } from '../../core/models/lookupViewModel';
+import { LookupService } from '../../core/lookup.service';
 
 @Component({
   selector: 'app-details',
@@ -44,6 +46,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
   hasBaseDropZoneOver = false;
   mapVisible = false;
   parentTree: AssetTreeViewModel[];
+  stLookupReadingType: LookupViewModel[];
+  stLookupStatusType: LookupViewModel[];
+  stLookupCriticalType: LookupViewModel[];
+
+  dbLookupManufacturer: LookupViewModel[];
 
   bsModalRef: BsModalRef;
   modalSub: ISubscription;
@@ -55,6 +62,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public _location: Location,
     private modalService: BsModalService,
+    private lookupService: LookupService
   ) {
   }
 
@@ -64,6 +72,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.setupAsset();
       this.setUploader();
     });
+
+    this.lookupService.GetReadingTypes().subscribe(c => { this.stLookupReadingType = c.Result; });
+    this.lookupService.GetStatusTypes().subscribe(c => { this.stLookupStatusType = c.Result; });
+    this.lookupService.GetCriticalTypes().subscribe(c => { this.stLookupCriticalType = c.Result; });
+    this.lookupService.GetManufacturers().subscribe(c => { this.dbLookupManufacturer = c.Result; });
 
     this.modalSub = this.modalService.onHidden.subscribe(c => {
       this.tabs.tabs[0].active = true; // reset work orders to active tab

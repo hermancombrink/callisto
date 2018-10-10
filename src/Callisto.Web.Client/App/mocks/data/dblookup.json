@@ -1,0 +1,29 @@
+{
+    "dblookupmanufacturer": [
+        {
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 1,
+            "Name": "Johnnies Den", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 2,
+            "Name": "Milo Mouse", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Key" : 3,
+            "Name": "Paco Pup", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+
+}

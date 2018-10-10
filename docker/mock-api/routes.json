@@ -13,10 +13,5 @@
     "/workorder/asset/:assetId": "/workorderasset",
 
     "/lookup/roles" : "/lookuproles",
-    "/lookup/manager" : "/lookupmanager",
-    "/lookup/readingtype" : "/lookupreadingtype",
-    "/lookup/statustype" : "/lookupstatustype",
-    "/lookup/criticaltype" : "/lookupcriticaltype",
-
-    "/dblookup/manufacturer" : "/dblookupmanufacturer"
+    "/lookup/manager" : "/lookupmanager"
 }

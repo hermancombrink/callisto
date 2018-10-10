@@ -78,15 +78,15 @@
             <dxi-item dataField="AssetNumber">
                 <dxo-label text="Model #"></dxo-label>
             </dxi-item>
-            <dxi-item dataField="AssetNumber" editorType="dxSelectBox" [editorOptions]="{ 
-              dataSource: manager,
+            <dxi-item dataField="ReadingId" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: stLookupReadingType,
               displayExpr: 'Name',
               valueExpr: 'Key'
              }">
               <dxo-label text="Reading Type"></dxo-label>
             </dxi-item>  
-            <dxi-item dataField="AssetNumber" editorType="dxSelectBox" [editorOptions]="{ 
-              dataSource: manager,
+            <dxi-item dataField="StatusId" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: stLookupStatusType,
               displayExpr: 'Name',
               valueExpr: 'Key'
              }">
@@ -117,14 +117,11 @@
                   </div>
                 </dx-drop-down-box>
             </dxi-item>
-            <dxi-item dataField="Criticality" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
-            items : 
-              [
-              'Low', 
-              'Normal', 
-              'Urgent', 
-              'High'
-              ]}">
+            <dxi-item dataField="CriticalId" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
+            dataSource : stLookupCriticalType,
+            displayExpr: 'Name',
+            valueExpr: 'Key'
+          }">
                 <dxo-label text="Criticality"></dxo-label>
              </dxi-item>
             <dxi-item dataField="AssetNumber" editorType="dxCheckBox">
@@ -141,37 +138,37 @@
               <dxi-item dataField="FinAssetNumber">
                   <dxo-label text="Finance Asset #"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: manager,
+              <dxi-item dataField="ManufacturerId" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: dbLookupManufacturer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Manufacturer"></dxo-label>
               </dxi-item>  
-              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: manager,
+              <dxi-item dataField="DepartmentId" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: dbLookupDepartment,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Department"></dxo-label>
               </dxi-item>  
-              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: manager,
+              <dxi-item dataField="CustomerId" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: dbLookupCustomer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Customer"></dxo-label>
               </dxi-item>  
-              <dxi-item dataField="AssetNumber" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: manager,
+              <dxi-item dataField="ContractorId" editorType="dxLookup" [editorOptions]="{ 
+                dataSource: dbLookupContractor,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Contractor"></dxo-label>
               </dxi-item>  
-    
           </dxi-item>
-          <dxi-item itemType="group"caption="Dimensions">
+          <dxi-item itemType="group">
+          <dxi-item itemType="group" caption="Dimensions">
               <dxi-item dataField="Height"  editorType="dxNumberBox">
                   <dxo-label text="Height"></dxo-label>
               </dxi-item>
@@ -184,7 +181,14 @@
               <dxi-item dataField="Weight"  editorType="dxNumberBox">
                   <dxo-label text="Weight"></dxo-label>
               </dxi-item>
-          </dxi-item>      
+          </dxi-item>   
+          <dxi-item itemType="group" caption="Tags">
+            <dxi-item dataField="Tags"  editorType="dxTagBox">
+                <dxo-label text="Tags"></dxo-label>
+            </dxi-item>
+            
+        </dxi-item>
+        </dxi-item>     
         </dx-form>
         <hr />
         <tabset>
