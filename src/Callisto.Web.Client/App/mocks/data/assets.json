@@ -70,13 +70,27 @@
             "AssetNumber": "ABC123",
             "Name": "Mock5",
             "Description" : "Mock Description",
+            "ReadingType": 2,
+            "CriticalType": 2,
+            "ContractorId": 1,
             "Children" : 0,
             "ParentId" : 4,
             "HasLocation": true,
             "Latitude" : 0,
             "Longitude" : 0,
             "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
+            "PictureUrl": "",
+            "FinanceData": {
+                "PurchaseDate": "2018-01-01",
+                "DepreciationType": 2
+            },
+            "DimensionData": {
+
+            },
+            "LocationDate": {
+                
+            },
+            "Tags": ["Engineering", "New"]
         },
         { 
             "Id" : 6,

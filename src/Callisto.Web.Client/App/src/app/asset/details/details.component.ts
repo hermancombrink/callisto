@@ -19,6 +19,9 @@ import { FinanceComponent } from '../finance/finance.component';
 import { InspectionComponent } from '../inspection/inspection.component';
 import { LookupViewModel } from '../../core/models/lookupViewModel';
 import { LookupService } from '../../core/lookup.service';
+import { DatasourceFactoryService } from '../../core/datasource-factory.service';
+import DataSource from "devextreme/data/data_source";
+import { UploadPicComponent } from '../../documents/upload-pic/upload-pic.component';
 
 @Component({
   selector: 'app-details',
@@ -46,11 +49,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
   hasBaseDropZoneOver = false;
   mapVisible = false;
   parentTree: AssetTreeViewModel[];
-  stLookupReadingType: LookupViewModel[];
-  stLookupStatusType: LookupViewModel[];
-  stLookupCriticalType: LookupViewModel[];
+  lkReadingType: LookupViewModel[];
+  lkStatusType: LookupViewModel[];
+  lkCriticalType: LookupViewModel[];
 
-  dbLookupManufacturer: LookupViewModel[];
+  dblkManufacturer: DataSource;
+  dblkDepartment: DataSource;
+  dblkCustomer: DataSource;
+  dblkContractor: DataSource;
+  dblkTags: DataSource;
 
   bsModalRef: BsModalRef;
   modalSub: ISubscription;
@@ -59,24 +66,41 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private assetService: AssetService,
     private alertService: AlertService,
-    private authService: AuthService,
     public _location: Location,
     private modalService: BsModalService,
-    private lookupService: LookupService
+    private lookupService: LookupService,
+    private datasourceFactory: DatasourceFactoryService
   ) {
+    this.dblkTags = this.datasourceFactory.GetTagLookup("tags");
+
+    this.dblkManufacturer = this.datasourceFactory.GetAutoCompleteLookup("manufacturer");
+    this.dblkDepartment = this.datasourceFactory.GetAutoCompleteLookup("department");
+    this.dblkCustomer = this.datasourceFactory.GetAutoCompleteLookup("customer");
+    this.dblkContractor = this.datasourceFactory.GetAutoCompleteLookup("contractor");
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.setupAsset();
-      this.setUploader();
+
+      this.assetService.GetAssetDetail(this.id).subscribe(c => {
+        if (c.Status !== RequestStatus.Success) {
+          this.alertService.showWarningMessage(c.FriendlyMessage);
+        } else {
+          this.model = c.Result;
+          this.assetService.GetAssetTreeParents(this.id).subscribe(t => {
+            this.parentTree = t.Result;
+          });
+        }
+      }, e => {
+        this.alertService.showErrorMessage('Failed to load asset details');
+      });
+
     });
 
-    this.lookupService.GetReadingTypes().subscribe(c => { this.stLookupReadingType = c.Result; });
-    this.lookupService.GetStatusTypes().subscribe(c => { this.stLookupStatusType = c.Result; });
-    this.lookupService.GetCriticalTypes().subscribe(c => { this.stLookupCriticalType = c.Result; });
-    this.lookupService.GetManufacturers().subscribe(c => { this.dbLookupManufacturer = c.Result; });
+    this.lookupService.GetLookupData("readingtype").subscribe(x => { this.lkReadingType = x.Result; });
+    this.lookupService.GetLookupData("statustype").subscribe(x => { this.lkStatusType = x.Result; });
+    this.lookupService.GetLookupData("criticaltype").subscribe(x => { this.lkCriticalType = x.Result; });
 
     this.modalSub = this.modalService.onHidden.subscribe(c => {
       this.tabs.tabs[0].active = true; // reset work orders to active tab
@@ -94,7 +118,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (!isvalid.isValid) {
       return;
     }
-    this.model.Location = this.locationPanel.model;
+    this.model.LocationData = this.locationPanel.model;
     this.model.ParentId = this.model.ParentId && this.model.ParentId !== '0' ? this.model.ParentId : null;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
@@ -105,10 +129,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }, e => {
       this.alertService.showErrorMessage();
     });
-  }
-
-  fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
   }
 
   showMap() {
@@ -131,40 +151,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.alertService.showErrorMessage();
       });
     }, true);
-  }
-
-  private setupAsset() {
-    this.assetService.GetAssetDetail(this.id).subscribe(c => {
-      if (c.Status !== RequestStatus.Success) {
-        this.alertService.showWarningMessage(c.FriendlyMessage);
-      } else {
-        this.model = c.Result;
-        this.locationPanel.initAutoComplete();
-        this.locationPanel.initLocation(this.model.Location);
-
-        this.assetService.GetAssetTreeParents(this.id).subscribe(t => {
-          this.parentTree = t.Result;
-        });
-      }
-    }, e => {
-      this.alertService.showErrorMessage('Failed to load asset details');
-    });
-  }
-
-  private setUploader() {
-    this.uploader = new FileUploader({
-      url: `${environment.apiUrl}asset/pic/${this.id}`,
-      autoUpload: true,
-      authToken: this.authService.authToken
-    });
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-      let result = <RequestResult>JSON.parse(response)
-      if (status === 200 && result.Status === RequestStatus.Success) {
-        this.model.PictureUrl = result.Result;
-      } else {
-        this.alertService.showWarningMessage(result.FriendlyMessage);
-      }
-    };
   }
 
   syncTreeViewSelection(e) {
@@ -196,7 +182,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
       case 'finance' :
       {
-        this.tabFinance.refresh();
+        this.tabFinance.initComponent(this.model.FinanceData);
         break;
       }
       case 'inspection' :
@@ -204,6 +190,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.tabInspection.refresh();
         break;
       }
+      case 'location' :
+      {
+        this.locationPanel.initComponent(this.model.LocationData);
+        break;
+      }
     };
   }
 }
+

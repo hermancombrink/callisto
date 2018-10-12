@@ -38,11 +38,11 @@ export class ProfileComponent implements OnInit {
       this.model.LastName = c.LastName;
     });
 
-    this.lookupService.GetJobRoles().subscribe(c => {
+    this.lookupService.GetLookupData("roles").subscribe(c => {
       this.roles = c.Result;
     });
 
-    this.lookupService.GetJobManager().subscribe(c => {
+    this.lookupService.GetLookupData("manager").subscribe(c => {
       this.manager = c.Result;
     });
   }

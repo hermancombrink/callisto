@@ -12,11 +12,29 @@
     "/workorder/create": "/workorder",
     "/workorder/asset/:assetId": "/workorderasset",
 
-    "/lookup/roles" : "/lookuproles",
-    "/lookup/manager" : "/lookupmanager",
-    "/lookup/readingtype" : "/lookupreadingtype",
-    "/lookup/statustype" : "/lookupstatustype",
-    "/lookup/criticaltype" : "/lookupcriticaltype",
+    "/lookup/roles\\?filter=:filter" : "/lookuproles",
+    "/lookup/manager\\?filter=:filter" : "/lookupmanager",
+    "/lookup/readingtype\\?filter=:filter" : "/lookupreadingtype",
+    "/lookup/statustype\\?filter=:filter" : "/lookupstatustype",
+    "/lookup/criticaltype\\?filter=:filter" : "/lookupcriticaltype",
+    "/lookup/depreciationtype\\?filter=:filter" : "/lookupdepreciationtype",
 
-    "/dblookup/manufacturer" : "/dblookupmanufacturer"
+    "/lookup/roles/:id\\?filter=:filter" : "/lookuproles/:id",
+    "/lookup/manager/:id\\?filter=:filter" : "/lookupmanager/:id",
+    "/lookup/readingtype/:id\\?filter=:filter" : "/lookupreadingtype/:id",
+    "/lookup/statustype/:id\\?filter=:filter" : "/lookupstatustype/:id",
+    "/lookup/criticaltype/:id\\?filter=:filter" : "/lookupcriticaltype/:id",
+    "/lookup/depreciationtype/:id\\?filter=:filter" : "/lookupdepreciationtype/:id",
+
+    "/dblookup/manufacturer\\?filter=:filter" : "/dblookupmanufacturer",
+    "/dblookup/customer\\?filter=:filter" : "/dblookupcustomer",
+    "/dblookup/department\\?filter=:filter" : "/dblookupdepartment",
+    "/dblookup/contractor\\?filter=:filter" : "/dblookupcontractor",
+    "/dblookup/tags\\?filter=:filter" : "/dblookuptags",
+
+    "/dblookup/manufacturer/:id\\?filter=:filter" : "/dblookupmanufacturer/:id",
+    "/dblookup/customer/:id\\?filter=:filter" : "/dblookupcustomer/:id",
+    "/dblookup/department/:id\\?filter=:filter" : "/dblookupdepartment/:id",
+    "/dblookup/contractor/:id\\?filter=:filter" : "/dblookupcontractor/:id",
+    "/dblookup/tags/:id\\?filter=:filter" : "/dblookuptags/:id"
 }

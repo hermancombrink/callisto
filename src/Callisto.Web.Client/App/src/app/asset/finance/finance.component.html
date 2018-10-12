@@ -41,7 +41,11 @@ validationGroup="formData"
        <dxi-item dataField="CurrentValue" editorType="dxNumberBox" [editorOptions]="{ format : '$ #,##0.##' }">
           <dxo-label text="Current Value"></dxo-label>
        </dxi-item>
-       <dxi-item dataField="DepreciationType" editorType="dxSelectBox">
+       <dxi-item dataField="DepreciationType" editorType="dxLookup" [editorOptions]="{ 
+        dataSource: lkDepreciationType,
+        displayExpr: 'Name',
+        valueExpr: 'Key'
+       }">
           <dxo-label text="Depreciation Type"></dxo-label>
        </dxi-item>
     </dxi-item>

@@ -44,17 +44,8 @@
            </div>
            <div class="col-sm-3">
               <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-4 text-center">
-                    <img class="picture" [src]="model.PictureUrl" *ngIf="!!model.PictureUrl">
-                    <img class="picture" src="/app/assets/images/no-image.jpg" *ngIf="!model.PictureUrl">
-                  </div>
-                  <div class=" col-sm-4">
-                    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader"
-                      class="well my-drop-zone">
-                      Upload new display picture
-                    </div>
-                  </div>
-                </div>
+                <app-upload-pic [entityId]="id" [entityType]="'asset'" [pictureUrl]="model.PictureUrl"></app-upload-pic> 
+              </div>
             </div>
         </div>
 
@@ -78,15 +69,15 @@
             <dxi-item dataField="AssetNumber">
                 <dxo-label text="Model #"></dxo-label>
             </dxi-item>
-            <dxi-item dataField="ReadingId" editorType="dxSelectBox" [editorOptions]="{ 
-              dataSource: stLookupReadingType,
+            <dxi-item dataField="ReadingType" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: lkReadingType,
               displayExpr: 'Name',
               valueExpr: 'Key'
              }">
               <dxo-label text="Reading Type"></dxo-label>
             </dxi-item>  
-            <dxi-item dataField="StatusId" editorType="dxSelectBox" [editorOptions]="{ 
-              dataSource: stLookupStatusType,
+            <dxi-item dataField="StatusType" editorType="dxSelectBox" [editorOptions]="{ 
+              dataSource: lkStatusType,
               displayExpr: 'Name',
               valueExpr: 'Key'
              }">
@@ -117,14 +108,14 @@
                   </div>
                 </dx-drop-down-box>
             </dxi-item>
-            <dxi-item dataField="CriticalId" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
-            dataSource : stLookupCriticalType,
+            <dxi-item dataField="CriticalType" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
+            dataSource : lkCriticalType,
             displayExpr: 'Name',
             valueExpr: 'Key'
           }">
                 <dxo-label text="Criticality"></dxo-label>
              </dxi-item>
-            <dxi-item dataField="AssetNumber" editorType="dxCheckBox">
+            <dxi-item dataField="IsActive" editorType="dxCheckBox">
                <dxo-label text="Active"></dxo-label>
             </dxi-item>
           </dxi-item>
@@ -132,35 +123,35 @@
               <dxi-item dataField="SerialNumber">
                   <dxo-label text="Serial #"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="BarcodeNumer">
+              <dxi-item dataField="BarcodeNumber">
                   <dxo-label text="Barcode #"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="FinAssetNumber">
+              <dxi-item dataField="FinanceAssetNumber">
                   <dxo-label text="Finance Asset #"></dxo-label>
               </dxi-item>
               <dxi-item dataField="ManufacturerId" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: dbLookupManufacturer,
+                dataSource: dblkManufacturer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Manufacturer"></dxo-label>
               </dxi-item>  
               <dxi-item dataField="DepartmentId" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: dbLookupDepartment,
+                dataSource: dblkDepartment,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Department"></dxo-label>
               </dxi-item>  
               <dxi-item dataField="CustomerId" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: dbLookupCustomer,
+                dataSource: dblkCustomer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
                 <dxo-label text="Customer"></dxo-label>
               </dxi-item>  
               <dxi-item dataField="ContractorId" editorType="dxLookup" [editorOptions]="{ 
-                dataSource: dbLookupContractor,
+                dataSource: dblkContractor,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
@@ -169,21 +160,27 @@
           </dxi-item>
           <dxi-item itemType="group">
           <dxi-item itemType="group" caption="Dimensions">
-              <dxi-item dataField="Height"  editorType="dxNumberBox">
+              <dxi-item dataField="DimensionData.Height"  editorType="dxNumberBox">
                   <dxo-label text="Height"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="Width"  editorType="dxNumberBox">
+              <dxi-item dataField="DimensionData.Width"  editorType="dxNumberBox">
                   <dxo-label text="Width"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="Depth"  editorType="dxNumberBox">
+              <dxi-item dataField="DimensionData.Depth"  editorType="dxNumberBox">
                   <dxo-label text="Depth"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="Weight"  editorType="dxNumberBox">
+              <dxi-item dataField="DimensionData.Weight" editorType="dxNumberBox">
                   <dxo-label text="Weight"></dxo-label>
               </dxi-item>
           </dxi-item>   
           <dxi-item itemType="group" caption="Tags">
-            <dxi-item dataField="Tags"  editorType="dxTagBox">
+            <dxi-item dataField="Tags"  editorType="dxTagBox"
+            [editorOptions]="{ 
+              minSearchLength: 2,
+              dataSource: dblkTags,
+              displayExpr: 'Name',
+              valueExpr: 'Name'
+             }">
                 <dxo-label text="Tags"></dxo-label>
             </dxi-item>
             
@@ -208,7 +205,7 @@
               <ng-template tabHeading>
                   <i class="fa fa-calculator"></i> Financial
               </ng-template>
-             <app-finance #finance [assetId]="id" [assetName]="model.Name"></app-finance>
+             <app-finance #finance [assetId]="id"></app-finance>
           </tab>
           <tab>
               <ng-template tabHeading>
@@ -222,7 +219,7 @@
               </ng-template>
               <app-list-notes [entityType]="'asset'" [entityId]="id"></app-list-notes>
           </tab>
-          <tab>
+          <tab (select)="onTabChange('location')">
               <ng-template tabHeading>
                   <i class="fa fa-map"></i> Location
               </ng-template>
@@ -241,7 +238,7 @@
                       <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
                         <div class="dx-texteditor-container">
                           <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
-                            spellcheck="false" [value]="model.Location?.FormattedAddress">
+                            spellcheck="false" [value]="model.LocationData?.FormattedAddress">
                           <div class="dx-texteditor-buttons-container">
                             <button type="button" class="btn btn-xs" (click)="showMap()" [ngClass]="mapVisible ? 'btn-default': 'btn-primary'">
                               <i class="fa fa-map"></i>

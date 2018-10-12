@@ -1,26 +1,149 @@
 {
     "dblookupmanufacturer": [
         {
+            "Id": 0,
             "Key" : 0,
             "Name": "N/A", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "Johnnies Den", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "Milo Mouse", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "Paco Pup", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookupdepartment": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Finance", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Engineering", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "IT", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookupcustomer": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Customer Joe", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Customer Jane", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Customer John", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],"dblookupcontractor": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Contractor Dan", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Contractor Sam", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Contractor Pam", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookuptags": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Demo", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "New", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Engineering", 
             "ParentKey": "",
             "Description": ""
         }

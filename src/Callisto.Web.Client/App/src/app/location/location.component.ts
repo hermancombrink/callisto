@@ -2,7 +2,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { } from 'googlemaps';
-import { ViewChild, ElementRef, NgZone, } from '@angular/core';
+import { ViewChild, NgZone, } from '@angular/core';
 import { LocationViewModel } from './models/locationViewModel';
 
 @Component({
@@ -22,13 +22,16 @@ export class LocationComponent implements OnInit {
 
   @ViewChild('map') map: AgmMap;
 
-  private hasLoaded = false;
-
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.setCurrentPosition();
   }
+
+  initComponent(locModel: LocationViewModel) {
+    this.initAutoComplete();
+    this.initLocation(locModel);
+   }
 
   initAutoComplete() {
     this.mapsAPILoader.load().then(() => {

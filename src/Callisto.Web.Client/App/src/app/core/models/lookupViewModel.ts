@@ -3,4 +3,5 @@ export class LookupViewModel {
     public Name: string;
     public ParentKey: number;
     public Description: string;
+    public Category: string;
 }

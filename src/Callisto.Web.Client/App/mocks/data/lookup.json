@@ -1,24 +1,28 @@
 {
     "lookuproles": [
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "Developer", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "Technician", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "Manager", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 4,
             "Key" : 4,
             "Name": "Director", 
             "ParentKey": "",
@@ -27,30 +31,35 @@
     ],
     "lookupmanager": [
         {
+            "Id": 0,
             "Key" : 0,
             "Name": "N/A", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "John Doe", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "Jack Black", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "Jane Fonda", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 4,
             "Key" : 4,
             "Name": "Barry White", 
             "ParentKey": "",
@@ -59,36 +68,42 @@
     ],
     "lookupreadingtype": [
         {
+            "Id": 0,
             "Key" : 0,
             "Name": "N/A", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "Amps", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "Cycles", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "DEBT", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 4,
             "Key" : 4,
             "Name": "Flow", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 5,
             "Key" : 5,
             "Name": "Hours", 
             "ParentKey": "",
@@ -97,30 +112,35 @@
     ],
     "lookupstatustype": [
         {
+            "Id": 0,
             "Key" : 0,
             "Name": "N/A", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "Decom", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "Mothball", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "Scrapped", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 4,
             "Key" : 4,
             "Name": "Sold", 
             "ParentKey": "",
@@ -129,26 +149,81 @@
     ],
     "lookupcriticaltype": [
         {
+            "Id": 0,
             "Key" : 0,
             "Name": "Low", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 1,
             "Key" : 1,
             "Name": "Medium", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 2,
             "Key" : 2,
             "Name": "High", 
             "ParentKey": "",
             "Description": ""
         },
         {
+            "Id": 3,
             "Key" : 3,
             "Name": "Urgent", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "lookupdepreciationtype": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Straight Line", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Sum of Years", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Fixed Declining Balance", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 4,
+            "Key" : 4,
+            "Name": "Double Declining Balance", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 5,
+            "Key" : 5,
+            "Name": "Double Declining Balance (With Straight Line)", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 6,
+            "Key" : 6,
+            "Name": "Reducing Balance", 
             "ParentKey": "",
             "Description": ""
         }

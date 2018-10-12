@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "mock:api": "node \"./mocks/devserver.js\"",
-    "mock:app": "ng serve --configuration=mock --watch --host=192.168.20.8 --disable-host-check"
+    "mock:app": "ng serve --configuration=mock --watch --host=0.0.0.0 --disable-host-check"
   },
   "private": true,
   "dependencies": {

@@ -29,28 +29,20 @@ export class LookupService {
     };
   }
 
-  GetJobRoles(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/roles'), this.httpOptions);
+  GetLookupData(lookUpType: string, filter: string = '', skip: number = 0, take: number = 10, sort: boolean = true): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl(`lookup/${lookUpType}?filter=${filter}&skip=${skip}&take=${take}&sortAsc=${sort}`), this.httpOptions);
   }
 
-  GetJobManager(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/manager'), this.httpOptions);
+  GetLookupDataById(lookUpType: string, id: number, filter: string = '', skip: number = 10, take: number = 100, sort: boolean = true): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl(`lookup/${lookUpType}/${id ? id : 0}?filter=${filter}&skip=${skip}&take=${take}&sortAsc=${sort}`), this.httpOptions);
   }
 
-  GetReadingTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/readingtype'), this.httpOptions);
+  GetDBLookupData(lookUpType: string, filter: string = '', skip: number = 0, take: number = 10, sort: boolean = true): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl(`dblookup/${lookUpType}?filter=${filter}&skip=${skip}&take=${take}&sortAsc=${sort}`), this.httpOptions);
   }
 
-  GetStatusTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/statustype'), this.httpOptions);
-  }
-
-  GetCriticalTypes(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('lookup/criticaltype'), this.httpOptions);
-  }
-
-  GetManufacturers(): Observable<RequestTypedResult<LookupViewModel[]>> {
-    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl('dblookup/manufacturer'), this.httpOptions);
+  GetDBLookupDataById(lookUpType: string, id: number, filter: string = '', skip: number = 0, take: number = 10, sort: boolean = true): Observable<RequestTypedResult<LookupViewModel[]>> {
+    return this.http.get<RequestTypedResult<LookupViewModel[]>>(this.getUrl(`dblookup/${lookUpType}/${id ? id : 0}?filter=${filter}&skip=${skip}&take=${take}&sortAsc=${sort}`), this.httpOptions);
   }
 
   private getUrl(endpoint: string): string {

@@ -23,34 +23,55 @@ export class AssetTreeViewModel extends AssetViewModel {
 
 export class AssetDetailViewModel extends AssetViewModel {
   public PictureUrl: string;
-  public Location: LocationViewModel;
+
+  public ModelNumber: string;
+  public SerialNumber: string;
+  public BarcodeNumber: string;
+  public FinanceAssetNumber: string;
+
+  public ReadingType: number;
+  public StatusType: number;
+  public CriticalType: number;
+
   public ParentId: string;
 
-  public ReadingId: number;
-  public StatusId: number;
-  public CriticalId: number;
+  public IsActive: boolean;
 
   public ContractorId: number;
   public CustomerId: number;
   public DepartmentId: number;
   public ManufacturerId: number;
+
+  public DimensionData: AssetDimensionViewModel = new AssetDimensionViewModel();
+
+  public FinanceData: AssetFinanceViewModel = new AssetFinanceViewModel();
+
+  public LocationData: LocationViewModel = new LocationViewModel();
+
+  public Tags: string[];
 }
 
 export class AssetFinanceViewModel  {
+
  public PurchaseDate: Date;
- public OrderCost: number;
+
+ public PurchaseCost: number;
  public PurchaseOrder: string;
  public Supplier: string;
- public ReceivedDate: Date;
+
  public ExpectedLifeYears: number;
  public ExpectedLifeHours: number;
  public SalvageValue: number;
  public DepreciationValue: number;
  public CurrentValue: number;
+
  public DepreciationType: number;
+
  public MarketValue: number;
  public ReplacementValue: number;
  public ChangeOverValue: number;
+
+ public ReceivedDate: Date;
  public LastEvaluationDate: Date;
  public NextEvaluationDate: Date;
 }
@@ -61,4 +82,11 @@ public CompletedBy: string;
 public Comment: string;
 public LastInspectionDate: Date;
 public NextInspectionDate: Date;
+}
+
+export class AssetDimensionViewModel {
+  public Height: number;
+  public Width: number;
+  public Depth: number;
+  public Weight: number;
 }
