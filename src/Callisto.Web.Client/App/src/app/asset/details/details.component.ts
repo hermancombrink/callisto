@@ -102,7 +102,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.lookupService.GetLookupData("criticaltype").subscribe(x => { this.lkCriticalType = x.Result; });
 
     this.modalSub = this.modalService.onHidden.subscribe(c => {
+     try {
       this.tabs.tabs[0].active = true; // reset work orders to active tab
+    } catch {}
     });
   }
 
