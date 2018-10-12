@@ -30,6 +30,7 @@
       <app-result-error #error></app-result-error>
 
       <button [disabled]="!form.form.valid" type="submit" class="btn btn-primary block full-width m-b">Login</button>
+      <button type="button" class="btn btn-danger block full-width m-b" (click)="mockLogin()">Demo Login</button>
       <a [routerLink]="['/account/forgotpass']">
         <small>Forgot password?</small>
       </a>

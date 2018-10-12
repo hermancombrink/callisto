@@ -20,6 +20,8 @@ export class LoginComponent extends BaseComponent {
   @ViewChild('dxForm') dxForm: DxFormComponent;
   model = new LoginViewModel();
 
+  isMocked = environment.mocked;
+
   constructor(private authService: AuthService,
     private router: Router,
     private alertService: AlertService) {
@@ -37,6 +39,21 @@ export class LoginComponent extends BaseComponent {
     if (!isvalid.isValid) {
       return;
     }
+
+    this.authService.Login(this.model).subscribe(c => {
+      if (c.Status === RequestStatus.Success) {
+        this.alertService.showMessage('Welcome to Callisto', '', MessageSeverity.info);
+        this.router.navigate(['/']);
+      } else {
+        this.alertService.showWarningMessage(c.FriendlyMessage);
+      }
+    }, e => {
+      this.alertService.showErrorMessage();
+    });
+  }
+
+  mockLogin() {
+    this.model.Email = "mock@test.com";
 
     this.authService.Login(this.model).subscribe(c => {
       if (c.Status === RequestStatus.Success) {

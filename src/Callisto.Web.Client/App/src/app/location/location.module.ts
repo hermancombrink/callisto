@@ -10,6 +10,7 @@ import { LocationService } from './location.service';
 import { DxDataGridModule, DxValidatorModule, DxTextBoxModule, DxFormModule } from 'devextreme-angular';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import { FormsModule } from '@angular/forms';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   imports: [
@@ -22,8 +23,8 @@ import { FormsModule } from '@angular/forms';
       libraries: ['places']
     }),
   ],
-  declarations: [LocationComponent, ViewComponent, ViewSummaryComponent],
+  declarations: [LocationComponent, ViewComponent, ViewSummaryComponent, SearchComponent],
   providers: [LocationService],
-  exports: [LocationComponent]
+  exports: [LocationComponent, SearchComponent]
 })
 export class LocationModule { }

@@ -1,136 +1,4 @@
 {
-    "customer": [
-      {
-       "Email" : "customer1@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "One",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer2@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Two",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer3@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Three",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      }
-    ]
-   ,
-    "assets": [
-        { 
-            "Id" : 0,
-            "AssetNumber": "ABC123",
-            "Name": "Mock1",
-            "Description" : "Mock Description",
-            "Children" : 0,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 1,
-            "AssetNumber": "ABC124",
-            "Name": "Mock2",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 2,
-            "AssetNumber": "ABC125",
-            "Name": "Mock2",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : 1,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 3,
-            "AssetNumber": "ABC123",
-            "Name": "Mock3",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : 1,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 4,
-            "AssetNumber": "ABC123",
-            "Name": "Mock4",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 5,
-            "AssetNumber": "ABC123",
-            "Name": "Mock5",
-            "Description" : "Mock Description",
-            "ReadingType": 2,
-            "CriticalType": 2,
-            "ContractorId": 1,
-            "Children" : 0,
-            "ParentId" : 4,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": "",
-            "FinanceData": {
-                "PurchaseDate": "2018-01-01",
-                "DepreciationType": 2
-            },
-            "DimensionData": {
-
-            },
-            "LocationDate": {
-                
-            },
-            "Tags": ["Engineering", "New"]
-        },
-        { 
-            "Id" : 6,
-            "AssetNumber": "ABC123",
-            "Name": "Mock6",
-            "Description" : "Mock Description",
-            "Children" : 0,
-            "ParentId" : 4,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        }
-    ]
-,
     "signup": {
         "Email":"",
         "Password":"",
@@ -307,43 +175,30 @@
     ]
 
 ,
-    "location": [ 
-        {
-        "City" : "Hamilton",
-        "Country" : "New Zealand",
-        "CountryCode" : "",
-        "FormattedAddress" : "123 Test, Hamilton",
-        "GooglePlaceId" : "",
-        "GoogleURL" : "",
-        "Id" : "1",
-        "Latitude" : "",
-        "Longitude" : "",
-        "PostCode" : "3210",
-        "Route" : "Te Rapa",
-        "State" : "",
-        "StateCode" : "",
-        "UTCOffsetMinutes" : "",
-        "Vicinity" : "Waikato"
-    },
-    {
-        "City" : "Auckland",
-        "Country" : "New Zealand",
-        "CountryCode" : "",
-        "FormattedAddress" : "234 Test, Auckland",
-        "GooglePlaceId" : "",
-        "GoogleURL" : "",
-        "Id" : "2",
-        "Latitude" : "",
-        "Longitude" : "",
-        "PostCode" : "3210",
-        "Route" : "Huntly",
-        "State" : "",
-        "StateCode" : "",
-        "UTCOffsetMinutes" : "",
-        "Vicinity" : "Auckland"
-    }
+    "customer": [
+      {
+       "Email" : "customer1@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer2@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer3@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
     ]
-,
+   ,
  "team": [
    {
     "Email" : "john@mock.com",
@@ -367,6 +222,128 @@
     "PictureUrl" : ""
    }
  ]
+,
+    "assets": [
+        { 
+            "Id" : 0,
+            "AssetNumber": "ABC123",
+            "Name": "Mock1",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 1,
+            "AssetNumber": "ABC124",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 2,
+            "AssetNumber": "ABC125",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 3,
+            "AssetNumber": "ABC123",
+            "Name": "Mock3",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 4,
+            "AssetNumber": "ABC123",
+            "Name": "Mock4",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 5,
+            "AssetNumber": "ABC123",
+            "Name": "Mock5",
+            "Description" : "Mock Description",
+            "ReadingType": 2,
+            "CriticalType": 2,
+            "ContractorId": 1,
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": "",
+            "FinanceData": {
+                "PurchaseDate": "2018-01-01",
+                "DepreciationType": 2
+            },
+            "DimensionData": {
+
+            },
+            "LocationData": {
+                "Id" : "",
+                "Latitude" : "",
+                "Longitude" : "",
+                "FormattedAddress" : "",
+                "Route" : "",
+                "Vicinity" : "",
+                "City" : "",
+                "State" : "",
+                "Country" : "",
+                "PostCode" : "",
+                "CountryCode" : "",
+                "StateCode" : "",
+                "UTCOffsetMinutes" : "",
+                "GooglePlaceId" : "",
+                "GoogleURL" : ""
+            },
+            "Tags": ["Engineering", "New"]
+        },
+        { 
+            "Id" : 6,
+            "AssetNumber": "ABC123",
+            "Name": "Mock6",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        }
+    ]
 ,
     "vendor": [
       {
@@ -620,6 +597,43 @@
             "ParentKey": "",
             "Description": ""
         }
+    ]
+,
+    "location": [ 
+        {
+        "City" : "Hamilton",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "123 Test, Hamilton",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "1",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Te Rapa",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Waikato"
+    },
+    {
+        "City" : "Auckland",
+        "Country" : "New Zealand",
+        "CountryCode" : "",
+        "FormattedAddress" : "234 Test, Auckland",
+        "GooglePlaceId" : "",
+        "GoogleURL" : "",
+        "Id" : "2",
+        "Latitude" : "",
+        "Longitude" : "",
+        "PostCode" : "3210",
+        "Route" : "Huntly",
+        "State" : "",
+        "StateCode" : "",
+        "UTCOffsetMinutes" : "",
+        "Vicinity" : "Auckland"
+    }
     ]
 ,
     "workorder": [

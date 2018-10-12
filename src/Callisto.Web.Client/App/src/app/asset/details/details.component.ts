@@ -22,6 +22,7 @@ import { LookupService } from '../../core/lookup.service';
 import { DatasourceFactoryService } from '../../core/datasource-factory.service';
 import DataSource from "devextreme/data/data_source";
 import { UploadPicComponent } from '../../documents/upload-pic/upload-pic.component';
+import { SearchComponent } from '../../location/search/search.component';
 
 @Component({
   selector: 'app-details',
@@ -34,7 +35,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private sub: any;
   model: AssetDetailViewModel = new AssetDetailViewModel();
 
-  @ViewChild('location') locationPanel: LocationComponent;
+  @ViewChild('location') locationPanel: SearchComponent;
   @ViewChild('dxForm') dxForm: DxFormComponent;
   @ViewChild('staticTabs') tabs: TabsetComponent;
 
@@ -45,8 +46,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild(DxTreeViewComponent) treeView;
 
-  uploader: FileUploader;
-  hasBaseDropZoneOver = false;
   mapVisible = false;
   parentTree: AssetTreeViewModel[];
   lkReadingType: LookupViewModel[];
@@ -118,7 +117,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (!isvalid.isValid) {
       return;
     }
-    this.model.LocationData = this.locationPanel.model;
+    this.model.LocationData = this.locationPanel.getModel();
     this.model.ParentId = this.model.ParentId && this.model.ParentId !== '0' ? this.model.ParentId : null;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
@@ -129,13 +128,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }, e => {
       this.alertService.showErrorMessage();
     });
-  }
-
-  showMap() {
-    this.mapVisible = !this.mapVisible;
-    if (this.mapVisible) {
-      this.locationPanel.draw();
-    }
   }
 
   removeAsset() {

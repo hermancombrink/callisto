@@ -87,8 +87,22 @@
             "DimensionData": {
 
             },
-            "LocationDate": {
-                
+            "LocationData": {
+                "Id" : "",
+                "Latitude" : "",
+                "Longitude" : "",
+                "FormattedAddress" : "",
+                "Route" : "",
+                "Vicinity" : "",
+                "City" : "",
+                "State" : "",
+                "Country" : "",
+                "PostCode" : "",
+                "CountryCode" : "",
+                "StateCode" : "",
+                "UTCOffsetMinutes" : "",
+                "GooglePlaceId" : "",
+                "GoogleURL" : ""
             },
             "Tags": ["Engineering", "New"]
         },

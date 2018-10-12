@@ -1,9 +1,9 @@
 export class LocationViewModel  {
   public Id?: string;
-  public Latitude: number;
-  public Longitude: number;
+  public Latitude?: number;
+  public Longitude?: number;
 
-  public FormattedAddress: string;
+  public FormattedAddress?: string;
 
   public Route?: string;
   public Vicinity?: string;

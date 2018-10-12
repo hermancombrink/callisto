@@ -1,0 +1,32 @@
+<dx-form
+[readOnly]="false" 
+[showColonAfterLabel]="true" 
+[showValidationSummary]="true"
+validationGroup="formData"
+>
+<dxi-item itemType="group" caption="Location Information">
+    <dxi-item dataField="searchValue">
+      <dxo-label text="Address"></dxo-label>
+      <div class="dx-field-item-content dx-field-item-content-location-right">
+        <div class="dx-textbox dx-texteditor dx-widget dx-texteditor-empty">
+          <div class="dx-texteditor-container">
+            <input type="text" class="dx-texteditor-input" placeholder="eg. 123 Cherry Lane" #searchInput autocorrect="off" autocapitalize="off"
+              spellcheck="false">
+            <div class="dx-texteditor-buttons-container">
+              <button type="button" class="btn btn-xs" (click)="showMap()" [ngClass]="mapVisible ? 'btn-default': 'btn-primary'">
+                <i class="fa fa-map"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dxi-item>
+    <dxi-item>
+      <div class="col-sm-offset-1 col-sm-10">
+        <div class="form-group" [hidden]="!mapVisible">
+          <app-location [searchInput]="searchInput" #locationMap></app-location>
+        </div>
+      </div>
+    </dxi-item>
+  </dxi-item>
+</dx-form>
