@@ -23,6 +23,9 @@ import { DatasourceFactoryService } from '../../core/datasource-factory.service'
 import DataSource from "devextreme/data/data_source";
 import { UploadPicComponent } from '../../documents/upload-pic/upload-pic.component';
 import { SearchComponent } from '../../location/search/search.component';
+import { ListAuditComponent } from '../../audit/list-audit/list-audit.component';
+import { ListNotesComponent } from '../../notes/list-notes/list-notes.component';
+import { ListDocumentsComponent } from '../../documents/list-documents/list-documents.component';
 
 @Component({
   selector: 'app-details',
@@ -35,7 +38,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private sub: any;
   model: AssetDetailViewModel = new AssetDetailViewModel();
 
-  @ViewChild('location') locationPanel: SearchComponent;
   @ViewChild('dxForm') dxForm: DxFormComponent;
   @ViewChild('staticTabs') tabs: TabsetComponent;
 
@@ -43,6 +45,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
   @ViewChild('scheduleMain') tabScheduleMain: ListMainScheduleComponent;
   @ViewChild('finance') tabFinance: FinanceComponent;
   @ViewChild('inspection') tabInspection: InspectionComponent;
+  @ViewChild('location') tabLocation: SearchComponent;
+  @ViewChild('audit') tabAudit: ListAuditComponent;
+  @ViewChild('documents') tabDocuments: ListDocumentsComponent;
+  @ViewChild('notes') tabNotes: ListNotesComponent;
 
   @ViewChild(DxTreeViewComponent) treeView;
 
@@ -87,9 +93,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
           this.alertService.showWarningMessage(c.FriendlyMessage);
         } else {
           this.model = c.Result;
-          this.assetService.GetAssetTreeParents(this.id).subscribe(t => {
-            this.parentTree = t.Result;
-          });
+          this.tabWorkOrders.initComponent();
+          this.assetService.GetAssetTreeParents(this.id).subscribe(t => this.parentTree = t.Result);
         }
       }, e => {
         this.alertService.showErrorMessage('Failed to load asset details');
@@ -119,7 +124,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     if (!isvalid.isValid) {
       return;
     }
-    this.model.LocationData = this.locationPanel.getModel();
+    this.model.LocationData = this.tabLocation.getModel();
     this.model.ParentId = this.model.ParentId && this.model.ParentId !== '0' ? this.model.ParentId : null;
     this.assetService.SaveAsset(this.model).subscribe(c => {
       if (c.Status !== RequestStatus.Success) {
@@ -166,12 +171,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
     {
       case 'work' :
       {
-        this.tabWorkOrders.refresh();
+        this.tabWorkOrders.initComponent();
         break;
       }
       case 'schedule' :
       {
-        this.tabScheduleMain.refresh();
+        this.tabScheduleMain.initComponent();
         break;
       }
       case 'finance' :
@@ -181,12 +186,27 @@ export class DetailsComponent implements OnInit, OnDestroy {
       }
       case 'inspection' :
       {
-        this.tabInspection.refresh();
+        this.tabInspection.initComponent();
+        break;
+      }
+      case 'document' :
+      {
+        this.tabDocuments.initComponent();
+        break;
+      }
+      case 'notes' :
+      {
+        this.tabNotes.initComponent();
         break;
       }
       case 'location' :
       {
-        this.locationPanel.initComponent(this.model.LocationData);
+        this.tabLocation.initComponent(this.model.LocationData);
+        break;
+      }
+      case 'audit' :
+      {
+        this.tabAudit.initComponent();
         break;
       }
     };

@@ -1,204 +1,4 @@
 {
-    "signup": {
-        "Email":"",
-        "Password":"",
-        "RememberMe":0
-    },
-    "signout": {
-    }, 
-    "user":{
-        "Email": "mock@test.com",
-        "UserType": 0,
-        "FirstName": "Mock",
-        "LastName": "User",
-        "Company": "Mocking App",
-        "SubscriptionId": "12345",
-        "UserRole": "",
-        "ProfileCompleted": true,
-        "Accepted": true
-    },
-    "profile": {
-        "id": 0,
-        "FirstName" : "",
-        "LastName": "",
-        "UserRole": ""
-    }
-,
-    "dblookupmanufacturer": [
-        {
-            "Id": 0,
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 1,
-            "Key" : 1,
-            "Name": "Johnnies Den", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 2,
-            "Key" : 2,
-            "Name": "Milo Mouse", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 3,
-            "Key" : 3,
-            "Name": "Paco Pup", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ],
-    "dblookupdepartment": [
-        {
-            "Id": 0,
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 1,
-            "Key" : 1,
-            "Name": "Finance", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 2,
-            "Key" : 2,
-            "Name": "Engineering", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 3,
-            "Key" : 3,
-            "Name": "IT", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ],
-    "dblookupcustomer": [
-        {
-            "Id": 0,
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 1,
-            "Key" : 1,
-            "Name": "Customer Joe", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 2,
-            "Key" : 2,
-            "Name": "Customer Jane", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 3,
-            "Key" : 3,
-            "Name": "Customer John", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ],"dblookupcontractor": [
-        {
-            "Id": 0,
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 1,
-            "Key" : 1,
-            "Name": "Contractor Dan", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 2,
-            "Key" : 2,
-            "Name": "Contractor Sam", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 3,
-            "Key" : 3,
-            "Name": "Contractor Pam", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ],
-    "dblookuptags": [
-        {
-            "Id": 0,
-            "Key" : 0,
-            "Name": "N/A", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 1,
-            "Key" : 1,
-            "Name": "Demo", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 2,
-            "Key" : 2,
-            "Name": "New", 
-            "ParentKey": "",
-            "Description": ""
-        },
-        {
-            "Id": 3,
-            "Key" : 3,
-            "Name": "Engineering", 
-            "ParentKey": "",
-            "Description": ""
-        }
-    ]
-
-,
-    "customer": [
-      {
-       "Email" : "customer1@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "One",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer2@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Two",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      },
-      {
-       "Email" : "customer3@mock.com",
-       "FirstName" : "Customer",
-       "LastName" : "Three",
-       "ParentId" : "",
-       "PictureUrl" : ""
-      }
-    ]
-   ,
  "team": [
    {
     "Email" : "john@mock.com",
@@ -222,128 +22,6 @@
     "PictureUrl" : ""
    }
  ]
-,
-    "assets": [
-        { 
-            "Id" : 0,
-            "AssetNumber": "ABC123",
-            "Name": "Mock1",
-            "Description" : "Mock Description",
-            "Children" : 0,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 1,
-            "AssetNumber": "ABC124",
-            "Name": "Mock2",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 2,
-            "AssetNumber": "ABC125",
-            "Name": "Mock2",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : 1,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 3,
-            "AssetNumber": "ABC123",
-            "Name": "Mock3",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : 1,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 4,
-            "AssetNumber": "ABC123",
-            "Name": "Mock4",
-            "Description" : "Mock Description",
-            "Children" : 2,
-            "ParentId" : "",
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        },
-        { 
-            "Id" : 5,
-            "AssetNumber": "ABC123",
-            "Name": "Mock5",
-            "Description" : "Mock Description",
-            "ReadingType": 2,
-            "CriticalType": 2,
-            "ContractorId": 1,
-            "Children" : 0,
-            "ParentId" : 4,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": "",
-            "FinanceData": {
-                "PurchaseDate": "2018-01-01",
-                "DepreciationType": 2
-            },
-            "DimensionData": {
-
-            },
-            "LocationData": {
-                "Id" : "",
-                "Latitude" : "",
-                "Longitude" : "",
-                "FormattedAddress" : "",
-                "Route" : "",
-                "Vicinity" : "",
-                "City" : "",
-                "State" : "",
-                "Country" : "",
-                "PostCode" : "",
-                "CountryCode" : "",
-                "StateCode" : "",
-                "UTCOffsetMinutes" : "",
-                "GooglePlaceId" : "",
-                "GoogleURL" : ""
-            },
-            "Tags": ["Engineering", "New"]
-        },
-        { 
-            "Id" : 6,
-            "AssetNumber": "ABC123",
-            "Name": "Mock6",
-            "Description" : "Mock Description",
-            "Children" : 0,
-            "ParentId" : 4,
-            "HasLocation": true,
-            "Latitude" : 0,
-            "Longitude" : 0,
-            "FormattedAddress" : "Mock Address goes here",
-            "PictureUrl": ""
-        }
-    ]
 ,
     "vendor": [
       {
@@ -599,6 +277,177 @@
         }
     ]
 ,
+    "assets": [
+        { 
+            "Id" : 0,
+            "AssetNumber": "ABC123",
+            "Name": "Mock1",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 1,
+            "AssetNumber": "ABC124",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 2,
+            "AssetNumber": "ABC125",
+            "Name": "Mock2",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 3,
+            "AssetNumber": "ABC123",
+            "Name": "Mock3",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : 1,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 4,
+            "AssetNumber": "ABC123",
+            "Name": "Mock4",
+            "Description" : "Mock Description",
+            "Children" : 2,
+            "ParentId" : "",
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        },
+        { 
+            "Id" : 5,
+            "AssetNumber": "ABC123",
+            "Name": "Mock5",
+            "Description" : "Mock Description",
+            "ReadingType": 2,
+            "CriticalType": 2,
+            "ContractorId": 1,
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": "",
+            "FinanceData": {
+                "PurchaseDate": "2018-01-01",
+                "DepreciationType": 2
+            },
+            "DimensionData": {
+
+            },
+            "LocationData": {
+                "Id" : "",
+                "Latitude" : "",
+                "Longitude" : "",
+                "FormattedAddress" : "",
+                "Route" : "",
+                "Vicinity" : "",
+                "City" : "",
+                "State" : "",
+                "Country" : "",
+                "PostCode" : "",
+                "CountryCode" : "",
+                "StateCode" : "",
+                "UTCOffsetMinutes" : "",
+                "GooglePlaceId" : "",
+                "GoogleURL" : ""
+            },
+            "Tags": ["Engineering", "New"]
+        },
+        { 
+            "Id" : 6,
+            "AssetNumber": "ABC123",
+            "Name": "Mock6",
+            "Description" : "Mock Description",
+            "Children" : 0,
+            "ParentId" : 4,
+            "HasLocation": true,
+            "Latitude" : 0,
+            "Longitude" : 0,
+            "FormattedAddress" : "Mock Address goes here",
+            "PictureUrl": ""
+        }
+    ]
+,
+    "signup": {
+        "Email":"",
+        "Password":"",
+        "RememberMe":0
+    },
+    "signout": {
+    }, 
+    "user":{
+        "Email": "mock@test.com",
+        "UserType": 0,
+        "FirstName": "Mock",
+        "LastName": "User",
+        "Company": "Mocking App",
+        "SubscriptionId": "12345",
+        "UserRole": "",
+        "ProfileCompleted": true,
+        "Accepted": true
+    },
+    "profile": {
+        "id": 0,
+        "FirstName" : "",
+        "LastName": "",
+        "UserRole": ""
+    }
+,
+    "customer": [
+      {
+       "Email" : "customer1@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "One",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer2@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Two",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      },
+      {
+       "Email" : "customer3@mock.com",
+       "FirstName" : "Customer",
+       "LastName" : "Three",
+       "ParentId" : "",
+       "PictureUrl" : ""
+      }
+    ]
+   ,
     "location": [ 
         {
         "City" : "Hamilton",
@@ -635,6 +484,157 @@
         "Vicinity" : "Auckland"
     }
     ]
+,
+    "dblookupmanufacturer": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Johnnies Den", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Milo Mouse", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Paco Pup", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookupdepartment": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Finance", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Engineering", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "IT", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookupcustomer": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Customer Joe", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Customer Jane", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Customer John", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],"dblookupcontractor": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Contractor Dan", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "Contractor Sam", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Contractor Pam", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ],
+    "dblookuptags": [
+        {
+            "Id": 0,
+            "Key" : 0,
+            "Name": "N/A", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 1,
+            "Key" : 1,
+            "Name": "Demo", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 2,
+            "Key" : 2,
+            "Name": "New", 
+            "ParentKey": "",
+            "Description": ""
+        },
+        {
+            "Id": 3,
+            "Key" : 3,
+            "Name": "Engineering", 
+            "ParentKey": "",
+            "Description": ""
+        }
+    ]
+
 ,
     "workorder": [
         {

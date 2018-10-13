@@ -19,10 +19,11 @@
       <button class="btn btn-outline btn-default dim" type="button" (click)="_location.back()" tooltip="Back.">
         <i class="fa fa-angle-double-left"></i>
       </button>
-      <button class="btn btn-outline btn-info dim" type="button"  tooltip="Watch.">
-          <i class="fa fa-eye"></i>
-        </button>
-      <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()" tooltip="Save current asset.">
+      <button class="btn btn-outline btn-info dim" type="button" tooltip="Watch.">
+        <i class="fa fa-eye"></i>
+      </button>
+      <button class="btn btn-outline btn-primary dim" type="button" [disabled]="!form.form.valid" (click)="onSubmit()"
+        tooltip="Save current asset.">
         <i class="fa fa-save"></i>
       </button>
     </div>
@@ -36,29 +37,24 @@
       </div>
       <div class="panel-body">
         <div class="row">
-            <div class="col-sm-1">
-                <span class="alert alert-info" tooltip="Outstanding Work Orders.">0</span> 
+          <div class="col-sm-1">
+            <span class="alert alert-info" tooltip="Outstanding Work Orders.">0</span>
+          </div>
+          <div class="col-sm-8">
+            <app-track-gauges [assetId]="id"></app-track-gauges>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <app-upload-pic [entityId]="id" [entityType]="'asset'" [pictureUrl]="model.PictureUrl"></app-upload-pic>
             </div>
-            <div class="col-sm-8">
-              <app-track-gauges [assetId]="id"></app-track-gauges>
-           </div>
-           <div class="col-sm-3">
-              <div class="form-group">
-                <app-upload-pic [entityId]="id" [entityType]="'asset'" [pictureUrl]="model.PictureUrl"></app-upload-pic> 
-              </div>
-            </div>
+          </div>
         </div>
 
-        <dx-form id="form" #dxForm 
-        [formData]="model" 
-        [readOnly]="false" 
-        [showColonAfterLabel]="true" 
-        [showValidationSummary]="true"
-        validationGroup="formData"
-        [colCount]="3">
-          <dxi-item itemType="group"caption="Asset Details">
+        <dx-form id="form" #dxForm [formData]="model" [readOnly]="false" [showColonAfterLabel]="true"
+          [showValidationSummary]="true" validationGroup="formData" [colCount]="3">
+          <dxi-item itemType="group" caption="Asset Details">
             <dxi-item dataField="AssetNumber" [editorOptions]="{ placeholder : 'eg. 001' }">
-               <dxo-label text="Asset #"></dxo-label>
+              <dxo-label text="Asset #"></dxo-label>
             </dxi-item>
             <dxi-item dataField="Name" [editorOptions]="{ placeholder : 'eg. Truck' }">
               <dxi-validation-rule type="required" message="Name is required">
@@ -67,7 +63,7 @@
             <dxi-item dataField="Description" [editorOptions]="{ placeholder : 'eg. This is my favourite toy' }">
             </dxi-item>
             <dxi-item dataField="AssetNumber">
-                <dxo-label text="Model #"></dxo-label>
+              <dxo-label text="Model #"></dxo-label>
             </dxi-item>
             <dxi-item dataField="ReadingType" editorType="dxSelectBox" [editorOptions]="{ 
               dataSource: lkReadingType,
@@ -75,7 +71,7 @@
               valueExpr: 'Key'
              }">
               <dxo-label text="Reading Type"></dxo-label>
-            </dxi-item>  
+            </dxi-item>
             <dxi-item dataField="StatusType" editorType="dxSelectBox" [editorOptions]="{ 
               dataSource: lkStatusType,
               displayExpr: 'Name',
@@ -84,173 +80,144 @@
               <dxo-label text="Status"></dxo-label>
             </dxi-item>
             <dxi-item>
-                <dxo-label text="Parent"></dxo-label>
-                <dx-drop-down-box 
-                placeholder="Assign parent asset..." 
-                [(value)]="model.ParentId" 
-                [showClearButton]="true" 
-                displayExpr="Name" 
-                valueExpr="Id" 
-                [dataSource]="parentTree"
-                (onValueChanged)="syncTreeViewSelection($event)">
-                  <div *dxTemplate="let data of 'content'">
-                    <dx-tree-view 
-                    [dataSource]="parentTree" 
-                    dataStructure="plain" 
-                    keyExpr="Id" 
-                    parentIdExpr="ParentId" 
-                    selectionMode="single"
-                    displayExpr="Name" 
-                    [selectByClick]="true"
-                    (onContentReady)="$event.component.selectItem(model.ParentId)"
+              <dxo-label text="Parent"></dxo-label>
+              <dx-drop-down-box placeholder="Assign parent asset..." [(value)]="model.ParentId" [showClearButton]="true"
+                displayExpr="Name" valueExpr="Id" [dataSource]="parentTree" (onValueChanged)="syncTreeViewSelection($event)">
+                <div *dxTemplate="let data of 'content'">
+                  <dx-tree-view [dataSource]="parentTree" dataStructure="plain" keyExpr="Id" parentIdExpr="ParentId"
+                    selectionMode="single" displayExpr="Name" [selectByClick]="true" (onContentReady)="$event.component.selectItem(model.ParentId)"
                     (onItemSelectionChanged)="treeView_itemSelectionChanged($event)">
-                    </dx-tree-view>
-                  </div>
-                </dx-drop-down-box>
+                  </dx-tree-view>
+                </div>
+              </dx-drop-down-box>
             </dxi-item>
             <dxi-item dataField="CriticalType" editorType="dxRadioGroup" [editorOptions]="{ layout : 'horizontal', 
             dataSource : lkCriticalType,
             displayExpr: 'Name',
             valueExpr: 'Key'
           }">
-                <dxo-label text="Criticality"></dxo-label>
-             </dxi-item>
+              <dxo-label text="Criticality"></dxo-label>
+            </dxi-item>
             <dxi-item dataField="IsActive" editorType="dxCheckBox">
-               <dxo-label text="Active"></dxo-label>
+              <dxo-label text="Active"></dxo-label>
             </dxi-item>
           </dxi-item>
-          <dxi-item itemType="group"caption="Extended Details">
-              <dxi-item dataField="SerialNumber">
-                  <dxo-label text="Serial #"></dxo-label>
-              </dxi-item>
-              <dxi-item dataField="BarcodeNumber">
-                  <dxo-label text="Barcode #"></dxo-label>
-              </dxi-item>
-              <dxi-item dataField="FinanceAssetNumber">
-                  <dxo-label text="Finance Asset #"></dxo-label>
-              </dxi-item>
-              <dxi-item dataField="ManufacturerId" editorType="dxLookup" [editorOptions]="{ 
+          <dxi-item itemType="group" caption="Extended Details">
+            <dxi-item dataField="SerialNumber">
+              <dxo-label text="Serial #"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="BarcodeNumber">
+              <dxo-label text="Barcode #"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="FinanceAssetNumber">
+              <dxo-label text="Finance Asset #"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="ManufacturerId" editorType="dxLookup" [editorOptions]="{ 
                 dataSource: dblkManufacturer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
-                <dxo-label text="Manufacturer"></dxo-label>
-              </dxi-item>  
-              <dxi-item dataField="DepartmentId" editorType="dxLookup" [editorOptions]="{ 
+              <dxo-label text="Manufacturer"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="DepartmentId" editorType="dxLookup" [editorOptions]="{ 
                 dataSource: dblkDepartment,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
-                <dxo-label text="Department"></dxo-label>
-              </dxi-item>  
-              <dxi-item dataField="CustomerId" editorType="dxLookup" [editorOptions]="{ 
+              <dxo-label text="Department"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="CustomerId" editorType="dxLookup" [editorOptions]="{ 
                 dataSource: dblkCustomer,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
-                <dxo-label text="Customer"></dxo-label>
-              </dxi-item>  
-              <dxi-item dataField="ContractorId" editorType="dxLookup" [editorOptions]="{ 
+              <dxo-label text="Customer"></dxo-label>
+            </dxi-item>
+            <dxi-item dataField="ContractorId" editorType="dxLookup" [editorOptions]="{ 
                 dataSource: dblkContractor,
                 displayExpr: 'Name',
                 valueExpr: 'Key'
                }">
-                <dxo-label text="Contractor"></dxo-label>
-              </dxi-item>  
+              <dxo-label text="Contractor"></dxo-label>
+            </dxi-item>
           </dxi-item>
           <dxi-item itemType="group">
-          <dxi-item itemType="group" caption="Dimensions">
-              <dxi-item dataField="DimensionData.Height"  editorType="dxNumberBox">
-                  <dxo-label text="Height"></dxo-label>
+            <dxi-item itemType="group" caption="Dimensions">
+              <dxi-item dataField="DimensionData.Height" editorType="dxNumberBox">
+                <dxo-label text="Height"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="DimensionData.Width"  editorType="dxNumberBox">
-                  <dxo-label text="Width"></dxo-label>
+              <dxi-item dataField="DimensionData.Width" editorType="dxNumberBox">
+                <dxo-label text="Width"></dxo-label>
               </dxi-item>
-              <dxi-item dataField="DimensionData.Depth"  editorType="dxNumberBox">
-                  <dxo-label text="Depth"></dxo-label>
+              <dxi-item dataField="DimensionData.Depth" editorType="dxNumberBox">
+                <dxo-label text="Depth"></dxo-label>
               </dxi-item>
               <dxi-item dataField="DimensionData.Weight" editorType="dxNumberBox">
-                  <dxo-label text="Weight"></dxo-label>
+                <dxo-label text="Weight"></dxo-label>
               </dxi-item>
-          </dxi-item>   
-          <dxi-item itemType="group" caption="Tags">
-            <dxi-item dataField="Tags"  editorType="dxTagBox"
-            [editorOptions]="{ 
+            </dxi-item>
+            <dxi-item itemType="group" caption="Tags">
+              <dxi-item dataField="Tags" editorType="dxTagBox" [editorOptions]="{ 
               minSearchLength: 2,
               dataSource: dblkTags,
               displayExpr: 'Name',
               valueExpr: 'Name'
              }">
                 <dxo-label text="Tags"></dxo-label>
+              </dxi-item>
+
             </dxi-item>
-            
-        </dxi-item>
-        </dxi-item>     
+          </dxi-item>
         </dx-form>
         <hr />
         <tabset>
-            <tab (select)="onTabChange('work')" [active]="true">
-                <ng-template tabHeading>
-                    <i class="fa fa-exclamation-circle"></i> Work Orders
-                </ng-template>
-              <app-list-workorder #workOrders [assetId]="id" [assetName]="model.Name" [active]="true"></app-list-workorder>
-            </tab>
-            <tab (select)="onTabChange('schedule')">
-                <ng-template tabHeading>
-                    <i class="fa fa-clock-o"></i> Scheduled Maintance
-                </ng-template>
-              <app-list-main-schedule #scheduleMain [assetId]="id" [assetName]="model.Name"></app-list-main-schedule>
-            </tab>
-          <tab (select)="onTabChange('finance')" >
-              <ng-template tabHeading>
-                  <i class="fa fa-calculator"></i> Financial
-              </ng-template>
-             <app-finance #finance [assetId]="id"></app-finance>
+          <tab (select)="onTabChange('work')" [active]="true">
+            <ng-template tabHeading>
+              <i class="fa fa-exclamation-circle"></i> Work Orders
+            </ng-template>
+            <app-list-workorder #workOrders [assetId]="id" [assetName]="model.Name"></app-list-workorder>
           </tab>
-          <tab>
-              <ng-template tabHeading>
-                  <i class="fa fa-folder-open"></i> Documentation
-              </ng-template>
-            <app-list-documents [entityType]="'asset'" [entityId]="id"></app-list-documents>
+          <tab (select)="onTabChange('schedule')">
+            <ng-template tabHeading>
+              <i class="fa fa-clock-o"></i> Scheduled Maintance
+            </ng-template>
+            <app-list-main-schedule #scheduleMain [assetId]="id" [assetName]="model.Name"></app-list-main-schedule>
           </tab>
-          <tab>
-              <ng-template tabHeading>
-                  <i class="fa fa-sticky-note"></i> Notes
-              </ng-template>
-              <app-list-notes [entityType]="'asset'" [entityId]="id"></app-list-notes>
-          </tab>
-          <tab (select)="onTabChange('location')">
-              <ng-template tabHeading>
-                  <i class="fa fa-map"></i> Location
-              </ng-template>
-                
-              <app-search-location #location></app-search-location>
+          <tab (select)="onTabChange('finance')">
+            <ng-template tabHeading>
+              <i class="fa fa-calculator"></i> Financial
+            </ng-template>
+            <app-finance #finance [assetId]="id"></app-finance>
           </tab>
           <tab (select)="onTabChange('inspection')">
-              <ng-template tabHeading>
-                  <i class="fa fa-certificate"></i> Inspection
-              </ng-template>
+            <ng-template tabHeading>
+              <i class="fa fa-certificate"></i> Inspection
+            </ng-template>
             <app-inspection #inspection [assetId]="id" [assetName]="model.Name"></app-inspection>
           </tab>
-          <tab>
-              <ng-template tabHeading>
-                  <i class="fa fa-history"></i> Audit
-              </ng-template>
-              <dx-data-grid id="gridContainer"
-              [dataSource]="model"  
-              [remoteOperations]="true"
-              [wordWrapEnabled]="true"
-              [showBorders]="true">
-
-              <dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
-              <dxo-paging [pageSize]="100"></dxo-paging>
-              <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
-
-              <dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
-              <dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
-              <dxi-column dataField="DateKey" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
-            <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
-          </dx-data-grid>
+          <tab (select)="onTabChange('location')">
+            <ng-template tabHeading>
+              <i class="fa fa-map"></i> Location
+            </ng-template>
+            <app-search-location #location></app-search-location>
+          </tab>
+          <tab (select)="onTabChange('documents')">
+            <ng-template tabHeading>
+              <i class="fa fa-folder-open"></i> Documentation
+            </ng-template>
+            <app-list-documents #documents [entityType]="'asset'" [entityId]="id"></app-list-documents>
+          </tab>
+          <tab (select)="onTabChange('notes')">
+            <ng-template tabHeading>
+              <i class="fa fa-sticky-note"></i> Notes
+            </ng-template>
+            <app-list-notes #notes [entityType]="'asset'" [entityId]="id"></app-list-notes>
+          </tab>
+          <tab (select)="onTabChange('audit')">
+            <ng-template tabHeading>
+              <i class="fa fa-history"></i> Audit
+            </ng-template>
+            <app-list-audit #audit [entityType]="'asset'" [entityId]="id"></app-list-audit>
           </tab>
         </tabset>
       </div>

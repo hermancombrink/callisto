@@ -14,15 +14,14 @@ export class InspectionComponent implements OnInit {
   assetId: string;
   @Input()
   assetName: string;
-  @Input()
-  active: boolean;
+
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  refresh() {
+  initComponent() {
   }
 
 }

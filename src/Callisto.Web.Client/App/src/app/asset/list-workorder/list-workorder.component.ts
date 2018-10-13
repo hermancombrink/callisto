@@ -20,8 +20,7 @@ export class ListWorkOrderComponent implements OnInit {
   assetId: string;
   @Input()
   assetName: string;
-  @Input()
-  active: boolean;
+
 
   bsModalRef: BsModalRef;
   modalSub: ISubscription;
@@ -32,12 +31,9 @@ export class ListWorkOrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.active) {
-      this.refresh();
-    }
   }
 
-  refresh() {
+  initComponent() {
     this.workOrderService.GetWorkOrdersByAsset(this.assetId).subscribe(c => {
       this.workOrders = c.Result;
     });

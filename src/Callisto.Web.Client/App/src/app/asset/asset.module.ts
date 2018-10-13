@@ -30,6 +30,7 @@ import { InspectionComponent } from './inspection/inspection.component';
 import { TrackGaugesComponent } from './track-gauges/track-gauges.component';
 import { DocumentsModule } from '../documents/documents.module';
 import { NotesModule } from '../notes/notes.module';
+import { AuditModule } from '../audit/audit.module';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { NotesModule } from '../notes/notes.module';
     CoreModule,
     AlertModule,
     ModalsModule,
+    AuditModule,
     DocumentsModule,
     NotesModule,
 

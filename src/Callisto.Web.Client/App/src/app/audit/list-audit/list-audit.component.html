@@ -1,0 +1,15 @@
+<dx-data-grid id="gridContainer"
+[dataSource]="model"   
+[remoteOperations]="true"
+[wordWrapEnabled]="true"
+[showBorders]="true">
+
+<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
+<dxo-paging [pageSize]="100"></dxo-paging>
+<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+
+<dxi-column dataField="UserName" caption="User Name" width="150"></dxi-column>
+<dxi-column dataField="Action" caption="Action" width="150"></dxi-column>
+<dxi-column dataField="ActionDate" caption="Date" dataType="date" format="yyyy-MM-dd" width="100"></dxi-column>
+<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+</dx-data-grid> 

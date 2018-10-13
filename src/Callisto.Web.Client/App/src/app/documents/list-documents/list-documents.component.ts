@@ -28,4 +28,7 @@ export class ListDocumentsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
+  initComponent() {
+  }
+
 }

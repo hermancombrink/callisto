@@ -11,14 +11,12 @@ export class ListMainScheduleComponent implements OnInit {
   assetId: string;
   @Input()
   assetName: string;
-  @Input()
-  active: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  refresh() {
+  initComponent() {
   }
 }

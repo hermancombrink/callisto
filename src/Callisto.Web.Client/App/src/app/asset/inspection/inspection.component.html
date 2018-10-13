@@ -1,19 +1,16 @@
-<dx-data-grid id="gridContainer"
-[dataSource]="model"  
-[remoteOperations]="true"
-[wordWrapEnabled]="true"
-[showBorders]="true">
-<dxo-filter-row
-[visible]="true"
-></dxo-filter-row>
-<dxo-scrolling mode="virtual" rowRenderingMode="virtual" ></dxo-scrolling>
-<dxo-paging [pageSize]="100"></dxo-paging>
-<dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
-<dxi-column dataField="Completed" caption="Completed"></dxi-column>
-<dxi-column dataField="CertificateNumber" caption="Certificate #"></dxi-column>
-<dxi-column dataField="CompletedBy" caption="Completed By" ></dxi-column>
-<dxi-column dataField="Comment" caption="Comment"></dxi-column>
-<dxi-column dataField="LastInspectionDate" caption="Last Inspection Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
-<dxi-column dataField="NextInspectionDate" caption="Next Inspection Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
-<dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
+<dx-data-grid id="gridContainer" [dataSource]="model" [remoteOperations]="true" [wordWrapEnabled]="true" [showBorders]="true">
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-scrolling mode="virtual" rowRenderingMode="virtual"></dxo-scrolling>
+    <dxo-paging [pageSize]="100"></dxo-paging>
+    <dxo-header-filter [visible]="true" [allowSearch]="true"></dxo-header-filter>
+    <dxi-column dataField="Completed" caption="Completed"></dxi-column>
+    <dxi-column dataField="CertificateNumber" caption="Certificate #"></dxi-column>
+    <dxi-column dataField="CompletedBy" caption="Completed By"></dxi-column>
+    <dxi-column dataField="Comment" caption="Comment"></dxi-column>
+    <dxi-column dataField="LastInspectionDate" caption="Last Inspection Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+    <dxi-column dataField="NextInspectionDate" caption="Next Inspection Date" dataType="date" format="yyyy-MM-dd"></dxi-column>
+    <dxo-header-filter [groupInterval]="1000"></dxo-header-filter>
 </dx-data-grid>
+<button class="btn btn-outline btn-primary btn-sm dim pull-right pad5" type="button">
+    <i class="fa fa-plus"></i>
+</button>
